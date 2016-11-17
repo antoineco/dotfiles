@@ -1,0 +1,24 @@
+[submodule "Vim Solarized color theme"]
+	path = vim/pack/ui/start/vim-colors-solarized
+	url = https://github.com/altercation/vim-colors-solarized.git
+[submodule "Vim Tabular plugin"]
+	path = vim/pack/format/start/tabular
+	url = https://github.com/godlygeek/tabular.git
+[submodule "Vim NERD Tree plugin"]
+	path = vim/pack/nav/start/nerdtree
+	url = https://github.com/scrooloose/nerdtree.git
+[submodule "Vim Lightline plugin"]
+	path = vim/pack/ui/start/lightline.vim
+	url = https://github.com/itchyny/lightline.vim.git
+[submodule "Vim Fugitive plugin"]
+	path = vim/pack/vcs/start/vim-fugitive
+	url = https://github.com/tpope/vim-fugitive.git
+[submodule "Vim Ansible plugin"]
+	path = vim/pack/syntax/start/ansible-vim
+	url = https://github.com/pearofducks/ansible-vim.git
+[submodule "Vim Puppet plugin"]
+	path = vim/pack/syntax/start/vim-puppet
+	url = https://github.com/rodjek/vim-puppet.git
+[submodule "Vim Gitgutter plugin"]
+	path = vim/pack/vcs/start/vim-gitgutter
+	url = https://github.com/airblade/vim-gitgutter.git

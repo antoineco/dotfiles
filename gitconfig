@@ -1,0 +1,11 @@
+# Git global options
+# https://git-scm.com/docs/git-config
+
+# General
+
+[user]
+	name = Antoine Cotten
+	signingkey = 0x94637E68D4A79DD0
+
+[commit]
+	gpgsign = true
