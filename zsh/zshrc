@@ -1,0 +1,17 @@
+
+
+#
+# User configuration sourced by interactive shells
+#
+
+export EDITOR='vim'
+export VISUAL='vim'
+
+# BSD ls colors for Solarized color scheme
+# see `man 1 ls`
+[[ "$(uname)" == 'Darwin' ]] && export LSCOLORS=exfxfeaeBxxehehbadacea
+
+# Source zim
+if [[ -s ${ZDOTDIR:-${HOME}}/.zim/init.zsh ]]; then
+  source ${ZDOTDIR:-${HOME}}/.zim/init.zsh
+fi
