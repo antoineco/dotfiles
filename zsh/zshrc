@@ -13,6 +13,11 @@ bindkey -v # vi key bindings
 # see `man 1 ls`
 [[ "$(uname)" == 'Darwin' ]] && export LSCOLORS=exfxfeaeBxxehehbadacea
 
+# Source local environment
+if [[ -s ${ZDOTDIR:-${HOME}}/.zlocal ]]; then
+  source ${ZDOTDIR:-${HOME}}/.zlocal
+fi
+
 # Source zim
 if [[ -s ${ZDOTDIR:-${HOME}}/.zim/init.zsh ]]; then
   source ${ZDOTDIR:-${HOME}}/.zim/init.zsh
