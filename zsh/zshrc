@@ -13,6 +13,9 @@ bindkey -v # vi key bindings
 # see `man 1 ls`
 [[ "$(uname)" == 'Darwin' ]] && export LSCOLORS=exfxfeaeBxxehehbadacea
 
+GPG_TTY="$(tty)"
+export GPG_TTY
+
 # Source local environment
 if [[ -s ${ZDOTDIR:-${HOME}}/.zlocal ]]; then
   source ${ZDOTDIR:-${HOME}}/.zlocal
