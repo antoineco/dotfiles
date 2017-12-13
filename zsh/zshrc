@@ -17,11 +17,10 @@ GPG_TTY="$(tty)"
 export GPG_TTY
 
 # Source local environment
-if [[ -s ${ZDOTDIR:-${HOME}}/.zlocal ]]; then
-  source ${ZDOTDIR:-${HOME}}/.zlocal
-fi
+[[ -s ${ZDOTDIR:-${HOME}}/.zlocal ]] && source ${ZDOTDIR:-${HOME}}/.zlocal
 
-# Source zim
-if [[ -s ${ZDOTDIR:-${HOME}}/.zim/init.zsh ]]; then
-  source ${ZDOTDIR:-${HOME}}/.zim/init.zsh
-fi
+# Change default zim location
+export ZIM_HOME=${ZDOTDIR:-${HOME}}/.zim
+
+# Start zim
+[[ -s ${ZIM_HOME}/init.zsh ]] && source ${ZIM_HOME}/init.zsh
