@@ -7,8 +7,6 @@
 export EDITOR='vim'
 export VISUAL='vim'
 
-bindkey -v # vi key bindings
-
 # BSD ls colors for Solarized color scheme
 # see `man 1 ls`
 [[ "$(uname)" == 'Darwin' ]] && export LSCOLORS=exfxfeaeBxxehehbadacea
