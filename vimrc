@@ -24,6 +24,17 @@ set wildmenu                         " enhanced command completion
 set incsearch                        " highlight searched pattern
 set autoread                         " re-read files changed outside of Vim
 
+augroup vimrc
+  autocmd!
+
+  " always jump to the last cursor position
+  autocmd BufReadPost *
+  \ if line("'\"") >= 1 && line("'\"") <= line("$") && &ft !~# 'commit'
+  \ |   exe "normal! g`\""
+  \ | endif
+
+augroup END
+
 " ================== Appearance ==================
 
 colorscheme solarized " Solarized color scheme
