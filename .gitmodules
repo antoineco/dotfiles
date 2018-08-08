@@ -16,9 +16,6 @@
 [submodule "Vim Ansible plugin"]
 	path = vim/pack/syntax/start/ansible-vim
 	url = https://github.com/pearofducks/ansible-vim.git
-[submodule "Vim Puppet plugin"]
-	path = vim/pack/syntax/start/vim-puppet
-	url = https://github.com/rodjek/vim-puppet.git
 [submodule "Vim Gitgutter plugin"]
 	path = vim/pack/vcs/start/vim-gitgutter
 	url = https://github.com/airblade/vim-gitgutter.git
