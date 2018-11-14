@@ -27,6 +27,10 @@ set autoread                         " re-read files changed outside of Vim
 augroup vimrc
   autocmd!
 
+  " YAML filetype
+  autocmd FileType yaml setlocal indentkeys-=<:> " do not reindent upon typing a colon
+  autocmd FileType yaml setlocal shiftwidth=2    " indent by 2 spaces
+
   " always jump to the last cursor position
   autocmd BufReadPost *
   \ if line("'\"") >= 1 && line("'\"") <= line("$") && &ft !~# 'commit'
