@@ -14,7 +14,7 @@ set scrolloff=5       " number of lines to show above/below cursor
 set showcmd           " show command in the last line of the screen
 set laststatus=2      " always show status line
 
-" ================== Behaviour ==================
+" ================== Behaviour ===================
 
 set backspace=indent,eol,start       " allow backspacing in Insert mode
 set listchars=tab:>\ ,trail:-,nbsp:+ " characters used in list mode
