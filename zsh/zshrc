@@ -19,8 +19,8 @@ fi
 # Zim framework
 # -----------------------------------------------------------------------------
 
-export ZIM_HOME=${ZDOTDIR:-${HOME}}/.zim
-[[ -s ${ZIM_HOME}/init.zsh ]] && source ${ZIM_HOME}/init.zsh
+ZIM_HOME=${ZDOTDIR:-${HOME}}/.zim
+[[ -s ${ZIM_HOME}/zimfw.zsh ]] && source ${ZIM_HOME}/zimfw.zsh
 
 # git module overrides
 _git_log_medium_format='%C(bold)Commit:%C(reset) %C(yellow)%H%C(auto)%d%n%C(bold)Author:%C(reset) %C(bold 33)%an <%ae>%n%C(bold)Date:%C(reset)   %C(cyan)%ai (%ar)%C(reset)%n%+B'
