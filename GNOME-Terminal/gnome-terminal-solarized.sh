@@ -33,6 +33,7 @@ dconf write "$profile_path"background-color "'rgb(0,43,54)'"
 dconf write "$profile_path"cursor-colors-set true
 dconf write "$profile_path"bold-color-same-as-fg false
 dconf write "$profile_path"bold-color "'rgb(147,161,161)'"
+dconf write "$profile_path"bold-is-bright true
 dconf write "$profile_path"cursor-foreground-color "'rgb(131,148,150)'"
 dconf write "$profile_path"cursor-background-color "'rgb(38,139,210)'"
 dconf write "$profile_path"highlight-colors-set true
