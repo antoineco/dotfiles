@@ -16,6 +16,7 @@ set laststatus=2      " always show status line
 
 " ================== Behaviour ===================
 
+let mapleader=','                    " more accessible leader key
 set backspace=indent,eol,start       " allow backspacing in Insert mode
 set listchars=tab:>\ ,trail:-,nbsp:+ " characters used in list mode
 set splitbelow                       " open horizontal split below
