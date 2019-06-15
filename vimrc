@@ -26,6 +26,10 @@ set incsearch                        " highlight searched pattern
 set autoread                         " re-read files changed outside of Vim
 packadd! matchit                     " improve % command
 
+" start new undo sequence after a newline or C-U in insert mode
+inoremap <CR> <C-G>u<CR>
+inoremap <C-U> <C-G>u<C-U>
+
 augroup vimrc
   autocmd!
 
