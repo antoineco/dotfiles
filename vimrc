@@ -24,6 +24,7 @@ set splitright                       " open vertical split to the right
 set wildmenu                         " enhanced command completion
 set incsearch                        " highlight searched pattern
 set autoread                         " re-read files changed outside of Vim
+packadd! matchit                     " improve % command
 
 augroup vimrc
   autocmd!
