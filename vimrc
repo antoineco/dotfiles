@@ -23,6 +23,8 @@ set splitbelow                       " open horizontal split below
 set splitright                       " open vertical split to the right
 set wildmenu                         " enhanced command completion
 set incsearch                        " highlight searched pattern
+set smartcase                        " make search case sensitive when pattern contains uppercase chars
+set ignorecase                       " required by smartcase
 set autoread                         " re-read files changed outside of Vim
 packadd! matchit                     " improve % command
 
