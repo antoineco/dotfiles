@@ -32,6 +32,10 @@ packadd! matchit                     " improve % command
 inoremap <CR> <C-G>u<CR>
 inoremap <C-U> <C-G>u<C-U>
 
+" use Space to toggle/create folds
+nnoremap <silent> <expr> <Space> foldlevel('.')?'za':'<Space>'
+vnoremap <Space> zf
+
 augroup vimrc
   autocmd!
 
