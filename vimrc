@@ -22,7 +22,8 @@ set listchars=tab:>\ ,trail:-,nbsp:+ " characters used in list mode
 set splitbelow                       " open horizontal split below
 set splitright                       " open vertical split to the right
 set wildmenu                         " enhanced command completion
-set incsearch                        " highlight searched pattern
+set incsearch                        " highlight searched pattern while typing
+set hlsearch                         " keep matches from previous search highlighted
 set smartcase                        " make search case sensitive when pattern contains uppercase chars
 set ignorecase                       " required by smartcase
 set autoread                         " re-read files changed outside of Vim
@@ -35,6 +36,9 @@ inoremap <C-U> <C-G>u<C-U>
 " use Space to toggle/create folds
 nnoremap <silent> <expr> <Space> foldlevel('.')?'za':'<Space>'
 vnoremap <Space> zf
+
+" clear highlighted search results
+nnoremap <silent> <C-L> :nohlsearch<Bar>diffupdate<CR><C-L>
 
 augroup vimrc
   autocmd!
