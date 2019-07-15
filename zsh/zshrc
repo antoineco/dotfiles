@@ -31,6 +31,9 @@ _git_log_oneline_medium_format='%C(yellow)%h%C(reset) %<|(60,trunc)%s %C(bold 33
 # Post Zim framework
 # -----------------------------------------------------------------------------
 
+# Shell parameters
+KEYTIMEOUT=1
+
 # Locale
 [[ -z ${LANG:-} ]] && export LANG='en_US.UTF-8'
 [[ -z ${LC_ALL:-} ]] && export LC_ALL=${LANG}
