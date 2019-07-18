@@ -46,6 +46,10 @@ export GPG_TTY
 export GOPATH="$HOME/Documents/go"
 path=("$GOPATH/bin" $path)
 
+# Google Cloud SDK
+[[ -d "$HOME/Documents/google-cloud-sdk/bin" ]] && path=("$HOME/Documents/google-cloud-sdk/bin" $path)
+[[ -f "$HOME/Documents/google-cloud-sdk/completion.zsh.inc" ]] && . "$HOME/Documents/google-cloud-sdk/completion.zsh.inc"
+
 # Prompt
 _kube_ps1_to_rprompt() {
 	RPROMPT=$(kube_ps1)
