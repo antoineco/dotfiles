@@ -13,8 +13,8 @@ zstyle ':zim' modules     directory environment git git-info history input utili
 zstyle ':zim:module' zsh-completions 'url' 'zsh-users/zsh-completions'
 zstyle ':zim:module' zsh-autosuggestions 'url' 'zsh-users/zsh-autosuggestions'
 zstyle ':zim:module' zsh-syntax-highlighting 'url' 'zsh-users/zsh-syntax-highlighting'
-zstyle ':zim:module' async 'url' 'mafredri/zsh-async' 'tag' 'v1.7.1'
-zstyle ':zim:module' pure 'url' 'sindresorhus/pure' 'tag' 'v1.9.0'
+zstyle ':zim:module' async 'url' 'mafredri/zsh-async' 'tag' 'v1.7.2'
+zstyle ':zim:module' pure 'url' 'sindresorhus/pure' 'tag' 'v1.10.3'
 zstyle ':zim:module' kube-ps1 'url' 'jonmosco/kube-ps1'
 
 ###################
