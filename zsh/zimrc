@@ -6,7 +6,7 @@
 zstyle ':zim:input' mode 'vi'
 
 # Select what modules you would like enabled. Modules are sourced in the order given.
-zstyle ':zim' modules     directory environment git git-info history input utility     async pure kube-ps1     zsh-completions completion     zsh-autosuggestions zsh-syntax-highlighting history-substring-search
+zstyle ':zim' modules     directory environment git git-info history input utility     async pure kube-ps1 base16-shell     zsh-completions completion     zsh-autosuggestions zsh-syntax-highlighting history-substring-search
 
 # Modules setup configuration.
 # See https://github.com/zimfw/zimfw/blob/develop/README.md#module-customization
@@ -16,6 +16,7 @@ zstyle ':zim:module' zsh-syntax-highlighting 'url' 'zsh-users/zsh-syntax-highlig
 zstyle ':zim:module' async 'url' 'mafredri/zsh-async' 'tag' 'v1.7.2'
 zstyle ':zim:module' pure 'url' 'sindresorhus/pure' 'tag' 'v1.10.3'
 zstyle ':zim:module' kube-ps1 'url' 'jonmosco/kube-ps1'
+zstyle ':zim:module' base16-shell 'url' 'chriskempson/base16-shell'
 
 ###################
 # MODULE SETTINGS #
@@ -98,7 +99,6 @@ _kube_ps1_cluster_short() {
 }
 KUBE_PS1_CLUSTER_FUNCTION=_kube_ps1_cluster_short
 
-KUBE_PS1_SEPARATOR=' '
+KUBE_PS1_SEPARATOR=''
 KUBE_PS1_PREFIX=''
 KUBE_PS1_SUFFIX=''
-

@@ -66,8 +66,12 @@ augroup END
 
 " ================== Appearance ==================
 
-colorscheme solarized " Solarized color scheme
-set background=dark   " dark background
+" Base16 color scheme
+if filereadable(expand("~/.vimrc_background"))
+  let base16colorspace=256    " take into account that the shell's colorspace was modified by base16-shell
+  source ~/.vimrc_background
+endif
+set background=dark
 
 " ============ Plugin customizations =============
 
