@@ -1,6 +1,9 @@
-[submodule "Vim Solarized color theme"]
-	path = vim/pack/ui/start/vim-colors-solarized
-	url = https://github.com/antoineco/vim-colors-solarized.git
+[submodule "Vim Base16 color scheme"]
+	path = vim/pack/ui/start/base16-vim
+	url = https://github.com/chriskempson/base16-vim.git
+[submodule "Vim Base16 color schemes for Lightline"]
+	path = vim/pack/ui/start/base16-vim-lightline
+	url = https://github.com/mike-hearn/base16-vim-lightline.git
 [submodule "Vim Tabular plugin"]
 	path = vim/pack/format/start/tabular
 	url = https://github.com/godlygeek/tabular.git

@@ -9,16 +9,3 @@
 
 [commit]
 	gpgsign = true
-
-# Appearance
-
-[color "decorate"]
-	remoteBranch = bold 124
-	branch = bold 64
-	tag = bold 220
-	stash = bold 164
-	HEAD = bold 36
-
-# https://git-scm.com/docs/git-config#git-config-colordecorateltslotgt
-[log]
-	graphColors = red,green,yellow,blue,magenta,cyan,bold 124,bold 64,bold 220,bold 33,bold 164,bold 36
