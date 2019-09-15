@@ -29,6 +29,7 @@ set ignorecase                       " required by smartcase
 set autoread                         " re-read files changed outside of Vim
 set ttimeout                         " wait for character after Esc
 set ttimeoutlen=50                   " shorten wait for key sequence after Esc
+set mouse=                           " disable mouse support
 packadd! matchit                     " improve % command
 
 " start new undo sequence after a newline or C-U in insert mode
