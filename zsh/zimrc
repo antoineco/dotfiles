@@ -94,8 +94,8 @@ ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets)
 #
 
 _kube_ps1_cluster_short() {
-	# shorten Azure context format
-	print ${1/k8s-mstr-[0-9a-z](#c2,)-(#b)([0-9a-z](#c2,)-[a-z][0-9](#c1,2))-kub/${match[1]}}
+	# shorten GKE context format
+	print ${1/gke_*_(#b)(*)/${match[1]}}
 }
 KUBE_PS1_CLUSTER_FUNCTION=_kube_ps1_cluster_short
 
