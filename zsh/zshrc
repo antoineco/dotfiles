@@ -46,4 +46,5 @@ add-zsh-hook precmd _kube_ps1_to_rprompt
 [[ -s ${ZDOTDIR:-${HOME}}/.zlocal ]] && source ${ZDOTDIR:-${HOME}}/.zlocal
 
 
+typeset -aU path # ensure PATH entries remain unique after rc file reload
 export PATH
