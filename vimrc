@@ -4,6 +4,7 @@ filetype plugin on " load filetype specific plugins
 filetype indent on " load filetype specific indentations
 set autoindent     " auto indentation
 set smarttab       " better blank insertion
+set nojoinspaces   " single space after punctuation
 
 " ====================== UI ======================
 
@@ -13,6 +14,7 @@ set display+=lastline " do not truncate long last line
 set scrolloff=5       " number of lines to show above/below cursor
 set showcmd           " show command in the last line of the screen
 set laststatus=2      " always show status line
+set colorcolumn=+1    " highlight textwidth column
 
 " ================== Behaviour ===================
 
@@ -22,6 +24,7 @@ set listchars=tab:>\ ,trail:-,nbsp:+ " characters used in list mode
 set splitbelow                       " open horizontal split below
 set splitright                       " open vertical split to the right
 set wildmenu                         " enhanced command completion
+set wildmode=list:longest,list:full  " 1st Tab completes till longest common string, 2nd opens wildmenu
 set incsearch                        " highlight searched pattern while typing
 set hlsearch                         " keep matches from previous search highlighted
 set smartcase                        " make search case sensitive when pattern contains uppercase chars
@@ -30,6 +33,7 @@ set autoread                         " re-read files changed outside of Vim
 set ttimeout                         " wait for character after Esc
 set ttimeoutlen=50                   " shorten wait for key sequence after Esc
 set mouse=                           " disable mouse support
+set autowrite                        " automatically write buffer on commands like :next
 packadd! matchit                     " improve % command
 
 " start new undo sequence after a newline or C-U in insert mode
