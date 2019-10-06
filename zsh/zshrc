@@ -6,10 +6,6 @@
 export EDITOR='vim'
 export VISUAL='vim'
 
-# Incorrect SHELL value in WSL/mintty
-# https://github.com/mintty/wsltty/issues/136
-export SHELL='/bin/zsh'
-
 # -----------------------------------------------------------------------------
 # Zim framework
 # -----------------------------------------------------------------------------
