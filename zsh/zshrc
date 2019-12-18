@@ -156,6 +156,11 @@ bindkey -M vicmd 'j' history-substring-search-down
 # Custom post-init configuration
 # ------------------------------
 
+# Allow command line editing in an external editor.
+autoload -Uz edit-command-line
+zle -N edit-command-line
+bindkey -M vicmd "$key_info[Control]X$key_info[Control]E" edit-command-line
+
 # Source local environment
 [[ -s ${ZDOTDIR:-${HOME}}/.zlocal ]] && source ${ZDOTDIR:-${HOME}}/.zlocal
 
