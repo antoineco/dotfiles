@@ -68,20 +68,20 @@ add-zsh-hook precmd _kube_ps1_to_rprompt
 #zstyle ':zim:completion' dumpfile "${ZDOTDIR:-${HOME}}/.zcompdump-${ZSH_VERSION}"
 
 #
-# environment
-#
-
-# Set a custom terminal title format. Use prompt expansion strings for dynamic data.
-# See http://zsh.sourceforge.net/Doc/Release/Prompt-Expansion.html#Simple-Prompt-Escapes
-# For example, '%n@%m: %~' corresponds to 'username@host: /current/directory'.
-zstyle ':zim:termtitle' format '%n@%m: %~'
-
-#
 # input
 #
 
 # Append `../` to your input for each `.` you type after an initial `..`
 #zstyle ':zim:input' double-dot-expand yes
+
+#
+# termtitle
+#
+
+# Set a custom terminal title format using prompt expansion escape sequences.
+# See http://zsh.sourceforge.net/Doc/Release/Prompt-Expansion.html#Simple-Prompt-Escapes
+# If none is provided, the default '%n@%m: %~' is used.
+#zstyle ':zim:termtitle' format '%1~'
 
 #
 # zsh-autosuggestions
@@ -122,11 +122,11 @@ KUBE_PS1_SUFFIX=''
 # Initialize modules
 # ------------------
 
-if [[ ${ZDOTDIR:-${HOME}}/.zim/init.zsh -ot ${ZDOTDIR:-${HOME}}/.zimrc ]]; then
+if [[ ${ZIM_HOME}/init.zsh -ot ${ZDOTDIR:-${HOME}}/.zimrc ]]; then
   # Update static initialization script if it's outdated, before sourcing it
-  source ${ZDOTDIR:-${HOME}}/.zim/zimfw.zsh init -q
+  source ${ZIM_HOME}/zimfw.zsh init -q
 fi
-source ${ZDOTDIR:-${HOME}}/.zim/init.zsh
+source ${ZIM_HOME}/init.zsh
 
 # ------------------------------
 # Post-init module configuration
