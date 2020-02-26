@@ -45,9 +45,7 @@ export GOPATH="$HOME/go"
 path=('/usr/local/go/bin' "$GOPATH/bin" $path)
 
 # Google Cloud SDK
-export CLOUDSDK_PYTHON=python3
-[[ -d '/usr/local/google-cloud-sdk/bin/' ]] && path=('/usr/local/google-cloud-sdk/bin/' $path)
-[[ -f '/usr/local/google-cloud-sdk/completion.zsh.inc' ]] && . '/usr/local/google-cloud-sdk/completion.zsh.inc'
+[[ -f '/usr/share/google-cloud-sdk/completion.zsh.inc' ]] && . '/usr/share/google-cloud-sdk/completion.zsh.inc'
 
 # Prompt
 _kube_ps1_to_rprompt() {
