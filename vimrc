@@ -44,9 +44,6 @@ inoremap <C-U> <C-G>u<C-U>
 nnoremap <silent> <expr> <Space> foldlevel('.')?'za':'<Space>'
 vnoremap <Space> zf
 
-" clear highlighted search results
-nnoremap <silent> <C-L> :nohlsearch<Bar>diffupdate<CR><C-L>
-
 augroup vimrc
   autocmd!
 
