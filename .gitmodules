@@ -25,3 +25,6 @@
 [submodule "Vim Go plugin"]
 	path = vim/pack/syntax/start/vim-go
 	url = https://github.com/fatih/vim-go.git
+[submodule "Vim Searchant plugin"]
+	path = vim/pack/ui/start/searchant
+	url = https://github.com/timakro/vim-searchant.git
