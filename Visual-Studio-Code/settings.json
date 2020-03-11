@@ -1,0 +1,22 @@
+{
+    /*
+     *  Editor settings
+     */
+    "editor.fontFamily": "'Cascadia Code', Consolas, 'Courier New', monospace",
+    "editor.fontLigatures": true,
+    // Overrides per language
+    "[jsonc]": {
+        "editor.formatOnSave": true
+    },
+    "[go]": {
+        "editor.insertSpaces": false,
+        "editor.formatOnSave": true,
+        "editor.codeActionsOnSave": {
+            "source.organizeImports": false
+        }
+    },
+    /*
+     *  Go
+     */
+    "go.useLanguageServer": true
+}
