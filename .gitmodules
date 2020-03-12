@@ -28,3 +28,6 @@
 [submodule "Vim Searchant plugin"]
 	path = vim/pack/ui/start/searchant
 	url = https://github.com/timakro/vim-searchant.git
+[submodule "fzf"]
+	path = vim/pack/nav/start/fzf
+	url = https://github.com/junegunn/fzf.git
