@@ -58,6 +58,11 @@ add-zsh-hook precmd _kube_ps1_to_rprompt
 alias K='kubectl'
 alias Kn='kubectl -n'
 
+# fzf
+[[ -f "${HOME}/.vim/pack/nav/start/fzf/shell/completion.zsh" ]] && . "${HOME}/.vim/pack/nav/start/fzf/shell/completion.zsh"
+[[ -f "${HOME}/.vim/pack/nav/start/fzf/shell/key-bindings.zsh" ]] && . "${HOME}/.vim/pack/nav/start/fzf/shell/key-bindings.zsh"
+path=("${HOME}/.vim/pack/nav/start/fzf/bin" $path)
+
 # --------------------
 # Module configuration
 # --------------------
