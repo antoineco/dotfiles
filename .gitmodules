@@ -31,3 +31,6 @@
 [submodule "fzf"]
 	path = vim/pack/nav/start/fzf
 	url = https://github.com/junegunn/fzf.git
+[submodule "Vim TOML plugin"]
+	path = vim/pack/syntax/start/vim-toml
+	url = https://github.com/cespare/vim-toml.git
