@@ -58,6 +58,9 @@ augroup vimrc
   \   : ':setlocal foldmethod=syntax foldcolumn=3' . "\<CR>"
   \ ) . 'zv'
 
+  " Shell filetypes
+  autocmd FileType sh,zsh setlocal isfname+={,} " include ${var} when evaluating file name under cursor
+
   " always jump to the last cursor position
   autocmd BufReadPost *
   \ if line("'\"") >= 1 && line("'\"") <= line("$") && &ft !~# 'commit'
