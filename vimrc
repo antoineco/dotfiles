@@ -47,20 +47,6 @@ vnoremap <Space> zf
 augroup vimrc
   autocmd!
 
-  " YAML filetype
-  autocmd FileType yaml setlocal indentkeys-=<:> " do not reindent upon typing a colon
-  autocmd FileType yaml setlocal shiftwidth=2    " indent by 2 spaces
-
-  " Go filetype
-  " automatically enable syntax-based folding
-  autocmd FileType go nnoremap <silent> <expr> zv
-  \ (&foldmethod ==# 'syntax' ? ''
-  \   : ':setlocal foldmethod=syntax foldcolumn=3' . "\<CR>"
-  \ ) . 'zv'
-
-  " Shell filetypes
-  autocmd FileType sh,zsh setlocal isfname+={,} " include ${var} when evaluating file name under cursor
-
   " always jump to the last cursor position
   autocmd BufReadPost *
   \ if line("'\"") >= 1 && line("'\"") <= line("$") && &ft !~# 'commit'
