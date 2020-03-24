@@ -40,12 +40,18 @@ KEYTIMEOUT=1
 GPG_TTY="$(tty)"
 export GPG_TTY
 
+# Path mangling for user executables (Python, etc.)
+path=("$HOME/.local/bin" $path)
+
 # Go
 export GOPATH="$HOME/go"
 path=('/usr/local/go/bin' "$GOPATH/bin" $path)
 
 # Google Cloud SDK
 [[ -f '/usr/share/google-cloud-sdk/completion.zsh.inc' ]] && . '/usr/share/google-cloud-sdk/completion.zsh.inc'
+
+# QMK
+export QMK_HOME="$HOME/git/qmk/qmk_firmware"
 
 # Prompt
 _kube_ps1_to_rprompt() {
