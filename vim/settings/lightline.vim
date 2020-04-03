@@ -23,8 +23,8 @@ endfunction
 
 " set component 'fugitive'
 function! LightlineFugitive()
-  if exists('*fugitive#head') && &ft !=# 'nerdtree' && winwidth(0) > 75
-    let branch = fugitive#head()
+  if exists('*FugitiveHead') && &ft !=# 'nerdtree' && winwidth(0) > 75
+    let branch = FugitiveHead()
     return branch !=# '' ? branch : ''
   endif
   return ''
