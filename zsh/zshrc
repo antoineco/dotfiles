@@ -47,9 +47,6 @@ path=("$HOME/.local/bin" $path)
 export GOPATH="$HOME/go"
 path=('/usr/local/go/bin' "$GOPATH/bin" $path)
 
-# Google Cloud SDK
-[[ -f '/usr/share/google-cloud-sdk/completion.zsh.inc' ]] && . '/usr/share/google-cloud-sdk/completion.zsh.inc'
-
 # QMK
 export QMK_HOME="$HOME/git/qmk/qmk_firmware"
 
@@ -65,7 +62,6 @@ alias K='kubectl'
 alias Kn='kubectl -n'
 
 # fzf
-[[ -f "${HOME}/.vim/pack/nav/start/fzf/shell/completion.zsh" ]] && . "${HOME}/.vim/pack/nav/start/fzf/shell/completion.zsh"
 [[ -f "${HOME}/.vim/pack/nav/start/fzf/shell/key-bindings.zsh" ]] && . "${HOME}/.vim/pack/nav/start/fzf/shell/key-bindings.zsh"
 path=("${HOME}/.vim/pack/nav/start/fzf/bin" $path)
 
@@ -182,8 +178,14 @@ autoload -Uz edit-command-line
 zle -N edit-command-line
 bindkey -M vicmd "$key_info[Control]X$key_info[Control]E" edit-command-line
 
+# Commands completion
+whence kubectl >/dev/null && . <(kubectl completion zsh)
+whence aws_completer >/dev/null && complete -C "$(whence aws_completer)" aws
+[[ -f '/usr/share/google-cloud-sdk/completion.zsh.inc' ]] && . '/usr/share/google-cloud-sdk/completion.zsh.inc'
+[[ -f "${HOME}/.vim/pack/nav/start/fzf/shell/completion.zsh" ]] && . "${HOME}/.vim/pack/nav/start/fzf/shell/completion.zsh"
+
 # Source local environment
-[[ -s ${ZDOTDIR:-${HOME}}/.zlocal ]] && source ${ZDOTDIR:-${HOME}}/.zlocal
+[[ -s ${ZDOTDIR:-${HOME}}/.zlocal ]] && . ${ZDOTDIR:-${HOME}}/.zlocal
 
 
 typeset -aU path # ensure PATH entries remain unique after rc file reload
