@@ -4,3 +4,5 @@ let g:go_highlight_function_calls = 1        " highlight function and method cal
 let g:go_highlight_variable_declarations = 1 " highlight variable names in variable declarations
 
 let g:go_rename_command = 'gopls' " rename using gopls instead of gorename
+
+let g:go_echo_command_info = 0 " disable echoing of commands, redundant with status bar

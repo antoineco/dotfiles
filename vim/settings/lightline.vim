@@ -2,11 +2,12 @@ let g:lightline = {
       \ 'colorscheme': 'base16_default_dark',
       \ 'active': {
       \   'left'  : [ [ 'mode', 'paste' ], [ 'readonly', 'fugitive', 'filename', 'modified' ] ],
-      \   'right' : [ [ 'lineinfo' ], [ 'percent' ], [ 'fileformat', 'fileencoding', 'filetype' ] ]
+      \   'right' : [ [ 'lineinfo' ], [ 'percent' ], [ 'fileformat', 'fileencoding', 'filetype' ], [ 'go' ] ]
       \ },
       \ 'component_function': {
       \   'mode'         : 'LightlineMode',
       \   'fugitive'     : 'LightlineFugitive',
+      \   'go'           : 'LightlineGo',
       \   'filename'     : 'LightlineFilename',
       \   'fileformat'   : 'LightlineFileformat',
       \   'fileencoding' : 'LightlineFileencoding',
@@ -24,8 +25,15 @@ endfunction
 " set component 'fugitive'
 function! LightlineFugitive()
   if exists('*FugitiveHead') && &ft !=# 'nerdtree' && winwidth(0) > 75
-    let branch = FugitiveHead()
-    return branch !=# '' ? branch : ''
+    return FugitiveHead()
+  endif
+  return ''
+endfunction
+
+" set component 'go'
+function! LightlineGo()
+  if exists('*go#statusline#Show') && &ft !=# 'nerdtree' && winwidth(0) > 75
+    return go#statusline#Show()
   endif
   return ''
 endfunction
