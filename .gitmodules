@@ -9,7 +9,7 @@
 	url = https://github.com/godlygeek/tabular.git
 [submodule "Vim NERD Tree plugin"]
 	path = vim/pack/nav/start/nerdtree
-	url = https://github.com/scrooloose/nerdtree.git
+	url = https://github.com/preservim/nerdtree.git
 [submodule "Vim Lightline plugin"]
 	path = vim/pack/ui/start/lightline.vim
 	url = https://github.com/itchyny/lightline.vim.git
