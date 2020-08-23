@@ -43,6 +43,9 @@ export GPG_TTY
 # Path mangling for user executables (Python, etc.)
 path=("$HOME/.local/bin" $path)
 
+# Krew
+path=("$HOME/.krew/bin" $path)
+
 # Go
 export GOPATH="$HOME/go"
 path=('/usr/local/go/bin' "$GOPATH/bin" $path)
