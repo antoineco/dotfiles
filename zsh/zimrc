@@ -35,7 +35,7 @@ zmodule zsh-users/zsh-syntax-highlighting
 # zsh-users/zsh-history-substring-search must be sourced after zsh-users/zsh-syntax-highlighting
 zmodule zsh-users/zsh-history-substring-search
 
-zmodule sindresorhus/pure -s async.zsh -s pure.zsh -t v1.11.0
+zmodule sindresorhus/pure -s async.zsh -s pure.zsh -t v1.13.0
 zmodule jonmosco/kube-ps1
 zmodule chriskempson/base16-shell
 
