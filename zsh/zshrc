@@ -203,3 +203,40 @@ whence aws_completer >/dev/null && complete -C "$(whence aws_completer)" aws
 
 typeset -aU path # ensure PATH entries remain unique after rc file reload
 export PATH
+
+# -----------------
+# Utility functions
+# -----------------
+
+# Scale all Knative Serving and Eventing components to the desired number of replicas.
+kn-scale () {
+	if (( $# != 1 )); then
+		echo 'usage: kn-scale <replicas>'
+		return 1
+	fi
+
+	local ns
+
+	local -i replicas
+	replicas=$1
+
+	for project in serving eventing; do
+		ns=knative-${project}
+
+		echo '---' ${ns}
+
+		kubectl -n ${ns} get deploy -o name | grep -vE 'deployment.apps/.*webhook' \
+		| xargs kubectl -n ${ns} scale --replicas=${replicas}
+	done
+}
+
+alias kn-down='kn-scale 0'
+alias kn-up='kn-scale 1'
+
+# Remove all local container images built by ko.
+# A custom alternative to `docker system prune -a`.
+ko-wipe () {
+	docker image ls --format '{{.Repository}}:{{.Tag}}' \
+	| grep -E '^ko.local/' | grep -v '<none>' \
+	| xargs docker image rm
+}
