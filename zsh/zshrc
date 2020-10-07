@@ -49,6 +49,9 @@ path=("$HOME/.krew/bin" $path)
 # Go
 export GOPATH="$HOME/go"
 path=('/usr/local/go/bin' "$GOPATH/bin" $path)
+# FIXME: prevent ko from throwing "go: cannot find GOROOT directory: go"
+# https://github.com/google/ko/issues/218
+export GOROOT="${GOROOT:-$(go env GOROOT)}"
 
 # QMK
 export QMK_HOME="$HOME/git/qmk/qmk_firmware"
