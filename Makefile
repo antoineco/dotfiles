@@ -14,6 +14,18 @@ zim: ~/.zim $(ZDOTFILES) ## Install the Zim Zsh configuration framework
 $(ZDOTFILES):
 	ln -sf -- $(abspath zsh/$@) ~/.$@
 
+# ---------- Vim ----------
+
+.PHONY: vim
+vim: ~/.vim ~/.vimrc ## Configure the Vim text editor
+
+~/.vimrc:
+	ln -sf -- $(abspath vimrc) $@
+
+~/.vim:
+	@rm -vf -- $@
+	ln -sf -- $(abspath vim) $@
+
 # ---------- Misc ---------- 
 
 .PHONY: help
