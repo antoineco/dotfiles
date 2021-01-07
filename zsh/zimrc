@@ -17,9 +17,16 @@ zmodule utility
 # Prompt
 #
 # Exposes git repository status information to prompts.
-zmodule git-info
+#zmodule git-info
 # A customizable version of steeef's prompt theme.
-zmodule steeef
+#zmodule steeef
+# Pure with bundled zsh-async
+zmodule sindresorhus/pure -s async.zsh -s pure.zsh -t v1.16.0
+# Show active kubectl context in prompt
+zmodule jonmosco/kube-ps1
+
+# Base16 shell colors
+zmodule chriskempson/base16-shell
 
 # Additional completion definitions for Zsh.
 zmodule zsh-users/zsh-completions
@@ -34,8 +41,4 @@ zmodule zsh-users/zsh-syntax-highlighting
 # Fish-like history search (up arrow) for Zsh.
 # zsh-users/zsh-history-substring-search must be sourced after zsh-users/zsh-syntax-highlighting
 zmodule zsh-users/zsh-history-substring-search
-
-zmodule sindresorhus/pure -s async.zsh -s pure.zsh -t v1.13.0
-zmodule jonmosco/kube-ps1
-zmodule chriskempson/base16-shell
 
