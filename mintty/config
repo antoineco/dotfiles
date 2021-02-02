@@ -1,8 +1,16 @@
-Font=Fira Code Retina
-FontHeight=10
-FontWeight=450
 Term=xterm-256color
 Columns=160
 Rows=48
-Emojis=emojione
+
+Font=Cascadia Code
+FontHeight=12
+FontWeight=400
+
+# Enable native copy in tmux
+# https://github.com/mintty/wsltty/issues/21
+AllowSetSelection=yes
+
+Emojis=apple
 EmojiPlacement=full
+
+KeyFunctions=c:copy;v:paste
