@@ -26,7 +26,7 @@ zmodule sindresorhus/pure -s async.zsh -s pure.zsh -t v1.16.0
 zmodule jonmosco/kube-ps1
 
 # Base16 shell colors
-zmodule chriskempson/base16-shell
+zmodule fnune/base16-shell
 
 # Additional completion definitions for Zsh.
 zmodule zsh-users/zsh-completions
