@@ -5,7 +5,6 @@ Rows=48
 Font=Cascadia Code
 FontHeight=12
 FontWeight=400
-RowSpacing=2
 
 # Enable native copy in tmux
 # https://github.com/mintty/wsltty/issues/21
