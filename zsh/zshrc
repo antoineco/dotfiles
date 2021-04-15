@@ -189,10 +189,9 @@ bindkey -M vicmd 'j' history-substring-search-down
 # Custom post-init configuration
 # ------------------------------
 
-# Allow command line editing in an external editor.
-autoload -Uz edit-command-line
-zle -N edit-command-line
-bindkey -M vicmd "$key_info[Control]X$key_info[Control]E" edit-command-line
+# Allow command line editing in an external editor in the "vicmd" keymap.
+# Zim's "input" module already enables this in the default keymap ("viins").
+bindkey -M vicmd "${key_info[Control]}x${key_info[Control]}e" edit-command-line
 
 # Commands completion
 whence kubectl >/dev/null && . <(kubectl completion zsh)
