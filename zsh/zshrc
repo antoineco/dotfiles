@@ -137,7 +137,7 @@ ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets)
 
 _kube_ps1_cluster_short() {
 	# shorten GKE context format
-	print ${1/gke_*_(#b)(*)/${match[1]}}
+	print ${1/(gke_*_|arn:aws:eks:*\/)(#b)(*)/${match[1]}}
 }
 KUBE_PS1_CLUSTER_FUNCTION=_kube_ps1_cluster_short
 
