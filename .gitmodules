@@ -22,9 +22,6 @@
 [submodule "Vim Go plugin"]
 	path = vim/pack/syntax/start/vim-go
 	url = https://github.com/fatih/vim-go.git
-[submodule "Vim Searchant plugin"]
-	path = vim/pack/ui/start/searchant
-	url = https://github.com/timakro/vim-searchant.git
 [submodule "fzf"]
 	path = vim/pack/nav/start/fzf
 	url = https://github.com/junegunn/fzf.git
@@ -34,3 +31,6 @@
 [submodule "Vim HCL plugin"]
 	path = vim/pack/syntax/start/vim-hcl
 	url = https://github.com/jvirtanen/vim-hcl.git
+[submodule "Vim searchhi plugin"]
+	path = vim/pack/ui/start/searchhi
+	url = https://github.com/qxxxb/vim-searchhi.git
