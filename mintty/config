@@ -1,6 +1,6 @@
 Term=xterm-256color
-Columns=160
-Rows=48
+Columns=120
+Rows=30
 
 Font=Cascadia Code
 FontHeight=12
