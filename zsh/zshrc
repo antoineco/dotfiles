@@ -195,6 +195,7 @@ bindkey -M vicmd "${key_info[Control]}x${key_info[Control]}e" edit-command-line
 
 # Commands completion
 whence kubectl >/dev/null && . <(kubectl completion zsh)
+autoload bashcompinit && bashcompinit
 whence aws_completer >/dev/null && complete -C "$(whence aws_completer)" aws
 [[ -f '/usr/share/google-cloud-sdk/completion.zsh.inc' ]] && . '/usr/share/google-cloud-sdk/completion.zsh.inc'
 [[ -f "${HOME}/.vim/pack/nav/start/fzf/shell/completion.zsh" ]] && . "${HOME}/.vim/pack/nav/start/fzf/shell/completion.zsh"
