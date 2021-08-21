@@ -65,9 +65,16 @@ endif
 
 " ================== Appearance ==================
 
+" enforce 24-bit true color support in tmux (see ':h xterm-true-color')
+if &term =~ "tmux"
+  let &t_8f = "\<Esc>[38:2:%lu:%lu:%lum"
+  let &t_8b = "\<Esc>[48:2:%lu:%lu:%lum"
+endif
+
+set termguicolors " enable 24-bit true color
+
 " Base16 color scheme
 if filereadable(expand("~/.vimrc_background"))
-  let base16colorspace=256    " take into account that the shell's colorspace was modified by base16-shell
   source ~/.vimrc_background
 endif
 
