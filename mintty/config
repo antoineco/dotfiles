@@ -14,3 +14,4 @@ Emojis=apple
 EmojiPlacement=full
 
 KeyFunctions=c:copy;v:paste
+CopyAsHTML=yes
