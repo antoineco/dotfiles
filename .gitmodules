@@ -37,3 +37,6 @@
 [submodule "Vim searchhi plugin"]
 	path = vim/pack/nav/start/searchhi
 	url = https://github.com/qxxxb/vim-searchhi.git
+[submodule "Vim UltiSnips plugin"]
+	path = vim/pack/misc/start/ultisnips
+	url = https://github.com/SirVer/ultisnips.git
