@@ -35,5 +35,5 @@
 	url = https://github.com/jvirtanen/vim-hcl.git
 	branch = main
 [submodule "Vim searchhi plugin"]
-	path = vim/pack/ui/start/searchhi
+	path = vim/pack/nav/start/searchhi
 	url = https://github.com/qxxxb/vim-searchhi.git
