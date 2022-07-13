@@ -74,8 +74,10 @@ endif
 set termguicolors " enable 24-bit true color
 
 " Base16 color scheme
-if filereadable(expand("~/.vimrc_background"))
-  source ~/.vimrc_background
+if exists('$BASE16_THEME')
+  \ && (!exists('g:colors_name')
+  \ || g:colors_name != 'base16-$BASE16_THEME')
+  colorscheme base16-$BASE16_THEME
 endif
 
 " ============ Plugin customizations =============
