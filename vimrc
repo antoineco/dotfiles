@@ -65,18 +65,25 @@ endif
 
 " ================== Appearance ==================
 
-" enforce 24-bit true color support in tmux (see ':h xterm-true-color')
-if &term =~ "tmux"
-  let &t_8f = "\<Esc>[38:2:%lu:%lu:%lum"
-  let &t_8b = "\<Esc>[48:2:%lu:%lu:%lum"
-endif
+if ($TERM_PROGRAM != 'Apple_Terminal')
+  set termguicolors " enable 24-bit true color
 
-set termguicolors " enable 24-bit true color
+  " enforce 24-bit true color support in tmux (see ':h xterm-true-color')
+  if &term =~ "tmux"
+    let &t_8f = "\<Esc>[38:2:%lu:%lu:%lum"
+    let &t_8b = "\<Esc>[48:2:%lu:%lu:%lum"
+  endif
+endif
 
 " Base16 color scheme
 if exists('$BASE16_THEME')
   \ && (!exists('g:colors_name')
   \ || g:colors_name != 'base16-$BASE16_THEME')
+
+  if ($TERM_PROGRAM == 'Apple_Terminal')
+    let base16colorspace=256    " take into account that the shell's colorspace was modified by base16-shell
+  endif
+
   colorscheme base16-$BASE16_THEME
 endif
 
