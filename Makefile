@@ -1,8 +1,8 @@
 # ---------- Zsh ---------- 
 
-.PHONY: $(ZDOTFILES)
-# list of files inside zsh/ without directory name
-ZDOTFILES := $(foreach f,$(wildcard zsh/*),$(notdir $(f)))
+# generate list of Zsh dot files based on contents of zsh/ directory
+# e.g. ~/.zshrc ~/.zprofile ...
+ZDOTFILES := $(foreach f,$(wildcard zsh/*),~/.$(notdir $(f)))
 
 .PHONY: zim
 zim: ~/.zim $(ZDOTFILES) ## Install the Zim Zsh configuration framework
@@ -12,7 +12,7 @@ zim: ~/.zim $(ZDOTFILES) ## Install the Zim Zsh configuration framework
 	curl -fsSL https://raw.githubusercontent.com/zimfw/install/master/install.zsh | zsh
 
 $(ZDOTFILES):
-	ln -sf -- $(abspath zsh/$@) ~/.$@
+	ln -sf -- $(abspath $(subst .,zsh/,$(notdir $@))) $@
 
 # ---------- Vim ----------
 
