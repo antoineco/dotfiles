@@ -40,6 +40,8 @@ tmux: ~/.tmux ~/.tmux.conf ## Configure the tmux terminal multiplexer
 
 # ---------- Misc ---------- 
 
+.DEFAULT_GOAL := help
+
 .PHONY: help
 help:
 # source: https://github.com/jessfraz/dotfiles/blob/master/Makefile
