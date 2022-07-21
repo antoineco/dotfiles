@@ -26,6 +26,18 @@ vim: ~/.vim ~/.vimrc ## Configure the Vim text editor
 	@rm -vf -- $@
 	ln -sf -- $(abspath vim) $@
 
+# ---------- tmux ----------
+
+.PHONY: tmux
+tmux: ~/.tmux ~/.tmux.conf ## Configure the tmux terminal multiplexer
+
+~/.tmux.conf:
+	ln -sf -- $(abspath tmux.conf) $@
+
+~/.tmux:
+	@rm -vf -- $@
+	ln -sf -- $(abspath tmux) $@
+
 # ---------- Misc ---------- 
 
 .PHONY: help
