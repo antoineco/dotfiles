@@ -2,6 +2,12 @@
 # User configuration sourced by interactive shells
 #
 
+# Editor
+# In absence of explicit zle configuration (e.g. via bindkey), Zsh sets its key bindings based on the value of $EDITOR.
+# We set it first to be on the safe side.
+export EDITOR='vim'
+export VISUAL='vim'
+
 # -----------------
 # Zsh configuration
 # -----------------
@@ -18,6 +24,7 @@ setopt HIST_IGNORE_ALL_DUPS
 #
 
 # Set editor default keymap to emacs (`-e`) or vi (`-v`)
+#bindkey -e
 bindkey -v
 
 # Prompt for spelling correction of commands.
@@ -29,63 +36,16 @@ bindkey -v
 # Remove path separator from WORDCHARS.
 WORDCHARS=${WORDCHARS//[\/]}
 
-# Editor
-export EDITOR='vim'
-export VISUAL='vim'
+# -----------------
+# Zim configuration
+# -----------------
 
-# Shell parameters
-KEYTIMEOUT=1
-
-# GPG
-GPG_TTY="$(tty)"
-export GPG_TTY
-
-# Path mangling for user executables (Python, etc.)
-path=("$HOME/.local/bin" $path)
-
-# Krew
-path=("$HOME/.krew/bin" $path)
-
-# Go
-export GOPATH="$HOME/go"
-path=('/usr/local/go/bin' "$GOPATH/bin" $path)
-# FIXME: prevent ko from throwing "go: cannot find GOROOT directory: go"
-# https://github.com/google/ko/issues/218
-export GOROOT="${GOROOT:-$(go env GOROOT)}"
-
-# QMK
-export QMK_HOME="$HOME/git/qmk/qmk_firmware"
-
-# Prompt
-_kube_ps1_to_rprompt() {
-	RPROMPT=$(kube_ps1)
-}
-autoload -U add-zsh-hook
-add-zsh-hook precmd _kube_ps1_to_rprompt
-
-# Aliases
-alias K='kubectl'
-alias Kn='kubectl -n'
-alias Knk='kubectl -n kube-system'
-alias Kne='kubectl -n knative-eventing'
-alias Kns='kubectl -n knative-serving'
-alias Knt='kubectl -n triggermesh'
-
-# fzf
-[[ -f "${HOME}/.vim/pack/nav/start/fzf/shell/key-bindings.zsh" ]] && . "${HOME}/.vim/pack/nav/start/fzf/shell/key-bindings.zsh"
-path=("${HOME}/.vim/pack/nav/start/fzf/bin" $path)
+# Use degit instead of git as the default tool to install and update modules.
+#zstyle ':zim:zmodule' use 'degit'
 
 # --------------------
 # Module configuration
 # --------------------
-
-#
-# completion
-#
-
-# Set a custom path for the completion dump file.
-# If none is provided, the default ${ZDOTDIR:-${HOME}}/.zcompdump is used.
-#zstyle ':zim:completion' dumpfile "${ZDOTDIR:-${HOME}}/.zcompdump-${ZSH_VERSION}"
 
 #
 # git
@@ -114,9 +74,13 @@ path=("${HOME}/.vim/pack/nav/start/fzf/bin" $path)
 # zsh-autosuggestions
 #
 
+# Disable automatic widget re-binding on each precmd. This can be set when
+# zsh-users/zsh-autosuggestions is the last module in your ~/.zimrc.
+ZSH_AUTOSUGGEST_MANUAL_REBIND=1
+
 # Customize the style that the suggestions are shown with.
 # See https://github.com/zsh-users/zsh-autosuggestions/blob/master/README.md#suggestion-highlight-style
-#ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=10'
+#ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=242'
 
 #
 # zsh-syntax-highlighting
@@ -129,36 +93,28 @@ ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets)
 # Customize the main highlighter styles.
 # See https://github.com/zsh-users/zsh-syntax-highlighting/blob/master/docs/highlighters/main.md#how-to-tweak-it
 #typeset -A ZSH_HIGHLIGHT_STYLES
-#ZSH_HIGHLIGHT_STYLES[comment]='fg=10'
-
-#
-# kube-ps1
-#
-
-_kube_ps1_cluster_short() {
-	# shorten GKE context format
-	print ${1/(gke_*_|arn:aws:eks:*\/)(#b)(*)/${match[1]}}
-}
-KUBE_PS1_CLUSTER_FUNCTION=_kube_ps1_cluster_short
-
-KUBE_PS1_SEPARATOR=''
-KUBE_PS1_PREFIX=''
-KUBE_PS1_SUFFIX=''
-
-#
-# pure
-#
-
-zstyle :prompt:pure:git:stash show yes
+#ZSH_HIGHLIGHT_STYLES[comment]='fg=242'
 
 # ------------------
 # Initialize modules
 # ------------------
 
-if [[ ${ZIM_HOME}/init.zsh -ot ${ZDOTDIR:-${HOME}}/.zimrc ]]; then
-  # Update static initialization script if it's outdated, before sourcing it
+ZIM_HOME=${ZDOTDIR:-${HOME}}/.zim
+# Download zimfw plugin manager if missing.
+if [[ ! -e ${ZIM_HOME}/zimfw.zsh ]]; then
+  if (( ${+commands[curl]} )); then
+    curl -fsSL --create-dirs -o ${ZIM_HOME}/zimfw.zsh \
+        https://github.com/zimfw/zimfw/releases/latest/download/zimfw.zsh
+  else
+    mkdir -p ${ZIM_HOME} && wget -nv -O ${ZIM_HOME}/zimfw.zsh \
+        https://github.com/zimfw/zimfw/releases/latest/download/zimfw.zsh
+  fi
+fi
+# Install missing modules, and update ${ZIM_HOME}/init.zsh if missing or outdated.
+if [[ ! ${ZIM_HOME}/init.zsh -nt ${ZDOTDIR:-${HOME}}/.zimrc ]]; then
   source ${ZIM_HOME}/zimfw.zsh init -q
 fi
+# Initialize modules.
 source ${ZIM_HOME}/init.zsh
 
 # ------------------------------
@@ -169,25 +125,53 @@ source ${ZIM_HOME}/init.zsh
 # zsh-history-substring-search
 #
 
-# Bind ^[[A/^[[B manually so up/down works both before and after zle-line-init
-bindkey '^[[A' history-substring-search-up
-bindkey '^[[B' history-substring-search-down
-
-# Bind up and down keys
 zmodload -F zsh/terminfo +p:terminfo
-if [[ -n ${terminfo[kcuu1]} && -n ${terminfo[kcud1]} ]]; then
-  bindkey ${terminfo[kcuu1]} history-substring-search-up
-  bindkey ${terminfo[kcud1]} history-substring-search-down
-fi
+# Bind ^[[A/^[[B manually so up/down works both before and after zle-line-init
+for key ('^[[A' '^P' ${terminfo[kcuu1]}) bindkey ${key} history-substring-search-up
+for key ('^[[B' '^N' ${terminfo[kcud1]}) bindkey ${key} history-substring-search-down
+for key ('k') bindkey -M vicmd ${key} history-substring-search-up
+for key ('j') bindkey -M vicmd ${key} history-substring-search-down
+unset key
 
-bindkey '^P' history-substring-search-up
-bindkey '^N' history-substring-search-down
-bindkey -M vicmd 'k' history-substring-search-up
-bindkey -M vicmd 'j' history-substring-search-down
+#
+# kube-ps1
+#
+
+KUBE_PS1_SEPARATOR=' '
+KUBE_PS1_PREFIX=''
+KUBE_PS1_SUFFIX=''
+
+#
+# pure
+#
+
+zstyle :prompt:pure:git:stash show yes
 
 # ------------------------------
 # Custom post-init configuration
 # ------------------------------
+
+# GPG
+GPG_TTY="$(tty)"
+export GPG_TTY
+
+# Path mangling for user executables (Python, etc.)
+path=("$HOME/.local/bin" $path)
+
+# Go
+export GOPATH="$HOME/go"
+path=('/usr/local/go/bin' "$GOPATH/bin" $path)
+
+# fzf
+[[ -f "${HOME}/.vim/pack/nav/start/fzf/shell/key-bindings.zsh" ]] && . "${HOME}/.vim/pack/nav/start/fzf/shell/key-bindings.zsh"
+path=("${HOME}/.vim/pack/nav/start/fzf/bin" $path)
+
+# Prompt
+_kube_ps1_to_rprompt() {
+       RPROMPT=$(kube_ps1)
+}
+autoload -U add-zsh-hook
+add-zsh-hook precmd _kube_ps1_to_rprompt
 
 # Allow command line editing in an external editor in the "vicmd" keymap.
 # Zim's "input" module already enables this in the default keymap ("viins").
@@ -195,10 +179,12 @@ bindkey -M vicmd "${key_info[Control]}x${key_info[Control]}e" edit-command-line
 
 # Commands completion
 whence kubectl >/dev/null && . <(kubectl completion zsh)
-autoload bashcompinit && bashcompinit
-whence aws_completer >/dev/null && complete -C "$(whence aws_completer)" aws
-[[ -f '/usr/share/google-cloud-sdk/completion.zsh.inc' ]] && . '/usr/share/google-cloud-sdk/completion.zsh.inc'
 [[ -f "${HOME}/.vim/pack/nav/start/fzf/shell/completion.zsh" ]] && . "${HOME}/.vim/pack/nav/start/fzf/shell/completion.zsh"
+
+# Aliases
+alias K='kubectl'
+alias Kn='kubectl -n'
+alias Knk='kubectl -n kube-system'
 
 # Source local environment
 [[ -s ${ZDOTDIR:-${HOME}}/.zlocal ]] && . ${ZDOTDIR:-${HOME}}/.zlocal
@@ -206,40 +192,3 @@ whence aws_completer >/dev/null && complete -C "$(whence aws_completer)" aws
 
 typeset -aU path # ensure PATH entries remain unique after rc file reload
 export PATH
-
-# -----------------
-# Utility functions
-# -----------------
-
-# Scale all Knative Serving and Eventing components to the desired number of replicas.
-kn-scale () {
-	if (( $# != 1 )); then
-		echo 'usage: kn-scale <replicas>'
-		return 1
-	fi
-
-	local ns
-
-	local -i replicas
-	replicas=$1
-
-	for project in serving eventing; do
-		ns=knative-${project}
-
-		echo '---' ${ns}
-
-		kubectl -n ${ns} get deploy -o name | grep -vE 'deployment.apps/.*webhook' \
-		| xargs kubectl -n ${ns} scale --replicas=${replicas}
-	done
-}
-
-alias kn-down='kn-scale 0'
-alias kn-up='kn-scale 1'
-
-# Remove all local container images built by ko.
-# A custom alternative to `docker system prune -a`.
-ko-wipe () {
-	docker image ls --format '{{.Repository}}:{{.Tag}}' \
-	| grep -E '^ko.local/' | grep -v '<none>' \
-	| xargs docker image rm
-}

@@ -1,6 +1,11 @@
-# -------
+#
+# This is not sourced during shell startup, and it's only used to configure the
+# zimfw plugin manager.
+#
+
+#
 # Modules
-# -------
+#
 
 # Sets sane Zsh built-in environment options.
 zmodule environment
@@ -13,32 +18,44 @@ zmodule termtitle
 # Utility aliases and functions. Adds colour to ls, grep and less.
 zmodule utility
 
+# Base16 shell colors
+zmodule base16-project/base16-shell
+
 #
 # Prompt
 #
-# Exposes git repository status information to prompts.
+
+# Exposes to prompts how long the last command took to execute, used by asciiship.
+#zmodule duration-info
+# Exposes git repository status information to prompts, used by asciiship.
 #zmodule git-info
-# A customizable version of steeef's prompt theme.
-#zmodule steeef
+# A heavily reduced, ASCII-only version of the Spaceship and Starship prompts.
+#zmodule asciiship
+
 # Pure with bundled zsh-async
 zmodule sindresorhus/pure -s async.zsh -s pure.zsh -t v1.20.1
 # Show active kubectl context in prompt
 zmodule jonmosco/kube-ps1
 
-# Base16 shell colors
-zmodule base16-project/base16-shell
+#
+# Completion
+#
 
 # Additional completion definitions for Zsh.
-zmodule zsh-users/zsh-completions
+zmodule zsh-users/zsh-completions --fpath src
 # Enables and configures smart and extensive tab completion.
-# completion must be sourced after zsh-users/zsh-completions
+# completion must be sourced after all modules that add completion definitions.
 zmodule completion
-# Fish-like autosuggestions for Zsh.
-zmodule zsh-users/zsh-autosuggestions
+
+#
+# Modules that must be initialized last
+#
+
 # Fish-like syntax highlighting for Zsh.
 # zsh-users/zsh-syntax-highlighting must be sourced after completion
 zmodule zsh-users/zsh-syntax-highlighting
 # Fish-like history search (up arrow) for Zsh.
 # zsh-users/zsh-history-substring-search must be sourced after zsh-users/zsh-syntax-highlighting
 zmodule zsh-users/zsh-history-substring-search
-
+# Fish-like autosuggestions for Zsh.
+zmodule zsh-users/zsh-autosuggestions
