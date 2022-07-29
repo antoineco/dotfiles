@@ -33,3 +33,7 @@
 [submodule "Vim UltiSnips plugin"]
 	path = vim/pack/misc/start/ultisnips
 	url = https://github.com/SirVer/ultisnips.git
+[submodule "Vim Nord color scheme"]
+	path = vim/pack/ui/opt/nord-vim
+	url = https://github.com/arcticicestudio/nord-vim.git
+	branch = main

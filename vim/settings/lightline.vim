@@ -16,6 +16,10 @@ let g:lightline = {
       \ }
       \ }
 
+if exists('g:colors_name')
+  let g:lightline.colorscheme = g:colors_name
+endif
+
 " set component 'mode'
 function! LightlineMode()
   return &ft ==# 'nerdtree' ? 'NERDTree' : lightline#mode()

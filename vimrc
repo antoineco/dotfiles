@@ -75,6 +75,8 @@ if ($TERM_PROGRAM != 'Apple_Terminal')
   endif
 endif
 
+colorscheme nord
+
 " ============ Plugin customizations =============
 
 so ~/.vim/settings.vim
