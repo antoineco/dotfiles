@@ -75,18 +75,6 @@ if ($TERM_PROGRAM != 'Apple_Terminal')
   endif
 endif
 
-" Base16 color scheme
-if exists('$BASE16_THEME')
-  \ && (!exists('g:colors_name')
-  \ || g:colors_name != 'base16-$BASE16_THEME')
-
-  if ($TERM_PROGRAM == 'Apple_Terminal')
-    let base16colorspace=256    " take into account that the shell's colorspace was modified by base16-shell
-  endif
-
-  colorscheme base16-$BASE16_THEME
-endif
-
 " ============ Plugin customizations =============
 
 so ~/.vim/settings.vim

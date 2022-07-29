@@ -18,9 +18,6 @@ zmodule termtitle
 # Utility aliases and functions. Adds colour to ls, grep and less.
 zmodule utility
 
-# Base16 shell colors
-zmodule base16-project/base16-shell
-
 #
 # Prompt
 #
