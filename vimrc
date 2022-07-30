@@ -16,6 +16,10 @@ set showcmd           " show command in the last line of the screen
 set laststatus=2      " always show status line
 set colorcolumn=+1    " highlight textwidth column
 
+if has('gui_running')
+  set guifont=CascadiaCodeRoman-Light:h15
+endif
+
 " ================== Behaviour ===================
 
 let mapleader=','                    " more accessible leader key
