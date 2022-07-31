@@ -16,10 +16,6 @@ let g:lightline = {
       \ }
       \ }
 
-if exists('g:colors_name')
-  let g:lightline.colorscheme = g:colors_name
-endif
-
 " set component 'mode'
 function! LightlineMode()
   return &ft ==# 'nerdtree' ? 'NERDTree' : lightline#mode()
@@ -74,3 +70,31 @@ function! LightlineLineinfo()
   return &ft ==# 'nerdtree' ? '' :
        \ printf("%3d:%-2d", line('.'), col('.'))
 endfunction
+
+" ==== Colorscheme (auto-)reload ====
+
+augroup lightline_reload_colorscheme
+  " reload lightline on colorscheme change
+  autocmd!
+  autocmd ColorScheme *
+        \ call s:LightlineSetColorscheme() |
+        \ call s:LightlineReload()
+augroup END
+
+function! s:LightlineSetColorscheme() abort
+  if exists('g:colors_name')
+    let g:lightline.colorscheme = g:colors_name
+  endif
+endfunction
+
+function! s:LightlineReload()
+  if !exists('g:loaded_lightline')
+    return
+  endif
+
+  call lightline#init()        " reload g:lightline settings
+  call lightline#colorscheme() " generate colors based on g:lightline.colorscheme
+  call lightline#update()      " update status line in all windows
+endfunction
+
+call s:LightlineSetColorscheme()
