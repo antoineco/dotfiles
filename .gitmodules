@@ -67,3 +67,6 @@
 [submodule "Neovim Gruvbox color scheme"]
 	path = nvim/pack/ui/opt/gruvbox
 	url = https://github.com/morhetz/gruvbox.git
+[submodule "Neovim One Half color scheme"]
+	path = nvim/misc/colorschemes/onehalf
+	url = https://github.com/sonph/onehalf.git
