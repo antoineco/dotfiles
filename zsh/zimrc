@@ -23,14 +23,12 @@ zmodule utility
 #
 
 # Exposes to prompts how long the last command took to execute, used by asciiship.
-#zmodule duration-info
+zmodule duration-info
 # Exposes git repository status information to prompts, used by asciiship.
-#zmodule git-info
+zmodule git-info
 # A heavily reduced, ASCII-only version of the Spaceship and Starship prompts.
-#zmodule asciiship
+zmodule asciiship
 
-# Pure with bundled zsh-async
-zmodule sindresorhus/pure -s async.zsh -s pure.zsh -t v1.20.1
 # Show active kubectl context in prompt
 zmodule jonmosco/kube-ps1
 
