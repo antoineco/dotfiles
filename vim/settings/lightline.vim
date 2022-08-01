@@ -96,5 +96,3 @@ function! s:LightlineReload()
   call lightline#colorscheme() " generate colors based on g:lightline.colorscheme
   call lightline#update()      " update status line in all windows
 endfunction
-
-call s:LightlineSetColorscheme()

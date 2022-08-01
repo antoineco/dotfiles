@@ -67,6 +67,10 @@ if &term =~ "tmux"
   exec "set t_PE=\e[201~"
 endif
 
+" ============ Plugin customizations =============
+
+so ~/.vim/settings.vim
+
 " ================== Appearance ==================
 
 if ($TERM_PROGRAM != 'Apple_Terminal')
@@ -79,8 +83,5 @@ if ($TERM_PROGRAM != 'Apple_Terminal')
   endif
 endif
 
+packadd! nord-vim " allow loading nord's autoload functions
 colorscheme nord
-
-" ============ Plugin customizations =============
-
-so ~/.vim/settings.vim
