@@ -83,5 +83,11 @@ if ($TERM_PROGRAM != 'Apple_Terminal')
   endif
 endif
 
+if &term == "xterm-kitty"
+  " kitty won't support the background color erase (bce) terminal capability
+  " https://sw.kovidgoyal.net/kitty/faq/
+  let &t_ut=''
+endif
+
 packadd! nord-vim " allow loading nord's autoload functions
 colorscheme nord
