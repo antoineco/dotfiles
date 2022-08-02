@@ -58,3 +58,6 @@
 [submodule "Neovim Sonokai color scheme"]
 	path = nvim/pack/ui/opt/sonokai
 	url = https://github.com/sainnhe/sonokai.git
+[submodule "Neovim Edge color scheme"]
+	path = nvim/pack/ui/opt/edge
+	url = https://github.com/sainnhe/edge.git

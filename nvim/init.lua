@@ -251,6 +251,10 @@ vim.g.everforest_enable_italic = true
 vim.g.sonokai_style = 'default'
 vim.g.sonokai_enable_italic = true
 
+-- Edge --
+vim.g.edge_style = 'default'
+vim.g.edge_enable_italic = false
+
 -- Apply custom highlights on colorscheme change.
 -- Must be declared before executing ':colorscheme'.
 grpid = vim.api.nvim_create_augroup('custom_highlights_everforest', {})
