@@ -61,3 +61,6 @@
 [submodule "Neovim Edge color scheme"]
 	path = nvim/pack/ui/opt/edge
 	url = https://github.com/sainnhe/edge.git
+[submodule "Neovim Gruvbox Material color scheme"]
+	path = nvim/pack/ui/opt/gruvbox-material
+	url = https://github.com/sainnhe/gruvbox-material.git

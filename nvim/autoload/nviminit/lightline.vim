@@ -1,6 +1,6 @@
 function! nviminit#lightline#SetColorscheme() abort
   if exists('g:colors_name')
-    let g:lightline.colorscheme = g:colors_name
+    let g:lightline.colorscheme = substitute(g:colors_name, '-', '_', 'g')
   endif
 endfunction
 
