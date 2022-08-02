@@ -37,3 +37,6 @@
 	path = vim/pack/ui/opt/nord-vim
 	url = https://github.com/arcticicestudio/nord-vim.git
 	branch = main
+[submodule "Vim Everforest color scheme"]
+	path = vim/pack/ui/opt/everforest
+	url = https://github.com/sainnhe/everforest.git

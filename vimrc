@@ -89,5 +89,6 @@ if &term == "xterm-kitty"
   let &t_ut=''
 endif
 
-packadd! nord-vim " allow loading nord's autoload functions
-colorscheme nord
+packadd! everforest " allow loading the colorscheme's autoload functions
+set background=dark
+colorscheme everforest
