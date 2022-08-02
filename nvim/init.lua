@@ -258,6 +258,9 @@ vim.g.edge_enable_italic = false
 -- Gruvbox Material --
 vim.g.gruvbox_material_enable_italic = true
 
+-- Gruvbox --
+vim.g.gruvbox_italic = true
+
 -- Apply custom highlights on colorscheme change.
 -- Must be declared before executing ':colorscheme'.
 grpid = vim.api.nvim_create_augroup('custom_highlights_everforest', {})

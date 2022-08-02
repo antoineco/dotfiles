@@ -64,3 +64,6 @@
 [submodule "Neovim Gruvbox Material color scheme"]
 	path = nvim/pack/ui/opt/gruvbox-material
 	url = https://github.com/sainnhe/gruvbox-material.git
+[submodule "Neovim Gruvbox color scheme"]
+	path = nvim/pack/ui/opt/gruvbox
+	url = https://github.com/morhetz/gruvbox.git
