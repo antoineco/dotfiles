@@ -40,3 +40,31 @@
 [submodule "Vim Everforest color scheme"]
 	path = vim/pack/ui/opt/everforest
 	url = https://github.com/sainnhe/everforest.git
+[submodule "NeoVim Fugitive plugin"]
+	path = nvim/site/pack/vcs/start/fugitive
+	url = https://github.com/tpope/vim-fugitive.git
+[submodule "NeoVim Gitgutter plugin"]
+	path = nvim/site/pack/vcs/start/gitgutter
+	url = https://github.com/airblade/vim-gitgutter.git
+[submodule "NeoVim searchhi plugin"]
+	path = nvim/site/pack/nav/start/searchhi
+	url = https://github.com/qxxxb/vim-searchhi.git
+[submodule "NeoVim Tree plugin"]
+	path = nvim/site/pack/nav/start/tree
+	url = https://github.com/kyazdani42/nvim-tree.lua
+[submodule "NeoVim Lualine plugin"]
+	path = nvim/site/pack/ui/start/lualine
+	url = https://github.com/nvim-lualine/lualine.nvim.git
+[submodule "NeoVim WebDevicons plugin"]
+	path = nvim/site/pack/ui/start/webdevicons
+	url = https://github.com/kyazdani42/nvim-web-devicons.git
+[submodule "NeoVim Vim-Go plugin"]
+	path = nvim/site/pack/syntax/start/vim-go
+	url = https://github.com/fatih/vim-go.git
+[submodule "NeoVim Nord color scheme"]
+	path = nvim/site/pack/ui/opt/nord
+	url = https://github.com/arcticicestudio/nord-vim.git
+	branch = main
+[submodule "NeoVim Everforest color scheme"]
+	path = nvim/site/pack/ui/opt/everforest
+	url = https://github.com/sainnhe/everforest.git
