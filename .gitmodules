@@ -40,6 +40,9 @@
 [submodule "Vim Everforest color scheme"]
 	path = vim/pack/ui/opt/everforest
 	url = https://github.com/sainnhe/everforest.git
+[submodule "NeoVim LSP configs"]
+	path = nvim/site/pack/lang/start/lspconfig
+	url = https://github.com/neovim/nvim-lspconfig.git
 [submodule "NeoVim Fugitive plugin"]
 	path = nvim/site/pack/vcs/start/fugitive
 	url = https://github.com/tpope/vim-fugitive.git
@@ -49,6 +52,9 @@
 [submodule "NeoVim searchhi plugin"]
 	path = nvim/site/pack/nav/start/searchhi
 	url = https://github.com/qxxxb/vim-searchhi.git
+[submodule "NeoVim Vim-Go plugin"]
+	path = nvim/site/pack/syntax/start/vim-go
+	url = https://github.com/fatih/vim-go.git
 [submodule "NeoVim Tree plugin"]
 	path = nvim/site/pack/nav/start/tree
 	url = https://github.com/kyazdani42/nvim-tree.lua
@@ -58,9 +64,6 @@
 [submodule "NeoVim WebDevicons plugin"]
 	path = nvim/site/pack/ui/start/webdevicons
 	url = https://github.com/kyazdani42/nvim-web-devicons.git
-[submodule "NeoVim Vim-Go plugin"]
-	path = nvim/site/pack/syntax/start/vim-go
-	url = https://github.com/fatih/vim-go.git
 [submodule "NeoVim Nord color scheme"]
 	path = nvim/site/pack/ui/opt/nord
 	url = https://github.com/arcticicestudio/nord-vim.git

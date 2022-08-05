@@ -29,6 +29,52 @@ require'nvim-web-devicons'.setup{
 
 require'nvim-tree'.setup()
 
+-- ===================== LSP ======================
+
+-- Diagnostics mappings (':h vim.diagnostic')
+local opts = { noremap=true, silent=true }
+vim.keymap.set('n', '<space>e', vim.diagnostic.open_float, opts)
+vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
+vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
+vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist, opts)
+
+-- Callback for setting buffer local options upon attaching a buffer to a
+-- language server (':h lspconfig-setup')
+local on_attach = function(client, bufnr)
+  -- Enable completion triggered by <c-x><c-o> (':h compl-omni')
+  vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+
+  -- Buffer local mappings (':h lsp-buf')
+  local bufopts = { noremap=true, silent=true, buffer=bufnr }
+  vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
+  vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
+  vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
+  vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
+  vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, bufopts)
+  vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, bufopts)
+  vim.keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, bufopts)
+  vim.keymap.set('n', '<space>wl', function()
+    print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+  end, bufopts)
+  vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, bufopts)
+  vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, bufopts)
+  vim.keymap.set('n', '<space>ca', vim.lsp.buf.code_action, bufopts)
+  vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
+  vim.keymap.set('n', '<space>f', vim.lsp.buf.formatting, bufopts)
+end
+
+require'lspconfig'.gopls.setup{
+  on_attach = on_attach,
+  settings = {
+    -- https://go.googlesource.com/tools/+/refs/heads/master/gopls/doc/settings.md
+    gopls = {
+      analyses = {
+        unusedparams = true
+      }
+    }
+  }
+}
+
 -- ========== Providers and Integrations ==========
 
 -- Neovim's assigned virtualenv for python3 provider (':h python-virtualenv')
