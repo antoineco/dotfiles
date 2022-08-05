@@ -29,14 +29,6 @@ require'nvim-web-devicons'.setup{
 
 require'nvim-tree'.setup()
 
-require'lualine'.setup{
-  options = {
-    section_separators = { left = '', right = '' },
-    component_separators = { left = '', right = '' }
-  },
-  extensions = { 'fugitive', 'nvim-tree' }
-}
-
 -- ========== Providers and Integrations ==========
 
 -- Neovim's assigned virtualenv for python3 provider (':h python-virtualenv')
