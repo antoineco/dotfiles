@@ -43,6 +43,24 @@
 [submodule "NeoVim LSP configs"]
 	path = nvim/site/pack/lang/start/lspconfig
 	url = https://github.com/neovim/nvim-lspconfig.git
+[submodule "NeoVim Cmp plugin"]
+	path = nvim/site/pack/lang/start/cmp
+	url = https://github.com/hrsh7th/nvim-cmp.git
+	branch = main
+[submodule "NeoVim LSP source for Cmp"]
+	path = nvim/site/pack/lang/start/cmp-lsp
+	url = https://github.com/hrsh7th/cmp-nvim-lsp.git
+	branch = main
+[submodule "NeoVim Vsnip source for Cmp"]
+	path = nvim/site/pack/lang/start/cmp-vsnip
+	url = https://github.com/hrsh7th/cmp-vsnip.git
+	branch = main
+[submodule "NeoVim Vsnip plugin"]
+	path = nvim/site/pack/lang/start/vsnip
+	url = https://github.com/hrsh7th/vim-vsnip.git
+[submodule "NeoVim Vsnip plugin integrations"]
+	path = nvim/site/pack/lang/start/vsnip-integ
+	url = https://github.com/hrsh7th/vim-vsnip-integ.git
 [submodule "NeoVim Fugitive plugin"]
 	path = nvim/site/pack/vcs/start/fugitive
 	url = https://github.com/tpope/vim-fugitive.git

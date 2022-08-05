@@ -14,6 +14,10 @@ vim.opt.smartcase = true   -- make search case sensitive when pattern contains u
 vim.opt.ignorecase = true  -- required by smartcase
 vim.opt.autowrite = true   -- automatically write buffer on commands like :next
 
+vim.opt.completeopt = { 'menu',       -- show completions in popup menu
+                        'menuone',    -- ... even if there is only one match
+                        'noselect' }  -- do not auto-select completion candidate
+
 vim.opt.wildmode = { 'list:longest',  -- 1st Tab completes till longest common string,
                      'list:full' }    -- 2nd Tab opens wildmenu
 
@@ -30,6 +34,10 @@ require'nvim-web-devicons'.setup{
 require'nvim-tree'.setup()
 
 -- ===================== LSP ======================
+
+-- Override/extend the capabilities of Neovim's LSP completion candidates with Cmp's.
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities = require'cmp_nvim_lsp'.update_capabilities(capabilities)
 
 -- Diagnostics mappings (':h vim.diagnostic')
 local opts = { noremap=true, silent=true }
@@ -63,11 +71,38 @@ local on_attach = function(client, bufnr)
   vim.keymap.set('n', '<space>f', vim.lsp.buf.formatting, bufopts)
 end
 
+-- use nvim-cmp as completion engine
+local cmp = require'cmp'
+
+cmp.setup{
+  window = {
+    completion = cmp.config.window.bordered()
+  },
+  sources = cmp.config.sources{
+    { name = 'nvim_lsp' },
+    { name = 'vsnip' }
+  },
+  snippet = {
+    expand = function(args)
+      vim.fn["vsnip#anonymous"](args.body)
+    end
+  },
+  mapping = cmp.mapping.preset.insert{
+    ['<C-Space>'] = cmp.mapping.complete(),
+    ['<C-e>'] = cmp.mapping.abort(),
+    ['<CR>'] = cmp.mapping.confirm{ select = true },
+    ['<C-b>'] = cmp.mapping.scroll_docs(-4),
+    ['<C-f>'] = cmp.mapping.scroll_docs(4)
+  }
+}
+
 require'lspconfig'.gopls.setup{
   on_attach = on_attach,
+  capabilities = capabilities,
   settings = {
     -- https://go.googlesource.com/tools/+/refs/heads/master/gopls/doc/settings.md
     gopls = {
+      usePlaceholders = true,
       analyses = {
         unusedparams = true
       }
