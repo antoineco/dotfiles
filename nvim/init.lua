@@ -21,17 +21,88 @@ vim.opt.completeopt = { 'menu',       -- show completions in popup menu
 vim.opt.wildmode = { 'list:longest',  -- 1st Tab completes till longest common string,
                      'list:full' }    -- 2nd Tab opens wildmenu
 
--- ============ Plugin customizations =============
+-- ==================== Plugins ===================
 
-vim.cmd('source ' .. vim.fn.stdpath('config') .. '/settings.vim')
-
--- ================= Lua plugins ==================
+-- WebDevicons --
 
 require'nvim-web-devicons'.setup{
   default = true
 }
 
+-- Tree --
+
 require'nvim-tree'.setup()
+
+local opts = { remap=false, silent=true }
+vim.keymap.set('n', '<Leader>n', ':NvimTreeToggle<CR>', opts)
+vim.keymap.set('n', '<Leader>f', ':NvimTreeFindFile<CR>', opts)
+
+-- Lightline --
+
+vim.g.lightline = {
+  active = {
+    left  = { { 'mode', 'paste' }, { 'readonly', 'fugitive', 'filename', 'modified' } },
+    right = { { 'lineinfo' }, { 'percent' }, { 'fileformat', 'fileencoding', 'filetype' }, { 'go' } }
+  },
+  component_function = {
+    mode         = 'statusline#lightline#Mode',
+    fugitive     = 'statusline#lightline#Fugitive',
+    go           = 'statusline#lightline#Go',
+    filename     = 'statusline#lightline#Filename',
+    fileformat   = 'statusline#lightline#Fileformat',
+    fileencoding = 'statusline#lightline#Fileencoding',
+    filetype     = 'statusline#lightline#Filetype',
+    percent      = 'statusline#lightline#Percent',
+    lineinfo     = 'statusline#lightline#Lineinfo'
+  },
+  separator = { left = '', right = '' },
+  subseparator = { left = '', right = '' }
+}
+
+-- Reload lightline on colorscheme change.
+-- Must be declared before executing ':colorscheme'.
+local grpid = vim.api.nvim_create_augroup('lightline_reload_colorscheme', {})
+vim.api.nvim_create_autocmd('ColorScheme', {
+  group = grpid,
+  pattern = '*',
+  command = 'call nviminit#lightline#SetColorscheme() | ' ..
+            'call nviminit#lightline#Reload()'
+})
+
+-- Vim Go --
+
+vim.g.go_gopls_enabled = false     -- gopls is managed by NeoVim as a language server 
+vim.g.go_fmt_autosave = false      -- formatting is delegated to the LSP server
+vim.g.go_imports_autosave = false  -- imports are delegated to the LSP server
+
+vim.g.go_highlight_function_arguments = true     -- highlight function and method declarations, as well as variable names
+                                                 -- in arguments and return values in function declarations
+vim.g.go_highlight_function_calls = true         -- highlight function and method calls
+vim.g.go_highlight_variable_declarations = true  -- highlight variable names in variable declarations
+
+-- Searchhi --
+
+-- mappings, from the vim-searchhi README
+vim.keymap.set('n', 'n', '<Plug>(searchhi-n)')
+vim.keymap.set('n', 'N', '<Plug>(searchhi-N)')
+vim.keymap.set('n', '*', '<Plug>(searchhi-*)')
+vim.keymap.set('n', 'g*', '<Plug>(searchhi-g*)')
+vim.keymap.set('n', '#', '<Plug>(searchhi-#)')
+vim.keymap.set('n', 'g#', '<Plug>(searchhi-g#)')
+vim.keymap.set('n', 'gd', '<Plug>(searchhi-gd)')
+vim.keymap.set('n', 'gD', '<Plug>(searchhi-gD)')
+
+vim.keymap.set('v', 'n', '<Plug>(searchhi-v-n)')
+vim.keymap.set('v', 'N', '<Plug>(searchhi-v-N)')
+vim.keymap.set('v', '*', '<Plug>(searchhi-v-*)')
+vim.keymap.set('v', 'g*', '<Plug>(searchhi-v-g*)')
+vim.keymap.set('v', '#', '<Plug>(searchhi-v-#)')
+vim.keymap.set('v', 'g#', '<Plug>(searchhi-v-g#)')
+vim.keymap.set('v', 'gd', '<Plug>(searchhi-v-gd)')
+vim.keymap.set('v', 'gD', '<Plug>(searchhi-v-gD)')
+
+vim.keymap.set('n', '<C-L>', '<Plug>(searchhi-clear-all)')
+vim.keymap.set('v', '<C-L>', '<Plug>(searchhi-v-clear-all)')
 
 -- ===================== LSP ======================
 
@@ -40,7 +111,7 @@ local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require'cmp_nvim_lsp'.update_capabilities(capabilities)
 
 -- Diagnostics mappings (':h vim.diagnostic')
-local opts = { noremap=true, silent=true }
+local opts = { remap=false, silent=true }
 vim.keymap.set('n', '<space>e', vim.diagnostic.open_float, opts)
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
@@ -53,7 +124,7 @@ local on_attach = function(client, bufnr)
   vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 
   -- Buffer local mappings (':h lsp-buf')
-  local bufopts = { noremap=true, silent=true, buffer=bufnr }
+  local bufopts = { remap=false, silent=true, buffer=bufnr }
   vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
   vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
   vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
@@ -84,7 +155,7 @@ cmp.setup{
   },
   snippet = {
     expand = function(args)
-      vim.fn["vsnip#anonymous"](args.body)
+      vim.fn['vsnip#anonymous'](args.body)
     end
   },
   mapping = cmp.mapping.preset.insert{
