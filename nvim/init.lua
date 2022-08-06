@@ -71,7 +71,7 @@ vim.api.nvim_create_autocmd('ColorScheme', {
 
 -- Vim Go --
 
-vim.g.go_gopls_enabled = false     -- gopls is managed by NeoVim as a language server 
+vim.g.go_gopls_enabled = false     -- gopls is managed by Neovim as a language server
 vim.g.go_fmt_autosave = false      -- formatting is delegated to the LSP server
 vim.g.go_imports_autosave = false  -- imports are delegated to the LSP server
 
@@ -111,7 +111,7 @@ local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require'cmp_nvim_lsp'.update_capabilities(capabilities)
 
 -- Diagnostics mappings (':h vim.diagnostic')
-local opts = { remap=false, silent=true }
+opts = { remap=false, silent=true }
 vim.keymap.set('n', '<space>e', vim.diagnostic.open_float, opts)
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
@@ -119,7 +119,7 @@ vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist, opts)
 
 -- Callback for setting buffer local options upon attaching a buffer to a
 -- language server (':h lspconfig-setup')
-local on_attach = function(client, bufnr)
+local on_attach = function(_, bufnr)
   -- Enable completion triggered by <c-x><c-o> (':h compl-omni')
   vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 
@@ -176,6 +176,28 @@ require'lspconfig'.gopls.setup{
       usePlaceholders = true,
       analyses = {
         unusedparams = true
+      }
+    }
+  }
+}
+
+require'lspconfig'.sumneko_lua.setup{
+  on_attach = on_attach,
+  capabilities = capabilities,
+  settings = {
+    -- https://github.com/sumneko/lua-language-server/wiki/Settings
+    Lua = {
+      runtime = {
+        version = 'LuaJIT',  -- Neovim embeds LuaJIT
+        special = {
+          require = 'require',  -- prevent "undefined global required"
+        }
+      },
+      diagnostics = {
+        globals = { 'vim', 'print' }  -- recognize globals defined by Neovim
+      },
+      workspace = {
+        library = vim.api.nvim_get_runtime_file('', true)  -- include all Neovim runtime files
       }
     }
   }

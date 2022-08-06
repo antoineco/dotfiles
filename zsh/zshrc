@@ -162,6 +162,9 @@ path=("$HOME/.local/bin" $path)
 export GOPATH="$HOME/go"
 path=('/usr/local/go/bin' "$GOPATH/bin" $path)
 
+# Lua
+path=('/usr/local/lua-language-server/bin' $path)
+
 # fzf
 [[ -f "${HOME}/.vim/pack/nav/start/fzf/shell/key-bindings.zsh" ]] && . "${HOME}/.vim/pack/nav/start/fzf/shell/key-bindings.zsh"
 path=("${HOME}/.vim/pack/nav/start/fzf/bin" $path)
