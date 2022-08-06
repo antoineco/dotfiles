@@ -26,6 +26,15 @@ vim: ~/.vim ~/.vimrc ## Configure the Vim text editor
 	@rm -vf -- $@
 	ln -sf -- $(abspath vim) $@
 
+# ---------- NeoVim ----------
+
+.PHONY: nvim
+nvim: ~/.config/nvim ## Configure the NeoVim text editor
+
+~/.config/nvim:
+	@rm -vf -- $@
+	ln -sf -- $(abspath nvim) $@
+
 # ---------- tmux ----------
 
 .PHONY: tmux
