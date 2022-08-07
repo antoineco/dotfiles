@@ -43,6 +43,9 @@
 [submodule "Neovim LSP configs"]
 	path = nvim/pack/lang/start/lspconfig
 	url = https://github.com/neovim/nvim-lspconfig.git
+[submodule "Neovim Treesitter configs"]
+	path = nvim/pack/lang/start/treesitter
+	url = https://github.com/nvim-treesitter/nvim-treesitter.git
 [submodule "Neovim Cmp plugin"]
 	path = nvim/pack/lang/start/cmp
 	url = https://github.com/hrsh7th/nvim-cmp.git

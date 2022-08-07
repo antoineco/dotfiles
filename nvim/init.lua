@@ -75,11 +75,6 @@ vim.g.go_gopls_enabled = false     -- gopls is managed by Neovim as a language s
 vim.g.go_fmt_autosave = false      -- formatting is delegated to the LSP server
 vim.g.go_imports_autosave = false  -- imports are delegated to the LSP server
 
-vim.g.go_highlight_function_arguments = true     -- highlight function and method declarations, as well as variable names
-                                                 -- in arguments and return values in function declarations
-vim.g.go_highlight_function_calls = true         -- highlight function and method calls
-vim.g.go_highlight_variable_declarations = true  -- highlight variable names in variable declarations
-
 -- Searchhi --
 
 -- mappings, from the vim-searchhi README
@@ -203,6 +198,21 @@ require'lspconfig'.sumneko_lua.setup{
   }
 }
 
+-- ================== Treesitter ==================
+
+require'nvim-treesitter.configs'.setup{
+  ensure_installed = {
+    'go',
+    'yaml',
+    'lua',
+    'vim'
+  },
+  sync_install = true,  -- display messages when parsers are being automatically installed
+  highlight = {
+    enable = true
+  }
+}
+
 -- ========== Providers and Integrations ==========
 
 -- Neovim's assigned virtualenv for python3 provider (':h python-virtualenv')
@@ -211,6 +221,24 @@ vim.g.python3_host_prog = '~/.local/share/nvim/py3venv/bin/python3'
 -- ================== Appearance ==================
 
 vim.opt.termguicolors = true  -- enable 24-bit true color
+
+-- Apply custom highlights on colorscheme change.
+-- Must be declared before executing ':colorscheme'.
+grpid = vim.api.nvim_create_augroup('custom_highlights_everforest', {})
+vim.api.nvim_create_autocmd('ColorScheme', {
+  group = grpid,
+  pattern = 'everforest',
+  command = -- yaml
+            'hi link yamlBlockMappingKey Green |' ..
+            'hi link yamlFlowString Aqua |' ..
+            'hi link yamlFlowStringDelimiter Aqua |' ..
+            'hi link yamlKeyValueDelimiter Grey |' ..
+            'hi link yamlTSField Green |' ..
+            'hi link yamlTSString Fg |' ..
+            -- lua
+            'hi link luaTSField Fg |' ..
+            'hi link luaTSConstructor Fg'
+})
 
 vim.cmd'packadd! everforest'
 vim.opt.background = 'dark'
