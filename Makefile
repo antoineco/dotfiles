@@ -21,7 +21,10 @@ $(ZDOTFILES): ~/.zim
 .PHONY: nvim
 nvim: ~/.config/nvim ## Configure the NeoVim text editor
 
-~/.config/nvim:
+~/.config:
+	@mkdir $@
+
+~/.config/nvim: | ~/.config
 	@rm -vf -- $@
 	ln -sf -- $(abspath nvim) $@
 
