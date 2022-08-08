@@ -28,14 +28,10 @@ nvim: ~/.config/nvim ## Configure the NeoVim text editor
 # ---------- tmux ----------
 
 .PHONY: tmux
-tmux: ~/.tmux ~/.tmux.conf ## Configure the tmux terminal multiplexer
+tmux: ~/.tmux.conf ## Configure the tmux terminal multiplexer
 
 ~/.tmux.conf:
 	ln -sf -- $(abspath tmux.conf) $@
-
-~/.tmux:
-	@rm -vf -- $@
-	ln -sf -- $(abspath tmux) $@
 
 # ---------- Misc ---------- 
 
