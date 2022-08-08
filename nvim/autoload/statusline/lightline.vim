@@ -1,50 +1,54 @@
 " set component 'mode'
 function! statusline#lightline#Mode()
-  return &ft ==? 'nvimtree' ? fnamemodify(getcwd(), ':~') :
-         \ lightline#mode()
+  if &ft ==? 'nvimtree'
+    return fnamemodify(getcwd(), ':~')
+  elseif &ft ==? 'fugitive' && exists('*FugitiveHead')
+    return FugitiveHead()
+  endif
+  return lightline#mode()
 endfunction
 
 " set component 'fugitive'
 function! statusline#lightline#Fugitive()
-  if exists('*FugitiveHead') && &ft !=? 'nvimtree' && &columns > 75
-    return FugitiveHead()
-  endif
-  return ''
+  return (!exists('*FugitiveHead') || &ft ==? 'nvimtree' || &columns <= 75) ? '' :
+       \ FugitiveHead()
 endfunction
 
 " set component 'go'
 function! statusline#lightline#Go()
-  if exists('*go#statusline#Show') && &ft !=? 'nvimtree' && &columns > 75
-    return go#statusline#Show()
-  endif
-  return ''
+  return (!exists('*go#statusline#Show') ||
+       \ &ft ==? 'nvimtree' || &ft ==? 'fugitive' || &columns <= 75) ? '' :
+       \ go#statusline#Show()
 endfunction
 
 " set component 'filename'
 function! statusline#lightline#Filename()
-  let fname = expand('%:t')
-  return &ft ==? 'nvimtree' ? '' :
-       \ (fname !=# '' ? fname : '[No Name]')
+  if &ft ==? 'nvimtree' || &ft ==? 'fugitive' | return '' | endif
+  let f_name = expand('%:t')
+  return f_name !=# '' ? f_name : '[No Name]'
 endfunction
 
 " set component 'fileformat'
 function! statusline#lightline#Fileformat()
-  return &columns > 67 ? &ff : ''
+  return (&ft ==? 'nvimtree' || &ft ==? 'fugitive' || &columns <= 67) ? '' :
+       \ &ff
 endfunction
 
 " set component 'fileencoding'
 function! statusline#lightline#Fileencoding()
-  return &columns > 60 ? (&fenc!=#''?&fenc:&enc) : ''
+  return (&ft ==? 'nvimtree' || &ft ==? 'fugitive' || &columns <= 60) ? '' :
+       \ &fenc !=# '' ? &fenc : &enc
 endfunction
 
 " set component 'filetype'
 function! statusline#lightline#Filetype()
-  return &columns > 50 ? (&ft!=#''?&ft:"no ft") : ''
+  return (&ft ==? 'nvimtree' || &ft ==? 'fugitive' || &columns <= 50) ? '' :
+       \ &ft !=# '' ? &ft : "no ft"
 endfunction
 
 " set component 'percent'
 function! statusline#lightline#Percent()
-  return &ft ==? 'nvimtree' ? '' :
+  return (&ft ==? 'nvimtree' || &ft ==? 'fugitive') ? '' :
        \ printf("%3d%%", 100*line('.')/line('$'))
 endfunction
 
