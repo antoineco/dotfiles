@@ -5,8 +5,8 @@
 # Editor
 # In absence of explicit zle configuration (e.g. via bindkey), Zsh sets its key bindings based on the value of $EDITOR.
 # We set it first to be on the safe side.
-export EDITOR='vim'
-export VISUAL='vim'
+export EDITOR='nvim'
+export VISUAL='nvim'
 
 # -----------------
 # Zsh configuration
@@ -166,8 +166,8 @@ path=('/usr/local/go/bin' "$GOPATH/bin" $path)
 path=('/usr/local/lua-language-server/bin' $path)
 
 # fzf
-[[ -f "${HOME}/.vim/pack/nav/start/fzf/shell/key-bindings.zsh" ]] && . "${HOME}/.vim/pack/nav/start/fzf/shell/key-bindings.zsh"
-path=("${HOME}/.vim/pack/nav/start/fzf/bin" $path)
+[[ -f "${HOME}/.config/nvim/pack/nav/start/fzf/shell/key-bindings.zsh" ]] && . "${HOME}/.config/nvim/pack/nav/start/fzf/shell/key-bindings.zsh"
+path=("${HOME}/.config/nvim/pack/nav/start/fzf/bin" $path)
 
 # Prompt
 _kube_ps1_to_rprompt() {
@@ -182,7 +182,7 @@ bindkey -M vicmd "${key_info[Control]}x${key_info[Control]}e" edit-command-line
 
 # Commands completion
 whence kubectl >/dev/null && . <(kubectl completion zsh)
-[[ -f "${HOME}/.vim/pack/nav/start/fzf/shell/completion.zsh" ]] && . "${HOME}/.vim/pack/nav/start/fzf/shell/completion.zsh"
+[[ -f "${HOME}/.config/nvim/pack/nav/start/fzf/shell/completion.zsh" ]] && . "${HOME}/.config/nvim/pack/nav/start/fzf/shell/completion.zsh"
 
 # Aliases
 alias K='kubectl'

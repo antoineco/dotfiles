@@ -1,9 +1,0 @@
-let g:go_highlight_function_arguments = 1    " highlight function and method declarations, as well as variable names
-                                             " in arguments and return values in function declarations
-let g:go_highlight_function_calls = 1        " highlight function and method calls
-let g:go_highlight_variable_declarations = 1 " highlight variable names in variable declarations
-
-let g:go_echo_command_info = 0 " disable echoing of commands, redundant with status bar
-
-let g:go_snippet_engine = 'ultisnips' " enable vim-go's snippets for Go
-let g:go_gopls_use_placeholders = 1   " provide placeholders for function parameters and struct fields

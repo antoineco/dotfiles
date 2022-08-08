@@ -1,45 +1,6 @@
-[submodule "Vim Tabular plugin"]
-	path = vim/pack/format/start/tabular
-	url = https://github.com/godlygeek/tabular.git
-[submodule "Vim NERD Tree plugin"]
-	path = vim/pack/nav/start/nerdtree
-	url = https://github.com/preservim/nerdtree.git
-[submodule "Vim Lightline plugin"]
-	path = vim/pack/ui/start/lightline.vim
-	url = https://github.com/itchyny/lightline.vim.git
-[submodule "Vim Fugitive plugin"]
-	path = vim/pack/vcs/start/vim-fugitive
-	url = https://github.com/tpope/vim-fugitive.git
-[submodule "Vim Gitgutter plugin"]
-	path = vim/pack/vcs/start/vim-gitgutter
-	url = https://github.com/airblade/vim-gitgutter.git
-[submodule "Vim Go plugin"]
-	path = vim/pack/syntax/start/vim-go
-	url = https://github.com/fatih/vim-go.git
 [submodule "fzf"]
-	path = vim/pack/nav/start/fzf
+	path = nvim/pack/nav/start/fzf
 	url = https://github.com/junegunn/fzf.git
-[submodule "Vim TOML plugin"]
-	path = vim/pack/syntax/start/vim-toml
-	url = https://github.com/cespare/vim-toml.git
-	branch = main
-[submodule "Vim HCL plugin"]
-	path = vim/pack/syntax/start/vim-hcl
-	url = https://github.com/jvirtanen/vim-hcl.git
-	branch = main
-[submodule "Vim searchhi plugin"]
-	path = vim/pack/nav/start/searchhi
-	url = https://github.com/qxxxb/vim-searchhi.git
-[submodule "Vim UltiSnips plugin"]
-	path = vim/pack/misc/start/ultisnips
-	url = https://github.com/SirVer/ultisnips.git
-[submodule "Vim Nord color scheme"]
-	path = vim/pack/ui/opt/nord-vim
-	url = https://github.com/arcticicestudio/nord-vim.git
-	branch = main
-[submodule "Vim Everforest color scheme"]
-	path = vim/pack/ui/opt/everforest
-	url = https://github.com/sainnhe/everforest.git
 [submodule "Neovim LSP configs"]
 	path = nvim/pack/lang/start/lspconfig
 	url = https://github.com/neovim/nvim-lspconfig.git
