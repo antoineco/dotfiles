@@ -5,13 +5,15 @@
 ZDOTFILES := $(foreach f,$(wildcard zsh/*),~/.$(notdir $(f)))
 
 .PHONY: zim
-zim: ~/.zim $(ZDOTFILES) ## Install the Zim Zsh configuration framework
-	$(info => Execute 'zimfw install' after restarting the terminal)
+zim: $(ZDOTFILES) ## Install the Zim Zsh configuration framework
+	zsh -ic 'zimfw install'
 
 ~/.zim:
 	curl -fsSL https://raw.githubusercontent.com/zimfw/install/master/install.zsh | zsh
 
-$(ZDOTFILES):
+# Zsh dot files must be installed *after* Zim itself, otherwise the installation
+# gets aborted prematurely with the message "Zim already installed".
+$(ZDOTFILES): ~/.zim
 	ln -sf -- $(abspath $(subst .,zsh/,$(notdir $@))) $@
 
 # ---------- NeoVim ----------
