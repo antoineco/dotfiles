@@ -10,8 +10,11 @@ endfunction
 
 " set component 'fugitive'
 function! statusline#lightline#Fugitive()
-  return (!exists('*FugitiveHead') || &ft ==? 'nvimtree' || &columns <= 75) ? '' :
-       \ FugitiveHead()
+  if !exists('*FugitiveHead') || &ft ==? 'nvimtree' || &columns <= 75
+    return ''
+  endif
+  let git_status = FugitiveHead()
+  return git_status ==# '' ? '' : "\ue0a0 ".git_status
 endfunction
 
 " set component 'go'
@@ -30,8 +33,8 @@ endfunction
 
 " set component 'fileformat'
 function! statusline#lightline#Fileformat()
-  return (&ft ==? 'nvimtree' || &ft ==? 'fugitive' || &columns <= 67) ? '' :
-       \ &ff
+  return &ft ==? 'nvimtree' || &ft ==? 'fugitive' || &columns <= 67 ? '' :
+       \ get({'unix':"\ue712",'dos':"\ue70f",'mac':"\ue711"}, &ff, '')
 endfunction
 
 " set component 'fileencoding'
@@ -40,10 +43,30 @@ function! statusline#lightline#Fileencoding()
        \ &fenc !=# '' ? &fenc : &enc
 endfunction
 
+let s:icon_cache = {}
+
+" determine icon glyph for file
+function s:GetIcon(f_name, f_ext)
+  let icon_cache_key = a:f_name . '::' . a:f_ext
+  let icon = get(s:icon_cache, icon_cache_key, '')
+  if icon ==# ''
+    let icon = luaeval('require"nvim-web-devicons".get_icon(_A[1], _A[2])',
+                     \ [a:f_name, a:f_ext])
+    let s:icon_cache[icon_cache_key] = icon
+  endif
+  return icon
+endfunction
+
 " set component 'filetype'
 function! statusline#lightline#Filetype()
-  return (&ft ==? 'nvimtree' || &ft ==? 'fugitive' || &columns <= 50) ? '' :
-       \ &ft !=# '' ? &ft : "no ft"
+  if &ft ==? 'nvimtree' || &ft ==? 'fugitive' || &columns <= 50
+    return ''
+  elseif &ft ==# ''
+    return 'no ft'
+  endif
+  let f_ext = expand('%:e') | let f_ext = f_ext ==# '' ? &ft : f_ext
+  let icon = s:GetIcon(expand('%:t'), f_ext)
+  return icon ==# '' ? &ft : icon.' '.&ft
 endfunction
 
 " set component 'percent'
