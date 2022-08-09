@@ -174,7 +174,7 @@ path=("${HOME}/.config/nvim/pack/nav/start/fzf/bin" $path)
 
 # Prompt
 _kube_ps1_to_rprompt() {
-       RPROMPT=$(kube_ps1)
+  RPROMPT=$(kube_ps1)
 }
 autoload -U add-zsh-hook
 add-zsh-hook precmd _kube_ps1_to_rprompt
@@ -198,3 +198,5 @@ alias Knk='kubectl -n kube-system'
 
 # ensure (F)PATH entries remain unique after rc file reload
 typeset -U PATH FPATH path fpath
+
+# vim: ft=zsh sw=2 ts=2 et
