@@ -10,10 +10,10 @@ endfunction
 
 " set component 'fugitive'
 function! statusline#lightline#Fugitive()
-  if !exists('*FugitiveHead') || &ft ==? 'nvimtree' || &columns <= 75
+  if !exists('*FugitiveStatusline') || &ft ==? 'nvimtree' || &columns <= 75
     return ''
   endif
-  let git_status = FugitiveHead()
+  let git_status = FugitiveStatusline()
   return git_status ==# '' ? '' : "\ue0a0 ".git_status
 endfunction
 
