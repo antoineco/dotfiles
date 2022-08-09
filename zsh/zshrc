@@ -158,6 +158,9 @@ export GPG_TTY
 # Path mangling for user executables (Python, etc.)
 path=("$HOME/.local/bin" $path)
 
+# Fpath mangling for user functions
+fpath=("${HOME}/.local/share/zsh/site-functions" $fpath)
+
 # Go
 export GOPATH="$HOME/go"
 path=('/usr/local/go/bin' "$GOPATH/bin" $path)
