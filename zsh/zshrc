@@ -196,5 +196,5 @@ alias Knk='kubectl -n kube-system'
 [[ -s ${ZDOTDIR:-${HOME}}/.zlocal ]] && . ${ZDOTDIR:-${HOME}}/.zlocal
 
 
-typeset -aU path # ensure PATH entries remain unique after rc file reload
-export PATH
+# ensure (F)PATH entries remain unique after rc file reload
+typeset -U PATH FPATH path fpath
