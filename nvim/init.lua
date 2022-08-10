@@ -13,6 +13,7 @@ vim.opt.splitright = true  -- open vertical split to the right
 vim.opt.smartcase = true   -- make search case sensitive when pattern contains uppercase chars
 vim.opt.ignorecase = true  -- required by smartcase
 vim.opt.autowrite = true   -- automatically write buffer on commands like :next
+vim.opt.mouse = ''         -- disable mouse support
 
 vim.opt.completeopt = { 'menu',       -- show completions in popup menu
                         'menuone',    -- ... even if there is only one match
