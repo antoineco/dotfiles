@@ -264,6 +264,9 @@ vim.g.gruvbox_italic = true
 -- Dracula --
 vim.g.dracula_full_special_attrs_support = true
 
+-- Spring Night --
+vim.g.spring_night_high_contrast = 0
+
 -- Apply custom highlights on colorscheme change.
 -- Must be declared before executing ':colorscheme'.
 grpid = vim.api.nvim_create_augroup('custom_highlights_everforest', {})

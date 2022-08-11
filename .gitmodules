@@ -73,3 +73,6 @@
 [submodule "Neovim Dracula color scheme"]
 	path = nvim/pack/ui/opt/dracula
 	url = https://github.com/dracula/vim.git
+[submodule "Neovim Spring Night color scheme"]
+	path = nvim/pack/ui/opt/spring-night
+	url = https://github.com/rhysd/vim-color-spring-night.git
