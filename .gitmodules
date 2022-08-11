@@ -76,3 +76,7 @@
 [submodule "Neovim Spring Night color scheme"]
 	path = nvim/pack/ui/opt/spring-night
 	url = https://github.com/rhysd/vim-color-spring-night.git
+[submodule "Neovim Catppuccin color scheme"]
+	path = nvim/pack/ui/opt/catppuccin
+	url = https://github.com/catppuccin/nvim.git
+	branch = main
