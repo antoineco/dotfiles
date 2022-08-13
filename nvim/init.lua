@@ -244,7 +244,12 @@ vim.g.python3_host_prog = '~/.local/share/nvim/py3venv/bin/python3'
 vim.opt.termguicolors = true  -- enable 24-bit true color
 vim.opt.background = 'dark'
 
+-- Everforest --
 vim.g.everforest_enable_italic = true
+
+-- Sonokai --
+vim.g.sonokai_style = 'default'
+vim.g.sonokai_enable_italic = true
 
 -- Apply custom highlights on colorscheme change.
 -- Must be declared before executing ':colorscheme'.

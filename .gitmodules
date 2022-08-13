@@ -55,3 +55,6 @@
 [submodule "Neovim Everforest color scheme"]
 	path = nvim/pack/ui/opt/everforest
 	url = https://github.com/sainnhe/everforest.git
+[submodule "Neovim Sonokai color scheme"]
+	path = nvim/pack/ui/opt/sonokai
+	url = https://github.com/sainnhe/sonokai.git
