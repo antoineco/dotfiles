@@ -48,8 +48,7 @@
 	url = https://github.com/kyazdani42/nvim-web-devicons.git
 [submodule "Neovim Nord color scheme"]
 	path = nvim/pack/ui/opt/nord
-	url = https://github.com/arcticicestudio/nord-vim.git
-	branch = main
+	url = https://github.com/shaunsingh/nord.nvim.git
 [submodule "Neovim Everforest color scheme"]
 	path = nvim/pack/ui/opt/everforest
 	url = https://github.com/sainnhe/everforest.git
