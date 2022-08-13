@@ -242,7 +242,7 @@ vim.api.nvim_create_autocmd('ColorScheme', {
   group = grpid,
   pattern = 'everforest',
   command = -- go
-            'hi link goTSField Fg'
+            'hi link @field.go Fg'
 })
 
 vim.cmd'packadd! everforest'
