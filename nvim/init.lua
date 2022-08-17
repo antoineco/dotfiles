@@ -100,6 +100,14 @@ vim.keymap.set('v', 'gD', '<Plug>(searchhi-v-gD)')
 vim.keymap.set('n', '<C-L>', '<Plug>(searchhi-clear-all)')
 vim.keymap.set('v', '<C-L>', '<Plug>(searchhi-v-clear-all)')
 
+-- vsnip --
+
+opts = { remap=true, expr=true, replace_keycodes=false }
+vim.keymap.set({'i','s'}, '<C-J>',   "vsnip#expandable() ? '<Plug>(vsnip-expand)'         : '<C-J>'",   opts)
+vim.keymap.set({'i','s'}, '<C-L>',   "vsnip#available(1) ? '<Plug>(vsnip-expand-or-jump)' : '<C-L>'",   opts)
+vim.keymap.set({'i','s'}, '<Tab>',   "vsnip#jumpable(1)  ? '<Plug>(vsnip-jump-next)'      : '<Tab>'",   opts)
+vim.keymap.set({'i','s'}, '<S-Tab>', "vsnip#jumpable(-1) ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'", opts)
+
 -- ===================== LSP ======================
 
 -- Override/extend the capabilities of Neovim's LSP completion candidates with Cmp's.
