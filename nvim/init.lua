@@ -222,25 +222,9 @@ vim.g.python3_host_prog = '~/.local/share/nvim/py3venv/bin/python3'
 -- ================== Appearance ==================
 
 vim.opt.termguicolors = true  -- enable 24-bit true color
+vim.opt.background = 'dark'
 
--- Apply custom highlights on colorscheme change.
--- Must be declared before executing ':colorscheme'.
-grpid = vim.api.nvim_create_augroup('custom_highlights_everforest', {})
-vim.api.nvim_create_autocmd('ColorScheme', {
-  group = grpid,
-  pattern = 'everforest',
-  command = -- yaml
-            'hi link yamlBlockMappingKey Green |' ..
-            'hi link yamlFlowString Aqua |' ..
-            'hi link yamlFlowStringDelimiter Aqua |' ..
-            'hi link yamlKeyValueDelimiter Grey |' ..
-            'hi link yamlTSField Green |' ..
-            'hi link yamlTSString Fg |' ..
-            -- lua
-            'hi link luaTSField Fg |' ..
-            'hi link luaTSConstructor Fg'
-})
+vim.g.everforest_enable_italic = true
 
 vim.cmd'packadd! everforest'
-vim.opt.background = 'dark'
 vim.cmd'colorscheme everforest'
