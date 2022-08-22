@@ -213,6 +213,7 @@ require'nvim-treesitter.configs'.setup{
   ensure_installed = {
     'go',
     'yaml',
+    'json',
     'lua',
     'vim'
   },
