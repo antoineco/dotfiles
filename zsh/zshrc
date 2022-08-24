@@ -186,6 +186,9 @@ alias K='kubectl'
 alias Kn='kubectl -n'
 alias Knk='kubectl -n kube-system'
 
+# Shell theming
+export FZF_DEFAULT_OPTS=("$FZF_DEFAULT_OPTS" '--color=bg+:0,pointer:3,marker:5,prompt:4')
+
 # Source local environment
 [[ -s ${ZDOTDIR:-${HOME}}/.zlocal ]] && . ${ZDOTDIR:-${HOME}}/.zlocal
 
