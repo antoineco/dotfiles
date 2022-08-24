@@ -141,12 +141,6 @@ KUBE_PS1_SEPARATOR=' '
 KUBE_PS1_PREFIX=''
 KUBE_PS1_SUFFIX=''
 
-#
-# pure
-#
-
-zstyle :prompt:pure:git:stash show yes
-
 # ------------------------------
 # Custom post-init configuration
 # ------------------------------
