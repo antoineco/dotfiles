@@ -80,3 +80,7 @@
 	path = nvim/pack/ui/opt/catppuccin
 	url = https://github.com/catppuccin/nvim.git
 	branch = main
+[submodule "Neovim Nightfox color scheme"]
+	path = nvim/pack/ui/opt/nightfox
+	url = https://github.com/EdenEast/nightfox.nvim.git
+	branch = main
