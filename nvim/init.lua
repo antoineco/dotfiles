@@ -1,9 +1,23 @@
 -- ====================== UI ======================
 
-vim.opt.number = true       -- display line numbers
-vim.opt.scrolloff = 5       -- number of lines to show above/below cursor
-vim.opt.laststatus = 3      -- always show status line, only active window
-vim.opt.colorcolumn = '+1'  -- highlight textwidth column
+vim.opt.number = true          -- display line numbers
+vim.opt.relativenumber = true  -- line numbers relative to cursor
+vim.opt.scrolloff = 5          -- number of lines to show above/below cursor
+vim.opt.laststatus = 3         -- always show status line, only active window
+vim.opt.colorcolumn = '+1'     -- highlight textwidth column
+
+local grpid = vim.api.nvim_create_augroup('nvim_init', {})
+-- Toggle relative line numbers on focus change
+vim.api.nvim_create_autocmd({'BufEnter', 'FocusGained', 'InsertLeave', 'WinEnter'}, {
+  group = grpid,
+  pattern = '*',
+  callback = function() if vim.o.nu and vim.fn.mode() ~= 'i' then vim.o.rnu = true end end
+})
+vim.api.nvim_create_autocmd({'BufLeave', 'FocusLost', 'InsertEnter', 'WinLeave'}, {
+  group = grpid,
+  pattern = '*',
+  callback = function() if vim.o.nu then vim.o.rnu = false end end
+})
 
 -- ================== Behaviour ===================
 
@@ -62,7 +76,7 @@ vim.g.lightline = {
 
 -- Reload lightline on colorscheme change.
 -- Must be declared before executing ':colorscheme'.
-local grpid = vim.api.nvim_create_augroup('lightline_reload_colorscheme', {})
+grpid = vim.api.nvim_create_augroup('lightline_reload_colorscheme', {})
 vim.api.nvim_create_autocmd('ColorScheme', {
   group = grpid,
   pattern = '*',
