@@ -84,3 +84,7 @@
 	path = nvim/pack/ui/opt/nightfox
 	url = https://github.com/EdenEast/nightfox.nvim.git
 	branch = main
+[submodule "Neovim Tundra color scheme"]
+	path = nvim/pack/ui/opt/tundra
+	url = https://github.com/sam4llis/nvim-tundra.git
+	branch = main
