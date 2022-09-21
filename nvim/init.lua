@@ -207,12 +207,9 @@ require'lspconfig'.sumneko_lua.setup{
     Lua = {
       runtime = {
         version = 'LuaJIT',  -- Neovim embeds LuaJIT
-        special = {
-          require = 'require',  -- prevent "undefined global required"
-        }
       },
       diagnostics = {
-        globals = { 'vim', 'print' }  -- recognize globals defined by Neovim
+        globals = { 'vim' }  -- recognize globals defined by Neovim
       },
       workspace = {
         library = vim.api.nvim_get_runtime_file('', true)  -- include all Neovim runtime files
