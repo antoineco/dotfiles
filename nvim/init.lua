@@ -50,7 +50,7 @@ require'nvim-tree'.setup()
 
 local opts = { remap=false, silent=true }
 vim.keymap.set('n', '<Leader>n', ':NvimTreeToggle<CR>', opts)
-vim.keymap.set('n', '<Leader>f', ':NvimTreeFindFile<CR>', opts)
+vim.keymap.set('n', '<Leader>f', ':NvimTreeFindFile!<CR>', opts)
 
 -- Lightline --
 
