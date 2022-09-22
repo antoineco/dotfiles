@@ -183,6 +183,9 @@ cmp.setup{
     ['<C-l>'] = cmp.mapping.complete_common_string(),
     ['<C-b>'] = cmp.mapping.scroll_docs(-4),
     ['<C-f>'] = cmp.mapping.scroll_docs(4)
+  },
+  performance = {
+    debounce = 250
   }
 }
 
@@ -205,6 +208,10 @@ require'lspconfig'.gopls.setup{
         unusedparams = true
       }
     }
+  },
+  flags = {
+    debounce_text_changes = 500,
+    exit_timeout = 3000
   }
 }
 
@@ -224,6 +231,10 @@ require'lspconfig'.sumneko_lua.setup{
         library = vim.api.nvim_get_runtime_file('', true)  -- include all Neovim runtime files
       }
     }
+  },
+  flags = {
+    debounce_text_changes = 500,
+    exit_timeout = 3000
   }
 }
 
