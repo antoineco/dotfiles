@@ -38,6 +38,8 @@ vim.opt.wildmode = { 'list:longest',  -- 1st Tab completes till longest common s
 
 -- ==================== Plugins ===================
 
+require'plugins'
+
 -- WebDevicons --
 
 require'nvim-web-devicons'.setup{
@@ -228,7 +230,6 @@ require'nvim-treesitter.configs'.setup{
     'lua',
     'vim'
   },
-  sync_install = true,  -- display messages when parsers are being automatically installed
   highlight = {
     enable = true
   }
@@ -256,5 +257,5 @@ vim.api.nvim_create_autocmd('ColorScheme', {
             'hi link @field.go Fg'
 })
 
-vim.cmd'packadd! everforest'
-vim.cmd'colorscheme everforest'
+vim.cmd.packadd{ 'everforest', bang = true }
+vim.cmd.colorscheme('everforest')
