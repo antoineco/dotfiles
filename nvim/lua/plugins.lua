@@ -20,6 +20,7 @@ return require'packer'.startup(function(use)
 
   -- Lang / LSP
   use 'neovim/nvim-lspconfig'
+  use { 'williamboman/mason-lspconfig.nvim', requires = 'williamboman/mason.nvim' }
   use { 'hrsh7th/nvim-cmp', branch = 'main',
     requires = {
       { 'hrsh7th/cmp-nvim-lsp', branch = 'main' },

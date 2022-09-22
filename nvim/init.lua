@@ -187,6 +187,14 @@ cmp.setup{
   }
 }
 
+require'mason'.setup()
+require'mason-lspconfig'.setup{
+    ensure_installed = {
+      'gopls',
+      'sumneko_lua'
+    }
+}
+
 require'lspconfig'.gopls.setup{
   on_attach = on_attach,
   capabilities = capabilities,
