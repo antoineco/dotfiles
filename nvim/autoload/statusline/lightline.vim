@@ -34,7 +34,7 @@ endfunction
 " set component 'fileformat'
 function! statusline#lightline#Fileformat()
   return &ft ==? 'nvimtree' || &ft ==? 'fugitive' || &columns <= 67 ? '' :
-       \ get({'unix':"\ue712",'dos':"\ue70f",'mac':"\ue711"}, &ff, '')
+       \ get({'unix':"\uf17c",'dos':"\uf17a",'mac':"\uf179"}, &ff, '')
 endfunction
 
 " set component 'fileencoding'
