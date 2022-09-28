@@ -182,6 +182,7 @@ whence kubectl >/dev/null && . <(kubectl completion zsh)
 alias K='kubectl'
 alias Kn='kubectl -n'
 alias Knk='kubectl -n kube-system'
+alias Kni='kubectl -n istio-system'
 
 # Shell theming
 export FZF_DEFAULT_OPTS=("$FZF_DEFAULT_OPTS" '--color=bg+:0,pointer:3,marker:5,prompt:4')
