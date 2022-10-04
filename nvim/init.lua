@@ -141,9 +141,6 @@ vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist, opts)
 -- Callback for setting buffer local options upon attaching a buffer to a
 -- language server (':h lspconfig-setup')
 local on_attach = function(_, bufnr)
-  -- Enable completion triggered by <c-x><c-o> (':h compl-omni')
-  vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
-
   -- Buffer local mappings (':h lsp-buf')
   local bufopts = { remap=false, silent=true, buffer=bufnr }
   vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
