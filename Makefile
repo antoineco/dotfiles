@@ -16,10 +16,10 @@ zim: $(ZDOTFILES) ## Install the Zim Zsh configuration framework
 $(ZDOTFILES): ~/.zim
 	ln -sf -- $(abspath $(subst .,zsh/,$(notdir $@))) $@
 
-# ---------- NeoVim ----------
+# ---------- Neovim ----------
 
 .PHONY: nvim
-nvim: ~/.config/nvim ## Configure the NeoVim text editor
+nvim: ~/.config/nvim ~/.vsnip ## Configure the Neovim text editor
 
 ~/.config:
 	@mkdir $@
@@ -27,6 +27,9 @@ nvim: ~/.config/nvim ## Configure the NeoVim text editor
 ~/.config/nvim: | ~/.config
 	@rm -vf -- $@
 	ln -sf -- $(abspath nvim) $@
+
+~/.vsnip:
+	ln -sf -- $(abspath vsnip) $@
 
 # ---------- tmux ----------
 
