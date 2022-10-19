@@ -11,7 +11,12 @@ end
 local packer_bootstrapped = ensure_packer()
 
 require'packer'.init{
-  compile_path = vim.fn.stdpath'data' .. '/site/plugin/packer_compiled.lua'
+  compile_path = vim.fn.stdpath'data' .. '/site/plugin/packer_compiled.lua',
+  git = {
+    subcommands = {
+      update = 'pull --ff-only --progress --rebase=false --force'
+    }
+  }
 }
 
 return require'packer'.startup(function(use)
