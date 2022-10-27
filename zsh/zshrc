@@ -175,9 +175,9 @@ add-zsh-hook precmd _kube_ps1_to_rprompt
 bindkey -M vicmd "${key_info[Control]}x${key_info[Control]}e" edit-command-line
 
 # Commands completion
-whence kubectl >/dev/null && . <(kubectl completion zsh)
+whence kubectl >/dev/null && . <(kubectl completion zsh) && compdef _kubectl kubectl
 whence ko >/dev/null && . <(ko completion zsh) && compdef _ko ko
-whence limactl >/dev/null && . <(limactl completion zsh)
+whence limactl >/dev/null && . <(limactl completion zsh) && compdef _limactl limactl
 [[ -f "${HOME}/.local/share/nvim/site/pack/packer/start/fzf/shell/completion.zsh" ]] && . "${HOME}/.local/share/nvim/site/pack/packer/start/fzf/shell/completion.zsh"
 
 # Aliases
