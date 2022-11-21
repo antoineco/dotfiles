@@ -269,11 +269,7 @@ vim.api.nvim_create_autocmd('ColorScheme', {
   group = grpid,
   pattern = 'everforest',
   command = -- go
-            'hi link @field.go Fg |' ..
-            -- file explorer
-            'hi NvimTreeVertSplit   guifg=#2f383e |' ..
-            'hi NvimTreeNormal      guibg=#282f34 |' ..
-            'hi NvimTreeEndOfBuffer guibg=#282f34'
+            'hi link @field.go Fg'
 })
 
 vim.cmd.packadd{ 'everforest', bang = true }
