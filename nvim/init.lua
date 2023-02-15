@@ -190,7 +190,7 @@ require'mason'.setup()
 require'mason-lspconfig'.setup{
     ensure_installed = {
       'gopls',
-      'sumneko_lua'
+      'lua_ls'
     }
 }
 
@@ -212,11 +212,11 @@ require'lspconfig'.gopls.setup{
   }
 }
 
-require'lspconfig'.sumneko_lua.setup{
+require'lspconfig'.lua_ls.setup{
   on_attach = on_attach,
   capabilities = capabilities,
   settings = {
-    -- https://github.com/sumneko/lua-language-server/wiki/Settings
+    -- https://github.com/luals/lua-language-server/blob/master/locale/en-us/setting.lua
     Lua = {
       runtime = {
         version = 'LuaJIT',  -- Neovim embeds LuaJIT
