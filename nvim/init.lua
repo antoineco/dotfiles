@@ -159,6 +159,12 @@ local on_attach = function(_, bufnr)
   vim.keymap.set('n', '<space>f', vim.lsp.buf.format, bufopts)
 end
 
+
+local flags = {
+  debounce_text_changes = 500,
+  exit_timeout = 3000
+}
+
 -- use nvim-cmp as completion engine
 local cmp = require'cmp'
 
@@ -206,10 +212,7 @@ require'lspconfig'.gopls.setup{
       }
     }
   },
-  flags = {
-    debounce_text_changes = 500,
-    exit_timeout = 3000
-  }
+  flags = flags
 }
 
 require'lspconfig'.lua_ls.setup{
@@ -229,10 +232,7 @@ require'lspconfig'.lua_ls.setup{
       }
     }
   },
-  flags = {
-    debounce_text_changes = 500,
-    exit_timeout = 3000
-  }
+  flags = flags
 }
 
 -- ================== Treesitter ==================
