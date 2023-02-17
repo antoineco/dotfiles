@@ -41,7 +41,7 @@ return require'packer'.startup(function(use)
 
   -- VCS
   use 'tpope/vim-fugitive'
-  use 'airblade/vim-gitgutter'
+  use 'lewis6991/gitsigns.nvim'
 
   -- Navigation
   use 'kyazdani42/nvim-tree.lua'

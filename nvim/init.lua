@@ -125,6 +125,45 @@ vim.keymap.set({'i','s'}, '<C-L>',   "vsnip#available(1) ? '<Plug>(vsnip-expand-
 vim.keymap.set({'i','s'}, '<Tab>',   "vsnip#jumpable(1)  ? '<Plug>(vsnip-jump-next)'      : '<Tab>'",   opts)
 vim.keymap.set({'i','s'}, '<S-Tab>', "vsnip#jumpable(-1) ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'", opts)
 
+-- gitsigns --
+
+local gs = require'gitsigns'
+
+gs.setup{
+  on_attach = function(bufnr)
+    local bufopts = { remap=false, silent=true, buffer=bufnr }
+
+    -- Navigation
+    vim.keymap.set('n', ']c', function()
+      if vim.wo.diff then return ']c' end
+      vim.schedule(function() gs.next_hunk() end)
+      return '<Ignore>'
+    end, vim.tbl_extend('force', bufopts, {expr=true}))
+
+    vim.keymap.set('n', '[c', function()
+      if vim.wo.diff then return '[c' end
+      vim.schedule(function() gs.prev_hunk() end)
+      return '<Ignore>'
+    end, vim.tbl_extend('force', bufopts, {expr=true}))
+
+    -- Actions
+    vim.keymap.set({'n','v'}, '<leader>hs', ':Gitsigns stage_hunk<CR>', bufopts)
+    vim.keymap.set({'n','v'}, '<leader>hr', ':Gitsigns reset_hunk<CR>', bufopts)
+    vim.keymap.set('n', '<leader>hS', gs.stage_buffer, bufopts)
+    vim.keymap.set('n', '<leader>hu', gs.undo_stage_hunk, bufopts)
+    vim.keymap.set('n', '<leader>hR', gs.reset_buffer, bufopts)
+    vim.keymap.set('n', '<leader>hp', gs.preview_hunk, bufopts)
+    vim.keymap.set('n', '<leader>hb', function() gs.blame_line{full=true} end, bufopts)
+    vim.keymap.set('n', '<leader>tb', gs.toggle_current_line_blame, bufopts)
+    vim.keymap.set('n', '<leader>hd', gs.diffthis, bufopts)
+    vim.keymap.set('n', '<leader>hD', function() gs.diffthis('~') end, bufopts)
+    vim.keymap.set('n', '<leader>td', gs.toggle_deleted, bufopts)
+
+    -- Text object
+    vim.keymap.set({'o','x'}, 'ih', ':<C-U>Gitsigns select_hunk<CR>', bufopts)
+  end
+}
+
 -- ===================== LSP ======================
 
 -- Override/extend the capabilities of Neovim's LSP completion candidates with Cmp's.
