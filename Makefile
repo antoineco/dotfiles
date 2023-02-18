@@ -16,20 +16,30 @@ zim: $(ZDOTFILES) ## Install the Zim Zsh configuration framework
 $(ZDOTFILES): ~/.zim
 	ln -sf -- $(abspath $(subst .,zsh/,$(notdir $@))) $@
 
-# ---------- Neovim ----------
+# -------- LunarVim --------
 
-.PHONY: nvim
-nvim: ~/.config/nvim ~/.vsnip ## Configure the Neovim text editor
+.PHONY: lvim
+lvim: ~/.config/lvim ## Configure the LunarVim text editor
+
+# Up to release 1.2, LunarVim still installs packer.nvim instead of lazy.nvim.
+~/.local/share/lunarvim: LV_BRANCH := release-1.2/neovim-0.8
+~/.local/share/lunarvim: LV_INSTALL_REV := $(if $(LV_BRANCH:release-1.2/neovim-0.8=),$(LV_BRANCH),fc687380)
+~/.local/share/lunarvim:
+	$(eval LV_INSTALL := $(shell mktemp))
+	curl -fsSL https://raw.githubusercontent.com/lunarvim/lunarvim/$(LV_INSTALL_REV)/utils/installer/install.sh -o $(LV_INSTALL)
+	@chmod -v +x $(LV_INSTALL)
+	LV_BRANCH=$(LV_BRANCH) $(LV_INSTALL)
+	@rm -vf $(LV_INSTALL)
 
 ~/.config:
 	@mkdir $@
 
-~/.config/nvim: | ~/.config
-	@rm -vf -- $@
-	ln -sf -- $(abspath nvim) $@
-
-~/.vsnip:
-	ln -sf -- $(abspath vsnip) $@
+# The config must be installed *after* LunarVim, otherwise the installation
+# script creates a copy of the existing config as a backup, and replaces it
+# with its defaults.
+~/.config/lvim: ~/.local/share/lunarvim | ~/.config
+	@rm -rvf -- $@
+	ln -sf -- $(abspath lvim) $@
 
 # ---------- tmux ----------
 

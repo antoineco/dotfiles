@@ -5,8 +5,8 @@
 # Editor
 # In absence of explicit zle configuration (e.g. via bindkey), Zsh sets its key bindings based on the value of $EDITOR.
 # We set it first to be on the safe side.
-export EDITOR='nvim'
-export VISUAL='nvim'
+export EDITOR='lvim'
+export VISUAL='lvim'
 
 # Fpath mangling for user functions
 fpath=("${HOME}/.local/share/zsh/site-functions" $fpath)
@@ -173,8 +173,8 @@ export GOPATH="${HOME}/go"
 path=('/usr/local/go/bin' "${GOPATH}/bin" $path)
 
 # fzf
-[[ -f "${HOME}/.local/share/nvim/site/pack/packer/start/fzf/shell/key-bindings.zsh" ]] && . "${HOME}/.local/share/nvim/site/pack/packer/start/fzf/shell/key-bindings.zsh"
-path=("${HOME}/.local/share/nvim/site/pack/packer/start/fzf/bin" $path)
+# Generate with `${FZF_BASE}/install --key-bindings --completion --no-update-rc --no-bash --no-fish`
+[[ -f "${HOME}/.fzf.zsh" ]] && . "${HOME}/.fzf.zsh"
 
 # Prompt
 _kube_ps1_to_rprompt() {
@@ -191,7 +191,6 @@ bindkey -M vicmd "${key_info[Control]}x${key_info[Control]}e" edit-command-line
 whence kubectl >/dev/null && . <(kubectl completion zsh) && compdef _kubectl kubectl
 whence ko >/dev/null && . <(ko completion zsh) && compdef _ko ko
 whence limactl >/dev/null && . <(limactl completion zsh) && compdef _limactl limactl
-[[ -f "${HOME}/.local/share/nvim/site/pack/packer/start/fzf/shell/completion.zsh" ]] && . "${HOME}/.local/share/nvim/site/pack/packer/start/fzf/shell/completion.zsh"
 
 # Aliases
 alias K='kubectl'

@@ -1,0 +1,8 @@
+{
+  "gopls": {
+    "ui.completion.usePlaceholders": true,
+    "ui.diagnostic.analyses": {
+      "unusedparams": true
+    }
+  }
+}
