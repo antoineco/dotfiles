@@ -5,14 +5,14 @@
 # Editor
 # In absence of explicit zle configuration (e.g. via bindkey), Zsh sets its key bindings based on the value of $EDITOR.
 # We set it first to be on the safe side.
-export EDITOR='lvim'
-export VISUAL='lvim'
+export EDITOR=lvim
+export VISUAL=lvim
 
 # Fpath mangling for user functions
-fpath=("${HOME}/.local/share/zsh/site-functions" $fpath)
+fpath=(${HOME}/.local/share/zsh/site-functions $fpath)
 
 # Homebrew
-if [[ "$(uname -s)" == Darwin ]] && [ -x /opt/homebrew/bin/brew ]; then
+if [[ ${OSTYPE} == darwin* ]] && [[ -x /opt/homebrew/bin/brew ]]; then
   eval "$(/opt/homebrew/bin/brew shellenv)"
   fpath=("$(brew --prefix)/share/zsh/site-functions" $fpath)
 
@@ -40,7 +40,6 @@ setopt HIST_IGNORE_ALL_DUPS
 #
 
 # Set editor default keymap to emacs (`-e`) or vi (`-v`)
-#bindkey -e
 bindkey -v
 
 # Prompt for spelling correction of commands.
@@ -166,21 +165,21 @@ GPG_TTY="$(tty)"
 export GPG_TTY
 
 # Path mangling for user executables (Python, etc.)
-path=("${HOME}/.local/bin" $path)
+path=(${HOME}/.local/bin $path)
 
 # Go
-export GOPATH="${HOME}/go"
-path=('/usr/local/go/bin' "${GOPATH}/bin" $path)
+export GOPATH=${HOME}/go
+path=(/usr/local/go/bin ${GOPATH}/bin $path)
 
 # fzf
 # Generate with `${FZF_BASE}/install --key-bindings --completion --no-update-rc --no-bash --no-fish`
-[[ -f "${HOME}/.fzf.zsh" ]] && . "${HOME}/.fzf.zsh"
+[[ -s ${HOME}/.fzf.zsh ]] && . ${HOME}/.fzf.zsh
 
 # Node
-[[ -f "${HOME}/.nvm/nvm.sh" ]] && . "${HOME}/.nvm/nvm.sh"
+[[ -s ${HOME}/.nvm/nvm.sh ]] && . ${HOME}/.nvm/nvm.sh
 
 # Rust
-[[ -f "${HOME}/.cargo/env" ]] && . "${HOME}/.cargo/env"
+[[ -s ${HOME}/.cargo/env ]] && . ${HOME}/.cargo/env
 
 # Prompt
 _kube_ps1_to_rprompt() {
@@ -197,7 +196,7 @@ bindkey -M vicmd "${key_info[Control]}x${key_info[Control]}e" edit-command-line
 (( $+commands[kubectl] )) && . <(kubectl completion zsh) && compdef _kubectl kubectl
 (( $+commands[ko] ))      && . <(ko completion zsh) && compdef _ko ko
 (( $+commands[limactl] )) && . <(limactl completion zsh) && compdef _limactl limactl
-[[ -f "${NVM_DIR}/bash_completion" ]] && . "${NVM_DIR}/bash_completion"
+[[ -s ${NVM_DIR}/bash_completion ]] && . ${NVM_DIR}/bash_completion
 
 # Aliases
 alias K='kubectl'
@@ -226,9 +225,9 @@ typeset -U PATH FPATH path fpath
 
 # Toggle between ssh-agent and gpg-agent (w/ SSH support)
 ssh_toggle_agent() {
-  local a='ssh-agent'
+  local a=ssh-agent
   # see 'man 1 zshexpn' Modifiers section
-  [[ $SSH_AUTH_SOCK:t == *.gpg-agent.* ]] && a='gpg-agent'
+  [[ $SSH_AUTH_SOCK:t == *.gpg-agent.* ]] && a=gpg-agent
 
   if [[ $a == ssh-agent ]]; then
     gpg-connect-agent UPDATESTARTUPTTY /bye
@@ -241,8 +240,8 @@ ssh_toggle_agent() {
     export SSH_AUTH_SOCK
   fi
 
-  local _a='gpg-agent'
-  [[ $a == gpg-agent ]] && _a='ssh-agent'
+  local _a=gpg-agent
+  [[ $a == gpg-agent ]] && _a=ssh-agent
 
   print -P "%F{green})%f SSH agent is now: %F{magenta}${_a}%f"
 }
