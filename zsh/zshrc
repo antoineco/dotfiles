@@ -179,6 +179,9 @@ path=('/usr/local/go/bin' "${GOPATH}/bin" $path)
 # Node
 [[ -f "${HOME}/.nvm/nvm.sh" ]] && . "${HOME}/.nvm/nvm.sh"
 
+# Rust
+[[ -f "${HOME}/.cargo/env" ]] && . "${HOME}/.cargo/env"
+
 # Prompt
 _kube_ps1_to_rprompt() {
   RPROMPT=$(kube_ps1)
