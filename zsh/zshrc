@@ -176,6 +176,9 @@ path=('/usr/local/go/bin' "${GOPATH}/bin" $path)
 # Generate with `${FZF_BASE}/install --key-bindings --completion --no-update-rc --no-bash --no-fish`
 [[ -f "${HOME}/.fzf.zsh" ]] && . "${HOME}/.fzf.zsh"
 
+# Node
+[[ -f "${HOME}/.nvm/nvm.sh" ]] && . "${HOME}/.nvm/nvm.sh"
+
 # Prompt
 _kube_ps1_to_rprompt() {
   RPROMPT=$(kube_ps1)
@@ -191,6 +194,7 @@ bindkey -M vicmd "${key_info[Control]}x${key_info[Control]}e" edit-command-line
 whence kubectl >/dev/null && . <(kubectl completion zsh) && compdef _kubectl kubectl
 whence ko >/dev/null && . <(ko completion zsh) && compdef _ko ko
 whence limactl >/dev/null && . <(limactl completion zsh) && compdef _limactl limactl
+[[ -f "${NVM_DIR}/bash_completion" ]] && . "${NVM_DIR}/bash_completion"
 
 # Aliases
 alias K='kubectl'
