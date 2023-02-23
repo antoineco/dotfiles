@@ -169,7 +169,7 @@ path=(${HOME}/.local/bin $path)
 
 # Go
 export GOPATH=${HOME}/go
-path=(/usr/local/go/bin ${GOPATH}/bin $path)
+path=(${HOME}/.local/share/go/bin ${GOPATH}/bin $path)
 
 # fzf
 # Generate with `${FZF_BASE}/install --key-bindings --completion --no-update-rc --no-bash --no-fish`
