@@ -5,7 +5,7 @@
 
 [user]
 	name = Antoine Cotten
-	signingKey = ~/.ssh/git-cert.pub
+	signingKey = ~/.ssh/git-sign.pub
 
 [commit]
 	gpgSign = true
