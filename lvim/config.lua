@@ -100,3 +100,32 @@ vim.api.nvim_create_autocmd({ 'BufLeave', 'FocusLost', 'InsertEnter', 'WinLeave'
   pattern = '*',
   callback = function() if vim.o.nu then vim.o.rnu = false end end
 })
+
+-- WSL clipboard fallback method
+if vim.fn.has 'wsl' == 1 and vim.fn.executable 'win32yank.exe' ~= 1 then
+  -- FIXME: those commands cause garbage in the terminal after each interaction with the Windows clipboard.
+  local copy = { 'pwsh.exe', '-c',
+    '$clip;' ..
+    'foreach ($chunk in $input) {' ..
+      '$clip += "$chunk$([System.Environment]::NewLine)"' ..
+    '};' ..
+    'Set-Clipboard $clip.Remove($clip.Length-[System.Environment]::NewLine.Length)'
+  }
+
+  local paste = { 'pwsh.exe', '-c',
+    '(Get-Clipboard -Raw).Replace([System.Environment]::NewLine, "`n") | Write-Host -NoNewline'
+  }
+
+  vim.g.clipboard = {
+    name = 'wsl',
+    copy = {
+      ['*'] = copy,
+      ['+'] = copy
+    },
+    paste = {
+      ['*'] = paste,
+      ['+'] = paste
+    },
+    cache_enabled = 1
+  }
+end
