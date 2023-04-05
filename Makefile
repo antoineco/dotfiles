@@ -41,14 +41,6 @@ lvim: ~/.config/lvim ## Configure the LunarVim text editor
 	@rm -rvf -- $@
 	ln -sf -- $(abspath lvim) $@
 
-# ---------- tmux ----------
-
-.PHONY: tmux
-tmux: ~/.tmux.conf ## Configure the tmux terminal multiplexer
-
-~/.tmux.conf:
-	ln -sf -- $(abspath tmux.conf) $@
-
 # ---------- Misc ---------- 
 
 .DEFAULT_GOAL := help
