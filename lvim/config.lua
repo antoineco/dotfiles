@@ -56,6 +56,13 @@ lvim.builtin.treesitter.ensure_installed = {
   'yaml',
 }
 
+-- Mappings
+--
+
+lvim.builtin.which_key.mappings["gw"] = {
+ "<cmd>lua require 'gitsigns'.stage_buffer()<CR>", 'Stage buffer'
+}
+
 -- Additional Plugins
 --
 
