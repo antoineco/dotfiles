@@ -67,7 +67,6 @@ lvim.plugins = {
     end,
   },
   { 'fatih/vim-go',
-    ft = { 'go', 'gomod', 'gosum', 'gowork', 'gohtmltmpl', 'asm' },
     config = function()
       vim.g.go_gopls_enabled = false            -- gopls is managed by Neovim as a language server
       vim.g.go_fmt_autosave = false             -- formatting is delegated to the LSP server
