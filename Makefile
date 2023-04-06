@@ -18,7 +18,7 @@ $(ZDOTFILES): ~/.zim
 
 # -------- LunarVim --------
 
-.PHONY: lvim
+.PHONY: lvim clean-lvim
 lvim: ~/.config/lvim ## Configure the LunarVim text editor
 
 # Up to release 1.2, LunarVim still installs packer.nvim instead of lazy.nvim.
@@ -40,6 +40,9 @@ lvim: ~/.config/lvim ## Configure the LunarVim text editor
 ~/.config/lvim: ~/.local/share/lunarvim | ~/.config
 	@rm -rvf -- $@
 	ln -sf -- $(abspath lvim) $@
+
+clean-lvim:  ## Delete the LunarVim installation
+	@rm -rvf ~/.local/share/lunarvim ~/.local/share/nvim ~/.local/state/nvim ~/.cache/lvim ~/.config/lvim ~/.local/bin/lvim
 
 # ---------- Misc ---------- 
 
