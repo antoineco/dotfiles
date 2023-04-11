@@ -1,4 +1,4 @@
-local opts = vim.tbl_extend('force', lvim.builtin.which_key.opts, { buffer = vim.api.nvim_get_current_buf(), })
+local opts = vim.tbl_extend('force', lvim.builtin.which_key.opts, { buffer = vim.api.nvim_get_current_buf() })
 
 local mappings = {
   l = {
