@@ -1,7 +1,6 @@
 {
   "gopls": {
     "ui.completion.usePlaceholders": true,
-    "ui.semanticTokens": true,
     "ui.diagnostic.analyses": {
       "unusedparams": true
     }

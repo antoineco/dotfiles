@@ -87,27 +87,6 @@ lvim.plugins = {
 -- Miscellaneous
 --
 
--- LSP on_attach callback
-lvim.lsp.on_attach_callback = function(client, _)
-  -- As of v0.11.0, gopls does not send a Semantic Token legend (in a
-  -- client/registerCapability message) unless the client supports dynamic
-  -- registration. Neovim's LSP client does not support dynamic registration
-  -- for semantic tokens, so we need to declare those server_capabilities
-  -- ourselves for the time being.
-  -- Ref. https://github.com/golang/go/issues/54531
-  if client.name == 'gopls' and not client.server_capabilities.semanticTokensProvider then
-    local semantic = client.config.capabilities.textDocument.semanticTokens
-    client.server_capabilities.semanticTokensProvider = {
-      full = true,
-      legend = {
-        tokenModifiers = semantic.tokenModifiers,
-        tokenTypes = semantic.tokenTypes
-      },
-      range = true
-    }
-  end
-end
-
 -- Apply custom highlights on colorscheme change.
 -- Must be declared before executing ':colorscheme'.
 local grpid = vim.api.nvim_create_augroup('custom_highlights_everforest', {})
