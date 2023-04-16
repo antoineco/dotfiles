@@ -87,20 +87,8 @@ lvim.plugins = {
 -- Miscellaneous
 --
 
--- Apply custom highlights on colorscheme change.
--- Must be declared before executing ':colorscheme'.
-local grpid = vim.api.nvim_create_augroup('custom_highlights_everforest', {})
-vim.api.nvim_create_autocmd('ColorScheme', {
-  group = grpid,
-  pattern = 'everforest',
-  callback = function()
-    -- go
-    vim.api.nvim_set_hl(0, '@field.go', { link = 'Fg' })
-  end
-})
-
 -- Toggle relative line numbers on focus change
-grpid = vim.api.nvim_create_augroup('toggle_rnu_on_focus', {})
+local grpid = vim.api.nvim_create_augroup('toggle_rnu_on_focus', {})
 vim.api.nvim_create_autocmd({ 'BufEnter', 'FocusGained', 'InsertLeave', 'WinEnter' }, {
   group = grpid,
   pattern = '*',
