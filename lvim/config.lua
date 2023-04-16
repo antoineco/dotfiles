@@ -40,7 +40,6 @@ lvim.builtin.treesitter.ensure_installed = {
   'gitcommit',
   'gitignore',
   'go',
-  'help',
   'java',
   'javascript',
   'json',
@@ -53,6 +52,7 @@ lvim.builtin.treesitter.ensure_installed = {
   'regex',
   'rust',
   'vim',
+  'vimdoc',
   'yaml',
 }
 
@@ -60,7 +60,7 @@ lvim.builtin.treesitter.ensure_installed = {
 --
 
 lvim.builtin.which_key.mappings["gw"] = {
- "<cmd>lua require 'gitsigns'.stage_buffer()<CR>", 'Stage buffer'
+  "<cmd>lua require 'gitsigns'.stage_buffer()<CR>", 'Stage buffer'
 }
 
 -- Additional Plugins
