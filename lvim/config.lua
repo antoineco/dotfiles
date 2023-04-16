@@ -74,7 +74,10 @@ lvim.plugins = {
     end,
   },
   { 'fatih/vim-go',
-    config = function()
+    ft = { 'go', 'gomod', 'gosum', 'gowork', 'gohtmltmpl', 'asm' },
+    config = function(plugin)
+      vim.opt.rtp:prepend(plugin.dir)  -- https://github.com/LunarVim/LunarVim/issues/3941
+
       vim.g.go_gopls_enabled = false            -- gopls is managed by Neovim as a language server
       vim.g.go_fmt_autosave = false             -- formatting is delegated to the LSP server
       vim.g.go_imports_autosave = false         -- imports are delegated to the LSP server
