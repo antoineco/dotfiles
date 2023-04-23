@@ -27,6 +27,9 @@ lvim.builtin.which_key.setup.plugins.presets.nav = true
 lvim.builtin.which_key.setup.plugins.presets.g = true
 lvim.builtin.which_key.setup.plugins.presets.z = true
 
+-- Alpha dashboard
+lvim.builtin.alpha.dashboard.section.header.opts.hl = 'LvimDashboardBanner'
+
 -- Disable Git status icons in file tree. Git status is already indicated via syntax highlighting.
 -- see |nvim-tree.renderer.icons.show.git|
 lvim.builtin.nvimtree.setup.renderer.icons.show.git = false
@@ -101,6 +104,16 @@ vim.api.nvim_create_autocmd({ 'BufLeave', 'FocusLost', 'InsertEnter', 'WinLeave'
   group = grpid,
   pattern = '*',
   callback = function() if vim.o.nu then vim.o.rnu = false end end
+})
+
+-- Apply custom highlights on colorscheme change.
+grpid = vim.api.nvim_create_augroup('custom_highlights', {})
+vim.api.nvim_create_autocmd('ColorScheme', {
+  group = grpid,
+  pattern = 'everforest',
+  callback = function()
+    vim.api.nvim_set_hl(0, 'LvimDashboardBanner', { link = 'Green' })
+  end
 })
 
 -- WSL clipboard fallback method
