@@ -21,12 +21,10 @@ $(ZDOTFILES): ~/.zim
 .PHONY: lvim clean-lvim
 lvim: ~/.config/lvim ## Configure the LunarVim text editor
 
-# Up to release 1.2, LunarVim still installs packer.nvim instead of lazy.nvim.
-~/.local/share/lunarvim: LV_BRANCH := release-1.2/neovim-0.8
-~/.local/share/lunarvim: LV_INSTALL_REV := $(if $(LV_BRANCH:release-1.2/neovim-0.8=),$(LV_BRANCH),fc687380)
+~/.local/share/lunarvim: LV_BRANCH := release-1.3/neovim-0.9
 ~/.local/share/lunarvim:
 	$(eval LV_INSTALL := $(shell mktemp))
-	curl -fsSL https://raw.githubusercontent.com/lunarvim/lunarvim/$(LV_INSTALL_REV)/utils/installer/install.sh -o $(LV_INSTALL)
+	curl -fsSL https://raw.githubusercontent.com/LunarVim/LunarVim/$(LV_BRANCH)/utils/installer/install.sh -o $(LV_INSTALL)
 	@chmod -v +x $(LV_INSTALL)
 	LV_BRANCH=$(LV_BRANCH) $(LV_INSTALL)
 	@rm -vf $(LV_INSTALL)
