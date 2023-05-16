@@ -152,6 +152,12 @@ unset key
 # kube-ps1
 #
 
+_kube_ps1_cluster_short() {
+  # shorten GKE context format
+  print ${1/gke_*_(#b)(*)/${match[1]}}
+}
+KUBE_PS1_CLUSTER_FUNCTION=_kube_ps1_cluster_short
+
 KUBE_PS1_SEPARATOR=' '
 KUBE_PS1_PREFIX=''
 KUBE_PS1_SUFFIX=''
