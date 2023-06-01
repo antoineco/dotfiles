@@ -23,8 +23,11 @@ $(ZDOTFILES): ~/.zim
 .PHONY: lvim clean-lvim
 lvim: ~/.config/lvim ## Configure the LunarVim layer for Neovim
 
+~/.local/share:
+	@mkdir $@
+
 ~/.local/share/lunarvim: LV_BRANCH := release-1.3/neovim-0.9
-~/.local/share/lunarvim:
+~/.local/share/lunarvim: | ~/.local/share
 	$(eval LV_INSTALL := $(shell mktemp))
 	curl -fsS https://raw.githubusercontent.com/LunarVim/LunarVim/$(LV_BRANCH)/utils/installer/install.sh -o $(LV_INSTALL)
 	@chmod -v +x $(LV_INSTALL)
@@ -54,7 +57,7 @@ fzf: ~/.local/share/fzf/shell/key-bindings.zsh
 fzf: ~/.local/share/fzf/bin/fzf
 fzf: ## Install the fzf fuzzy-finder
 
-~/.local/share/fzf:
+~/.local/share/fzf: | ~/.local/share
 	@mkdir $@
 
 ~/.local/share/fzf/shell: | ~/.local/share/fzf
@@ -76,7 +79,7 @@ GO_VERSION := 1.20.4
 .PHONY: go
 go: ~/.local/share/go ## Install the Go programming language toolchain
 
-~/.local/share/go$(GO_VERSION):
+~/.local/share/go$(GO_VERSION): | ~/.local/share
 	@mkdir $@
 
 ~/.local/share/go$(GO_VERSION)/bin/go: | ~/.local/share/go$(GO_VERSION)
