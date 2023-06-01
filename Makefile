@@ -1,3 +1,5 @@
+include gmsl
+
 # ---------- Zsh ----------
 
 # generate list of Zsh dot files based on contents of zsh/ directory
@@ -39,7 +41,7 @@ lvim: ~/.config/lvim ## Configure the LunarVim layer for Neovim
 	@rm -rvf -- $@
 	ln -sf -- $(abspath lvim) $@
 
-clean-lvim:  ## Delete the LunarVim installation
+clean-lvim: ## Delete the LunarVim installation
 	@rm -rvf ~/.local/share/lunarvim ~/.local/share/nvim ~/.local/state/nvim ~/.cache/lvim ~/.config/lvim ~/.local/bin/lvim
 
 # ---------- fzf ----------
@@ -67,6 +69,29 @@ fzf: ## Install the fzf fuzzy-finder
 ~/.local/share/fzf/shell/%.zsh: FZF_VERSION | ~/.local/share/fzf/shell
 	curl -fsSo $@ https://raw.githubusercontent.com/junegunn/fzf/$(FZF_VERSION)/shell/$(notdir $@)
 
+# ---------- Go -----------
+
+GO_VERSION := 1.20.4
+
+.PHONY: go
+go: ~/.local/share/go ## Install the Go programming language toolchain
+
+~/.local/share/go$(GO_VERSION):
+	@mkdir $@
+
+~/.local/share/go$(GO_VERSION)/bin/go: | ~/.local/share/go$(GO_VERSION)
+	$(eval OS := $(call lc,$(shell uname -s)))
+	$(eval MACH := $(shell uname -m))
+# ref: https://www.gnu.org/software/make/manual/html_node/Substitution-Refs.html
+	$(eval ARCH := $(if $(MACH:x86_64=),$(if $(MACH:aarch64=),$(MACH),arm64),amd64))
+	curl -fsSLo ~/.local/share/golang.tgz https://go.dev/dl/go$(GO_VERSION).$(OS)-$(ARCH).tar.gz
+	tar -C $(dir $(abspath $(dir $@))) --strip-components=1 -xzf ~/.local/share/golang.tgz
+	rm ~/.local/share/golang.tgz
+
+~/.local/share/go: GO_VERSION | ~/.local/share/go$(GO_VERSION)/bin/go
+	@rm -rvf -- $@
+	ln -sf -- go$(GO_VERSION) $@
+
 # ---------- Misc ---------- 
 
 .DEFAULT_GOAL := help
@@ -92,3 +117,4 @@ endif
 endef
 
 $(eval $(call DEPENDABLE_VAR,FZF_VERSION))
+$(eval $(call DEPENDABLE_VAR,GO_VERSION))
