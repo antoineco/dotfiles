@@ -74,7 +74,12 @@ fzf: ## Install the fzf fuzzy-finder
 .PHONY: help
 help:
 # source: https://github.com/jessfraz/dotfiles/blob/master/Makefile
-	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
+# Results are prefixed with the file name when MAKEFILE_LIST has multiple
+# values, so we need to additionally handle that case.
+	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) \
+	| sort \
+	| awk 'BEGIN {FS = ":"}; {if (NF < 3) {$$3 = $$2; $$2 = $$1}; print $$2":" $$3}' \
+	| awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
 
 .PHONY: phony
 # source: https://stackoverflow.com/a/74378629
