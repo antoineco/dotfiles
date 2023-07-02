@@ -9,6 +9,53 @@ M.treesitter = {
     "markdown",
     "markdown_inline",
   },
+
+  incremental_selection = {
+    enable = true,
+    keymaps = {
+      init_selection = "<C-Space>",
+      node_incremental = "<C-Space>",
+      node_decremental = "<BS>",
+    },
+  },
+
+  textobjects = {
+    select = {
+      enable = true,
+      -- stylua: ignore
+      keymaps = {
+        ["af"] = { query = "@function.outer",  desc = "a function (with keyword, name and params)" },
+        ["if"] = { query = "@function.inner",  desc = "inner function" },
+        ["ac"] = { query = "@class.outer",     desc = "a class or type (with keyword and name)" },
+        ["ic"] = { query = "@class.inner",     desc = "inner class or type" },
+        ["aa"] = { query = "@parameter.outer", desc = "a parameter" },
+        ["ia"] = { query = "@parameter.outer", desc = "inner parameter" },
+        ["aB"] = { query = "@block.outer",     desc = "a Block from [{ to ]} (with brackets)" },
+        ["iB"] = { query = "@parameter.outer", desc = "inner Block from [{ and ]}" },
+        ["aS"] = { query = "@scope",           desc = "language-specific scope" },
+        ["iS"] = { query = "@scope",           desc = "language-specific scope" },
+      },
+    },
+    move = {
+      enable = true,
+      goto_next_start = {
+        ["]m"] = "@function.outer",
+        ["]]"] = "@class.outer",
+      },
+      goto_next_end = {
+        ["]M"] = "@function.outer",
+        ["]["] = "@class.outer",
+      },
+      goto_previous_start = {
+        ["[m"] = "@function.outer",
+        ["[["] = "@class.outer",
+      },
+      goto_previous_end = {
+        ["[M"] = "@function.outer",
+        ["[]"] = "@class.outer",
+      },
+    },
+  },
 }
 
 M.mason = {

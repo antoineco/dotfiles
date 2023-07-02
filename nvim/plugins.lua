@@ -25,6 +25,9 @@ local plugins = {
 
   {
     "nvim-treesitter/nvim-treesitter",
+    dependencies = {
+      "nvim-treesitter/nvim-treesitter-textobjects",
+    },
     opts = overrides.treesitter,
   },
 
@@ -49,6 +52,8 @@ local plugins = {
       vim.g.go_imports_autosave = false
       vim.g.go_code_completion_enabled = false
       vim.g.go_doc_keywordprg_enabled = false
+      -- features already handled by Tree-sitter
+      vim.g.go_textobj_enabled = false
     end,
   },
 }
