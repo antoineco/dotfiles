@@ -10,6 +10,10 @@ local sources = {
   -- lua
   b.formatting.stylua,
 
+  -- shell
+  b.diagnostics.shellcheck,
+  b.code_actions.shellcheck,
+
   -- c/cpp
   b.formatting.clang_format,
 }
