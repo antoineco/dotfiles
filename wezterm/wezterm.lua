@@ -27,16 +27,6 @@ config.leader = { key = 'b', mods = 'CTRL' }
 -- https://wezfurlong.org/wezterm/config/default-keys.html
 config.keys = {
   {
-    key = ']',
-    mods = 'CTRL',
-    action = wezterm.action.ActivatePaneDirection 'Next'
-  },
-  {
-    key = '}',
-    mods = 'CTRL|SHIFT',
-    action = wezterm.action.ActivatePaneDirection 'Prev'
-  },
-  {
     key = 'UpArrow',
     mods = 'SHIFT',
     action = wezterm.action.ScrollToPrompt(-1)
