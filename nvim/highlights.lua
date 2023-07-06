@@ -19,6 +19,8 @@ M.add = {
   DiagnosticUnderlineHint = { sp = "LightGrey", underline = true },
   DiagnosticUnderlineWarn = { sp = "Orange", underline = true },
   DiagnosticUnderlineError = { sp = "Red", underline = true },
+  TSModuleInfoGood = { fg = "LightGreen", bold = true },
+  TSModuleInfoBad = { fg = "Crimson" },
 }
 
 return M

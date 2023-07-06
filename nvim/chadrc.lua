@@ -4,12 +4,13 @@ local M = {}
 local highlights = require "custom.highlights"
 
 M.ui = {
-  theme = "everforest",
-  theme_toggle = { "everforest", "everforest_light" },
+  ---@diagnostic disable-next-line: assign-type-mismatch
+  theme = "everforest_medium",
+  ---@diagnostic disable-next-line: assign-type-mismatch
+  theme_toggle = { "everforest_medium", "everforest_medium_light" },
 
   hl_override = highlights.override,
   hl_add = highlights.add,
-  changed_themes = require "custom.themes",
 
   statusline = {
     overriden_modules = function()
