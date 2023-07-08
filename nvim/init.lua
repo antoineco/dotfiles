@@ -20,6 +20,36 @@ vim.g.vscode_snippets_path = vim.fn.stdpath "config" .. "/lua/custom/snippets/vs
 -- Miscellaneous
 --
 
+-- LSP progress messages (Neovim 0.10+)
+vim.api.nvim_create_autocmd("LspProgress", {
+  group = vim.api.nvim_create_augroup("lsp_progress_notify", {}),
+  callback = function(e)
+    local v = e.data.result.value
+
+    local kind = v.kind or ""
+    local title = v.title or ""
+    local message = v.message or ""
+    local percentage = v.percentage or 0
+
+    local spinners = { "", "󰪞", "󰪟", "󰪠", "󰪢", "󰪣", "󰪤", "󰪥" }
+    local ms = vim.uv.hrtime() / 1000000
+    local icon = spinners[1]
+    if kind == "end" then
+      icon = spinners[#spinners]
+    elseif kind ~= "begin" then
+      local frame = math.floor(ms / 120) % #spinners
+      icon = spinners[frame + 1]
+    end
+
+    local content = icon
+    content = title ~= "" and string.format("%s [%s]", content, title) or content
+    content = message ~= "" and string.format("%s %s", content, message) or content
+    content = percentage > 0 and string.format("%s (%s%%)", content, percentage) or content
+
+    vim.notify(content, vim.log.levels.INFO)
+  end,
+})
+
 -- Toggle relative line numbers on focus change
 local grpid = vim.api.nvim_create_augroup("toggle_rnu_on_focus", {})
 vim.api.nvim_create_autocmd({ "BufEnter", "FocusGained", "InsertLeave", "WinEnter" }, {
