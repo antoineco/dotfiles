@@ -23,6 +23,7 @@ lspconfig.gopls.setup {
   settings = {
     gopls = {
       usePlaceholders = true,
+      gofumpt = true,
       analyses = {
         unusedparams = true,
       },
