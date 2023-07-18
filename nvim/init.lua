@@ -24,27 +24,30 @@ vim.g.vscode_snippets_path = vim.fn.stdpath "config" .. "/lua/custom/snippets/vs
 vim.api.nvim_create_autocmd("LspProgress", {
   group = vim.api.nvim_create_augroup("lsp_progress_notify", {}),
   callback = function(e)
+    local c = vim.lsp.get_client_by_id(e.data.client_id)
     local v = e.data.result.value
 
-    local kind = v.kind or ""
-    local title = v.title or ""
-    local message = v.message or ""
-    local percentage = v.percentage or 0
-
-    local spinners = { "", "󰪞", "󰪟", "󰪠", "󰪢", "󰪣", "󰪤", "󰪥" }
-    local ms = vim.uv.hrtime() / 1000000
+    local spinners = { "", "󰪞", "󰪟", "󰪠", "󰪡", "󰪢", "󰪣", "󰪤", "󰪥" }
     local icon = spinners[1]
-    if kind == "end" then
+    if v.kind and v.kind == "end" then
       icon = spinners[#spinners]
-    elseif kind ~= "begin" then
-      local frame = math.floor(ms / 120) % #spinners
-      icon = spinners[frame + 1]
+    elseif not v.kind or v.kind ~= "begin" then
+      if v.percentage then
+        local frame = math.floor(v.percentage / (100 / (#spinners - 1)))
+        icon = spinners[frame + 1]
+      else
+        -- one new spinner frame every 120 ms
+        local ms = vim.uv.hrtime() / 1000000
+        local frame = math.floor(ms / 120) % #spinners
+        icon = spinners[frame + 1]
+      end
     end
 
     local content = icon
-    content = title ~= "" and string.format("%s [%s]", content, title) or content
-    content = message ~= "" and string.format("%s %s", content, message) or content
-    content = percentage > 0 and string.format("%s (%s%%)", content, percentage) or content
+    content = c and string.format("%s %s", content, c.name) or content
+    content = v.title and string.format("%s [%s]", content, v.title) or content
+    content = v.message and string.format("%s %s", content, v.message) or content
+    content = v.percentage and string.format("%s (%s%%)", content, v.percentage) or content
 
     vim.notify(content, vim.log.levels.INFO)
   end,
