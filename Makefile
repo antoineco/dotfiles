@@ -21,21 +21,33 @@ $(ZDOTFILES): ~/.zim
 # --------- Neovim ---------
 
 .PHONY: nvim clean-nvim
-nvim: ~/.config/nvim/lua/custom ## Configure the Neovim text editor
+nvim: ~/.config/nvim ## Configure the Neovim text editor
 
 ~/.config:
 	@mkdir $@
 
-~/.config/nvim/lua: | ~/.config
-	@rm -rvf -- $(dir $@)
-	git clone https://github.com/NvChad/NvChad $(dir $@) --depth 1
-
-~/.config/nvim/lua/custom: | ~/.config/nvim/lua
+~/.config/nvim: | ~/.config
 	@rm -rvf -- $@
 	ln -sf -- $(abspath nvim) $@
 
 clean-nvim: ## Delete the Neovim state and caches
 	@rm -rvf ~/.local/share/nvim ~/.local/state/nvim ~/.cache/nvim ~/.config/nvim
+
+# --------- NvChad ---------
+
+.PHONY: nvchad clean-nvchad
+nvchad: ~/.config/nvchad/lua/custom ## Configure the NvChad layer for Neovim
+
+~/.config/nvchad/lua: | ~/.config
+	@rm -rvf -- $(dir $@)
+	git clone https://github.com/NvChad/NvChad $(dir $@) --depth 1
+
+~/.config/nvchad/lua/custom: | ~/.config/nvchad/lua
+	@rm -rvf -- $@
+	ln -sf -- $(abspath nvchad) $@
+
+clean-nvchad: ## Delete the NvChad state and caches
+	@rm -rvf ~/.local/share/nvchad ~/.local/state/nvchad ~/.cache/nvchad ~/.config/nvchad
 
 # -------- LunarVim --------
 
@@ -61,7 +73,7 @@ lvim: ~/.config/lvim ## Configure the LunarVim layer for Neovim
 	ln -sf -- $(abspath lvim) $@
 
 clean-lvim: ## Delete the LunarVim installation, state and caches
-	@rm -rvf ~/.local/share/lunarvim ~/.local/state/lvim ~/.cache/lvim ~/.config/lvim ~/.local/bin/lvim
+	@rm -rvf ~/.local/share/lunarvim ~/.local/share/lvim ~/.local/state/lvim ~/.cache/lvim ~/.config/lvim ~/.local/bin/lvim
 
 # ---------- fzf ----------
 
