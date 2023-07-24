@@ -33,48 +33,6 @@ nvim: ~/.config/nvim ## Configure the Neovim text editor
 clean-nvim: ## Delete the Neovim state and caches
 	@rm -rvf ~/.local/share/nvim ~/.local/state/nvim ~/.cache/nvim ~/.config/nvim
 
-# --------- NvChad ---------
-
-.PHONY: nvchad clean-nvchad
-nvchad: ~/.config/nvchad/lua/custom ## Configure the NvChad layer for Neovim
-
-~/.config/nvchad/lua: | ~/.config
-	@rm -rvf -- $(dir $@)
-	git clone https://github.com/NvChad/NvChad $(dir $@) --depth 1
-
-~/.config/nvchad/lua/custom: | ~/.config/nvchad/lua
-	@rm -rvf -- $@
-	ln -sf -- $(abspath nvchad) $@
-
-clean-nvchad: ## Delete the NvChad state and caches
-	@rm -rvf ~/.local/share/nvchad ~/.local/state/nvchad ~/.cache/nvchad ~/.config/nvchad
-
-# -------- LunarVim --------
-
-.PHONY: lvim clean-lvim
-lvim: ~/.config/lvim ## Configure the LunarVim layer for Neovim
-
-~/.local/share:
-	@mkdir $@
-
-~/.local/share/lunarvim: LV_BRANCH := release-1.3/neovim-0.9
-~/.local/share/lunarvim: | ~/.local/share
-	$(eval LV_INSTALL := $(shell mktemp))
-	curl -fsS https://raw.githubusercontent.com/LunarVim/LunarVim/$(LV_BRANCH)/utils/installer/install.sh -o $(LV_INSTALL)
-	@chmod -v +x $(LV_INSTALL)
-	LV_BRANCH=$(LV_BRANCH) $(LV_INSTALL)
-	@rm -vf $(LV_INSTALL)
-
-# The config must be installed *after* LunarVim, otherwise the installation
-# script creates a copy of the existing config as a backup, and replaces it
-# with its defaults.
-~/.config/lvim: ~/.local/share/lunarvim | ~/.config
-	@rm -rvf -- $@
-	ln -sf -- $(abspath lvim) $@
-
-clean-lvim: ## Delete the LunarVim installation, state and caches
-	@rm -rvf ~/.local/share/lunarvim ~/.local/share/lvim ~/.local/state/lvim ~/.cache/lvim ~/.config/lvim ~/.local/bin/lvim
-
 # ---------- fzf ----------
 
 FZF_VERSION := 0.41.1
