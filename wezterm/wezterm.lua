@@ -53,6 +53,11 @@ config.keys = {
     key = 'b',
     mods = 'LEADER|CTRL',
     action = wezterm.action.SendKey { key = 'b', mods = 'CTRL' }
+  },
+  {
+    key = 'L',
+    mods = 'SUPER|SHIFT',
+    action = wezterm.action.ShowLauncher
   }
 }
 
