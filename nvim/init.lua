@@ -226,10 +226,7 @@ require "lazy".setup({
   {
     "jose-elias-alvarez/null-ls.nvim",
     event = { "BufReadPre", "BufNewFile" },
-    dependencies = {
-      "plenary.nvim",
-      "mason.nvim"  -- mason/bin must be present in PATH for tools to be run
-    },
+    dependencies = "mason.nvim",  -- mason/bin must be present in PATH for tools to be run
     opts = function()
       local b = require "null-ls".builtins
       return {
@@ -441,7 +438,7 @@ require "lazy".setup({
 
   {
     "nvim-telescope/telescope.nvim",
-    dependencies = { "plenary.nvim", "nvim-treesitter" },
+    dependencies = "nvim-treesitter",
     keys = function()
       local tb = require "telescope.builtin"
       return {
