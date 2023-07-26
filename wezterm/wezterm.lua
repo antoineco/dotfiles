@@ -48,6 +48,11 @@ config.keys = {
       description = 'Enter new tab name',
       action = wezterm.action_callback(tab.set_title)
     }
+  },
+  {
+    key = 'b',
+    mods = 'LEADER|CTRL',
+    action = wezterm.action.SendKey { key = 'b', mods = 'CTRL' }
   }
 }
 
