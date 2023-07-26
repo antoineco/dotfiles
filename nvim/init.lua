@@ -121,7 +121,7 @@ require "lazy".setup({
     end
   },
 
-  "kyazdani42/nvim-web-devicons",
+  "nvim-tree/nvim-web-devicons",
 
   -- }}}
 
@@ -130,7 +130,10 @@ require "lazy".setup({
   {
     "neovim/nvim-lspconfig",
     event = { "BufReadPre", "BufNewFile" },
-    dependencies = { "mason.nvim", "neodev.nvim" },
+    dependencies = {
+      "mason.nvim",  -- mason/bin must be present in PATH for tools to be run
+      "neodev.nvim"  -- injects on_setup hook into lspconfig
+    },
     config = function()
       local capabilities = vim.tbl_deep_extend(
         "force",
@@ -223,7 +226,10 @@ require "lazy".setup({
   {
     "jose-elias-alvarez/null-ls.nvim",
     event = { "BufReadPre", "BufNewFile" },
-    dependencies = { "plenary.nvim", "mason.nvim" },
+    dependencies = {
+      "plenary.nvim",
+      "mason.nvim"  -- mason/bin must be present in PATH for tools to be run
+    },
     opts = function()
       local b = require "null-ls".builtins
       return {
