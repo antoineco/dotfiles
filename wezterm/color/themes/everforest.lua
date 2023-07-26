@@ -2,7 +2,7 @@ local wezterm = require 'wezterm'
 local scheme = require 'color.scheme'
 
 ---@type Scheme
-local M = scheme:new{
+local M = scheme:new {
   palette = {
     bg_dim = '#232A2E',
     bg0    = '#2D353B',

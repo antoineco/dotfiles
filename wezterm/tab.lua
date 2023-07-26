@@ -99,7 +99,7 @@ function M.slanted_tmux(palette)
   ---@param hover boolean
   ---@param max_width integer
   ---@return string|FormatItem[]
-  return function (tab, tabs, _, _, hover, max_width)
+  return function(tab, tabs, _, _, hover, max_width)
     local background = inactive_background
     local foreground = palette.grey0
     if tab.is_active then
@@ -128,10 +128,10 @@ function M.slanted_tmux(palette)
       { Text = edge_left_separator },
       { Background = { Color = background } },
       { Foreground = { Color = foreground } },
-      { Text = title .. ' '},
+      { Text = title .. ' ' },
       { Background = { Color = edge_background } },
       { Foreground = { Color = edge_foreground } },
-      { Text = edge_right_separator },
+      { Text = edge_right_separator }
     }
   end
 end

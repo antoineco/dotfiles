@@ -63,7 +63,7 @@ function M:build(base)
   self.colorscheme = base or {}
 
   if not self.palette then
-    error('called Scheme:build() without initializing its palette')
+    error 'called Scheme:build() without initializing its palette'
   end
 
   self.colorscheme.cursor_fg = self.palette.bg0
