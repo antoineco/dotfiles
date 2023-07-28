@@ -443,6 +443,7 @@ require "lazy".setup({
       local tb = require "telescope.builtin"
       return {
         { "<leader>ff", tb.find_files, desc = "Find Files" },
+        { "<leader>ft", tb.live_grep,  desc = "Find Text" },
         { "<leader>fb", tb.buffers,    desc = "Find Buffers" }
       }
     end
