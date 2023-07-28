@@ -8,7 +8,7 @@
     "snippets": [
       {
         "language": "go",
-        "path": "./go.json"
+        "path": "./snippets/go.json"
       }
     ]
   }
