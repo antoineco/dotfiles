@@ -445,14 +445,11 @@ require "lazy".setup({
   {
     "nvim-telescope/telescope.nvim",
     dependencies = "nvim-treesitter",
-    keys = function()
-      local tb = require "telescope.builtin"
-      return {
-        { "<leader>ff", tb.find_files, desc = "Find Files" },
-        { "<leader>ft", tb.live_grep,  desc = "Find Text" },
-        { "<leader>fb", tb.buffers,    desc = "Find Buffers" }
-      }
-    end
+    keys = {
+      { "<leader>ff", function() require "telescope.builtin".find_files() end, desc = "Find Files" },
+      { "<leader>ft", function() require "telescope.builtin".live_grep() end,  desc = "Find Text" },
+      { "<leader>fb", function() require "telescope.builtin".buffers() end,    desc = "Find Buffers" }
+    }
   },
 
   -- }}}
