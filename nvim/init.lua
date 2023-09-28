@@ -8,12 +8,9 @@ vim.o.number = true          -- display line numbers
 vim.o.relativenumber = true  -- line numbers relative to cursor
 vim.o.scrolloff = 8          -- number of lines to show above/below cursor
 vim.o.laststatus = 3         -- always show status line, only active window
+vim.o.showmode = false       -- hide mode in cmd line, redundant with statusline
 vim.o.colorcolumn = "+1"     -- highlight textwidth column
 vim.o.clipboard = ""         -- no implicit interaction with clipboard register
-
-St = require "user.statusline"
-vim.o.statusline = "%!v:lua.St.draw()"  -- ref. ":h v:lua-call"
-vim.o.showmode = false                  -- hide mode in cmd line, redundant with statusline
 
 -- Toggle relative line numbers on focus change
 vim.api.nvim_create_autocmd({ "BufEnter", "FocusGained", "InsertLeave", "WinEnter" }, {
@@ -33,6 +30,17 @@ vim.api.nvim_create_autocmd({ "BufLeave", "FocusLost", "InsertEnter", "WinLeave"
       vim.o.rnu = false
     end
   end
+})
+
+local colorscheme = "everforest"
+
+St = require "user.statusline"
+
+-- Set statusline highlights
+vim.api.nvim_create_autocmd("ColorScheme", {
+  group = nvinit_augrp,
+  pattern = colorscheme,
+  callback = St.set_highlights
 })
 
 -- }}}
@@ -99,8 +107,6 @@ vim.opt.rtp:prepend(lazypath)
 -- }}}
 
 -- Setup {{{
-
-local colorscheme = "everforest"
 
 require "lazy".setup({
   -- Shared Plugin Libraries {{{
@@ -548,6 +554,9 @@ require "lazy".setup({
 -- }}}
 
 -- [[ Miscellaneous ]] {{{
+
+-- Status line - requires some of the plugins installed above
+vim.o.statusline = "%!v:lua.St.draw()"  -- ref. ":h v:lua-call"
 
 -- LSP progress messages (Neovim 0.10+)
 vim.api.nvim_create_autocmd("LspProgress", {
