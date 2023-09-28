@@ -136,10 +136,7 @@ require "lazy".setup({
   {
     "neovim/nvim-lspconfig",
     event = { "BufReadPre", "BufNewFile" },
-    dependencies = {
-      "mason.nvim",  -- mason/bin must be present in PATH for tools to be run
-      "neodev.nvim"  -- injects on_setup hook into lspconfig
-    },
+    dependencies = "mason.nvim",  -- mason/bin must be present in PATH for tools to be run
     config = function()
       local capabilities = vim.tbl_deep_extend(
         "force",
@@ -199,7 +196,29 @@ require "lazy".setup({
               callSnippet = "Replace"  -- snippet support on completion
             }
           }
-        }
+        },
+        on_init = function(client)
+          local ws = client.workspace_folders[1].name
+          if not vim.uv.fs_stat(ws .. "/.luarc.json") and not vim.uv.fs_stat(ws .. "/.luarc.jsonc") then
+            -- Assume Neovim workspace
+            client.config.settings = vim.tbl_deep_extend("force", client.config.settings, {
+              Lua = {
+                runtime = {
+                  version = "LuaJIT"
+                },
+                workspace = {
+                  library = {
+                    vim.env.VIMRUNTIME
+                  }
+                }
+              }
+            })
+
+            client.notify("workspace/didChangeConfiguration", {
+              settings = client.config.settings
+            })
+          end
+        end
       }
 
       require "lspconfig".gopls.setup {
@@ -216,17 +235,6 @@ require "lazy".setup({
         }
       }
     end
-  },
-
-  -- auto-configure lua_ls for Neovim config/plugins
-  {
-    "folke/neodev.nvim",
-    opts = {
-      library = {
-        plugins = false
-      },
-      setup_jsonls = false
-    }
   },
 
   {
