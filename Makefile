@@ -16,7 +16,7 @@ zim: $(ZDOTFILES) ## Install the Zim Zsh configuration framework
 # Zsh dot files must be installed *after* Zim itself, otherwise the installation
 # gets aborted prematurely with the message "Zim already installed".
 $(ZDOTFILES): ~/.zim
-	ln -srf -- $(subst .,zsh/,$(notdir $@)) $@
+	ln -srTf -- $(subst .,zsh/,$(notdir $@)) $@
 
 # --------- Neovim ---------
 
@@ -27,8 +27,7 @@ nvim: ~/.config/nvim ## Configure the Neovim text editor
 	@mkdir $@
 
 ~/.config/nvim: | ~/.config
-	@rm -rvf -- $@
-	ln -srf -- nvim $@
+	ln -srTf -- nvim $@
 
 clean-nvim: ## Delete the Neovim state and caches
 	@rm -rvf ~/.local/share/nvim ~/.local/state/nvim ~/.cache/nvim ~/.config/nvim
@@ -84,8 +83,7 @@ go: ~/.local/share/go ## Install the Go programming language toolchain
 	rm ~/.local/share/golang.tgz
 
 ~/.local/share/go: GO_VERSION | ~/.local/share/go$(GO_VERSION)/bin/go
-	@rm -rvf -- $@
-	ln -sf -- go$(GO_VERSION) $@
+	ln -sTf -- go$(GO_VERSION) $@
 
 # ---------- Misc ---------- 
 
