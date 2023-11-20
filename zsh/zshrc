@@ -217,6 +217,11 @@ fi
 # Shell theming
 export FZF_DEFAULT_OPTS=("$FZF_DEFAULT_OPTS" '--color=bg+:0,pointer:3,marker:5,prompt:4')
 
+# Terminal shell integration
+if [[ ${TERM_PROGRAM} == WezTerm ]]; then
+  [[ -s ${HOME}/.wezterm.sh ]] && . ${HOME}/.wezterm.sh
+fi
+
 # Source local environment
 [[ -s ${ZDOTDIR:-${HOME}}/.zlocal ]] && . ${ZDOTDIR:-${HOME}}/.zlocal
 

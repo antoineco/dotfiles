@@ -18,6 +18,22 @@ zim: $(ZDOTFILES) ## Install the Zim Zsh configuration framework
 $(ZDOTFILES): ~/.zim
 	ln -srTf -- $(subst .,zsh/,$(notdir $@)) $@
 
+# -------- WezTerm --------
+
+.PHONY: wezterm
+wezterm: ~/.terminfo/w/wezterm
+wezterm: ~/.wezterm.sh
+wezterm: ## Set up the shell for the WezTerm terminal emulator
+
+~/.terminfo/w/wezterm:
+	$(eval TMPFILE := $(shell mktemp))
+	curl -fsSo $(TMPFILE) https://raw.githubusercontent.com/wez/wezterm/main/termwiz/data/wezterm.terminfo
+	tic -x $(TMPFILE)
+	rm $(TMPFILE)
+
+~/.wezterm.sh:
+	curl -fsSo $@ https://raw.githubusercontent.com/wez/wezterm/main/assets/shell-integration/wezterm.sh
+
 # --------- Neovim ---------
 
 .PHONY: nvim clean-nvim
