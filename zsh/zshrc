@@ -200,7 +200,7 @@ bindkey -M vicmd "${key_info[Control]}x${key_info[Control]}e" edit-command-line
 
 # Commands completion
 (( $+commands[kubectl] )) && [[ -s ${HOME}/.kube/config ]] && . <(kubectl completion zsh) && compdef _kubectl kubectl
-(( $+commands[ko] ))      && . <(ko completion zsh) && compdef _ko ko
+(( $+commands[ko] )) && [[ $commands[ko] != /mnt/* ]] && . <(ko completion zsh) && compdef _ko ko
 (( $+commands[limactl] )) && . <(limactl completion zsh) && compdef _limactl limactl
 [[ -s ${NVM_DIR}/bash_completion ]] && . ${NVM_DIR}/bash_completion
 
