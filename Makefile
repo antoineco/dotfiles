@@ -43,7 +43,10 @@ fzf: ~/.local/share/fzf/shell/key-bindings.zsh
 fzf: ~/.local/share/fzf/bin/fzf
 fzf: ## Install the fzf fuzzy-finder
 
-~/.local/share:
+~/.local:
+	@mkdir $@
+
+~/.local/share: | ~/.local
 	@mkdir $@
 
 ~/.local/share/fzf: | ~/.local/share
