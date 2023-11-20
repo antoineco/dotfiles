@@ -28,7 +28,7 @@ nvim: ~/.config/nvim ## Configure the Neovim text editor
 
 ~/.config/nvim: | ~/.config
 	@rm -rvf -- $@
-	ln -sf -- $(abspath nvim) $@
+	ln -srf -- nvim $@
 
 clean-nvim: ## Delete the Neovim state and caches
 	@rm -rvf ~/.local/share/nvim ~/.local/state/nvim ~/.cache/nvim ~/.config/nvim
