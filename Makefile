@@ -16,7 +16,7 @@ zim: $(ZDOTFILES) ## Install the Zim Zsh configuration framework
 # Zsh dot files must be installed *after* Zim itself, otherwise the installation
 # gets aborted prematurely with the message "Zim already installed".
 $(ZDOTFILES): ~/.zim
-	ln -sf -- $(abspath $(subst .,zsh/,$(notdir $@))) $@
+	ln -srf -- $(subst .,zsh/,$(notdir $@)) $@
 
 # --------- Neovim ---------
 
