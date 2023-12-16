@@ -15,3 +15,6 @@
 
 [gpg "ssh"]
 	allowedSignersFile = ~/.ssh/allowed_signers
+
+[include]
+	path = .gitconfig_local
