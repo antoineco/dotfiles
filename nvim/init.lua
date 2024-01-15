@@ -472,14 +472,7 @@ require "lazy".setup({
     event = { "BufReadPost", "BufNewFile" },
     dependencies = "nvim-treesitter/nvim-treesitter-textobjects",
     opts = {
-      ensure_installed = {
-        "vim",
-        "lua",
-        "go",
-        "c",
-        "markdown",
-        "markdown_inline"
-      },
+      ensure_installed = { "go" },
 
       highlight = {
         enable = true
