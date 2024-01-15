@@ -4,37 +4,102 @@ local M = {}
 
 -- highlight groups
 M.set_highlights = function()
-  local config = vim.fn["everforest#get_configuration"]()
-  local palette = vim.fn["everforest#get_palette"](config.background, config.colors_override)
-  local set_hl = vim.fn["everforest#highlight"]
+  if vim.g.colors_name == "everforest" then
+    local config = vim.fn["everforest#get_configuration"]()
+    local palette = vim.fn["everforest#get_palette"](config.background, config.colors_override)
+    local set_hl = vim.fn["everforest#highlight"]
 
-  set_hl("St_NormalMode", palette.bg0, palette.statusline1, "bold")
-  set_hl("St_NormalModeSep", palette.statusline1, palette.bg4)
-  set_hl("St_InsertMode", palette.bg0, palette.statusline2, "bold")
-  set_hl("St_InsertModeSep", palette.statusline2, palette.bg4)
-  set_hl("St_VisualMode", palette.bg0, palette.statusline3, "bold")
-  set_hl("St_VisualModeSep", palette.statusline3, palette.bg4)
-  set_hl("St_ReplaceMode", palette.bg0, palette.orange, "bold")
-  set_hl("St_ReplaceModeSep", palette.orange, palette.bg4)
-  set_hl("St_SelectMode", palette.bg0, palette.purple, "bold")
-  set_hl("St_SelectModeSep", palette.purple, palette.bg4)
-  set_hl("St_CommandMode", palette.bg0, palette.aqua, "bold")
-  set_hl("St_CommandModeSep", palette.aqua, palette.bg4)
-  set_hl("St_EmptySpace", palette.bg4, palette.bg2)
-  set_hl("St_FileInfo", palette.grey2, palette.bg2)
-  set_hl("St_FileSep", palette.bg2, palette.bg1)
-  set_hl("St_GitIcons", palette.grey1, palette.bg1, "bold")
-  set_hl("St_DiagError", palette.red, palette.bg1)
-  set_hl("St_DiagWarning", palette.yellow, palette.bg1)
-  set_hl("St_DiagHint", palette.green, palette.bg1)
-  set_hl("St_DiagInfo", palette.blue, palette.bg1)
-  set_hl("St_LspInfo", palette.blue, palette.bg1)
-  set_hl("St_CwdSep", palette.purple, palette.bg1)
-  set_hl("St_CwdIcon", palette.bg1, palette.purple)
-  set_hl("St_CwdText", palette.grey2, palette.bg2)
-  set_hl("St_PosSep", palette.aqua, palette.bg2)
-  set_hl("St_PosIcon", palette.bg1, palette.aqua)
-  set_hl("St_PosText", palette.grey2, palette.bg2)
+    set_hl("St_NormalMode", palette.bg0, palette.statusline1, "bold")
+    set_hl("St_NormalModeSep", palette.statusline1, palette.bg4)
+    set_hl("St_InsertMode", palette.bg0, palette.statusline2, "bold")
+    set_hl("St_InsertModeSep", palette.statusline2, palette.bg4)
+    set_hl("St_VisualMode", palette.bg0, palette.statusline3, "bold")
+    set_hl("St_VisualModeSep", palette.statusline3, palette.bg4)
+    set_hl("St_ReplaceMode", palette.bg0, palette.orange, "bold")
+    set_hl("St_ReplaceModeSep", palette.orange, palette.bg4)
+    set_hl("St_SelectMode", palette.bg0, palette.purple, "bold")
+    set_hl("St_SelectModeSep", palette.purple, palette.bg4)
+    set_hl("St_CommandMode", palette.bg0, palette.aqua, "bold")
+    set_hl("St_CommandModeSep", palette.aqua, palette.bg4)
+    set_hl("St_EmptySpace", palette.bg4, palette.bg2)
+    set_hl("St_FileInfo", palette.grey2, palette.bg2)
+    set_hl("St_FileSep", palette.bg2, palette.bg1)
+    set_hl("St_GitIcons", palette.grey1, palette.bg1, "bold")
+    set_hl("St_DiagError", palette.red, palette.bg1)
+    set_hl("St_DiagWarning", palette.yellow, palette.bg1)
+    set_hl("St_DiagHint", palette.green, palette.bg1)
+    set_hl("St_DiagInfo", palette.blue, palette.bg1)
+    set_hl("St_LspInfo", palette.blue, palette.bg1)
+    set_hl("St_CwdSep", palette.purple, palette.bg1)
+    set_hl("St_CwdIcon", palette.bg1, palette.purple)
+    set_hl("St_CwdText", palette.grey2, palette.bg2)
+    set_hl("St_PosSep", palette.aqua, palette.bg2)
+    set_hl("St_PosIcon", palette.bg1, palette.aqua)
+    set_hl("St_PosText", palette.grey2, palette.bg2)
+  else
+    local palette = ({
+      light = {
+        bg0 = "NvimLightGrey1",
+        bg1 = "NvimLightGrey3",
+        bg2 = "NvimLightGrey4",
+        bg4 = "NvimDarkGrey4",
+        grey1 = "NvimDarkGrey4",
+        grey2 = "NvimDarkGrey3",
+        beige = "NvimDarkGrey2",
+        blue = "NvimDarkBlue",
+        cyan = "NvimDarkCyan",
+        green = "NvimDarkGreen",
+        red = "NvimDarkRed",
+        yellow = "NvimDarkYellow"
+      },
+      dark = {
+        bg0 = "NvimDarkGrey1",
+        bg1 = "NvimDarkGrey3",
+        bg2 = "NvimDarkGrey4",
+        bg4 = "NvimLightGrey4",
+        grey1 = "NvimLightGrey4",
+        grey2 = "NvimLightGrey3",
+        beige = "NvimLightGrey2",
+        blue = "NvimLightBlue",
+        cyan = "NvimLightCyan",
+        green = "NvimLightGreen",
+        red = "NvimLightRed",
+        yellow = "NvimLightYellow"
+      }
+    })[vim.o.background]
+
+    local function set_hl(name, val)
+      vim.api.nvim_set_hl(0, name, val)
+    end
+
+    set_hl("St_NormalMode", { fg = palette.bg0, bg = palette.green, bold = true })
+    set_hl("St_NormalModeSep", { fg = palette.green, bg = palette.bg4 })
+    set_hl("St_InsertMode", { fg = palette.bg0, bg = palette.blue, bold = true })
+    set_hl("St_InsertModeSep", { fg = palette.blue, bg = palette.bg4 })
+    set_hl("St_VisualMode", { fg = palette.bg0, bg = palette.cyan, bold = true })
+    set_hl("St_VisualModeSep", { fg = palette.cyan, bg = palette.bg4 })
+    set_hl("St_ReplaceMode", { fg = palette.bg0, bg = palette.red, bold = true })
+    set_hl("St_ReplaceModeSep", { fg = palette.red, bg = palette.bg4 })
+    set_hl("St_SelectMode", { fg = palette.bg0, bg = palette.yellow, bold = true })
+    set_hl("St_SelectModeSep", { fg = palette.yellow, bg = palette.bg4 })
+    set_hl("St_CommandMode", { fg = palette.bg0, bg = palette.beige, bold = true })
+    set_hl("St_CommandModeSep", { fg = palette.beige, bg = palette.bg4 })
+    set_hl("St_EmptySpace", { fg = palette.bg4, bg = palette.bg2 })
+    set_hl("St_FileInfo", { fg = palette.grey2, bg = palette.bg2 })
+    set_hl("St_FileSep", { fg = palette.bg2, bg = palette.bg1 })
+    set_hl("St_GitIcons", { fg = palette.grey1, bg = palette.bg1, bold = true })
+    set_hl("St_DiagError", { fg = palette.red, bg = palette.bg1 })
+    set_hl("St_DiagWarning", { fg = palette.yellow, bg = palette.bg1 })
+    set_hl("St_DiagHint", { fg = palette.green, bg = palette.bg1 })
+    set_hl("St_DiagInfo", { fg = palette.blue, bg = palette.bg1 })
+    set_hl("St_LspInfo", { fg = palette.blue, bg = palette.bg1 })
+    set_hl("St_CwdSep", { fg = palette.cyan, bg = palette.bg1 })
+    set_hl("St_CwdIcon", { fg = palette.bg1, bg = palette.cyan })
+    set_hl("St_CwdText", { fg = palette.grey2, bg = palette.bg2 })
+    set_hl("St_PosSep", { fg = palette.blue, bg = palette.bg2 })
+    set_hl("St_PosIcon", { fg = palette.bg1, bg = palette.blue })
+    set_hl("St_PosText", { fg = palette.grey2, bg = palette.bg2 })
+  end
 end
 
 local modes = {

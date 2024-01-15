@@ -39,7 +39,7 @@ St = require "user.statusline"
 -- Set statusline highlights
 vim.api.nvim_create_autocmd("ColorScheme", {
   group = nvinit_augrp,
-  pattern = colorscheme,
+  pattern = "*",
   callback = St.set_highlights
 })
 
