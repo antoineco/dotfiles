@@ -81,7 +81,7 @@ fzf: ## Install the fzf fuzzy-finder
 
 # ---------- Go -----------
 
-GO_VERSION := 1.21.4
+GO_VERSION := 1.22.0
 
 .PHONY: go
 go: ~/.local/share/go ## Install the Go programming language toolchain
