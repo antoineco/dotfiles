@@ -211,10 +211,6 @@ require "lazy".setup({
                 }
               }
             })
-
-            client.notify("workspace/didChangeConfiguration", {
-              settings = client.config.settings
-            })
           end
         end
       }
