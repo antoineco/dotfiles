@@ -101,6 +101,16 @@ go: ~/.local/share/go ## Install the Go programming language toolchain
 ~/.local/share/go: GO_VERSION | ~/.local/share/go$(GO_VERSION)/bin/go
 	ln -sTf -- go$(GO_VERSION) $@
 
+# ---------- Rust ----------
+
+RUSTDIRS := ~/.rustup ~/.cargo
+
+.PHONY: rust
+rust: $(RUSTDIRS) ## Install the Rust programming language toolchain
+
+$(RUSTDIRS):
+	curl -fsS https://sh.rustup.rs | sh -s -- -y --no-modify-path
+
 # ---------- Misc ---------- 
 
 .DEFAULT_GOAL := help
