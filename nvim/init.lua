@@ -228,6 +228,10 @@ require "lazy".setup({
           }
         }
       }
+
+      require "lspconfig".rust_analyzer.setup {
+        capabilities = capabilities
+      }
     end
   },
 
@@ -466,7 +470,7 @@ require "lazy".setup({
     event = { "BufReadPost", "BufNewFile" },
     dependencies = "nvim-treesitter/nvim-treesitter-textobjects",
     opts = {
-      ensure_installed = { "go" },
+      ensure_installed = { "go", "rust" },
 
       highlight = {
         enable = true
