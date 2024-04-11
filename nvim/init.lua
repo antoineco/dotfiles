@@ -578,10 +578,23 @@ vim.api.nvim_create_autocmd("LspProgress", {
       end
     end
 
+    local function process_message(msg)
+      -- These messages tend to exceed v:echospace and cause hit-enter prompts.
+      if (c and c.name) == "rust_analyzer" and v.title == "Roots Scanned" then
+        local prefix, relpath = msg:match "^(.+: )/.+%.rustup/toolchains/.+/(.*)$"
+        if prefix then
+          return prefix .. "<rustup-toolchain>/" .. relpath
+        end
+        prefix, relpath = msg:match "^(.+: )/.+%.cargo/registry/src/index.crates.io%-%w+/(.*)$"
+        return prefix and prefix .. "<cargo-crates>/" .. relpath or msg
+      end
+      return msg
+    end
+
     local content = icon
     content = c and string.format("%s %s", content, c.name) or content
     content = v.title and string.format("%s [%s]", content, v.title) or content
-    content = v.message and string.format("%s %s", content, v.message) or content
+    content = v.message and string.format("%s %s", content, process_message(v.message)) or content
     content = v.percentage and string.format("%s (%s%%)", content, v.percentage) or content
 
     vim.notify(content, vim.log.levels.INFO)
