@@ -76,6 +76,7 @@ map("n", "]d", vim.diagnostic.goto_next, "Goto Next Diagnostic")
 map("n", "[d", vim.diagnostic.goto_prev, "Goto Previous Diagnostic")
 map("n", "<leader>e", vim.diagnostic.open_float, "Show Line Diagnostic")
 map("n", "<leader>q", vim.diagnostic.setloclist, "Add Diagnostics to Location List")
+map("t", "<leader><esc>", "<C-\\><C-n>", "Exit Terminal Insert mode")
 
 -- }}}
 
