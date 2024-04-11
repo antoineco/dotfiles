@@ -21,6 +21,8 @@ M.set_highlights = function()
     set_hl("St_SelectModeSep", palette.purple, palette.bg4)
     set_hl("St_CommandMode", palette.bg0, palette.aqua, "bold")
     set_hl("St_CommandModeSep", palette.aqua, palette.bg4)
+    set_hl("St_TerminalMode", palette.bg0, palette.yellow, "bold")
+    set_hl("St_TerminalModeSep", palette.yellow, palette.bg4)
     set_hl("St_EmptySpace", palette.bg4, palette.bg2)
     set_hl("St_FileInfo", palette.grey2, palette.bg2)
     set_hl("St_FileSep", palette.bg2, palette.bg1)
@@ -84,6 +86,8 @@ M.set_highlights = function()
     set_hl("St_SelectModeSep", { fg = palette.yellow, bg = palette.bg4 })
     set_hl("St_CommandMode", { fg = palette.bg0, bg = palette.beige, bold = true })
     set_hl("St_CommandModeSep", { fg = palette.beige, bg = palette.bg4 })
+    set_hl("St_TerminalMode", { fg = palette.bg0, bg = palette.yellow, bold = true })
+    set_hl("St_TerminalModeSep", { fg = palette.yellow, bg = palette.bg4 })
     set_hl("St_EmptySpace", { fg = palette.bg4, bg = palette.bg2 })
     set_hl("St_FileInfo", { fg = palette.grey2, bg = palette.bg2 })
     set_hl("St_FileSep", { fg = palette.bg2, bg = palette.bg1 })
@@ -111,8 +115,8 @@ local modes = {
   ["niI"] = { "NORMAL i", "St_NormalMode" },
   ["niR"] = { "NORMAL r", "St_NormalMode" },
   ["niV"] = { "NORMAL v", "St_NormalMode" },
-  ["nt"] = { "NTERMINAL", "St_NTerminalMode" },
-  ["ntT"] = { "NTERMINAL (ntT)", "St_NTerminalMode" },
+  ["nt"] = { "NTERMINAL", "St_TerminalMode" },
+  ["ntT"] = { "NTERMINAL (ntT)", "St_TerminalMode" },
 
   ["v"] = { "VISUAL", "St_VisualMode" },
   ["vs"] = { "V-CHAR (Ctrl O)", "St_VisualMode" },
