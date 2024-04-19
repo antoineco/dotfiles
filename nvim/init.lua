@@ -229,10 +229,6 @@ require "lazy".setup({
           }
         }
       }
-
-      require "lspconfig".rust_analyzer.setup {
-        capabilities = capabilities
-      }
     end
   },
 
@@ -447,6 +443,38 @@ require "lazy".setup({
 
   -- }}}
 
+  -- Rust language {{{
+
+  {
+    "mrcjkb/rustaceanvim",
+    ft = { "rust", "toml" },
+    dependencies = "mason.nvim",  -- mason/bin must be present in PATH for detection of rust-analyzer
+    config = function()
+      vim.g.rustaceanvim = {
+        tools = {
+          code_actions = {
+            ui_select_fallback = true
+          },
+          float_win_config = {
+            border = { "", "", "", " " }
+          }
+        },
+        server = {
+          on_attach = function(_, bufnr)
+            local function map(mode, l, r, desc)
+              vim.keymap.set(mode, l, r, { buffer = bufnr, desc = desc })
+            end
+
+            local cagrp_cmd = require "rustaceanvim.commands.code_action_group"
+            map({ "n", "v" }, "<leader>ca", cagrp_cmd, "Code Actions")
+          end
+        }
+      }
+    end
+  },
+
+  -- }}}
+
   -- Search {{{
 
   {
@@ -580,7 +608,7 @@ vim.api.nvim_create_autocmd("LspProgress", {
 
     local function process_message(msg)
       -- These messages tend to exceed v:echospace and cause hit-enter prompts.
-      if (c and c.name) == "rust_analyzer" and v.title == "Roots Scanned" then
+      if (c and c.name) == "rust-analyzer" and v.title == "Roots Scanned" then
         local prefix, relpath = msg:match "^(.+: )/.+%.rustup/toolchains/.+/(.*)$"
         if prefix then
           return prefix .. "<rustup-toolchain>/" .. relpath
