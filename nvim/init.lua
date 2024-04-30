@@ -68,15 +68,8 @@ vim.opt.wildmode = {
 
 -- Mappings {{{
 
-local function map(mode, l, r, desc)
-  vim.keymap.set(mode, l, r, { desc = desc })
-end
-
-map("n", "]d", vim.diagnostic.goto_next, "Goto Next Diagnostic")
-map("n", "[d", vim.diagnostic.goto_prev, "Goto Previous Diagnostic")
-map("n", "<leader>e", vim.diagnostic.open_float, "Show Line Diagnostic")
-map("n", "<leader>q", vim.diagnostic.setloclist, "Add Diagnostics to Location List")
-map("t", "<leader><esc>", "<C-\\><C-n>", "Exit Terminal Insert mode")
+vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Add Diagnostics to Location List" })
+vim.keymap.set("t", "<leader><esc>", "<C-\\><C-n>", { desc = "Exit Terminal Insert mode" })
 
 -- }}}
 
@@ -169,14 +162,11 @@ require "lazy".setup({
           map("n", "gd", lspb.definition, "Goto Definition")
           map("n", "gD", lspb.declaration, "Goto Declaration")
           map("n", "gi", lspb.implementation, "Goto Implementation")
-          map("n", "gr", lspb.references, "Goto references")
           map("n", "<leader>D", lspb.type_definition, "Goto Type Definition")
 
           map("n", "<C-k>", lspb.signature_help, "Display Symbol Signature")
 
-          map("n", "<leader>rn", lspb.rename, "Rename")
           map("n", "<leader>fm", function() lspb.format { async = true } end, "Format")
-          map({ "n", "v" }, "<leader>ca", lspb.code_action, "Code Actions")
 
           map("n", "<leader>wa", lspb.add_workspace_folder, "Add Workspace Folder")
           map("n", "<leader>wr", lspb.remove_workspace_folder, "Remove Workspace Folder")
@@ -461,12 +451,14 @@ require "lazy".setup({
         },
         server = {
           on_attach = function(_, bufnr)
-            local function map(mode, l, r, desc)
-              vim.keymap.set(mode, l, r, { buffer = bufnr, desc = desc })
+            local function map_codeaction(mode, l)
+              vim.keymap.set(mode, l, require "rustaceanvim.commands.code_action_group", {
+                buffer = bufnr, desc = "Code Actions"
+              })
             end
-
-            local cagrp_cmd = require "rustaceanvim.commands.code_action_group"
-            map({ "n", "v" }, "<leader>ca", cagrp_cmd, "Code Actions")
+            map_codeaction("n", "crr")
+            map_codeaction("x", "<C-r>r")
+            map_codeaction("x", "<C-r><C-r>")
           end
         }
       }
