@@ -50,7 +50,7 @@ clean-nvim: ## Delete the Neovim state and caches
 
 # ---------- fzf ----------
 
-FZF_VERSION := 0.44.1
+FZF_VERSION := 0.51.0
 
 .PHONY: fzf
 fzf: ~/.local/share/fzf/shell/completion.zsh
