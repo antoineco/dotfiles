@@ -202,7 +202,7 @@ M.draw = function()
     diags ..
     lsp ..
     cwd_sep .. "%#St_CwdText#" .. " " .. dir_name .. " " ..
-    pos_sep .. "%#St_PosText#" .. " " .. "%3P:%-2v" .. " "
+    pos_sep .. "%#St_PosText#" .. " " .. "%-7(%P:%c%V%)" .. " "
 end
 
 return M
