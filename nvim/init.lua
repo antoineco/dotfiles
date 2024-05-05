@@ -540,6 +540,70 @@ require "lazy".setup({
     config = function(_, opts)
       require "nvim-treesitter.configs".setup(opts)
     end
+  },
+
+  -- }}}
+
+  -- Testing {{{
+
+  {
+    "nvim-neotest/neotest",
+    dependencies = {
+      "nvim-neotest/nvim-nio",
+      "antoinemadec/FixCursorHold.nvim",
+      -- adapters
+      {
+        "fredrikaverpil/neotest-golang"
+      }
+    },
+    config = function()
+      vim.api.nvim_create_autocmd("FileType", {
+        group = nvinit_augrp,
+        pattern = "neotest-output",
+        callback = function(e)
+          vim.keymap.set("n", "q", function() vim.api.nvim_win_close(0, true) end, {
+            buffer = e.buf, desc = "Close Output Window"
+          })
+        end
+      })
+
+      require "neotest".setup {
+        adapters = {
+          require "neotest-golang",
+          require "rustaceanvim.neotest"
+        }
+      }
+    end,
+    keys = {
+      {
+        "<leader>tt",
+        function()
+          require "neotest".run.run()
+        end,
+        desc = "Run Nearest Test"
+      },
+      {
+        "<leader>tf",
+        function()
+          require "neotest".run.run(vim.fn.expand "%")
+        end,
+        desc = "Run Tests in Current File"
+      },
+      {
+        "<leader>ts",
+        function()
+          require "neotest".summary.toggle()
+        end,
+        desc = "Toggle Tests Summary"
+      },
+      {
+        "<leader>to",
+        function()
+          require "neotest".output.open()
+        end,
+        desc = "Open Test Output"
+      }
+    }
   }
 
   -- }}}
