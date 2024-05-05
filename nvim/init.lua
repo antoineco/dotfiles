@@ -219,22 +219,8 @@ require "lazy".setup({
           }
         }
       }
-    end
-  },
 
-  {
-    "jose-elias-alvarez/null-ls.nvim",
-    event = { "BufReadPre", "BufNewFile" },
-    dependencies = "mason.nvim",  -- mason/bin must be present in PATH for tools to be run
-    opts = function()
-      local b = require "null-ls".builtins
-      return {
-        sources = {
-          -- shell
-          b.diagnostics.shellcheck,
-          b.code_actions.shellcheck
-        }
-      }
+      require "lspconfig".bashls.setup {}
     end
   },
 
