@@ -206,20 +206,6 @@ require "lazy".setup({
         end
       }
 
-      require "lspconfig".gopls.setup {
-        capabilities = capabilities,
-        settings = {
-          -- https://go.googlesource.com/tools/+/refs/heads/master/gopls/doc/settings.md
-          gopls = {
-            usePlaceholders = true,
-            gofumpt = true,
-            analyses = {
-              unusedparams = true
-            }
-          }
-        }
-      }
-
       require "lspconfig".bashls.setup {}
     end
   },
@@ -402,18 +388,33 @@ require "lazy".setup({
   -- Go language {{{
 
   {
-    "fatih/vim-go",
-    ft = { "go", "gomod", "gosum", "gowork", "gohtmltmpl", "asm" },
-    config = function()
-      -- features already handled by Neovim's LSP integration
-      vim.g.go_gopls_enabled = false
-      vim.g.go_fmt_autosave = false
-      vim.g.go_mod_fmt_autosave = false
-      vim.g.go_imports_autosave = false
-      vim.g.go_code_completion_enabled = false
-      vim.g.go_doc_keywordprg_enabled = false
-      -- features already handled by Tree-sitter
-      vim.g.go_textobj_enabled = false
+    "ray-x/go.nvim",
+    ft = { "go", "gomod", "gosum", "gotmpl", "gohtmltmpl", "gotexttmpl" },
+    dependencies = "mason.nvim",  -- mason/bin must be present in PATH for detection of gopls
+    opts = {
+      lsp_cfg = {
+        settings = {
+          -- https://go.googlesource.com/tools/+/refs/heads/master/gopls/doc/settings.md
+          gopls = {
+            semanticTokens = false
+          }
+        }
+      },
+      lsp_keymaps = false,
+      lsp_inlay_hints = {
+        enable = false
+      }
+    },
+    build = function()
+      local gt = {
+        "impl",
+        "gomodifytags",
+        "gotests"
+      }
+      vim.notify(" Updating Go tools...", vim.log.levels.INFO)
+      for _, t in ipairs(gt) do
+        require "go.install".update(t)
+      end
     end
   },
 
