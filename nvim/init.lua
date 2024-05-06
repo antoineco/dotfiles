@@ -153,6 +153,8 @@ require "lazy".setup({
       vim.api.nvim_create_autocmd("LspAttach", {
         group = nvinit_augrp,
         callback = function(e)
+          -- Mappings {{{
+
           local lspb = vim.lsp.buf
 
           local function map(mode, l, r, desc)
@@ -172,6 +174,16 @@ require "lazy".setup({
           map("n", "<leader>wr", lspb.remove_workspace_folder, "Remove Workspace Folder")
           map("n", "<leader>wl", function() print(vim.inspect(lspb.list_workspace_folders())) end,
             "List Workspace Folders")
+
+          -- }}}
+
+          -- Commands {{{
+
+          vim.api.nvim_buf_create_user_command(e.buf, "LspToggleInlayHints", function()
+            vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled { bufnr = e.buf }, { bufnr = e.buf })
+          end, { desc = "Toggle LSP inlay hints" })
+
+          -- }}}
         end
       })
 
