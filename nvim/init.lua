@@ -125,6 +125,15 @@ require "lazy".setup({
 
   -- }}}
 
+  -- Navigation {{{
+
+  {
+    "vim-scripts/BufOnly.vim",
+    cmd = "Bonly"
+  },
+
+  -- }}}
+
   -- Language Servers {{{
 
   {
