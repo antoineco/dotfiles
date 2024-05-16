@@ -666,7 +666,7 @@ vim.api.nvim_create_autocmd("LspProgress", {
   group = nvinit_augrp,
   callback = function(e)
     local c = vim.lsp.get_client_by_id(e.data.client_id)
-    local v = e.data.result.value
+    local v = e.data.params.value
 
     local spinners = { "", "󰪞", "󰪟", "󰪠", "󰪡", "󰪢", "󰪣", "󰪤", "󰪥" }
     local icon = spinners[1]
