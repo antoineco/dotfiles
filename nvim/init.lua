@@ -120,6 +120,30 @@ require "lazy".setup({
       vim.cmd.colorscheme(colorscheme)
     end
   },
+  {
+    "ramojus/mellifluous.nvim",
+    lazy = colorscheme ~= "mellifluous",
+    priority = 1000,
+    opts = {
+      mellifluous = {
+        bg_contrast = "soft"
+      },
+      plugins = {
+        indent_blankline = false,
+        nvim_tree = { enabled = false },
+        neo_tree = { enabled = false },
+        telescope = { nvchad_like = false },
+        startify = false,
+        neorg = false,
+        nvim_notify = false,
+        aerial = false
+      }
+    },
+    config = function(_, opts)
+      require "mellifluous".setup(opts)
+      vim.cmd.colorscheme(colorscheme)
+    end
+  },
 
   "nvim-tree/nvim-web-devicons",
 
