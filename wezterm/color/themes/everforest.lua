@@ -17,7 +17,6 @@ local M = scheme:new {
 
 ---@type Colors
 local base = wezterm.color.get_builtin_schemes()['Everforest Dark (Gogh)']
-base.background = M.palette.bg0  -- TODO: remove, fixed upstream
 M:build(base)
 
 return M
