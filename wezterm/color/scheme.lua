@@ -7,9 +7,7 @@ local M = {}
 ---@field bg_dim string
 ---@field bg0    string
 ---@field bg1    string
----@field bg_vis string
 ---@field fg     string
----@field alt    string
 ---@field grey0  string
 ---@field grey1  string
 
@@ -65,11 +63,6 @@ function M:build(base)
   if not self.palette then
     error 'called Scheme:build() without initializing its palette'
   end
-
-  self.colorscheme.cursor_fg = self.palette.bg0
-  self.colorscheme.compose_cursor = self.palette.alt
-
-  self.colorscheme.selection_bg = self.palette.bg_vis
 
   self.colorscheme.tab_bar = {
     background = self.palette.bg_dim,
