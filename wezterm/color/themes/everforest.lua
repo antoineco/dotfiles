@@ -9,7 +9,7 @@ local M = scheme:new {
     bg1    = '#343F44',
     bg_vis = '#543A48',
     fg     = '#D3C6AA',
-    yellow = '#DBBC7F',
+    alt    = '#DBBC7F',  -- yellow
     grey0  = '#7A8478',
     grey1  = '#859289'
   }

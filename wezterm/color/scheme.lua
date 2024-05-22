@@ -9,7 +9,7 @@ local M = {}
 ---@field bg1    string
 ---@field bg_vis string
 ---@field fg     string
----@field yellow string
+---@field alt    string
 ---@field grey0  string
 ---@field grey1  string
 
@@ -67,7 +67,7 @@ function M:build(base)
   end
 
   self.colorscheme.cursor_fg = self.palette.bg0
-  self.colorscheme.compose_cursor = self.palette.yellow
+  self.colorscheme.compose_cursor = self.palette.alt
 
   self.colorscheme.selection_bg = self.palette.bg_vis
 
