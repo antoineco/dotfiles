@@ -451,18 +451,16 @@ require "lazy".setup({
     ft = { "go", "gomod", "gosum", "gotmpl", "gohtmltmpl", "gotexttmpl" },
     dependencies = "mason.nvim",  -- mason/bin must be present in PATH for detection of gopls
     opts = {
-      lsp_cfg = {
-        settings = {
-          -- https://go.googlesource.com/tools/+/refs/heads/master/gopls/doc/settings.md
-          gopls = {
-            semanticTokens = false
-          }
-        }
-      },
+      lsp_cfg = true,
       lsp_keymaps = false,
       lsp_inlay_hints = {
         enable = false
-      }
+      },
+      lsp_on_client_start = function()
+        -- gopls doesn't differentiate between types of keywords (import, function, repeat, conditional),
+        -- so we fall back to Tree-sitter highlights for these.
+        vim.api.nvim_set_hl(0, "@lsp.type.keyword.go", {})
+      end
     },
     build = function()
       local gt = {
