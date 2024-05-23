@@ -194,11 +194,9 @@ require "lazy".setup({
             vim.keymap.set(mode, l, r, { buffer = e.buf, desc = desc })
           end
 
-          map("n", "gd", lspb.definition, "Goto Definition")
+          map("n", "grt", lspb.type_definition, "Goto Type Definition")
           map("n", "gD", lspb.declaration, "Goto Declaration")
-          map("n", "gr", lspb.references, "Goto References")
           map("n", "gi", lspb.implementation, "Goto Implementation")
-          map("n", "<leader>D", lspb.type_definition, "Goto Type Definition")
 
           local function map_signature(mode, l)
             vim.keymap.set(mode, l, lspb.signature_help, { buffer = e.buf, desc = "Display Symbol Signature" })
@@ -207,15 +205,6 @@ require "lazy".setup({
           map_signature("i", "<C-s>")
 
           map("n", "<leader>fm", function() lspb.format { async = true } end, "Format")
-
-          map("n", "crn", lspb.rename, "Rename References")
-
-          local function map_codeaction(mode, l)
-            vim.keymap.set(mode, l, lspb.code_action, { buffer = e.buf, desc = "Code Actions" })
-          end
-          map_codeaction("n", "crr")
-          map_codeaction("x", "<C-r>r")
-          map_codeaction("x", "<C-r><C-r>")
 
           map("n", "<leader>wa", lspb.add_workspace_folder, "Add Workspace Folder")
           map("n", "<leader>wr", lspb.remove_workspace_folder, "Remove Workspace Folder")
@@ -495,14 +484,9 @@ require "lazy".setup({
         },
         server = {
           on_attach = function(_, bufnr)
-            local function map_codeaction(mode, l)
-              vim.keymap.set(mode, l, require "rustaceanvim.commands.code_action_group", {
-                buffer = bufnr, desc = "Code Actions"
-              })
-            end
-            map_codeaction("n", "crr")
-            map_codeaction("x", "<C-r>r")
-            map_codeaction("x", "<C-r><C-r>")
+            vim.keymap.set({ "n", "x" }, "gra", require "rustaceanvim.commands.code_action_group", {
+              buffer = bufnr, desc = "Code Actions"
+            })
           end
         }
       }
