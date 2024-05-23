@@ -32,7 +32,7 @@ vim.api.nvim_create_autocmd({ "BufLeave", "FocusLost", "InsertEnter", "WinLeave"
   end
 })
 
-local colorscheme = "everforest"
+local colorscheme = "mellifluous"
 
 St = require "user.statusline"
 

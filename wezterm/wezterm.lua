@@ -87,7 +87,7 @@ config.tab_max_width = 24
 
 config.window_decorations = 'RESIZE'
 
-local colorscheme = 'Everforest'
+local colorscheme = 'Mellifluous'
 
 config.color_scheme = colorscheme
 
