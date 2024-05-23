@@ -208,7 +208,6 @@ bindkey -M vicmd "${key_info[Control]}x${key_info[Control]}e" edit-command-line
 alias K='kubectl'
 alias Kn='kubectl -n'
 alias Knk='kubectl -n kube-system'
-(( $+commands[kitty] )) && alias ssh='kitty +kitten ssh'
 if (( $+commands[lima] )); then
   ko.lima() { lima KO_DOCKER_REPO='kind.local' KIND_CLUSTER_NAME="${KIND_CLUSTER_NAME:-}" ko "$@" }
   compdef _ko ko.lima
