@@ -9,6 +9,11 @@ M.set_highlights = function()
     local palette = vim.fn["everforest#get_palette"](config.background, config.colors_override)
     local set_hl = vim.fn["everforest#highlight"]
 
+    local function get_fg(name)
+      local hl = vim.api.nvim_get_hl(0, { name = name, link = false })
+      return { ("#%06x"):format(hl.fg), ("%d"):format(hl.ctermfg) }
+    end
+
     set_hl("St_NormalMode", palette.bg0, palette.statusline1, "bold")
     set_hl("St_NormalModeSep", palette.statusline1, palette.bg4)
     set_hl("St_InsertMode", palette.bg0, palette.statusline2, "bold")
@@ -27,10 +32,10 @@ M.set_highlights = function()
     set_hl("St_FileInfo", palette.grey2, palette.bg2)
     set_hl("St_FileSep", palette.bg2, palette.bg1)
     set_hl("St_GitIcons", palette.grey1, palette.bg1, "bold")
-    set_hl("St_DiagError", palette.red, palette.bg1)
-    set_hl("St_DiagWarning", palette.yellow, palette.bg1)
-    set_hl("St_DiagHint", palette.green, palette.bg1)
-    set_hl("St_DiagInfo", palette.blue, palette.bg1)
+    set_hl("St_DiagError", get_fg "DiagnosticSignError", palette.bg1)
+    set_hl("St_DiagWarning", get_fg "DiagnosticSignWarn", palette.bg1)
+    set_hl("St_DiagHint", get_fg "DiagnosticSignHint", palette.bg1)
+    set_hl("St_DiagInfo", get_fg "DiagnosticSignInfo", palette.bg1)
     set_hl("St_LspInfo", palette.blue, palette.bg1)
     set_hl("St_CwdSep", palette.purple, palette.bg1)
     set_hl("St_CwdIcon", palette.bg1, palette.purple)
@@ -43,6 +48,10 @@ M.set_highlights = function()
 
     local function set_hl(name, val)
       vim.api.nvim_set_hl(0, name, val)
+    end
+
+    local function get_fg(name)
+      return require "mellifluous.utils.highlighter".get(name).fg
     end
 
     set_hl("St_NormalMode", { fg = colors.dark_bg.hex, bg = colors.ui_blue.hex, bold = true })
@@ -63,10 +72,10 @@ M.set_highlights = function()
     set_hl("St_FileInfo", { fg = colors.fg2.hex, bg = colors.bg4.hex })
     set_hl("St_FileSep", { fg = colors.bg4.hex, bg = colors.bg2.hex })
     set_hl("St_GitIcons", { fg = colors.fg3.hex, bg = colors.bg2.hex, bold = true })
-    set_hl("St_DiagError", { fg = colors.ui_red.hex, bg = colors.bg2.hex })
-    set_hl("St_DiagWarning", { fg = colors.ui_orange.hex, bg = colors.bg2.hex })
-    set_hl("St_DiagHint", { fg = colors.ui_purple.hex, bg = colors.bg2.hex })
-    set_hl("St_DiagInfo", { fg = colors.ui_blue.hex, bg = colors.bg2.hex })
+    set_hl("St_DiagError", { fg = get_fg "DiagnosticSignError", bg = colors.bg2.hex })
+    set_hl("St_DiagWarning", { fg = get_fg "DiagnosticSignWarn", bg = colors.bg2.hex })
+    set_hl("St_DiagHint", { fg = get_fg "DiagnosticSignHint", bg = colors.bg2.hex })
+    set_hl("St_DiagInfo", { fg = get_fg "DiagnosticSignInfo", bg = colors.bg2.hex })
     set_hl("St_LspInfo", { fg = colors.blue.hex, bg = colors.bg2.hex })
     set_hl("St_CwdSep", { fg = colors.ui_yellow.hex, bg = colors.bg2.hex })
     set_hl("St_CwdIcon", { fg = colors.bg2.hex, bg = colors.ui_yellow.hex })
@@ -110,6 +119,10 @@ M.set_highlights = function()
       vim.api.nvim_set_hl(0, name, val)
     end
 
+    local function get_fg(name)
+      return vim.api.nvim_get_hl(0, { name = name, link = false }).fg
+    end
+
     set_hl("St_NormalMode", { fg = palette.bg0, bg = palette.green, bold = true })
     set_hl("St_NormalModeSep", { fg = palette.green, bg = palette.bg4 })
     set_hl("St_InsertMode", { fg = palette.bg0, bg = palette.blue, bold = true })
@@ -128,10 +141,10 @@ M.set_highlights = function()
     set_hl("St_FileInfo", { fg = palette.grey2, bg = palette.bg2 })
     set_hl("St_FileSep", { fg = palette.bg2, bg = palette.bg1 })
     set_hl("St_GitIcons", { fg = palette.grey1, bg = palette.bg1, bold = true })
-    set_hl("St_DiagError", { fg = palette.red, bg = palette.bg1 })
-    set_hl("St_DiagWarning", { fg = palette.yellow, bg = palette.bg1 })
-    set_hl("St_DiagHint", { fg = palette.green, bg = palette.bg1 })
-    set_hl("St_DiagInfo", { fg = palette.blue, bg = palette.bg1 })
+    set_hl("St_DiagError", { fg = get_fg "DiagnosticSignError", bg = palette.bg1 })
+    set_hl("St_DiagWarning", { fg = get_fg "DiagnosticSignWarn", bg = palette.bg1 })
+    set_hl("St_DiagHint", { fg = get_fg "DiagnosticSignHint", bg = palette.bg1 })
+    set_hl("St_DiagInfo", { fg = get_fg "DiagnosticSignInfo", bg = palette.bg1 })
     set_hl("St_LspInfo", { fg = palette.blue, bg = palette.bg1 })
     set_hl("St_CwdSep", { fg = palette.cyan, bg = palette.bg1 })
     set_hl("St_CwdIcon", { fg = palette.bg1, bg = palette.cyan })
