@@ -1,5 +1,7 @@
 include gmsl
 
+UNAME_S := $(shell uname -s)
+
 # ---------- Zsh ----------
 
 # generate list of Zsh dot files based on contents of zsh/ directory
@@ -16,7 +18,12 @@ zim: $(ZDOTFILES) ## Install the Zim Zsh configuration framework
 # Zsh dot files must be installed *after* Zim itself, otherwise the installation
 # gets aborted prematurely with the message "Zim already installed".
 $(ZDOTFILES): ~/.zim
+ifeq ($(UNAME_S), Darwin)
+	@rm -vf -- $@
+	ln -sf -- $(abspath $(subst .,zsh/,$(notdir $@))) $@
+else
 	ln -srTf -- $(subst .,zsh/,$(notdir $@)) $@
+endif
 
 # -------- WezTerm --------
 
@@ -43,7 +50,12 @@ nvim: ~/.config/nvim ## Configure the Neovim text editor
 	@mkdir $@
 
 ~/.config/nvim: | ~/.config
+ifeq ($(UNAME_S), Darwin)
+	@rm -rvf -- $@
+	ln -sf -- $(abspath nvim) $@
+else
 	ln -srTf -- nvim $@
+endif
 
 clean-nvim: ## Delete the Neovim state and caches
 	@rm -rvf ~/.local/share/nvim ~/.local/state/nvim ~/.cache/nvim ~/.config/nvim
@@ -90,7 +102,7 @@ go: ~/.local/share/go ## Install the Go programming language toolchain
 	@mkdir $@
 
 ~/.local/share/go$(GO_VERSION)/bin/go: | ~/.local/share/go$(GO_VERSION)
-	$(eval OS := $(call lc,$(shell uname -s)))
+	$(eval OS := $(call lc,$(UNAME_S)))
 	$(eval MACH := $(shell uname -m))
 # ref: https://www.gnu.org/software/make/manual/html_node/Substitution-Refs.html
 	$(eval ARCH := $(if $(MACH:x86_64=),$(if $(MACH:aarch64=),$(MACH),arm64),amd64))
@@ -99,7 +111,12 @@ go: ~/.local/share/go ## Install the Go programming language toolchain
 	rm ~/.local/share/golang.tgz
 
 ~/.local/share/go: GO_VERSION | ~/.local/share/go$(GO_VERSION)/bin/go
+ifeq ($(UNAME_S), Darwin)
+	@rm -vf -- $@
+	ln -sf -- go$(GO_VERSION) $@
+else
 	ln -sTf -- go$(GO_VERSION) $@
+endif
 
 # ---------- Rust ----------
 
