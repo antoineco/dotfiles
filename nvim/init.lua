@@ -126,7 +126,12 @@ require "lazy".setup({
     priority = 1000,
     opts = {
       mellifluous = {
-        bg_contrast = "soft"
+        bg_contrast = "soft",
+        color_overrides = {
+          dark = {
+            fg = "#c7c7c7"  -- bg:with_lightness(87) -> bg:with_lightness(80)
+          }
+        }
       },
       plugins = {
         indent_blankline = false,
