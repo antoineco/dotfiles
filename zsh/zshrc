@@ -214,7 +214,7 @@ if (( $+commands[lima] )); then
 fi
 
 # Shell theming
-export FZF_DEFAULT_OPTS=("$FZF_DEFAULT_OPTS" '--color=bg+:0,pointer:3,marker:5,prompt:4')
+export FZF_DEFAULT_OPTS=("$FZF_DEFAULT_OPTS" '--color=16' '--color=fg+:7,bg+:235,hl:8,hl+:3,prompt:6,pointer:4,marker:5,info:2')
 
 # Terminal shell integration
 if [[ ${TERM_PROGRAM} == WezTerm ]]; then
