@@ -133,6 +133,30 @@ require "lazy".setup({
           }
         }
       },
+      highlight_overrides = {
+        dark = function(highlighter, colors)
+          local set_flow_style = function(name)
+            highlighter.set(name, {
+              bold = true,
+              -- compensate for the difference in perceptual contrast due to boldness
+              fg = colors.main_keywords:darkened(10)
+            })
+          end
+          set_flow_style "Conditional"
+          set_flow_style "Repeat"
+        end,
+        light = function(highlighter, colors)
+          local set_flow_style = function(name)
+            highlighter.set(name, {
+              bold = true,
+              -- compensate for the difference in perceptual contrast due to boldness
+              fg = colors.main_keywords:lightened(8)
+            })
+          end
+          set_flow_style "Conditional"
+          set_flow_style "Repeat"
+        end
+      },
       plugins = {
         indent_blankline = false,
         nvim_tree = { enabled = false },
