@@ -71,6 +71,16 @@ vim.opt.wildmode = {
 vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Add Diagnostics to Location List" })
 vim.keymap.set("t", "<leader><esc>", "<C-\\><C-n>", { desc = "Exit Terminal Insert mode" })
 
+vim.keymap.set("n", "[<space>", function()
+  local line = vim.api.nvim_win_get_cursor(0)[1] - 1
+  vim.api.nvim_buf_set_lines(0, line, line, true, vim.fn["repeat"]({ "" }, vim.v.count1))
+end, { desc = "Insert blank line above" })
+
+vim.keymap.set("n", "]<space>", function()
+  local line = vim.api.nvim_win_get_cursor(0)[1]
+  vim.api.nvim_buf_set_lines(0, line, line, true, vim.fn["repeat"]({ "" }, vim.v.count1))
+end, { desc = "Insert blank line below" })
+
 -- }}}
 
 -- Appearance {{{
