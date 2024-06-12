@@ -1,12 +1,8 @@
--- NvChad default statusline style
--- https://github.com/NvChad/ui/blob/v2.0/lua/nvchad_ui/statusline/default.lua
 local M = {}
 
 -- highlight groups
 M.set_highlights = function()
   if vim.g.colors_name == "everforest" then
-    local config = vim.fn["everforest#get_configuration"]()
-    local palette = vim.fn["everforest#get_palette"](config.background, config.colors_override)
     local set_hl = vim.fn["everforest#highlight"]
 
     local function get_fg(name)
@@ -14,107 +10,77 @@ M.set_highlights = function()
       return { ("#%06x"):format(hl.fg), ("%d"):format(hl.ctermfg) }
     end
 
-    set_hl("St_NormalMode", palette.bg0, palette.statusline1, "bold")
-    set_hl("St_NormalModeSep", palette.statusline1, palette.bg4)
-    set_hl("St_InsertMode", palette.bg0, palette.statusline2, "bold")
-    set_hl("St_InsertModeSep", palette.statusline2, palette.bg4)
-    set_hl("St_VisualMode", palette.bg0, palette.statusline3, "bold")
-    set_hl("St_VisualModeSep", palette.statusline3, palette.bg4)
-    set_hl("St_ReplaceMode", palette.bg0, palette.orange, "bold")
-    set_hl("St_ReplaceModeSep", palette.orange, palette.bg4)
-    set_hl("St_SelectMode", palette.bg0, palette.purple, "bold")
-    set_hl("St_SelectModeSep", palette.purple, palette.bg4)
-    set_hl("St_CommandMode", palette.bg0, palette.aqua, "bold")
-    set_hl("St_CommandModeSep", palette.aqua, palette.bg4)
-    set_hl("St_TerminalMode", palette.bg0, palette.yellow, "bold")
-    set_hl("St_TerminalModeSep", palette.yellow, palette.bg4)
-    set_hl("St_EmptySpace", palette.bg4, palette.bg2)
-    set_hl("St_FileInfo", palette.grey2, palette.bg2)
-    set_hl("St_FileSep", palette.bg2, palette.bg1)
-    set_hl("St_GitIcons", palette.grey1, palette.bg1, "bold")
-    set_hl("St_DiagError", get_fg "DiagnosticSignError", palette.bg1)
-    set_hl("St_DiagWarning", get_fg "DiagnosticSignWarn", palette.bg1)
-    set_hl("St_DiagHint", get_fg "DiagnosticSignHint", palette.bg1)
-    set_hl("St_DiagInfo", get_fg "DiagnosticSignInfo", palette.bg1)
-    set_hl("St_LspInfo", palette.blue, palette.bg1)
-    set_hl("St_CwdSep", palette.purple, palette.bg1)
-    set_hl("St_CwdIcon", palette.bg1, palette.purple)
-    set_hl("St_CwdText", palette.grey2, palette.bg2)
-    set_hl("St_PosSep", palette.aqua, palette.bg2)
-    set_hl("St_PosIcon", palette.bg1, palette.aqua)
-    set_hl("St_PosText", palette.grey2, palette.bg2)
-  elseif vim.g.colors_name == "mellifluous" then
-    local colors = require "mellifluous.colors".get_colors()
+    local st_bg = (function()
+      local hl = vim.api.nvim_get_hl(0, { name = "StatusLine" })
+      return { ("#%06x"):format(hl.bg), ("%d"):format(hl.ctermbg) }
+    end)()
 
+    set_hl("User1", get_fg "Added", st_bg)
+    set_hl("User2", get_fg "Changed", st_bg)
+    set_hl("User3", get_fg "Removed", st_bg)
+    set_hl("User4", get_fg "DiagnosticSignError", st_bg)
+    set_hl("User5", get_fg "DiagnosticSignWarn", st_bg)
+    set_hl("User6", get_fg "DiagnosticSignHint", st_bg)
+    set_hl("User7", get_fg "DiagnosticSignInfo", st_bg)
+  elseif vim.g.colors_name == "mellifluous" then
     local function set_hl(name, val)
       vim.api.nvim_set_hl(0, name, val)
     end
 
+    local highlighter = require "mellifluous.utils.highlighter"
+
     local function get_fg(name)
-      return require "mellifluous.utils.highlighter".get(name).fg
+      return highlighter.get(name).fg
     end
 
-    set_hl("St_NormalMode", { fg = colors.dark_bg.hex, bg = colors.ui_blue.hex, bold = true })
-    set_hl("St_NormalModeSep", { fg = colors.ui_blue.hex, bg = colors.fg5.hex })
-    set_hl("St_InsertMode", { fg = colors.dark_bg.hex, bg = colors.ui_orange.hex, bold = true })
-    set_hl("St_InsertModeSep", { fg = colors.ui_orange.hex, bg = colors.fg5.hex })
-    set_hl("St_VisualMode", { fg = colors.dark_bg.hex, bg = colors.ui_green.hex, bold = true })
-    set_hl("St_VisualModeSep", { fg = colors.ui_green.hex, bg = colors.fg5.hex })
-    set_hl("St_ReplaceMode", { fg = colors.dark_bg.hex, bg = colors.ui_red.hex, bold = true })
-    set_hl("St_ReplaceModeSep", { fg = colors.ui_red.hex, bg = colors.fg5.hex })
-    set_hl("St_SelectMode", { fg = colors.dark_bg.hex, bg = colors.ui_purple.hex, bold = true })
-    set_hl("St_SelectModeSep", { fg = colors.ui_purple.hex, bg = colors.fg5.hex })
-    set_hl("St_CommandMode", { fg = colors.dark_bg.hex, bg = colors.fg2.hex, bold = true })
-    set_hl("St_CommandModeSep", { fg = colors.fg2.hex, bg = colors.fg5.hex })
-    set_hl("St_TerminalMode", { fg = colors.dark_bg.hex, bg = colors.ui_yellow.hex, bold = true })
-    set_hl("St_TerminalModeSep", { fg = colors.ui_yellow.hex, bg = colors.fg5.hex })
-    set_hl("St_EmptySpace", { fg = colors.fg5.hex, bg = colors.bg4.hex })
-    set_hl("St_FileInfo", { fg = colors.fg2.hex, bg = colors.bg4.hex })
-    set_hl("St_FileSep", { fg = colors.bg4.hex, bg = colors.bg2.hex })
-    set_hl("St_GitIcons", { fg = colors.fg3.hex, bg = colors.bg2.hex, bold = true })
-    set_hl("St_DiagError", { fg = get_fg "DiagnosticSignError", bg = colors.bg2.hex })
-    set_hl("St_DiagWarning", { fg = get_fg "DiagnosticSignWarn", bg = colors.bg2.hex })
-    set_hl("St_DiagHint", { fg = get_fg "DiagnosticSignHint", bg = colors.bg2.hex })
-    set_hl("St_DiagInfo", { fg = get_fg "DiagnosticSignInfo", bg = colors.bg2.hex })
-    set_hl("St_LspInfo", { fg = colors.blue.hex, bg = colors.bg2.hex })
-    set_hl("St_CwdSep", { fg = colors.ui_yellow.hex, bg = colors.bg2.hex })
-    set_hl("St_CwdIcon", { fg = colors.bg2.hex, bg = colors.ui_yellow.hex })
-    set_hl("St_CwdText", { fg = colors.fg2.hex, bg = colors.bg4.hex })
-    set_hl("St_PosSep", { fg = colors.ui_purple.hex, bg = colors.bg2.hex })
-    set_hl("St_PosIcon", { fg = colors.bg2.hex, bg = colors.ui_purple.hex })
-    set_hl("St_PosText", { fg = colors.fg2.hex, bg = colors.bg4.hex })
-  else
-    local palette = ({
-      light = {
-        bg0 = "NvimLightGrey1",
-        bg1 = "NvimLightGrey3",
-        bg2 = "NvimLightGrey4",
-        bg4 = "NvimDarkGrey4",
-        grey1 = "NvimDarkGrey4",
-        grey2 = "NvimDarkGrey3",
-        beige = "NvimDarkGrey2",
-        blue = "NvimDarkBlue",
-        cyan = "NvimDarkCyan",
-        green = "NvimDarkGreen",
-        red = "NvimDarkRed",
-        yellow = "NvimDarkYellow"
-      },
+    local st_bg = highlighter.get "StatusLine".bg
+
+    set_hl("User1", { fg = get_fg "Added", bg = st_bg })
+    set_hl("User2", { fg = get_fg "Changed", bg = st_bg })
+    set_hl("User3", { fg = get_fg "Removed", bg = st_bg })
+    set_hl("User4", { fg = get_fg "DiagnosticSignError", bg = st_bg })
+    set_hl("User5", { fg = get_fg "DiagnosticSignWarn", bg = st_bg })
+    set_hl("User6", { fg = get_fg "DiagnosticSignHint", bg = st_bg })
+    set_hl("User7", { fg = get_fg "DiagnosticSignInfo", bg = st_bg })
+  elseif vim.g.colors_name == "default" then
+    local function set_hl(name, val)
+      vim.api.nvim_set_hl(0, name, val)
+    end
+
+    local st_bg = vim.api.nvim_get_hl(0, { name = "StatusLine" }).bg
+
+    -- Reading the fg color from DiagnosticSignXYZ highlight groups doesn't
+    -- work in the default colorscheme, because StatusLine has a light
+    -- background in dark mode, and inversely in light mode.
+    local diag_colors = ({
       dark = {
-        bg0 = "NvimDarkGrey1",
-        bg1 = "NvimDarkGrey3",
-        bg2 = "NvimDarkGrey4",
-        bg4 = "NvimLightGrey4",
-        grey1 = "NvimLightGrey4",
-        grey2 = "NvimLightGrey3",
-        beige = "NvimLightGrey2",
-        blue = "NvimLightBlue",
-        cyan = "NvimLightCyan",
-        green = "NvimLightGreen",
-        red = "NvimLightRed",
-        yellow = "NvimLightYellow"
+        added = "NvimDarkGreen",
+        changed = "NvimDarkCyan",
+        removed = "NvimDarkRed",
+        error = "NvimDarkRed",
+        warn = "NvimDarkYellow",
+        hint = "NvimDarkBlue",
+        info = "NvimDarkCyan"
+      },
+      light = {
+        added = "NvimLightGreen",
+        changed = "NvimLightCyan",
+        removed = "NvimLightRed",
+        error = "NvimLightRed",
+        warn = "NvimLightYellow",
+        hint = "NvimLightBlue",
+        info = "NvimLightCyan"
       }
     })[vim.o.background]
 
+    set_hl("User1", { fg = diag_colors.added, bg = st_bg })
+    set_hl("User2", { fg = diag_colors.changed, bg = st_bg })
+    set_hl("User3", { fg = diag_colors.removed, bg = st_bg })
+    set_hl("User4", { fg = diag_colors.error, bg = st_bg })
+    set_hl("User5", { fg = diag_colors.warn, bg = st_bg })
+    set_hl("User6", { fg = diag_colors.hint, bg = st_bg })
+    set_hl("User7", { fg = diag_colors.info, bg = st_bg })
+  else
     local function set_hl(name, val)
       vim.api.nvim_set_hl(0, name, val)
     end
@@ -123,135 +89,145 @@ M.set_highlights = function()
       return vim.api.nvim_get_hl(0, { name = name, link = false }).fg
     end
 
-    set_hl("St_NormalMode", { fg = palette.bg0, bg = palette.green, bold = true })
-    set_hl("St_NormalModeSep", { fg = palette.green, bg = palette.bg4 })
-    set_hl("St_InsertMode", { fg = palette.bg0, bg = palette.blue, bold = true })
-    set_hl("St_InsertModeSep", { fg = palette.blue, bg = palette.bg4 })
-    set_hl("St_VisualMode", { fg = palette.bg0, bg = palette.cyan, bold = true })
-    set_hl("St_VisualModeSep", { fg = palette.cyan, bg = palette.bg4 })
-    set_hl("St_ReplaceMode", { fg = palette.bg0, bg = palette.red, bold = true })
-    set_hl("St_ReplaceModeSep", { fg = palette.red, bg = palette.bg4 })
-    set_hl("St_SelectMode", { fg = palette.bg0, bg = palette.yellow, bold = true })
-    set_hl("St_SelectModeSep", { fg = palette.yellow, bg = palette.bg4 })
-    set_hl("St_CommandMode", { fg = palette.bg0, bg = palette.beige, bold = true })
-    set_hl("St_CommandModeSep", { fg = palette.beige, bg = palette.bg4 })
-    set_hl("St_TerminalMode", { fg = palette.bg0, bg = palette.yellow, bold = true })
-    set_hl("St_TerminalModeSep", { fg = palette.yellow, bg = palette.bg4 })
-    set_hl("St_EmptySpace", { fg = palette.bg4, bg = palette.bg2 })
-    set_hl("St_FileInfo", { fg = palette.grey2, bg = palette.bg2 })
-    set_hl("St_FileSep", { fg = palette.bg2, bg = palette.bg1 })
-    set_hl("St_GitIcons", { fg = palette.grey1, bg = palette.bg1, bold = true })
-    set_hl("St_DiagError", { fg = get_fg "DiagnosticSignError", bg = palette.bg1 })
-    set_hl("St_DiagWarning", { fg = get_fg "DiagnosticSignWarn", bg = palette.bg1 })
-    set_hl("St_DiagHint", { fg = get_fg "DiagnosticSignHint", bg = palette.bg1 })
-    set_hl("St_DiagInfo", { fg = get_fg "DiagnosticSignInfo", bg = palette.bg1 })
-    set_hl("St_LspInfo", { fg = palette.blue, bg = palette.bg1 })
-    set_hl("St_CwdSep", { fg = palette.cyan, bg = palette.bg1 })
-    set_hl("St_CwdIcon", { fg = palette.bg1, bg = palette.cyan })
-    set_hl("St_CwdText", { fg = palette.grey2, bg = palette.bg2 })
-    set_hl("St_PosSep", { fg = palette.blue, bg = palette.bg2 })
-    set_hl("St_PosIcon", { fg = palette.bg1, bg = palette.blue })
-    set_hl("St_PosText", { fg = palette.grey2, bg = palette.bg2 })
+    local st_bg = (function()
+      local hl = vim.api.nvim_get_hl(0, { name = "StatusLine" })
+      return hl.reverse and hl.fg or hl.bg
+    end)()
+
+    set_hl("User1", { fg = get_fg "Added", bg = st_bg })
+    set_hl("User2", { fg = get_fg "Changed", bg = st_bg })
+    set_hl("User3", { fg = get_fg "Removed", bg = st_bg })
+    set_hl("User4", { fg = get_fg "DiagnosticSignError", bg = st_bg })
+    set_hl("User5", { fg = get_fg "DiagnosticSignWarn", bg = st_bg })
+    set_hl("User6", { fg = get_fg "DiagnosticSignHint", bg = st_bg })
+    set_hl("User7", { fg = get_fg "DiagnosticSignInfo", bg = st_bg })
   end
+
+  -- HACK: restoring the StatusLine highlight with "%*" at the end of a "%()"
+  -- item group causes the item group to disappear unconditionally. This is
+  -- possibly a bug in Neovim (neovim/neovim#29306). The item group should only
+  -- disappear when all items inside the group are empty (:h 'statusline').
+  -- This can be mitigated by applying a numbered User highlight before every
+  -- group item that expands a restore item.
+  vim.api.nvim_set_hl(0, "User9", vim.api.nvim_get_hl(0, { name = "StatusLine" }))
 end
 
-local modes = {
-  ["n"] = { "NORMAL", "St_NormalMode" },
-  ["no"] = { "NORMAL (no)", "St_NormalMode" },
-  ["nov"] = { "NORMAL (nov)", "St_NormalMode" },
-  ["noV"] = { "NORMAL (noV)", "St_NormalMode" },
-  ["noCTRL-V"] = { "NORMAL", "St_NormalMode" },
-  ["niI"] = { "NORMAL i", "St_NormalMode" },
-  ["niR"] = { "NORMAL r", "St_NormalMode" },
-  ["niV"] = { "NORMAL v", "St_NormalMode" },
-  ["nt"] = { "NTERMINAL", "St_TerminalMode" },
-  ["ntT"] = { "NTERMINAL (ntT)", "St_TerminalMode" },
-
-  ["v"] = { "VISUAL", "St_VisualMode" },
-  ["vs"] = { "V-CHAR (Ctrl O)", "St_VisualMode" },
-  ["V"] = { "V-LINE", "St_VisualMode" },
-  ["Vs"] = { "V-LINE", "St_VisualMode" },
-  [""] = { "V-BLOCK", "St_VisualMode" },
-
-  ["i"] = { "INSERT", "St_InsertMode" },
-  ["ic"] = { "INSERT (completion)", "St_InsertMode" },
-  ["ix"] = { "INSERT completion", "St_InsertMode" },
-
-  ["t"] = { "TERMINAL", "St_TerminalMode" },
-
-  ["R"] = { "REPLACE", "St_ReplaceMode" },
-  ["Rc"] = { "REPLACE (Rc)", "St_ReplaceMode" },
-  ["Rx"] = { "REPLACEa (Rx)", "St_ReplaceMode" },
-  ["Rv"] = { "V-REPLACE", "St_ReplaceMode" },
-  ["Rvc"] = { "V-REPLACE (Rvc)", "St_ReplaceMode" },
-  ["Rvx"] = { "V-REPLACE (Rvx)", "St_ReplaceMode" },
-
-  ["s"] = { "SELECT", "St_SelectMode" },
-  ["S"] = { "S-LINE", "St_SelectMode" },
-  [""] = { "S-BLOCK", "St_SelectMode" },
-  ["c"] = { "COMMAND", "St_CommandMode" },
-  ["cv"] = { "COMMAND", "St_CommandMode" },
-  ["ce"] = { "COMMAND", "St_CommandMode" },
-  ["r"] = { "PROMPT", "St_ConfirmMode" },
-  ["rm"] = { "MORE", "St_ConfirmMode" },
-  ["r?"] = { "CONFIRM", "St_ConfirmMode" },
-  ["x"] = { "CONFIRM", "St_ConfirmMode" },
-  ["!"] = { "SHELL", "St_TerminalMode" }
-}
-
-local sep_l = ""
-local sep_r = " "
-
 M.draw = function()
-  local bufnr = vim.api.nvim_get_current_buf()
-
-  -- mode
-  local m = vim.api.nvim_get_mode().mode
-  local current_mode = "%#" .. modes[m][2] .. "#" .. "  " .. modes[m][1] .. " "
-  local mode_sep = "%#" .. modes[m][2] .. "Sep" .. "#" .. sep_r
-
-  -- fileinfo
-  local file_sep = "%#St_FileSep#" .. sep_r
-  local ft_icon = require "nvim-web-devicons".get_icon(vim.fn.expand "%:t") or "󰈚"
-
-  -- git
-  local git_status = vim.b["gitsigns_status_dict"]
-  local git = git_status and "%#St_GitIcons#" .. " " .. git_status.head .. " " ..
-    (git_status.added and git_status.added > 0 and " " .. git_status.added .. " " or "") ..
-    (git_status.changed and git_status.changed > 0 and " " .. git_status.changed .. " " or "") ..
-    (git_status.removed and git_status.removed > 0 and " " .. git_status.removed .. " " or "") or ""
-
-  -- diagnostics
-  local diag_errors = #vim.diagnostic.get(bufnr, { severity = vim.diagnostic.severity.ERROR })
-  local diag_warnings = #vim.diagnostic.get(bufnr, { severity = vim.diagnostic.severity.WARN })
-  local diag_hints = #vim.diagnostic.get(bufnr, { severity = vim.diagnostic.severity.HINT })
-  local diag_infos = #vim.diagnostic.get(bufnr, { severity = vim.diagnostic.severity.INFO })
-
-  local diags = (diag_errors > 0 and "%#St_DiagError#" .. " " .. diag_errors .. " " or "") ..
-    (diag_warnings > 0 and "%#St_DiagWarning#" .. " " .. diag_warnings .. " " or "") ..
-    (diag_hints > 0 and "%#St_DiagHint#" .. " " .. diag_hints .. " " or "") ..
-    (diag_infos > 0 and "%#St_DiagInfo#" .. " " .. diag_infos .. " " or "")
-
-  -- lsp
-  local attached_clients = vim.lsp.get_clients { bufnr = bufnr }
-  local lsp = #attached_clients > 0 and "%#St_LspInfo#" .. " " .. " " .. attached_clients[1].name .. " " or ""
-
-  -- cwd
-  local cwd_sep = "%#St_CwdSep#" .. sep_l .. "%#St_CwdIcon#" .. "󰉋 "
-  local dir_name = vim.fn.fnamemodify(vim.fn.getcwd(), ":t")
-
-  -- cursor
-  local pos_sep = "%#St_PosSep#" .. sep_l .. "%#St_PosIcon#" .. " "
-
-  return current_mode .. mode_sep ..
-    "%#St_EmptySpace#" .. sep_r ..
-    "%#St_FileInfo#" .. ft_icon .. " " .. "%t" .. " " .. "%-4m" .. file_sep ..
-    git ..
+  return
+    "%{v:lua.St.mode()}" ..
+    "%(   %{%v:lua.St.filename()%}%)" ..
+    "%(   %{v:lua.St.git_head()}%)%9*%( [%{%v:lua.St.git_status()%}]%)" ..
     "%=" ..
-    diags ..
-    lsp ..
-    cwd_sep .. "%#St_CwdText#" .. " " .. dir_name .. " " ..
-    pos_sep .. "%#St_PosText#" .. " " .. "%-7(%P:%c%V%)" .. " "
+    "%(%{v:lua.St.lsp_server()}%)%9*%( [%{%v:lua.St.lsp_diags()%}]%)" ..
+    "%14(%P:%c%V%)"
+end
+
+M.mode = function()
+  -- :h mode()
+  return ({
+    ["n"] = "NOR",
+    ["no"] = "NOo",
+    ["nov"] = "NOv",
+    ["noV"] = "NOV",
+    ["no^V"] = "NO?",
+    ["niI"] = "NOi",
+    ["niR"] = "NiR",
+    ["niV"] = "NiV",
+    ["nt"] = "NOt",
+    ["ntT"] = "NtT",
+
+    ["v"] = "VIS",
+    ["vs"] = "VIs",
+    ["V"] = "VIl",
+    ["Vs"] = "VIs",
+    [""] = "VIb",
+
+    ["i"] = "INS",
+    ["ic"] = "INc",
+    ["ix"] = "INx",
+
+    ["t"] = "TER",
+
+    ["R"] = "REP",
+    ["Rc"] = "REc",
+    ["Rx"] = "REx",
+    ["Rv"] = "REv",
+    ["Rvc"] = "Rvc",
+    ["Rvx"] = "Rvx",
+
+    ["s"] = "SEL",
+    ["S"] = "SEl",
+    [""] = "SEb",
+
+    ["c"] = "CMD",
+    ["cv"] = "COv",
+    ["ce"] = "COe",
+
+    ["r"] = "...",
+    ["rm"] = "..m",
+    ["r?"] = "?  ",
+    ["!"] = "!  "
+  })[vim.api.nvim_get_mode().mode]
+end
+
+M.filename = function()
+  local ft_icon = require "nvim-web-devicons".get_icon(vim.fn.expand "%:t") or "󰈚"
+  return ft_icon .. " %t%( %m%)%)"
+end
+
+M.git_head = function()
+  local gs = vim.b.gitsigns_status_dict
+  return gs and " " .. gs.head or ""
+end
+
+M.git_status = function()
+  local gs = vim.b.gitsigns_status_dict
+  if not gs then
+    return ""
+  end
+
+  local status = {}
+
+  if gs.added and gs.added > 0 then
+    table.insert(status, "%1*◆" .. gs.added)
+  end
+  if gs.changed and gs.changed > 0 then
+    table.insert(status, "%2*●" .. gs.changed)
+  end
+  if gs.removed and gs.removed > 0 then
+    table.insert(status, "%3*▼" .. gs.removed)
+  end
+
+  return #status > 0 and table.concat(status, "%* ") .. "%*" or ""
+end
+
+M.lsp_server = function()
+  local attached_clients = vim.lsp.get_clients { bufnr = vim.api.nvim_get_current_buf() }
+  return #attached_clients > 0 and " " .. attached_clients[1].name or ""
+end
+
+M.lsp_diags = function()
+  local diag_errors = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.ERROR })
+  local diag_warnings = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.WARN })
+  local diag_hints = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.HINT })
+  local diag_infos = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.INFO })
+
+  local diags = {}
+
+  if diag_errors > 0 then
+    table.insert(diags, "%4*◆" .. diag_errors)
+  end
+  if diag_warnings > 0 then
+    table.insert(diags, "%5*▼" .. diag_warnings)
+  end
+  if diag_hints > 0 then
+    table.insert(diags, "%6*●" .. diag_hints)
+  end
+  if diag_infos > 0 then
+    table.insert(diags, "%7*■" .. diag_infos)
+  end
+
+  return #diags > 0 and table.concat(diags, "%* ") .. "%*" or ""
 end
 
 return M
