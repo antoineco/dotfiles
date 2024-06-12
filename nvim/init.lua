@@ -650,8 +650,8 @@ require "lazy".setup({
 
       require "neotest".setup {
         adapters = {
-          require "neotest-golang",
-          require "rustaceanvim.neotest"
+          require "rustaceanvim.neotest",
+          require "neotest-golang"
         }
       }
     end,
