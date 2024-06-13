@@ -139,7 +139,8 @@ require "lazy".setup({
         bg_contrast = "soft",
         color_overrides = {
           dark = {
-            fg = "#c7c7c7"  -- bg:with_lightness(87) -> bg:with_lightness(80)
+            fg = "#c7c7c7",        -- bg:with_lightness(87) -> bg:with_lightness(80)
+            shades_fg = "#dadada"  -- original fg color
           }
         }
       },
