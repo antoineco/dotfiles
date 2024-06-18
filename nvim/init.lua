@@ -448,8 +448,8 @@ require "lazy".setup({
 
         local line = vim.fn.line
 
-        map("n", "]h", gs.next_hunk, "Goto Next Hunk")
-        map("n", "[h", gs.prev_hunk, "Goto Previous Hunk")
+        map("n", "]h", function() gs.nav_hunk "next" end, "Goto Next Hunk")
+        map("n", "[h", function() gs.nav_hunk "prev" end, "Goto Previous Hunk")
 
         map("n", "<leader>hs", gs.stage_hunk, "Stage Hunk")
         map("n", "<leader>hu", gs.undo_stage_hunk, "Undo Stage Hunk")
