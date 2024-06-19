@@ -65,10 +65,7 @@ clean-nvim: ## Delete the Neovim state and caches
 FZF_VERSION := 0.51.0
 
 .PHONY: fzf
-fzf: ~/.local/share/fzf/shell/completion.zsh
-fzf: ~/.local/share/fzf/shell/key-bindings.zsh
-fzf: ~/.local/share/fzf/bin/fzf
-fzf: ## Install the fzf fuzzy-finder
+fzf: ~/.local/share/fzf/bin/fzf ## Install the fzf fuzzy-finder
 
 ~/.local:
 	@mkdir $@
@@ -79,17 +76,11 @@ fzf: ## Install the fzf fuzzy-finder
 ~/.local/share/fzf: | ~/.local/share
 	@mkdir $@
 
-~/.local/share/fzf/shell: | ~/.local/share/fzf
-	@mkdir $@
-
 ~/.local/share/fzf/bin/fzf: FZF_VERSION | ~/.local/share/fzf
 	curl -fsSo ~/.local/share/fzf/install https://raw.githubusercontent.com/junegunn/fzf/$(FZF_VERSION)/install
 	chmod +x ~/.local/share/fzf/install
 	~/.local/share/fzf/install --key-bindings --completion --no-update-rc --no-bash --no-fish
 	rm ~/.local/share/fzf/install
-
-~/.local/share/fzf/shell/%.zsh: FZF_VERSION | ~/.local/share/fzf/shell
-	curl -fsSo $@ https://raw.githubusercontent.com/junegunn/fzf/$(FZF_VERSION)/shell/$(notdir $@)
 
 # ---------- Go -----------
 
