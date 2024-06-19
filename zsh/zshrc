@@ -110,6 +110,13 @@ ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets)
 #typeset -A ZSH_HIGHLIGHT_STYLES
 #ZSH_HIGHLIGHT_STYLES[comment]='fg=242'
 
+#
+# fzf
+#
+
+# The module needs to be able to find the fzf executable when initialized.
+path=(${HOME}/.local/share/fzf/bin $path)
+
 # ------------------
 # Initialize modules
 # ------------------
@@ -176,10 +183,6 @@ path=(${HOME}/.local/bin $path)
 # Go
 export GOPATH=${HOME}/go
 path=(${HOME}/.local/share/go/bin ${GOPATH}/bin $path)
-
-# fzf
-# Generate with `${FZF_BASE}/install --key-bindings --completion --no-update-rc --no-bash --no-fish`
-[[ -s ${HOME}/.fzf.zsh ]] && . ${HOME}/.fzf.zsh
 
 # Node
 [[ -s ${HOME}/.nvm/nvm.sh ]] && . ${HOME}/.nvm/nvm.sh
