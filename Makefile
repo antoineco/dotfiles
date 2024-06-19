@@ -62,7 +62,7 @@ clean-nvim: ## Delete the Neovim state and caches
 
 # ---------- fzf ----------
 
-FZF_VERSION := 0.51.0
+FZF_VERSION := 0.53.0
 
 .PHONY: fzf
 fzf: ~/.local/share/fzf/bin/fzf ## Install the fzf fuzzy-finder
