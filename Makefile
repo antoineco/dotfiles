@@ -81,6 +81,7 @@ fzf: ~/.local/share/fzf/bin/fzf ## Install the fzf fuzzy-finder
 	chmod +x ~/.local/share/fzf/install
 	~/.local/share/fzf/install --bin
 	rm ~/.local/share/fzf/install
+	touch $@
 
 # ---------- Go -----------
 
