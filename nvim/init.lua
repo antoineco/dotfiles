@@ -126,6 +126,13 @@ require "lazy".setup({
     lazy = colorscheme ~= "everforest",
     priority = 1000,
     config = function()
+      vim.api.nvim_create_autocmd("ColorSchemePre", {
+        group = nvinit_augrp,
+        pattern = "everforest",
+        callback = function()
+          vim.g.everforest_background = vim.o.bg == "dark" and "medium" or "hard"
+        end
+      })
       vim.g.everforest_enable_italic = true
       vim.cmd.colorscheme(colorscheme)
     end
@@ -136,7 +143,6 @@ require "lazy".setup({
     priority = 1000,
     opts = {
       mellifluous = {
-        bg_contrast = "soft",
         color_overrides = {
           dark = {
             fg = "#c7c7c7",        -- bg:with_lightness(87) -> bg:with_lightness(80)
@@ -180,7 +186,25 @@ require "lazy".setup({
       }
     },
     config = function(_, opts)
-      require "mellifluous".setup(opts)
+      vim.api.nvim_create_autocmd("ColorSchemePre", {
+        group = nvinit_augrp,
+        pattern = "mellifluous",
+        callback = function()
+          -- Reset all color_overrides (remove their metatable) to avoid the
+          -- following error when switching back and forth between backgrounds:
+          --
+          --   Error while calling lua chunk: .../mellifluous/colors/shades.lua:20:
+          --   attempt to call method 'darkened' (a nil value)
+          opts.mellifluous.color_overrides[vim.o.bg] = vim.tbl_map(
+            function(color) return type(color) == "table" and color.hex or color end,
+            opts.mellifluous.color_overrides[vim.o.bg] or {}
+          )
+
+          opts.mellifluous.bg_contrast = vim.o.bg == "dark" and "soft" or "hard"
+
+          require "mellifluous".setup(opts)
+        end
+      })
       vim.cmd.colorscheme(colorscheme)
     end
   },
