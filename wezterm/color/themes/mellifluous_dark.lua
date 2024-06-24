@@ -7,18 +7,18 @@ local M = scheme:new {
     bg_dim = '#191919',
     bg0    = '#282828',
     bg1    = '#323232',
-    fg     = '#DADADA',
+    fg     = '#dadada',
     grey0  = '#848484',
-    grey1  = '#AEAEAE'
+    grey1  = '#aeaeae'
   }
 }
 
 ---@type Colors
 local base = wezterm.color.get_builtin_schemes()['Mellifluous']
-base.background = '#1F1F1F'  -- soft
-base.selection_bg = '#2D2D2D'
+base.background = '#1f1f1f'      -- soft
+base.selection_bg = '#2f2f2f'    -- bg3
 base.selection_fg = nil
-base.compose_cursor = '#938CA8'  -- ui_blue
+base.compose_cursor = '#938ca8'  -- ui_blue
 M:build(base)
 
 return M

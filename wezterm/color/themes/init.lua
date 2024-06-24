@@ -2,8 +2,10 @@ local M = {}
 
 ---@type table<string, Scheme>
 local all = {
-  ['Everforest']  = require 'color.themes.everforest',
-  ['Mellifluous'] = require 'color.themes.mellifluous'
+  ['Everforest Dark']   = require 'color.themes.everforest_dark',
+  ['Everforest Light']  = require 'color.themes.everforest_light',
+  ['Mellifluous Dark']  = require 'color.themes.mellifluous_dark',
+  ['Mellifluous Light'] = require 'color.themes.mellifluous_light'
 }
 
 --- Returns a table containing all color schemes indexed by name.
