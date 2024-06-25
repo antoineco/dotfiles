@@ -734,6 +734,9 @@ require "lazy".setup({
   },
   install = {
     colorscheme = { colorscheme }
+  },
+  rocks = {
+    enabled = false
   }
 })
 
