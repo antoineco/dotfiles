@@ -87,7 +87,12 @@ config.tab_max_width = 24
 
 config.window_decorations = 'RESIZE'
 
-local colorscheme = 'Mellifluous Dark'
+local get_appearance = function()
+  local gui_appearance = wezterm.gui and wezterm.gui.get_appearance() or ''
+  return gui_appearance:sub(1, 1) == 'L' and 'Light' or 'Dark'
+end
+
+local colorscheme = 'Mellifluous ' .. get_appearance()
 
 config.color_scheme = colorscheme
 
