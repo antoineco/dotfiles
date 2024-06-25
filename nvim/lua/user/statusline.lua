@@ -171,7 +171,11 @@ M.mode = function()
 end
 
 M.filename = function()
-  local ft_icon = require "nvim-web-devicons".get_icon(vim.fn.expand "%:t") or "󰈚"
+  local ft_icon = "󰈚"
+  local ok, devicons = pcall(require, "nvim-web-devicons")
+  if ok then
+    ft_icon = devicons.get_icon(vim.fn.expand "%:t") or ft_icon
+  end
   return ft_icon .. " %t%( %m%)%)"
 end
 
