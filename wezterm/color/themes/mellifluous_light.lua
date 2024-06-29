@@ -31,7 +31,7 @@ local base = {
     '#865000',  -- orange, darkened(10)
     '#42286f',  -- blue, darkened(10)
     '#6b2465',  -- purple, darkened(10)
-    '#815f00',  -- yellow, darkened
+    '#815f00',  -- yellow, darkened(10)
     '#414141'   -- fg2
   },
 
