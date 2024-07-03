@@ -17,7 +17,7 @@ config.bold_brightens_ansi_colors = false
 config.exit_behavior = 'CloseOnCleanExit'
 
 config.font = wezterm.font('MonoLisa', { weight = 'Regular' })
-config.font_size = 12
+config.font_size = wezterm.target_triple == 'aarch64-apple-darwin' and 14 or 12
 
 -- Navigation
 --
