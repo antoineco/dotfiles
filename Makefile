@@ -28,9 +28,18 @@ endif
 # -------- WezTerm --------
 
 .PHONY: wezterm
+wezterm: ~/.config/wezterm
 wezterm: ~/.terminfo/w/wezterm
 wezterm: ~/.wezterm.sh
-wezterm: ## Set up the shell for the WezTerm terminal emulator
+wezterm: ## Set up the WezTerm terminal emulator and its shell integration
+
+~/.config/wezterm: | ~/.config
+ifeq ($(UNAME_S), Darwin)
+	@rm -rvf -- $@
+	ln -sf -- $(abspath wezterm) $@
+else
+	ln -srTf -- wezterm $@
+endif
 
 ~/.terminfo/w/wezterm:
 	$(eval TMPFILE := $(shell mktemp))
