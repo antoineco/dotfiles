@@ -262,11 +262,7 @@ require "lazy".setup({
           map("n", "gD", lspb.declaration, "Goto Declaration")
           map("n", "gi", lspb.implementation, "Goto Implementation")
 
-          local function map_signature(mode, l)
-            vim.keymap.set(mode, l, lspb.signature_help, { buffer = e.buf, desc = "Display Symbol Signature" })
-          end
-          map_signature("n", "<C-k>")
-          map_signature("i", "<C-s>")
+          map("n", "<C-k>", lspb.signature_help, "Display Symbol Signature")
 
           map("n", "<leader>fm", function() lspb.format { async = true } end, "Format")
 
