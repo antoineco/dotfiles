@@ -148,11 +148,18 @@ help:
 	| awk 'BEGIN {FS = ":"}; {if (NF < 3) {$$3 = $$2; $$2 = $$1}; print $$2":" $$3}' \
 	| awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
 
+gnu_make_version := $(subst ., ,$(MAKE_VERSION))
+
 .PHONY: phony
 # source: https://stackoverflow.com/a/74378629
 define DEPENDABLE_VAR
 $(1):
 	echo -n $($(1)) > $(1)
+ifneq ($(call gte,$(word 1,$(gnu_make_version)),4),$(true))
+	$$(error Unsupported Make version. \
+		The 'file' built-in function is not available in GNU Make $(MAKE_VERSION), \
+		please use GNU Make 4.0 or above)
+endif
 ifneq ("$(file <$(1))","$($(1))")
 $(1): phony
 endif
