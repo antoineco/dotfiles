@@ -1,15 +1,15 @@
 include gmsl
 
-UNAME_S := $(shell uname -s)
+uname_s := $(shell uname -s)
 
 # ---------- Zsh ----------
 
 # generate list of Zsh dot files based on contents of zsh/ directory
 # e.g. ~/.zshrc ~/.zprofile ...
-ZDOTFILES := $(foreach f,$(wildcard zsh/*),~/.$(notdir $(f)))
+zdotfiles := $(foreach f,$(wildcard zsh/*),~/.$(notdir $(f)))
 
 .PHONY: zim
-zim: $(ZDOTFILES) ## Install the Zim Zsh configuration framework
+zim: $(zdotfiles) ## Install the Zim Zsh configuration framework
 	zsh -ic 'zimfw install'
 
 ~/.zim:
@@ -17,8 +17,8 @@ zim: $(ZDOTFILES) ## Install the Zim Zsh configuration framework
 
 # Zsh dot files must be installed *after* Zim itself, otherwise the installation
 # gets aborted prematurely with the message "Zim already installed".
-$(ZDOTFILES): ~/.zim
-ifeq ($(UNAME_S), Darwin)
+$(zdotfiles): ~/.zim
+ifeq ($(uname_s),Darwin)
 	@rm -vf -- $@
 	ln -sf -- $(abspath $(subst .,zsh/,$(notdir $@))) $@
 else
@@ -30,23 +30,23 @@ endif
 # ncurses uses the two-character hexadecimal form as the intermediate TERMINFO
 # directory tree level on macOS.
 # https://invisible-island.net/ncurses/man/term.5.html#h3-Mixed-case-Terminal-Names
-TERMINFO_W := $(if $(UNAME_S:Darwin=),w,77)
+terminfo_w := $(if $(uname_s:Darwin=),w,77)
 
 .PHONY: wezterm
 wezterm: ~/.config/wezterm
-wezterm: ~/.terminfo/$(TERMINFO_W)/wezterm
+wezterm: ~/.terminfo/$(terminfo_w)/wezterm
 wezterm: ~/.wezterm.sh
 wezterm: ## Set up the WezTerm terminal emulator and its shell integration
 
 ~/.config/wezterm: | ~/.config
-ifeq ($(UNAME_S), Darwin)
+ifeq ($(uname_s),Darwin)
 	@rm -rvf -- $@
 	ln -sf -- $(abspath wezterm) $@
 else
 	ln -srTf -- wezterm $@
 endif
 
-~/.terminfo/$(TERMINFO_W)/wezterm:
+~/.terminfo/$(terminfo_w)/wezterm:
 	$(eval TMPFILE := $(shell mktemp))
 	curl -fsSo $(TMPFILE) https://raw.githubusercontent.com/wez/wezterm/main/termwiz/data/wezterm.terminfo
 	tic -x $(TMPFILE)
@@ -64,7 +64,7 @@ nvim: ~/.config/nvim ## Configure the Neovim text editor
 	@mkdir $@
 
 ~/.config/nvim: | ~/.config
-ifeq ($(UNAME_S), Darwin)
+ifeq ($(uname_s),Darwin)
 	@rm -rvf -- $@
 	ln -sf -- $(abspath nvim) $@
 else
@@ -108,16 +108,16 @@ go: ~/.local/share/go ## Install the Go programming language toolchain
 	@mkdir $@
 
 ~/.local/share/go$(GO_VERSION)/bin/go: | ~/.local/share/go$(GO_VERSION)
-	$(eval OS := $(call lc,$(UNAME_S)))
-	$(eval MACH := $(shell uname -m))
+	$(eval os := $(call lc,$(uname_s)))
+	$(eval mach := $(shell uname -m))
 # ref: https://www.gnu.org/software/make/manual/html_node/Substitution-Refs.html
-	$(eval ARCH := $(if $(MACH:x86_64=),$(if $(MACH:aarch64=),$(MACH),arm64),amd64))
-	curl -fsSLo ~/.local/share/golang.tgz https://go.dev/dl/go$(GO_VERSION).$(OS)-$(ARCH).tar.gz
+	$(eval arch := $(if $(mach:x86_64=),$(if $(mach:aarch64=),$(mach),arm64),amd64))
+	curl -fsSLo ~/.local/share/golang.tgz https://go.dev/dl/go$(GO_VERSION).$(os)-$(arch).tar.gz
 	tar -C $(dir $(abspath $(dir $@))) --strip-components=1 -xzf ~/.local/share/golang.tgz
 	rm ~/.local/share/golang.tgz
 
 ~/.local/share/go: GO_VERSION | ~/.local/share/go$(GO_VERSION)/bin/go
-ifeq ($(UNAME_S), Darwin)
+ifeq ($(uname_s),Darwin)
 	@rm -vf -- $@
 	ln -sf -- go$(GO_VERSION) $@
 else
@@ -126,12 +126,12 @@ endif
 
 # ---------- Rust ----------
 
-RUSTDIRS := ~/.rustup ~/.cargo
+rustdirs := ~/.rustup ~/.cargo
 
 .PHONY: rust
-rust: $(RUSTDIRS) ## Install the Rust programming language toolchain
+rust: $(rustdirs) ## Install the Rust programming language toolchain
 
-$(RUSTDIRS):
+$(rustdirs):
 	curl -fsS https://sh.rustup.rs | sh -s -- -y --no-modify-path
 
 # ---------- Misc ---------- 
@@ -152,7 +152,7 @@ gnu_make_version := $(subst ., ,$(MAKE_VERSION))
 
 .PHONY: phony
 # source: https://stackoverflow.com/a/74378629
-define DEPENDABLE_VAR
+define dependable-var
 $(1):
 	printf '%s' $($(1)) > $(1)
 ifneq ($(call gte,$(word 1,$(gnu_make_version)),4),$(true))
@@ -165,5 +165,5 @@ $(1): phony
 endif
 endef
 
-$(eval $(call DEPENDABLE_VAR,FZF_VERSION))
-$(eval $(call DEPENDABLE_VAR,GO_VERSION))
+$(eval $(call dependable-var,FZF_VERSION))
+$(eval $(call dependable-var,GO_VERSION))
