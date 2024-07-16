@@ -9,10 +9,16 @@ uname_s := $(shell uname -s)
 zdotfiles := $(foreach f,$(wildcard zsh/*),~/.$(notdir $(f)))
 
 .PHONY: zim
-zim: $(zdotfiles) ## Install the Zim Zsh configuration framework
-	zsh -ic 'zimfw install'
+zim: $(zdotfiles)
+zim: ~/.zim/modules/fzf/init.zsh
+zim: ## Install the Zim Zsh configuration framework
 
+# NOTE: the mtime of ~/.zim gets updated not only during the Zim installation,
+# but also on various events such as 'zimfw update', compilation of zwc files,
+# etc. This can cause dependants to be re-made, which is acceptable and
+# compensated by touching the dependants in their respective goals.
 ~/.zim:
+	@rm -vf -- $(zdotfiles)
 	curl -fsS https://raw.githubusercontent.com/zimfw/install/master/install.zsh | zsh
 
 # Zsh dot files must be installed *after* Zim itself, otherwise the installation
@@ -24,6 +30,11 @@ ifeq ($(uname_s),Darwin)
 else
 	ln -srTf -- $(subst .,zsh/,$(notdir $@)) $@
 endif
+	touch $@
+
+~/.zim/modules/fzf/init.zsh: $(filter %.zimrc,$(zdotfiles))
+	zsh -ic 'zimfw install'
+	touch $@
 
 # -------- WezTerm --------
 
