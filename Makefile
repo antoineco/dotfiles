@@ -154,7 +154,7 @@ gnu_make_version := $(subst ., ,$(MAKE_VERSION))
 # source: https://stackoverflow.com/a/74378629
 define DEPENDABLE_VAR
 $(1):
-	echo -n $($(1)) > $(1)
+	printf '%s' $($(1)) > $(1)
 ifneq ($(call gte,$(word 1,$(gnu_make_version)),4),$(true))
 	$$(error Unsupported Make version. \
 		The 'file' built-in function is not available in GNU Make $(MAKE_VERSION), \
