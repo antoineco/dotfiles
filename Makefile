@@ -2,6 +2,14 @@ include gmsl
 
 uname_s := $(shell uname -s)
 
+# ---------- Nix ----------
+
+.PHONY: nix
+nix: /nix ## Install Nix
+
+/nix:
+	curl -fsSL https://install.determinate.systems/nix | sh -s -- install
+
 # ---------- Zsh ----------
 
 # generate list of Zsh dot files based on contents of zsh/ directory
