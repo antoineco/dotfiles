@@ -110,13 +110,6 @@ ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets)
 #typeset -A ZSH_HIGHLIGHT_STYLES
 #ZSH_HIGHLIGHT_STYLES[comment]='fg=242'
 
-#
-# fzf
-#
-
-# The module needs to be able to find the fzf executable when initialized.
-path=(${HOME}/.local/share/fzf/bin $path)
-
 # ------------------
 # Initialize modules
 # ------------------

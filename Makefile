@@ -93,29 +93,6 @@ endif
 clean-nvim: ## Delete the Neovim state and caches
 	@rm -rvf ~/.local/share/nvim ~/.local/state/nvim ~/.cache/nvim ~/.config/nvim
 
-# ---------- fzf ----------
-
-FZF_VERSION := 0.54.0
-
-.PHONY: fzf
-fzf: ~/.local/share/fzf/bin/fzf ## Install the fzf fuzzy-finder
-
-~/.local:
-	@mkdir $@
-
-~/.local/share: | ~/.local
-	@mkdir $@
-
-~/.local/share/fzf: | ~/.local/share
-	@mkdir $@
-
-~/.local/share/fzf/bin/fzf: FZF_VERSION | ~/.local/share/fzf
-	curl -fsSo ~/.local/share/fzf/install https://raw.githubusercontent.com/junegunn/fzf/v$(FZF_VERSION)/install
-	chmod +x ~/.local/share/fzf/install
-	~/.local/share/fzf/install --bin
-	rm ~/.local/share/fzf/install
-	touch $@
-
 # ---------- Go -----------
 
 GO_VERSION := 1.23rc1
@@ -184,5 +161,4 @@ $(1): phony
 endif
 endef
 
-$(eval $(call dependable-var,FZF_VERSION))
 $(eval $(call dependable-var,GO_VERSION))
