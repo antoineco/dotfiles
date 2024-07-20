@@ -1,5 +1,3 @@
-include gmsl
-
 uname_s := $(shell uname -s)
 
 # ---------- Nix ----------
@@ -93,43 +91,6 @@ endif
 clean-nvim: ## Delete the Neovim state and caches
 	@rm -rvf ~/.local/share/nvim ~/.local/state/nvim ~/.cache/nvim ~/.config/nvim
 
-# ---------- Go -----------
-
-GO_VERSION := 1.23rc1
-
-.PHONY: go
-go: ~/.local/share/go ## Install the Go programming language toolchain
-
-~/.local/share/go$(GO_VERSION): | ~/.local/share
-	@mkdir $@
-
-~/.local/share/go$(GO_VERSION)/bin/go: | ~/.local/share/go$(GO_VERSION)
-	$(eval os := $(call lc,$(uname_s)))
-	$(eval mach := $(shell uname -m))
-# ref: https://www.gnu.org/software/make/manual/html_node/Substitution-Refs.html
-	$(eval arch := $(if $(mach:x86_64=),$(if $(mach:aarch64=),$(mach),arm64),amd64))
-	curl -fsSLo ~/.local/share/golang.tgz https://go.dev/dl/go$(GO_VERSION).$(os)-$(arch).tar.gz
-	tar -C $(dir $(abspath $(dir $@))) --strip-components=1 -xzf ~/.local/share/golang.tgz
-	rm ~/.local/share/golang.tgz
-
-~/.local/share/go: GO_VERSION | ~/.local/share/go$(GO_VERSION)/bin/go
-ifeq ($(uname_s),Darwin)
-	@rm -vf -- $@
-	ln -sf -- go$(GO_VERSION) $@
-else
-	ln -sTf -- go$(GO_VERSION) $@
-endif
-
-# ---------- Rust ----------
-
-rustdirs := ~/.rustup ~/.cargo
-
-.PHONY: rust
-rust: $(rustdirs) ## Install the Rust programming language toolchain
-
-$(rustdirs):
-	curl -fsS https://sh.rustup.rs | sh -s -- -y --no-modify-path
-
 # ---------- Misc ---------- 
 
 .DEFAULT_GOAL := help
@@ -143,22 +104,3 @@ help:
 	| sort \
 	| awk 'BEGIN {FS = ":"}; {if (NF < 3) {$$3 = $$2; $$2 = $$1}; print $$2":" $$3}' \
 	| awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
-
-gnu_make_version := $(subst ., ,$(MAKE_VERSION))
-
-.PHONY: phony
-# source: https://stackoverflow.com/a/74378629
-define dependable-var
-$(1):
-	printf '%s' $($(1)) > $(1)
-ifneq ($(call gte,$(word 1,$(gnu_make_version)),4),$(true))
-	$$(error Unsupported Make version. \
-		The 'file' built-in function is not available in GNU Make $(MAKE_VERSION), \
-		please use GNU Make 4.0 or above)
-endif
-ifneq ("$(file <$(1))","$($(1))")
-$(1): phony
-endif
-endef
-
-$(eval $(call dependable-var,GO_VERSION))
