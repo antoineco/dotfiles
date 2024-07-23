@@ -1,9 +1,12 @@
 {
   description = "System packages";
 
-  inputs.nixpkgs.url = "nixpkgs/nixos-24.05";
+  inputs = {
+    nixpkgs.url = "nixpkgs";
+    neovim-overlay.url = "github:nix-community/neovim-nightly-overlay";
+  };
 
-  outputs = { self, nixpkgs }:
+  outputs = { self, nixpkgs, neovim-overlay }:
     let
       allSystems = [
         "x86_64-linux"
@@ -26,7 +29,12 @@
       #   => { x86_64-linux = { default = [ "x_86_64-linux" ]; }; aarch64-darwin = { default = [ "x_aarch64-darwin" ]; }; }
       #
       forAllSystems = f: nixpkgs.lib.genAttrs allSystems (system: f {
-        pkgs = import nixpkgs { inherit system; };
+        pkgs = import nixpkgs {
+          inherit system;
+          overlays = [
+            neovim-overlay.overlays.default
+          ];
+        };
       });
     in
     {
@@ -43,6 +51,7 @@
               fzf
               bat
               ripgrep
+              neovim
             ];
           };
       });
