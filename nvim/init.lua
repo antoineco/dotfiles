@@ -511,18 +511,7 @@ require "lazy".setup({
         -- so we fall back to Tree-sitter highlights for these.
         vim.api.nvim_set_hl(0, "@lsp.type.keyword.go", {})
       end
-    },
-    build = function()
-      local gt = {
-        "impl",
-        "gomodifytags",
-        "gotests"
-      }
-      vim.notify(" Updating Go tools...", vim.log.levels.INFO)
-      for _, t in ipairs(gt) do
-        require "go.install".update(t)
-      end
-    end
+    }
   },
 
   -- }}}
