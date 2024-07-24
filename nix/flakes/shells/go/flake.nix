@@ -16,9 +16,9 @@
     in
     {
       devShells = forAllSystems ({ pkgs }: {
-        default = pkgs.mkShell {
+        default = with pkgs; mkShell {
           name = "go-shell";
-          packages = with pkgs; [
+          packages = [
             go
             gopls
             golangci-lint

@@ -24,9 +24,9 @@
     in
     {
       devShells = forAllSystems ({ pkgs }: {
-        default = pkgs.mkShell {
+        default = with pkgs; mkShell {
           name = "rust-shell";
-          packages = with pkgs; [
+          packages = [
             rust-bin.stable.latest.default
           ];
         };

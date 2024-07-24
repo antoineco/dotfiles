@@ -39,21 +39,20 @@
     in
     {
       packages = forAllSystems ({ pkgs }: {
-        default =
-          pkgs.buildEnv {
-            name = "system-packages";
-            paths = with pkgs; [
-              git
-              gnumake
-              curl
-              jq
-              yq
-              fzf
-              bat
-              ripgrep
-              neovim
-            ];
-          };
+        default = with pkgs; buildEnv {
+          name = "system-packages";
+          paths = [
+            git
+            gnumake
+            curl
+            jq
+            yq
+            fzf
+            bat
+            ripgrep
+            neovim
+          ];
+        };
       });
     };
 }
