@@ -8,9 +8,11 @@
       url = "github:nix-community/neovim-nightly-overlay";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    flake-schemas.url = "https://flakehub.com/f/DeterminateSystems/flake-schemas/0.1.*.tar.gz";
   };
 
-  outputs = { self, nixpkgs, neovim-overlay }:
+  outputs = { self, nixpkgs, neovim-overlay, flake-schemas }:
     let
       allSystems = [
         "x86_64-linux"
@@ -42,6 +44,8 @@
       });
     in
     {
+      inherit (flake-schemas) schemas;
+
       packages = forAllSystems ({ pkgs }: {
         default = with pkgs; buildEnv {
           name = "system-packages";
