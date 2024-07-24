@@ -2,8 +2,12 @@
   description = "System packages";
 
   inputs = {
-    nixpkgs.url = "nixpkgs";
-    neovim-overlay.url = "github:nix-community/neovim-nightly-overlay";
+    nixpkgs.url = "https://flakehub.com/f/NixOS/nixpkgs/0.1.*.tar.gz"; # nixos-unstable
+
+    neovim-overlay = {
+      url = "github:nix-community/neovim-nightly-overlay";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = { self, nixpkgs, neovim-overlay }:

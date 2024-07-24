@@ -2,8 +2,12 @@
   description = "Rust development shell";
 
   inputs = {
-    nixpkgs.url = "nixpkgs";
-    rust-overlay.url = "github:oxalica/rust-overlay";
+    nixpkgs.url = "https://flakehub.com/f/NixOS/nixpkgs/0.1.*.tar.gz"; # nixos-unstable
+
+    rust-overlay = {
+      url = "https://flakehub.com/f/oxalica/rust-overlay/0.1.*.tar.gz";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = { self, nixpkgs, rust-overlay }:

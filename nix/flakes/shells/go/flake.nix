@@ -1,7 +1,7 @@
 {
   description = "Go development shell";
 
-  inputs.nixpkgs.url = "nixpkgs";
+  inputs.nixpkgs.url = "https://flakehub.com/f/NixOS/nixpkgs/0.1.*.tar.gz"; # nixos-unstable
 
   outputs = { self, nixpkgs }:
     let
