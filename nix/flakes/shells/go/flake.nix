@@ -2,8 +2,9 @@
   description = "Go development shell";
 
   inputs.nixpkgs.url = "https://flakehub.com/f/NixOS/nixpkgs/0.1.*.tar.gz"; # nixos-unstable
+  inputs.flake-schemas.url = "https://flakehub.com/f/DeterminateSystems/flake-schemas/0.1.*.tar.gz";
 
-  outputs = { self, nixpkgs }:
+  outputs = { self, nixpkgs, flake-schemas }:
     let
       allSystems = [
         "x86_64-linux"
@@ -15,6 +16,8 @@
       });
     in
     {
+      inherit (flake-schemas) schemas;
+
       devShells = forAllSystems ({ pkgs }: {
         default = with pkgs; mkShell {
           name = "go-shell";
