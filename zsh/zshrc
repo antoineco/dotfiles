@@ -143,20 +143,6 @@ for key ('k') bindkey -M vicmd ${key} history-substring-search-up
 for key ('j') bindkey -M vicmd ${key} history-substring-search-down
 unset key
 
-#
-# kube-ps1
-#
-
-_kube_ps1_cluster_short() {
-  # shorten GKE and EKS context formats
-  print ${1/(gke_*_|arn:aws:eks:*\/)(#b)(*)/${match[1]}}
-}
-KUBE_PS1_CLUSTER_FUNCTION=_kube_ps1_cluster_short
-
-KUBE_PS1_SEPARATOR=' '
-KUBE_PS1_PREFIX=''
-KUBE_PS1_SUFFIX=''
-
 # ------------------------------
 # Custom post-init configuration
 # ------------------------------
@@ -189,31 +175,12 @@ fi
 export GOPATH=${HOME}/go
 path=(${GOPATH}/bin $path)
 
-# Prompt
-_kube_ps1_to_rprompt() {
-  RPROMPT=$(kube_ps1)
-}
-autoload -U add-zsh-hook
-add-zsh-hook precmd _kube_ps1_to_rprompt
-
 # Allow command line editing in an external editor in the "vicmd" keymap.
 # Zim's "input" module already enables this in the default keymap ("viins").
 bindkey -M vicmd "${key_info[Control]}x${key_info[Control]}e" edit-command-line
 
 # Commands completion
-(( $+commands[kubectl] )) && [[ -s ${HOME}/.kube/config ]] && . <(kubectl completion zsh) && compdef _kubectl kubectl
-(( $+commands[ko] )) && [[ $commands[ko] != /mnt/* ]] && . <(ko completion zsh) && compdef _ko ko
 (( $+commands[limactl] )) && . <(limactl completion zsh) && compdef _limactl limactl
-[[ -s ${NVM_DIR}/bash_completion ]] && . ${NVM_DIR}/bash_completion
-
-# Aliases
-alias K='kubectl'
-alias Kn='kubectl -n'
-alias Knk='kubectl -n kube-system'
-if (( $+commands[lima] )); then
-  ko.lima() { lima KO_DOCKER_REPO='kind.local' KIND_CLUSTER_NAME="${KIND_CLUSTER_NAME:-}" ko "$@" }
-  compdef _ko ko.lima
-fi
 
 # Shell theming
 export FZF_DEFAULT_OPTS=("$FZF_DEFAULT_OPTS" '--color=16' '--color=fg+:7,bg+:235,hl:8,hl+:3,prompt:6,pointer:4,marker:5,info:2')
