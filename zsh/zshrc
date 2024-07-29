@@ -193,31 +193,4 @@ fi
 # Source local environment
 [[ -s ${ZDOTDIR:-${HOME}}/.zlocal ]] && . ${ZDOTDIR:-${HOME}}/.zlocal
 
-# -----------------
-# Utility functions
-# -----------------
-
-# Toggle between ssh-agent and gpg-agent (w/ SSH support)
-ssh_toggle_agent() {
-  local a=ssh-agent
-  # see 'man 1 zshexpn' Modifiers section
-  [[ $SSH_AUTH_SOCK:t == *.gpg-agent.* ]] && a=gpg-agent
-
-  if [[ $a == ssh-agent ]]; then
-    gpg-connect-agent UPDATESTARTUPTTY /bye
-    _SSH_AUTH_SOCK=$SSH_AUTH_SOCK
-    SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
-    export SSH_AUTH_SOCK
-  else
-    SSH_AUTH_SOCK=$_SSH_AUTH_SOCK
-    unset _SSH_AUTH_SOCK
-    export SSH_AUTH_SOCK
-  fi
-
-  local _a=gpg-agent
-  [[ $a == gpg-agent ]] && _a=ssh-agent
-
-  print -P "%F{green})%f SSH agent is now: %F{magenta}${_a}%f"
-}
-
 # vim: ft=zsh sw=2 ts=2 et
