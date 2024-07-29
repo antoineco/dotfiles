@@ -34,9 +34,6 @@ zmodule git-info
 # A heavily reduced, ASCII-only version of the Spaceship and Starship prompts.
 zmodule antoineco/asciiship
 
-# Show active kubectl context in prompt
-zmodule jonmosco/kube-ps1
-
 #
 # Completion
 #
