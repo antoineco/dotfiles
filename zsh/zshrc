@@ -190,6 +190,13 @@ if [[ ${TERM_PROGRAM} == WezTerm ]]; then
   [[ -s ${HOME}/.wezterm.sh ]] && . ${HOME}/.wezterm.sh
 fi
 
+# Nix daemon
+# Profile PATH entries are blindly prepended to the current PATH by
+# nix-daemon.sh whenever a nested shell is opened, unless this environment
+# variable was exported by the parent shell. Failing to do so may cause Nix
+# (dev)shell PATH entries to be shadowed by profile-installed executables.
+[ -n "${__ETC_PROFILE_NIX_SOURCED:-}" ] && export __ETC_PROFILE_NIX_SOURCED
+
 # Source local environment
 [[ -s ${ZDOTDIR:-${HOME}}/.zlocal ]] && . ${ZDOTDIR:-${HOME}}/.zlocal
 
