@@ -2,6 +2,9 @@
 # User configuration sourced by interactive shells
 #
 
+# ensure (F)PATH entries remain unique
+typeset -U path fpath
+
 # Editor
 # In absence of explicit zle configuration (e.g. via bindkey), Zsh sets its key bindings based on the value of $EDITOR.
 # We set it first to be on the safe side.
@@ -213,10 +216,6 @@ fi
 
 # Source local environment
 [[ -s ${ZDOTDIR:-${HOME}}/.zlocal ]] && . ${ZDOTDIR:-${HOME}}/.zlocal
-
-
-# ensure (F)PATH entries remain unique after rc file reload
-typeset -U PATH FPATH path fpath
 
 # -----------------
 # Utility functions
