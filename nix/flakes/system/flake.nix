@@ -54,7 +54,7 @@
             gnumake
             curl
             jq
-            yq
+            yq-go
             fzf
             bat
             ripgrep
