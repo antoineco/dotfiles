@@ -10,7 +10,7 @@
     };
 
     rust-overlay = {
-      url = "https://flakehub.com/f/oxalica/rust-overlay/0.1.*.tar.gz";
+      url = "https://flakehub.com/f/oxalica/rust-overlay/0.1.tar.gz";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
