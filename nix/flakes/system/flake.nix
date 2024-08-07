@@ -2,7 +2,7 @@
   description = "System packages and generic development shells";
 
   inputs = {
-    nixpkgs.url = "https://flakehub.com/f/NixOS/nixpkgs/0.1.*.tar.gz"; # nixos-unstable
+    nixpkgs.url = "https://flakehub.com/f/NixOS/nixpkgs/0.1.tar.gz"; # nixos-unstable
 
     neovim-overlay = {
       url = "github:nix-community/neovim-nightly-overlay";
