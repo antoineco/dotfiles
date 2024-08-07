@@ -25,6 +25,7 @@
             go
             gopls
             golangci-lint
+            gofumpt
             delve
             gomodifytags
             gotests
