@@ -229,16 +229,16 @@
         ]
       },
       "locked": {
-        "lastModified": 1721810656,
-        "narHash": "sha256-33UCMmgPL+sz06+iupNkl99hcBABP56ENcxSoKqr0TY=",
-        "rev": "a6afdaab4a47d6ecf647a74968e92a51c4a18e5a",
-        "revCount": 1466,
+        "lastModified": 1722997267,
+        "narHash": "sha256-8Pncp8IKd0f0N711CRrCGTC4iLfBE+/5kaMqyWxnYic=",
+        "rev": "d720bf3cebac38c2426d77ee2e59943012854cb8",
+        "revCount": 1489,
         "type": "tarball",
-        "url": "https://api.flakehub.com/f/pinned/oxalica/rust-overlay/0.1.1466%2Brev-a6afdaab4a47d6ecf647a74968e92a51c4a18e5a/0190e3ec-4cfd-76cb-9dda-adb05694a450/source.tar.gz"
+        "url": "https://api.flakehub.com/f/pinned/oxalica/rust-overlay/0.1.1489%2Brev-d720bf3cebac38c2426d77ee2e59943012854cb8/01912aa5-c2ec-7d15-81e5-c9407bf163fd/source.tar.gz"
       },
       "original": {
         "type": "tarball",
-        "url": "https://flakehub.com/f/oxalica/rust-overlay/0.1.%2A.tar.gz"
+        "url": "https://flakehub.com/f/oxalica/rust-overlay/0.1.tar.gz"
       }
     }
   },
