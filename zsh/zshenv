@@ -1,8 +1,14 @@
-if [[ ${OSTYPE} == linux* ]] && [[ -e /etc/debian_version ]]; then
-  # Disable keyboard changes and compinit in /etc/zsh/zshrc.
-  # Zim takes care of this.
-  DEBIAN_PREVENT_KEYBOARD_CHANGES=1
-  skip_global_compinit=1
+if [[ ${OSTYPE} == linux* ]]; then
+  if [[ -e /etc/debian_version ]]; then
+    # Disable keyboard changes and compinit in /etc/zsh/zshrc.
+    # Zim takes care of this.
+    DEBIAN_PREVENT_KEYBOARD_CHANGES=1
+    skip_global_compinit=1
+  elif [[ -e /etc/NIXOS ]]; then
+    # Disable NixOS' global shell configuration altogether.
+    # It interferes with Zim.
+    setopt no_global_rcs
+  fi
 fi
 
 # vim: ft=zsh sw=2 ts=2 et
