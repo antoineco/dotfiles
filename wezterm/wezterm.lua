@@ -67,7 +67,7 @@ config.keys = {
 local launch_menu = {}
 
 if wezterm.target_triple == 'x86_64-pc-windows-msvc' then
-  config.default_domain = 'WSL:Ubuntu'
+  config.default_domain = 'WSL:NixOS'
 
   table.insert(launch_menu, {
     label = 'PowerShell',
