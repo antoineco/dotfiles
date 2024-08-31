@@ -11,7 +11,10 @@ typeset -U path fpath
 export EDITOR=nvim
 export VISUAL=nvim
 
-# Fpath mangling for user functions
+# Fpath mangling for Nix and user functions
+for p in ${(z)NIX_PROFILES}; do
+  fpath=(${p}/share/zsh/site-functions ${p}/share/zsh/${ZSH_VERSION}/functions ${p}/share/zsh/vendor-completions $fpath)
+done
 fpath=(${HOME}/.local/share/zsh/site-functions $fpath)
 
 # Homebrew

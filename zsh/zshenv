@@ -9,6 +9,8 @@ if [[ ${OSTYPE} == linux* ]]; then
     # It interferes with Zim.
     setopt no_global_rcs
   fi
+elif [[ ${OSTYPE} == darwin* ]] && [[ -n "$__NIX_DARWIN_SET_ENVIRONMENT_DONE" ]]; then
+  setopt no_global_rcs
 fi
 
 # vim: ft=zsh sw=2 ts=2 et

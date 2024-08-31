@@ -2,9 +2,6 @@
 # your system. Help is available in the configuration.nix(5) man page, on
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
 
-# NixOS-WSL specific options are documented on the NixOS-WSL repository:
-# https://github.com/nix-community/NixOS-WSL
-
 {
   inputs = {
     nixpkgs.url = "https://flakehub.com/f/NixOS/nixpkgs/0.2405.tar.gz"; # nixos-24.05
@@ -13,9 +10,14 @@
       url = "github:nix-community/NixOS-WSL/main";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    nix-darwin = {
+      url = "github:LnL7/nix-darwin/master";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = { self, nixpkgs, nixos-wsl }: {
+  outputs = { self, nixpkgs, nixos-wsl, nix-darwin }: {
     nixosConfigurations = {
       calavera = nixpkgs.lib.nixosSystem {
         modules = [
@@ -52,6 +54,30 @@
 
             programs.zsh.enable = true;
           })
+        ];
+      };
+    };
+
+    darwinConfigurations = {
+      colomar = nix-darwin.lib.darwinSystem {
+        modules = [
+          {
+            nixpkgs.hostPlatform = "aarch64-darwin";
+
+            networking.hostName = "colomar";
+
+            services.nix-daemon.enable = true;
+            nix.settings.experimental-features = [ "nix-command" "flakes" ];
+
+            environment.shells = [ pkgs.zsh ];
+
+            programs.zsh.enable = true;
+
+            system.defaults.NSGlobalDomain = {
+              InitialKeyRepeat = 15;
+              KeyRepeat = 2;
+            };
+          }
         ];
       };
     };
