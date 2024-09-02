@@ -42,7 +42,10 @@
             # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
             system.stateVersion = "24.05";
 
-            nix.settings.experimental-features = [ "nix-command" "flakes" ];
+            nix = {
+              package = pkgs.nixVersions.latest;
+              settings.experimental-features = [ "nix-command" "flakes" ];
+            };
 
             environment = {
               enableAllTerminfo = true;
@@ -61,13 +64,17 @@
     darwinConfigurations = {
       colomar = nix-darwin.lib.darwinSystem {
         modules = [
-          {
+          ({ pkgs, ... }: {
             nixpkgs.hostPlatform = "aarch64-darwin";
 
             networking.hostName = "colomar";
 
             services.nix-daemon.enable = true;
-            nix.settings.experimental-features = [ "nix-command" "flakes" ];
+
+            nix = {
+              package = pkgs.nixVersions.latest;
+              settings.experimental-features = [ "nix-command" "flakes" ];
+            };
 
             environment.shells = [ pkgs.zsh ];
 
@@ -77,7 +84,7 @@
               InitialKeyRepeat = 15;
               KeyRepeat = 2;
             };
-          }
+          })
         ];
       };
     };
