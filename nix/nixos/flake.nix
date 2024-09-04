@@ -80,9 +80,33 @@
 
             programs.zsh.enable = true;
 
-            system.defaults.NSGlobalDomain = {
-              InitialKeyRepeat = 15;
-              KeyRepeat = 2;
+            system.defaults = {
+              NSGlobalDomain = {
+                InitialKeyRepeat = 15;
+                KeyRepeat = 2;
+              };
+              CustomUserPreferences = {
+                "com.apple.symbolichotkeys" = {
+                  AppleSymbolicHotKeys = {
+                    # Input Sources > Select the previous input source
+                    "60" = {
+                      # Control-Option-Space
+                      # Originally Control-Space, which conflicts with my Neovim completion keymap.
+                      value = {
+                        parameters = [ 32 49 786432 ];
+                        type = "standard";
+                      };
+                      enabled = true;
+                    };
+                    # Input Sources > Select the next source in Input menu
+                    "61" = {
+                      # Disabled to free the Control-Option-Space hotkey for
+                      # "Select the previous input source" above.
+                      enabled = false;
+                    };
+                  };
+                };
+              };
             };
           })
         ];
