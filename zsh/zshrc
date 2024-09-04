@@ -201,6 +201,6 @@ fi
 [ -n "${__ETC_PROFILE_NIX_SOURCED:-}" ] && export __ETC_PROFILE_NIX_SOURCED
 
 # Source local environment
-[[ -s ${ZDOTDIR:-${HOME}}/.zlocal ]] && . ${ZDOTDIR:-${HOME}}/.zlocal
+[[ -s ${ZDOTDIR:-${HOME}}/.zshrc.local ]] && . ${ZDOTDIR:-${HOME}}/.zshrc.local
 
 # vim: ft=zsh sw=2 ts=2 et
