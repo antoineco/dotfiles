@@ -7,7 +7,6 @@
 
   inputs = {
     nixpkgs.url = "https://flakehub.com/f/NixOS/nixpkgs/0.2405.tar.gz"; # nixos-24.05
-    nixpkgs-unstable.url = "https://flakehub.com/f/NixOS/nixpkgs/0.1.tar.gz"; # nixos-unstable
 
     nixos-wsl = {
       url = "github:nix-community/NixOS-WSL/main";
@@ -21,21 +20,18 @@
 
     neovim-overlay = {
       url = "github:nix-community/neovim-nightly-overlay";
-      inputs = {
-        nixpkgs.follows = "nixpkgs-unstable";
-        flake-compat.follows = "nixos-wsl/flake-compat";
-      };
+      inputs.flake-compat.follows = "nixos-wsl/flake-compat";
     };
 
     rust-overlay = {
       url = "https://flakehub.com/f/oxalica/rust-overlay/0.1.tar.gz";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
+      inputs.nixpkgs.follows = "neovim-overlay/nixpkgs";
     };
 
     flake-schemas.url = "https://flakehub.com/f/DeterminateSystems/flake-schemas/0.1.tar.gz";
   };
 
-  outputs = { self, nixpkgs, nixpkgs-unstable, nixos-wsl, nix-darwin, neovim-overlay, rust-overlay, flake-schemas }:
+  outputs = { self, nixpkgs, nixos-wsl, nix-darwin, neovim-overlay, rust-overlay, flake-schemas }:
     let
       allSystems = [
         "x86_64-linux"
@@ -43,13 +39,9 @@
       ];
 
       forAllSystems = f: nixpkgs.lib.genAttrs allSystems (system: f {
-        pkgs = import nixpkgs-unstable {
-          inherit system;
-          overlays = [
-            neovim-overlay.overlays.default
-            rust-overlay.overlays.default
-          ];
-        };
+        pkgs = nixpkgs.legacyPackages.${system};
+        pkgs-neovim = neovim-overlay.packages.${system};
+        pkgs-rust = rust-overlay.packages.${system};
       });
 
       mkNix = pkgs: {
@@ -64,7 +56,7 @@
     {
       inherit (flake-schemas) schemas;
 
-      packages = forAllSystems ({ pkgs }: {
+      packages = forAllSystems ({ pkgs, pkgs-neovim, ... }: {
         default = with pkgs; buildEnv {
           name = "system-packages";
           paths = [
@@ -76,12 +68,12 @@
             fzf
             bat
             ripgrep
-            neovim
+            pkgs-neovim.default
           ];
         };
       });
 
-      devShells = forAllSystems ({ pkgs }: {
+      devShells = forAllSystems ({ pkgs, pkgs-rust, ... }: {
         go = with pkgs; mkShell {
           name = "go";
           packages = [
@@ -96,10 +88,10 @@
           ];
         };
 
-        rust = with pkgs; mkShell {
+        rust = pkgs.mkShell {
           name = "rust";
           packages = [
-            rust-bin.stable.latest.default
+            pkgs-rust.default
           ];
         };
       });
