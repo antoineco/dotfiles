@@ -86,6 +86,38 @@
                 KeyRepeat = 2;
               };
               CustomUserPreferences = {
+                NSGlobalDomain = {
+                  AppleLanguages = [ "en-US" "de-DE" "fr-FR" ];
+                  AppleLocale = "en_US@rg=dezzzz";
+                  NSLinguisticDataAssetsRequested = [ "en" "de" "fr" ];
+                };
+                "com.apple.HIToolbox" = {
+                  AppleEnabledInputSources = [
+                    {
+                      InputSourceKind = "Keyboard Layout";
+                      "KeyboardLayout Name" = "ABC";
+                      "KeyboardLayout ID" = 252;
+                    }
+                    {
+                      InputSourceKind = "Non Keyboard Input Method";
+                      "Bundle ID" = "com.apple.CharacterPaletteIM";
+                    }
+                    {
+                      InputSourceKind = "Non Keyboard Input Method";
+                      "Bundle ID" = "com.apple.PressAndHold";
+                    }
+                    {
+                      InputSourceKind = "Keyboard Layout";
+                      "KeyboardLayout Name" = "US Extended";
+                      "KeyboardLayout ID" = -2;
+                    }
+                    {
+                      InputSourceKind = "Keyboard Layout";
+                      "KeyboardLayout Name" = "USInternational-PC";
+                      "KeyboardLayout ID" = 15000;
+                    }
+                  ];
+                };
                 "com.apple.symbolichotkeys" = {
                   AppleSymbolicHotKeys = {
                     # Input Sources > Select the previous input source
