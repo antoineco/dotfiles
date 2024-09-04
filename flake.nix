@@ -70,6 +70,8 @@
     {
       inherit (flake-schemas) schemas;
 
+      formatter = forAllSystems ({ pkgs, ... }: pkgs.nixpkgs-fmt);
+
       devShells = forAllSystems ({ pkgs, pkgs-rust }: {
         go = with pkgs; mkShell {
           name = "go";
