@@ -3,8 +3,11 @@
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
 
 {
+  description = "System configurations for NixOS and macOS";
+
   inputs = {
     nixpkgs.url = "https://flakehub.com/f/NixOS/nixpkgs/0.2405.tar.gz"; # nixos-24.05
+    nixpkgs-unstable.url = "https://flakehub.com/f/NixOS/nixpkgs/0.1.tar.gz"; # nixos-unstable
 
     nixos-wsl = {
       url = "github:nix-community/NixOS-WSL/main";
@@ -15,10 +18,40 @@
       url = "github:LnL7/nix-darwin/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    neovim-overlay = {
+      url = "github:nix-community/neovim-nightly-overlay";
+      inputs = {
+        nixpkgs.follows = "nixpkgs-unstable";
+        flake-compat.follows = "nixos-wsl/flake-compat";
+      };
+    };
+
+    rust-overlay = {
+      url = "https://flakehub.com/f/oxalica/rust-overlay/0.1.tar.gz";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
+
+    flake-schemas.url = "https://flakehub.com/f/DeterminateSystems/flake-schemas/0.1.tar.gz";
   };
 
-  outputs = { self, nixpkgs, nixos-wsl, nix-darwin }:
+  outputs = { self, nixpkgs, nixpkgs-unstable, nixos-wsl, nix-darwin, neovim-overlay, rust-overlay, flake-schemas }:
     let
+      allSystems = [
+        "x86_64-linux"
+        "aarch64-darwin"
+      ];
+
+      forAllSystems = f: nixpkgs.lib.genAttrs allSystems (system: f {
+        pkgs = import nixpkgs-unstable {
+          inherit system;
+          overlays = [
+            neovim-overlay.overlays.default
+            rust-overlay.overlays.default
+          ];
+        };
+      });
+
       mkNix = pkgs: {
         package = pkgs.nixVersions.latest;
         settings.experimental-features = [ "nix-command" "flakes" ];
@@ -29,6 +62,48 @@
       ];
     in
     {
+      inherit (flake-schemas) schemas;
+
+      packages = forAllSystems ({ pkgs }: {
+        default = with pkgs; buildEnv {
+          name = "system-packages";
+          paths = [
+            git
+            gnumake
+            curl
+            jq
+            yq-go
+            fzf
+            bat
+            ripgrep
+            neovim
+          ];
+        };
+      });
+
+      devShells = forAllSystems ({ pkgs }: {
+        go = with pkgs; mkShell {
+          name = "go";
+          packages = [
+            go
+            gopls
+            golangci-lint
+            gofumpt
+            delve
+            gomodifytags
+            gotests
+            impl
+          ];
+        };
+
+        rust = with pkgs; mkShell {
+          name = "rust";
+          packages = [
+            rust-bin.stable.latest.default
+          ];
+        };
+      });
+
       nixosConfigurations = {
         calavera = nixpkgs.lib.nixosSystem {
           modules = [
