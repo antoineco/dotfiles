@@ -40,7 +40,6 @@
 
       forAllSystems = f: nixpkgs.lib.genAttrs allSystems (system: f {
         pkgs = nixpkgs.legacyPackages.${system};
-        pkgs-neovim = neovim-overlay.packages.${system};
         pkgs-rust = rust-overlay.packages.${system};
       });
 
@@ -52,28 +51,26 @@
       mkSystemPackages = pkgs: with pkgs; [
         pkgsBuildBuild.wezterm.terminfo
       ];
+
+      mkUser = pkgs: with pkgs; {
+        shell = zsh;
+        packages = [
+          git
+          gnumake
+          curl
+          jq
+          yq-go
+          fzf
+          bat
+          ripgrep
+          neovim-overlay.packages.${system}.default
+        ];
+      };
     in
     {
       inherit (flake-schemas) schemas;
 
-      packages = forAllSystems ({ pkgs, pkgs-neovim, ... }: {
-        default = with pkgs; buildEnv {
-          name = "system-packages";
-          paths = [
-            git
-            gnumake
-            curl
-            jq
-            yq-go
-            fzf
-            bat
-            ripgrep
-            pkgs-neovim.default
-          ];
-        };
-      });
-
-      devShells = forAllSystems ({ pkgs, pkgs-rust, ... }: {
+      devShells = forAllSystems ({ pkgs, pkgs-rust }: {
         go = with pkgs; mkShell {
           name = "go";
           packages = [
@@ -110,7 +107,7 @@
                 defaultUser = "acotten";
               };
 
-              users.users.acotten.shell = pkgs.zsh;
+              users.users.acotten = mkUser pkgs;
 
               # This value determines the NixOS release from which the default
               # settings for stateful data, like file locations and database versions
@@ -139,6 +136,11 @@
               nixpkgs.hostPlatform = "aarch64-darwin";
 
               networking.hostName = "colomar";
+
+              users = {
+                knownUsers = [ "acotten" ];
+                users.acotten = mkUser pkgs // { uid = 501; };
+              };
 
               services.nix-daemon.enable = true;
 
