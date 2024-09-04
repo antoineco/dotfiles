@@ -44,14 +44,8 @@ endif
 
 # -------- WezTerm --------
 
-# ncurses uses the two-character hexadecimal form as the intermediate TERMINFO
-# directory tree level on macOS.
-# https://invisible-island.net/ncurses/man/term.5.html#h3-Mixed-case-Terminal-Names
-terminfo_w := $(if $(uname_s:Darwin=),w,77)
-
 .PHONY: wezterm
 wezterm: ~/.config/wezterm
-wezterm: ~/.terminfo/$(terminfo_w)/wezterm
 wezterm: ~/.wezterm.sh
 wezterm: ## Set up the WezTerm terminal emulator and its shell integration
 
@@ -62,12 +56,6 @@ ifeq ($(uname_s),Darwin)
 else
 	ln -srTf -- wezterm $@
 endif
-
-~/.terminfo/$(terminfo_w)/wezterm:
-	$(eval TMPFILE := $(shell mktemp))
-	curl -fsSo $(TMPFILE) https://raw.githubusercontent.com/wez/wezterm/main/termwiz/data/wezterm.terminfo
-	tic -x $(TMPFILE)
-	rm $(TMPFILE)
 
 ~/.wezterm.sh:
 	curl -fsSo $@ https://raw.githubusercontent.com/wez/wezterm/main/assets/shell-integration/wezterm.sh

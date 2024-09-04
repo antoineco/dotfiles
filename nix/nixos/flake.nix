@@ -47,13 +47,10 @@
               settings.experimental-features = [ "nix-command" "flakes" ];
             };
 
-            environment = {
-              enableAllTerminfo = true;
-
-              systemPackages = with pkgs; [
-                keychain
-              ];
-            };
+            environment.systemPackages = with pkgs; [
+              keychain
+              pkgsBuildBuild.wezterm.terminfo
+            ];
 
             programs.zsh.enable = true;
           })
@@ -76,7 +73,12 @@
               settings.experimental-features = [ "nix-command" "flakes" ];
             };
 
-            environment.shells = [ pkgs.zsh ];
+            environment = {
+              shells = [ pkgs.zsh ];
+              systemPackages = with pkgs; [
+                pkgsBuildBuild.wezterm.terminfo
+              ];
+            };
 
             programs.zsh.enable = true;
 
