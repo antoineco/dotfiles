@@ -487,7 +487,18 @@ require "lazy".setup({
     "ray-x/go.nvim",
     ft = { "go", "gomod", "gosum", "gotmpl", "gohtmltmpl", "gotexttmpl" },
     opts = {
-      lsp_cfg = true,
+      lsp_cfg = {
+        settings = {
+          gopls = {
+            hints = {
+              assignVariableTypes = true,
+              compositeLiteralFields = true,
+              constantValues = true,
+              functionTypeParameters = true
+            }
+          }
+        }
+      },
       lsp_keymaps = false,
       lsp_inlay_hints = {
         enable = false
