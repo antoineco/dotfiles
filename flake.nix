@@ -65,7 +65,7 @@
         ];
       };
 
-      mkSystemPackages = pkgs: with pkgs; [ pkgsBuildBuild.wezterm.terminfo ];
+      mkEnvironment = pkgs: { systemPackages = [ pkgs.pkgsBuildBuild.wezterm.terminfo ]; };
 
       mkUser =
         pkgs: with pkgs; {
@@ -142,7 +142,7 @@
 
                 nix = mkNix pkgs;
 
-                environment.systemPackages = mkSystemPackages pkgs;
+                environment = mkEnvironment pkgs;
 
                 programs.zsh.enable = true;
               }
@@ -190,9 +190,8 @@
 
                 nix = mkNix pkgs;
 
-                environment = {
+                environment = mkEnvironment pkgs // {
                   shells = [ pkgs.zsh ];
-                  systemPackages = mkSystemPackages pkgs;
                 };
 
                 programs.zsh.enable = true;
