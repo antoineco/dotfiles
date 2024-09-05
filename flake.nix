@@ -130,7 +130,7 @@
                   defaultUser = "acotten";
                 };
 
-                users.users.acotten = mkUser pkgs;
+                users.users.acotten = (u: u // { packages = u.packages ++ [ pkgs.keychain ]; }) (mkUser pkgs);
 
                 # This value determines the NixOS release from which the default
                 # settings for stateful data, like file locations and database versions
@@ -142,7 +142,7 @@
 
                 nix = mkNix pkgs;
 
-                environment.systemPackages = mkSystemPackages pkgs ++ (with pkgs; [ keychain ]);
+                environment.systemPackages = mkSystemPackages pkgs;
 
                 programs.zsh.enable = true;
               }
