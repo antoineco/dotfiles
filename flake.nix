@@ -163,9 +163,22 @@
 
                 users = {
                   knownUsers = [ "acotten" ];
-                  users.acotten = mkUser pkgs // {
-                    uid = 501;
-                  };
+                  users.acotten =
+                    (
+                      u:
+                      u
+                      // {
+                        uid = 501;
+                        packages =
+                          u.packages
+                          ++ (with pkgs; [
+                            colima
+                            docker-client
+                            amazon-ecr-credential-helper
+                          ]);
+                      }
+                    )
+                      (mkUser pkgs);
                 };
 
                 # Used for backwards compatibility, similarly to NixOS.
