@@ -222,7 +222,6 @@ require "lazy".setup({
   {
     "neovim/nvim-lspconfig",
     event = { "BufReadPre", "BufNewFile" },
-    dependencies = "mason.nvim",  -- mason/bin must be present in PATH for tools to be run
     config = function()
       local capabilities = vim.tbl_deep_extend(
         "force",
@@ -311,13 +310,6 @@ require "lazy".setup({
 
       require "lspconfig".bashls.setup {}
     end
-  },
-
-  {
-    "williamboman/mason.nvim",
-    build = ":MasonUpdate",
-    cmd = "Mason",
-    opts = {}
   },
 
   -- }}}
@@ -494,7 +486,6 @@ require "lazy".setup({
   {
     "ray-x/go.nvim",
     ft = { "go", "gomod", "gosum", "gotmpl", "gohtmltmpl", "gotexttmpl" },
-    dependencies = "mason.nvim",  -- mason/bin must be present in PATH for detection of gopls
     opts = {
       lsp_cfg = true,
       lsp_keymaps = false,
@@ -516,7 +507,6 @@ require "lazy".setup({
   {
     "mrcjkb/rustaceanvim",
     ft = { "rust", "toml" },
-    dependencies = "mason.nvim",  -- mason/bin must be present in PATH for detection of rust-analyzer
     config = function()
       vim.g.rustaceanvim = {
         tools = {
