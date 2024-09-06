@@ -55,10 +55,13 @@
 
       mkNix = pkgs: {
         package = pkgs.nixVersions.latest;
-        settings.experimental-features = [
-          "nix-command"
-          "flakes"
-        ];
+        settings = {
+          experimental-features = [
+            "nix-command"
+            "flakes"
+          ];
+          extra-nix-path = "nixpkgs=flake:nixpkgs";
+        };
         channel = {
           enable = false;
         };
