@@ -42,6 +42,19 @@ endif
 	zsh -ic 'zimfw install'
 	touch $@
 
+# ---------- Git ----------
+
+.PHONY: git
+git: ~/.gitconfig ## Configure the Git revision control system
+
+~/.gitconfig:
+ifeq ($(uname_s),Darwin)
+	@rm -rvf -- $@
+	ln -sf -- $(abspath gitconfig) $@
+else
+	ln -srTf -- gitconfig $@
+endif
+
 # -------- WezTerm --------
 
 .PHONY: wezterm
