@@ -48,14 +48,7 @@
       ];
 
       forAllSystems =
-        f:
-        nixpkgs.lib.genAttrs allSystems (
-          system:
-          f {
-            pkgs = nixpkgs.legacyPackages.${system};
-            pkgs-rust = rust-overlay.packages.${system};
-          }
-        );
+        f: nixpkgs.lib.genAttrs allSystems (system: f { pkgs = nixpkgs.legacyPackages.${system}; });
 
       mkNix = pkgs: {
         package = pkgs.nixVersions.latest;
@@ -86,10 +79,10 @@
     {
       inherit (flake-schemas) schemas;
 
-      formatter = forAllSystems ({ pkgs, ... }: pkgs.nixfmt-rfc-style);
+      formatter = forAllSystems ({ pkgs }: pkgs.nixfmt-rfc-style);
 
       devShells = forAllSystems (
-        { pkgs, pkgs-rust }:
+        { pkgs }:
         {
           go =
             with pkgs;
@@ -107,10 +100,12 @@
               ];
             };
 
-          rust = pkgs.mkShell {
-            name = "rust";
-            packages = [ pkgs-rust.default ];
-          };
+          rust =
+            with pkgs;
+            mkShell {
+              name = "rust";
+              packages = [ rust-overlay.packages.${system}.default ];
+            };
         }
       );
 
