@@ -169,7 +169,10 @@ if (( $+commands[brew] )); then
 
   # https://stackoverflow.com/a/55445034/4716370
   brew_leaves() {
-    brew deps --formula --for-each $(brew leaves) \
+    local -a leaves
+    leaves=( $(brew leaves) ) || return
+    (( ${#leaves} )) || return 0
+    brew deps --formula --for-each ${leaves} \
       | sed "s/^.*:/$(tput setaf 4)&$(tput sgr0)/"
   }
 fi
