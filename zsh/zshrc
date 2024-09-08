@@ -201,6 +201,8 @@ if [[ ${TERM_PROGRAM} == WezTerm ]]; then
 fi
 
 # Source local environment
-[[ -s ${ZDOTDIR:-${HOME}}/.zshrc.local ]] && . ${ZDOTDIR:-${HOME}}/.zshrc.local
+if [[ -s ${ZDOTDIR:-${HOME}}/.zshrc.local ]]; then
+  . ${ZDOTDIR:-${HOME}}/.zshrc.local
+fi
 
 # vim: ft=zsh sw=2 ts=2 et
