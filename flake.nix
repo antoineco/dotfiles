@@ -30,6 +30,11 @@
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 
+    disko = {
+      url = "https://flakehub.com/f/nix-community/disko/1.7.tar.gz";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
+
     flake-schemas.url = "https://flakehub.com/f/DeterminateSystems/flake-schemas/0.1.tar.gz";
   };
 
@@ -42,6 +47,7 @@
       nix-darwin,
       neovim-overlay,
       rust-overlay,
+      disko,
       flake-schemas,
     }:
     let
@@ -164,6 +170,67 @@
                   system.stateVersion = "24.05";
                 }
               )
+            ];
+          };
+
+          flores = nixpkgs.lib.nixosSystem {
+            modules = [
+              modCommon
+              disko.nixosModules.disko
+              {
+                nixpkgs.hostPlatform = "x86_64-linux";
+
+                users.users.acotten = {
+                  isNormalUser = true;
+                  uid = 1000;
+                  extraGroups = [ "wheel" ];
+                  openssh.authorizedKeys.keys = [
+                    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBrWkMRdF5phpLftdUHIgcSnSIKunqBecVN1jgSkuz8H"
+                  ];
+                };
+                security.sudo.wheelNeedsPassword = false;
+
+                networking.useNetworkd = true;
+
+                powerManagement.enable = false;
+
+                system.stateVersion = "24.05";
+              }
+              (
+                { modulesPath, lib, ... }:
+                {
+                  imports = [ (modulesPath + "/virtualisation/openstack-config.nix") ];
+
+                  # force disko values
+                  fileSystems."/".device = lib.mkForce "/dev/disk/by-partlabel/disk-nixos-root";
+                  boot.loader.grub.device = lib.mkForce "";
+                }
+              )
+              {
+                disko.devices.disk.nixos = {
+                  device = "/dev/disk/by-id/scsi-0QEMU_QEMU_HARDDISK_drive-scsi0-0-0-0";
+                  type = "disk";
+                  content = {
+                    type = "gpt";
+                    partitions = {
+                      # NOTE: disko automatically adds devices that have a EF02
+                      # partition to boot.loader.grub.devices
+                      boot = {
+                        size = "1M";
+                        type = "EF02"; # for grub MBR
+                      };
+                      root = {
+                        size = "100%";
+                        content = {
+                          type = "filesystem";
+                          format = "ext4";
+                          mountpoint = "/";
+                        };
+                      };
+                    };
+                  };
+                };
+              }
             ];
           };
         };
