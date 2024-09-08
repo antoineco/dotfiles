@@ -52,38 +52,6 @@
 
       forAllSystems =
         f: nixpkgs.lib.genAttrs allSystems (system: f { pkgs = nixpkgs.legacyPackages.${system}; });
-
-      mkNix = pkgs: {
-        package = pkgs.nixVersions.latest;
-        settings = {
-          experimental-features = [
-            "nix-command"
-            "flakes"
-          ];
-          extra-nix-path = "nixpkgs=flake:nixpkgs";
-        };
-        channel = {
-          enable = false;
-        };
-      };
-
-      mkEnvironment = pkgs: { systemPackages = [ pkgs.pkgsBuildBuild.wezterm.terminfo ]; };
-
-      mkUser =
-        pkgs: with pkgs; {
-          shell = zsh;
-          packages = [
-            git
-            gnumake
-            curl
-            jq
-            yq-go
-            fzf
-            bat
-            ripgrep
-            neovim-overlay.packages.${system}.default
-          ];
-        };
     in
     {
       inherit (flake-schemas) schemas;
@@ -128,165 +96,188 @@
             };
         }
       );
+    }
+    // (
+      let
+        modCommon =
+          { pkgs, ... }:
+          {
+            nix = {
+              package = pkgs.nixVersions.latest;
+              settings = {
+                experimental-features = [
+                  "nix-command"
+                  "flakes"
+                ];
+                extra-nix-path = "nixpkgs=flake:nixpkgs";
+              };
+              channel = {
+                enable = false;
+              };
+            };
 
-      nixosConfigurations = {
-        calavera = nixpkgs.lib.nixosSystem {
-          modules = [
-            nixos-wsl.nixosModules.default
-            (
-              { pkgs, ... }:
-              {
-                nixpkgs.hostPlatform = "x86_64-linux";
+            environment.systemPackages = [ pkgs.pkgsBuildBuild.wezterm.terminfo ];
 
-                networking.hostName = "calavera";
+            programs.zsh.enable = true;
 
-                wsl = {
-                  enable = true;
-                  defaultUser = "acotten";
-                };
+            users.users.acotten = with pkgs; {
+              shell = zsh;
+              packages = [
+                git
+                gnumake
+                curl
+                jq
+                yq-go
+                fzf
+                bat
+                ripgrep
+                neovim-overlay.packages.${system}.default
+              ];
+            };
+          };
+      in
+      {
+        nixosConfigurations = {
+          calavera = nixpkgs.lib.nixosSystem {
+            modules = [
+              nixos-wsl.nixosModules.default
+              modCommon
+              (
+                { pkgs, ... }:
+                {
+                  nixpkgs.hostPlatform = "x86_64-linux";
 
-                users.users.acotten = (u: u // { packages = u.packages ++ [ pkgs.keychain ]; }) (mkUser pkgs);
+                  networking.hostName = "calavera";
 
-                # This value determines the NixOS release from which the default
-                # settings for stateful data, like file locations and database versions
-                # on your system were taken. It's perfectly fine and recommended to leave
-                # this value at the release version of the first install of this system.
-                # Before changing this value read the documentation for this option
-                # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-                system.stateVersion = "24.05";
-
-                nix = mkNix pkgs;
-
-                environment = mkEnvironment pkgs;
-
-                programs.zsh.enable = true;
-              }
-            )
-          ];
-        };
-      };
-
-      darwinConfigurations = {
-        colomar = nix-darwin.lib.darwinSystem {
-          modules = [
-            (
-              { pkgs, ... }:
-              {
-                nixpkgs.hostPlatform = "aarch64-darwin";
-
-                networking.hostName = "colomar";
-
-                users = {
-                  knownUsers = [ "acotten" ];
-                  users.acotten =
-                    (
-                      u:
-                      u
-                      // {
-                        uid = 501;
-                        packages =
-                          u.packages
-                          ++ (with pkgs; [
-                            colima
-                            docker-client
-                            amazon-ecr-credential-helper
-                          ]);
-                      }
-                    )
-                      (mkUser pkgs);
-                };
-
-                # Used for backwards compatibility, similarly to NixOS.
-                # Before changing this value read the documentation for this option
-                # (e.g. man configuration.nix or on https://daiderd.com/nix-darwin/manual/).
-                system.stateVersion = 4;
-
-                services.nix-daemon.enable = true;
-
-                nix = mkNix pkgs;
-
-                environment = mkEnvironment pkgs // {
-                  shells = [ pkgs.zsh ];
-                };
-
-                programs.zsh.enable = true;
-
-                system.defaults = {
-                  NSGlobalDomain = {
-                    InitialKeyRepeat = 15;
-                    KeyRepeat = 2;
+                  wsl = {
+                    enable = true;
+                    defaultUser = "acotten";
                   };
-                  CustomUserPreferences = {
+
+                  users.users.acotten.packages = [ pkgs.keychain ];
+
+                  # This value determines the NixOS release from which the default
+                  # settings for stateful data, like file locations and database versions
+                  # on your system were taken. It's perfectly fine and recommended to leave
+                  # this value at the release version of the first install of this system.
+                  # Before changing this value read the documentation for this option
+                  # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
+                  system.stateVersion = "24.05";
+                }
+              )
+            ];
+          };
+        };
+
+        darwinConfigurations = {
+          colomar = nix-darwin.lib.darwinSystem {
+            modules = [
+              modCommon
+              (
+                { pkgs, ... }:
+                {
+                  nixpkgs.hostPlatform = "aarch64-darwin";
+
+                  networking.hostName = "colomar";
+
+                  services.nix-daemon.enable = true;
+
+                  users = {
+                    knownUsers = [ "acotten" ];
+                    users.acotten = {
+                      uid = 501;
+                      packages = with pkgs; [
+                        colima
+                        docker-client
+                        amazon-ecr-credential-helper
+                      ];
+                    };
+                  };
+
+                  environment.shells = [ pkgs.zsh ];
+
+                  system.defaults = {
                     NSGlobalDomain = {
-                      AppleLanguages = [
-                        "en-US"
-                        "de-DE"
-                        "fr-FR"
-                      ];
-                      AppleLocale = "en_US@rg=dezzzz";
-                      NSLinguisticDataAssetsRequested = [
-                        "en"
-                        "de"
-                        "fr"
-                      ];
+                      InitialKeyRepeat = 15;
+                      KeyRepeat = 2;
                     };
-                    "com.apple.HIToolbox" = {
-                      AppleEnabledInputSources = [
-                        {
-                          InputSourceKind = "Keyboard Layout";
-                          "KeyboardLayout Name" = "ABC";
-                          "KeyboardLayout ID" = 252;
-                        }
-                        {
-                          InputSourceKind = "Non Keyboard Input Method";
-                          "Bundle ID" = "com.apple.CharacterPaletteIM";
-                        }
-                        {
-                          InputSourceKind = "Non Keyboard Input Method";
-                          "Bundle ID" = "com.apple.PressAndHold";
-                        }
-                        {
-                          InputSourceKind = "Keyboard Layout";
-                          "KeyboardLayout Name" = "US Extended";
-                          "KeyboardLayout ID" = -2;
-                        }
-                        {
-                          InputSourceKind = "Keyboard Layout";
-                          "KeyboardLayout Name" = "USInternational-PC";
-                          "KeyboardLayout ID" = 15000;
-                        }
-                      ];
-                    };
-                    "com.apple.symbolichotkeys" = {
-                      AppleSymbolicHotKeys = {
-                        # Input Sources > Select the previous input source
-                        "60" = {
-                          # Control-Option-Space
-                          # Originally Control-Space, which conflicts with my Neovim completion keymap.
-                          value = {
-                            parameters = [
-                              32
-                              49
-                              786432
-                            ];
-                            type = "standard";
+                    CustomUserPreferences = {
+                      NSGlobalDomain = {
+                        AppleLanguages = [
+                          "en-US"
+                          "de-DE"
+                          "fr-FR"
+                        ];
+                        AppleLocale = "en_US@rg=dezzzz";
+                        NSLinguisticDataAssetsRequested = [
+                          "en"
+                          "de"
+                          "fr"
+                        ];
+                      };
+                      "com.apple.HIToolbox" = {
+                        AppleEnabledInputSources = [
+                          {
+                            InputSourceKind = "Keyboard Layout";
+                            "KeyboardLayout Name" = "ABC";
+                            "KeyboardLayout ID" = 252;
+                          }
+                          {
+                            InputSourceKind = "Non Keyboard Input Method";
+                            "Bundle ID" = "com.apple.CharacterPaletteIM";
+                          }
+                          {
+                            InputSourceKind = "Non Keyboard Input Method";
+                            "Bundle ID" = "com.apple.PressAndHold";
+                          }
+                          {
+                            InputSourceKind = "Keyboard Layout";
+                            "KeyboardLayout Name" = "US Extended";
+                            "KeyboardLayout ID" = -2;
+                          }
+                          {
+                            InputSourceKind = "Keyboard Layout";
+                            "KeyboardLayout Name" = "USInternational-PC";
+                            "KeyboardLayout ID" = 15000;
+                          }
+                        ];
+                      };
+                      "com.apple.symbolichotkeys" = {
+                        AppleSymbolicHotKeys = {
+                          # Input Sources > Select the previous input source
+                          "60" = {
+                            # Control-Option-Space
+                            # Originally Control-Space, which conflicts with my Neovim completion keymap.
+                            value = {
+                              parameters = [
+                                32
+                                49
+                                786432
+                              ];
+                              type = "standard";
+                            };
+                            enabled = true;
                           };
-                          enabled = true;
-                        };
-                        # Input Sources > Select the next source in Input menu
-                        "61" = {
-                          # Disabled to free the Control-Option-Space hotkey for
-                          # "Select the previous input source" above.
-                          enabled = false;
+                          # Input Sources > Select the next source in Input menu
+                          "61" = {
+                            # Disabled to free the Control-Option-Space hotkey for
+                            # "Select the previous input source" above.
+                            enabled = false;
+                          };
                         };
                       };
                     };
                   };
-                };
-              }
-            )
-          ];
+
+                  # Used for backwards compatibility, similarly to NixOS.
+                  # Before changing this value read the documentation for this option
+                  # (e.g. man configuration.nix or on https://daiderd.com/nix-darwin/manual/).
+                  system.stateVersion = 4;
+                }
+              )
+            ];
+          };
         };
-      };
-    };
+      }
+    );
 }
