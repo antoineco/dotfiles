@@ -309,6 +309,8 @@ require "lazy".setup({
       }
 
       require "lspconfig".bashls.setup {}
+
+      require "lspconfig".nixd.setup {}
     end
   },
 
