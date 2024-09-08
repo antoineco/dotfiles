@@ -7,6 +7,7 @@
 
   inputs = {
     nixpkgs.url = "https://flakehub.com/f/NixOS/nixpkgs/0.2405.tar.gz"; # nixos-24.05
+    nixpkgs-unstable.url = "https://flakehub.com/f/NixOS/nixpkgs/0.1.tar.gz"; # nixpkgs-unstable
 
     nixos-wsl = {
       url = "github:nix-community/NixOS-WSL/main";
@@ -20,12 +21,13 @@
 
     neovim-overlay = {
       url = "github:nix-community/neovim-nightly-overlay";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
       inputs.flake-compat.follows = "nixos-wsl/flake-compat";
     };
 
     rust-overlay = {
       url = "https://flakehub.com/f/oxalica/rust-overlay/0.1.tar.gz";
-      inputs.nixpkgs.follows = "neovim-overlay/nixpkgs";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 
     flake-schemas.url = "https://flakehub.com/f/DeterminateSystems/flake-schemas/0.1.tar.gz";
@@ -35,6 +37,7 @@
     {
       self,
       nixpkgs,
+      nixpkgs-unstable,
       nixos-wsl,
       nix-darwin,
       neovim-overlay,
@@ -84,6 +87,17 @@
       devShells = forAllSystems (
         { pkgs }:
         {
+          nix =
+            with pkgs;
+            mkShell {
+              name = "nix";
+              packages = [
+                nixfmt-rfc-style
+                nixpkgs-unstable.legacyPackages.${system}.nixd
+                nixpkgs-unstable.legacyPackages.${system}.fh
+              ];
+            };
+
           go =
             with pkgs;
             mkShell {
