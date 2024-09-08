@@ -59,6 +59,9 @@
           "nix-command"
           "flakes"
         ];
+        channel = {
+          enable = false;
+        };
       };
 
       mkEnvironment = pkgs: { systemPackages = [ pkgs.pkgsBuildBuild.wezterm.terminfo ]; };
