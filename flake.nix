@@ -109,7 +109,6 @@
                   "nix-command"
                   "flakes"
                 ];
-                extra-nix-path = "nixpkgs=flake:nixpkgs";
               };
               channel = {
                 enable = false;
@@ -181,6 +180,7 @@
                   networking.hostName = "colomar";
 
                   services.nix-daemon.enable = true;
+                  nix.settings.extra-nix-path = "nixpkgs=flake:nixpkgs";
 
                   users = {
                     knownUsers = [ "acotten" ];
