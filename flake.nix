@@ -196,6 +196,36 @@
 
                 system.stateVersion = "24.05";
               }
+              {
+                networking.firewall.allowedUDPPorts = [ 51820 ];
+
+                systemd.network = {
+                  netdevs."50-wg0" = {
+                    netdevConfig = {
+                      Kind = "wireguard";
+                      Name = "wg0";
+                      MTUBytes = "1420";
+                    };
+                    wireguardConfig = {
+                      ListenPort = 51820;
+                      PrivateKeyFile = "/etc/wireguard/wg0.key";
+                    };
+                    wireguardPeers = [
+                      {
+                        wireguardPeerConfig = {
+                          AllowedIPs = [ "10.200.200.2/32" ];
+                          PublicKey = "vAVus81e6y9fOojJZQzq50n/RZL0EbyhTW5i65tppX4=";
+                        };
+                      }
+                    ];
+                  };
+                  networks."50-wg0" = {
+                    matchConfig.Name = "wg0";
+                    address = [ "10.200.200.1/24" ];
+                    networkConfig.IPMasquerade = "ipv4";
+                  };
+                };
+              }
               (
                 { modulesPath, lib, ... }:
                 {
