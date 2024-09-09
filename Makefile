@@ -16,7 +16,7 @@ zdotfiles := $(foreach f,$(wildcard zsh/*),~/.$(notdir $(f)))
 
 .PHONY: zim
 zim: $(zdotfiles)
-zim: ~/.zim/modules/fzf/init.zsh
+zim: ~/.zim/modules/asciiship/asciiship.zsh-theme
 zim: ## Install the Zim Zsh configuration framework
 
 # NOTE: the mtime of ~/.zim gets updated not only during the Zim installation,
@@ -26,6 +26,7 @@ zim: ## Install the Zim Zsh configuration framework
 ~/.zim:
 	@rm -vf -- $(zdotfiles)
 	curl -fsS https://raw.githubusercontent.com/zimfw/install/master/install.zsh | zsh
+	rm -rf $@/modules/asciiship
 
 # Zsh dot files must be installed *after* Zim itself, otherwise the installation
 # gets aborted prematurely with the message "Zim already installed".
@@ -38,7 +39,7 @@ else
 endif
 	touch $@
 
-~/.zim/modules/fzf/init.zsh: $(filter %.zimrc,$(zdotfiles))
+~/.zim/modules/asciiship/asciiship.zsh-theme: $(filter %.zimrc,$(zdotfiles))
 	zsh -ic 'zimfw install'
 	touch $@
 
