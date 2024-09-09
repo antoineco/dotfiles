@@ -5,7 +5,7 @@
 
 [user]
 	name = Antoine Cotten
-	signingKey = ~/.ssh/git-sign.pub
+	signingKey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIO7AcmJbqt9/PYcTuNpe8FwOCbf2bVeR3Mfr6pFocBF8
 
 [commit]
 	gpgSign = true
