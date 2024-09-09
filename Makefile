@@ -19,29 +19,24 @@ zim: $(zdotfiles)
 zim: ~/.zim/modules/asciiship/asciiship.zsh-theme
 zim: ## Install the Zim Zsh configuration framework
 
-# NOTE: the mtime of ~/.zim gets updated not only during the Zim installation,
-# but also on various events such as 'zimfw update', compilation of zwc files,
-# etc. This can cause dependants to be re-made, which is acceptable and
-# compensated by touching the dependants in their respective goals.
 ~/.zim:
 	@rm -vf -- $(zdotfiles)
 	curl -fsS https://raw.githubusercontent.com/zimfw/install/master/install.zsh | zsh
 	rm -rf $@/modules/asciiship
+	@rm -vf -- $(zdotfiles)
 
 # Zsh dot files must be installed *after* Zim itself, otherwise the installation
 # gets aborted prematurely with the message "Zim already installed".
-$(zdotfiles): ~/.zim
+$(zdotfiles): | ~/.zim
 ifeq ($(uname_s),Darwin)
 	@rm -vf -- $@
 	ln -sf -- $(abspath $(subst .,zsh/,$(notdir $@))) $@
 else
 	ln -srTf -- $(subst .,zsh/,$(notdir $@)) $@
 endif
-	touch $@
 
-~/.zim/modules/asciiship/asciiship.zsh-theme: $(filter %.zimrc,$(zdotfiles))
+~/.zim/modules/asciiship/asciiship.zsh-theme:
 	zsh -ic 'zimfw install'
-	touch $@
 
 # ---------- Git ----------
 
