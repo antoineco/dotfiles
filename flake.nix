@@ -19,6 +19,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    determinate = {
+      url = "https://flakehub.com/f/DeterminateSystems/nix/*";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     neovim-overlay = {
       url = "github:nix-community/neovim-nightly-overlay";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
@@ -45,6 +50,7 @@
       nixpkgs-unstable,
       nixos-wsl,
       nix-darwin,
+      determinate,
       neovim-overlay,
       rust-overlay,
       disko,
@@ -108,18 +114,7 @@
         modCommon =
           { pkgs, ... }:
           {
-            nix = {
-              package = pkgs.nixVersions.nix_2_23;
-              settings = {
-                experimental-features = [
-                  "nix-command"
-                  "flakes"
-                ];
-              };
-              channel = {
-                enable = false;
-              };
-            };
+            nix.channel.enable = false;
 
             environment.systemPackages = [ pkgs.pkgsBuildBuild.wezterm.terminfo ];
 
@@ -145,8 +140,9 @@
         nixosConfigurations = {
           calavera = nixpkgs.lib.nixosSystem {
             modules = [
-              nixos-wsl.nixosModules.default
               modCommon
+              determinate.nixosModules.default
+              nixos-wsl.nixosModules.default
               (
                 { pkgs, ... }:
                 {
@@ -176,6 +172,7 @@
           flores = nixpkgs.lib.nixosSystem {
             modules = [
               modCommon
+              determinate.nixosModules.default
               disko.nixosModules.disko
               {
                 nixpkgs.hostPlatform = "x86_64-linux";
@@ -269,15 +266,13 @@
           colomar = nix-darwin.lib.darwinSystem {
             modules = [
               modCommon
+              determinate.darwinModules.default
               (
                 { pkgs, ... }:
                 {
                   nixpkgs.hostPlatform = "aarch64-darwin";
 
                   networking.hostName = "colomar";
-
-                  services.nix-daemon.enable = true;
-                  nix.settings.extra-nix-path = "nixpkgs=flake:nixpkgs";
 
                   users = {
                     knownUsers = [ "acotten" ];
