@@ -6,8 +6,8 @@
   description = "System configurations for NixOS and macOS";
 
   inputs = {
-    nixpkgs.url = "https://flakehub.com/f/NixOS/nixpkgs/0.2405.tar.gz"; # nixos-24.05
-    nixpkgs-unstable.url = "https://flakehub.com/f/NixOS/nixpkgs/0.1.tar.gz"; # nixpkgs-unstable
+    nixpkgs.url = "https://flakehub.com/f/NixOS/nixpkgs/0.2405"; # nixos-24.05
+    nixpkgs-unstable.url = "https://flakehub.com/f/NixOS/nixpkgs/0.1"; # nixpkgs-unstable
 
     nixos-wsl = {
       url = "github:nix-community/NixOS-WSL/main";
@@ -26,16 +26,16 @@
     };
 
     rust-overlay = {
-      url = "https://flakehub.com/f/oxalica/rust-overlay/0.1.tar.gz";
+      url = "https://flakehub.com/f/oxalica/rust-overlay/0.1";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 
     disko = {
-      url = "https://flakehub.com/f/nix-community/disko/1.7.tar.gz";
+      url = "https://flakehub.com/f/nix-community/disko/1.7";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 
-    flake-schemas.url = "https://flakehub.com/f/DeterminateSystems/flake-schemas/0.1.tar.gz";
+    flake-schemas.url = "https://flakehub.com/f/DeterminateSystems/flake-schemas/0.1";
   };
 
   outputs =
