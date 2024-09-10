@@ -26,8 +26,10 @@
 
     neovim-overlay = {
       url = "github:nix-community/neovim-nightly-overlay";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
-      inputs.flake-compat.follows = "nixos-wsl/flake-compat";
+      inputs = {
+        nixpkgs.follows = "nixpkgs-unstable";
+        flake-compat.follows = "nixos-wsl/flake-compat";
+      };
     };
 
     rust-overlay = {
