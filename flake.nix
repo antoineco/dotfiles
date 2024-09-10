@@ -109,7 +109,7 @@
           { pkgs, ... }:
           {
             nix = {
-              package = pkgs.nixVersions.latest;
+              package = pkgs.nixVersions.nix_2_23;
               settings = {
                 experimental-features = [
                   "nix-command"
