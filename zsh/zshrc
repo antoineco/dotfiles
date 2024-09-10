@@ -11,19 +11,12 @@ typeset -U path fpath
 export EDITOR=nvim
 export VISUAL=nvim
 
-# Fpath mangling for Nix and user functions
-# NixOS mangles fpath unconditionally in /etc/zshenv. nix-darwin does it in /etc/zshrc, which we ignore in .zshenv.
-# Refer to the "Parameter Expansion Flags" and "Glob Qualifiers" sections of zshexpn(1)
-if [[ ! -e /etc/NIXOS ]]; then
-  for p in ${(z)NIX_PROFILES}; do
-    fpath=(${p}/share/zsh/site-functions(-N/) ${p}/share/zsh/${ZSH_VERSION}/functions(-N/) ${p}/share/zsh/vendor-completions(-N/) $fpath)
-  done
-fi
+# Fpath mangling for user functions
 fpath=(${HOME}/.local/share/zsh/site-functions $fpath)
 
 # Homebrew
-# The 'brew' executable must be in the path before the zimfw/homebrew gets loaded.
-path=(/opt/homebrew/bin(-N/) /opt/homebrew/sbin(-N/) $path)
+# The 'brew' executable must be in the path before the zimfw/homebrew module gets loaded.
+path=(/opt/homebrew/bin(-N/) /opt/homebrew/sbin(-N/) $path)  # see "Glob Qualifiers" section of zshexpn(1)
 
 
 # -----------------
