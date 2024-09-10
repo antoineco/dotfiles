@@ -293,85 +293,86 @@
 
                   environment.shells = [ pkgs.zsh ];
 
-                  system.defaults = {
-                    NSGlobalDomain = {
-                      InitialKeyRepeat = 15;
-                      KeyRepeat = 2;
-                    };
-                    CustomUserPreferences = {
-                      NSGlobalDomain = {
-                        AppleLanguages = [
-                          "en-US"
-                          "de-DE"
-                          "fr-FR"
-                        ];
-                        AppleLocale = "en_US@rg=dezzzz";
-                        NSLinguisticDataAssetsRequested = [
-                          "en"
-                          "de"
-                          "fr"
-                        ];
-                      };
-                      "com.apple.HIToolbox" = {
-                        AppleEnabledInputSources = [
-                          {
-                            InputSourceKind = "Keyboard Layout";
-                            "KeyboardLayout Name" = "ABC";
-                            "KeyboardLayout ID" = 252;
-                          }
-                          {
-                            InputSourceKind = "Non Keyboard Input Method";
-                            "Bundle ID" = "com.apple.CharacterPaletteIM";
-                          }
-                          {
-                            InputSourceKind = "Non Keyboard Input Method";
-                            "Bundle ID" = "com.apple.PressAndHold";
-                          }
-                          {
-                            InputSourceKind = "Keyboard Layout";
-                            "KeyboardLayout Name" = "US Extended";
-                            "KeyboardLayout ID" = -2;
-                          }
-                          {
-                            InputSourceKind = "Keyboard Layout";
-                            "KeyboardLayout Name" = "USInternational-PC";
-                            "KeyboardLayout ID" = 15000;
-                          }
-                        ];
-                      };
-                      "com.apple.symbolichotkeys" = {
-                        AppleSymbolicHotKeys = {
-                          # Input Sources > Select the previous input source
-                          "60" = {
-                            # Control-Option-Space
-                            # Originally Control-Space, which conflicts with my Neovim completion keymap.
-                            value = {
-                              parameters = [
-                                32
-                                49
-                                786432
-                              ];
-                              type = "standard";
-                            };
-                            enabled = true;
-                          };
-                          # Input Sources > Select the next source in Input menu
-                          "61" = {
-                            # Disabled to free the Control-Option-Space hotkey for
-                            # "Select the previous input source" above.
-                            enabled = false;
-                          };
-                        };
-                      };
-                    };
-                  };
-
                   # Used for backwards compatibility, similarly to NixOS.
                   # Before changing this value read the documentation for this option
                   # (e.g. man configuration.nix or on https://daiderd.com/nix-darwin/manual/).
                   system.stateVersion = 4;
                 }
               )
+              {
+                system.defaults = {
+                  NSGlobalDomain = {
+                    InitialKeyRepeat = 15;
+                    KeyRepeat = 2;
+                  };
+                  CustomUserPreferences = {
+                    NSGlobalDomain = {
+                      AppleLanguages = [
+                        "en-US"
+                        "de-DE"
+                        "fr-FR"
+                      ];
+                      AppleLocale = "en_US@rg=dezzzz";
+                      NSLinguisticDataAssetsRequested = [
+                        "en"
+                        "de"
+                        "fr"
+                      ];
+                    };
+                    "com.apple.HIToolbox" = {
+                      AppleEnabledInputSources = [
+                        {
+                          InputSourceKind = "Keyboard Layout";
+                          "KeyboardLayout Name" = "ABC";
+                          "KeyboardLayout ID" = 252;
+                        }
+                        {
+                          InputSourceKind = "Non Keyboard Input Method";
+                          "Bundle ID" = "com.apple.CharacterPaletteIM";
+                        }
+                        {
+                          InputSourceKind = "Non Keyboard Input Method";
+                          "Bundle ID" = "com.apple.PressAndHold";
+                        }
+                        {
+                          InputSourceKind = "Keyboard Layout";
+                          "KeyboardLayout Name" = "US Extended";
+                          "KeyboardLayout ID" = -2;
+                        }
+                        {
+                          InputSourceKind = "Keyboard Layout";
+                          "KeyboardLayout Name" = "USInternational-PC";
+                          "KeyboardLayout ID" = 15000;
+                        }
+                      ];
+                    };
+                    "com.apple.symbolichotkeys" = {
+                      AppleSymbolicHotKeys = {
+                        # Input Sources > Select the previous input source
+                        "60" = {
+                          # Control-Option-Space
+                          # Originally Control-Space, which conflicts with my Neovim completion keymap.
+                          value = {
+                            parameters = [
+                              32
+                              49
+                              786432
+                            ];
+                            type = "standard";
+                          };
+                          enabled = true;
+                        };
+                        # Input Sources > Select the next source in Input menu
+                        "61" = {
+                          # Disabled to free the Control-Option-Space hotkey for
+                          # "Select the previous input source" above.
+                          enabled = false;
+                        };
+                      };
+                    };
+                  };
+                };
+              }
             ];
           };
         };
