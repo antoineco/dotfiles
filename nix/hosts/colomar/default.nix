@@ -28,5 +28,5 @@
   # Used for backwards compatibility, similarly to NixOS.
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://daiderd.com/nix-darwin/manual/).
-  system.stateVersion = 4;
+  system.stateVersion = 5;
 }
