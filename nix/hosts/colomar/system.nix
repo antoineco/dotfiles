@@ -1,3 +1,4 @@
+{ lib, ... }:
 {
   system.defaults = {
     NSGlobalDomain = {
@@ -73,21 +74,43 @@
   };
 
   launchd.user.agents.UserKeyMapping.serviceConfig = {
-    ProgramArguments = [
-      "/usr/bin/hidutil"
-      "property"
-      "--match"
-      "{&quot;ProductID&quot;:0x0,&quot;VendorID&quot;:0x0,&quot;Product&quot;:&quot;Apple Internal Keyboard / Trackpad&quot;}"
-      "--set"
-      (
-        let
-          # https://developer.apple.com/library/archive/technotes/tn2450/_index.html
-          leftCtrl = "0x7000000E0"; # USB HID 0xE0
-          fnGlobe = "0xFF00000003"; # USB HID (0x0003 + 0xFF00000000 - 0x700000000)
-        in
-        "{&quot;UserKeyMapping&quot;:[{&quot;HIDKeyboardModifierMappingDst&quot;:${fnGlobe},&quot;HIDKeyboardModifierMappingSrc&quot;:${leftCtrl}},{&quot;HIDKeyboardModifierMappingDst&quot;:${leftCtrl},&quot;HIDKeyboardModifierMappingSrc&quot;:${fnGlobe}}]}"
-      )
-    ];
+    ProgramArguments =
+      let
+        matchDevs = {
+          ProductID = 0; # 0x0
+          VendorID = 0; # 0x0
+          Product = "Apple Internal Keyboard / Trackpad";
+        };
+
+        propVal = {
+          UserKeyMapping =
+            let
+              # https://developer.apple.com/library/archive/technotes/tn2450/_index.html
+              leftCtrl = 30064771296; # 0x7000000E0 - USB HID 0xE0
+              fnGlobe = 1095216660483; # 0xFF00000003 -USB HID (0x0003 + 0xFF00000000 - 0x700000000)
+            in
+            [
+              {
+                HIDKeyboardModifierMappingSrc = fnGlobe;
+                HIDKeyboardModifierMappingDst = leftCtrl;
+              }
+              {
+                HIDKeyboardModifierMappingSrc = leftCtrl;
+                HIDKeyboardModifierMappingDst = fnGlobe;
+              }
+            ];
+        };
+
+        toQuotedXML = attrs: lib.escapeXML (builtins.toJSON attrs);
+      in
+      [
+        "/usr/bin/hidutil"
+        "property"
+        "--match"
+        (toQuotedXML matchDevs)
+        "--set"
+        (toQuotedXML propVal)
+      ];
     RunAtLoad = true;
   };
 }
