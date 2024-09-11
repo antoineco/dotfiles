@@ -72,6 +72,19 @@
 
       formatter = forAllSystems ({ pkgs }: pkgs.nixfmt-rfc-style);
 
+      packages.aarch64-darwin = {
+        wezterm =
+          let
+            pkgs = nixpkgs.legacyPackages.aarch64-darwin;
+          in
+          with pkgs;
+          callPackage ./nix/pkgs/wezterm {
+            # error: package `bitstream-io v2.5.0` cannot be built because it requires
+            # rustc 1.79 or newer, while the currently active rustc version is 1.77.2
+            inherit (nixpkgs-unstable.legacyPackages.${system}) rustPlatform;
+          };
+      };
+
       devShells = forAllSystems (
         { pkgs }:
         {
@@ -131,6 +144,7 @@
         colomar = nix-darwin.lib.darwinSystem {
           specialArgs = {
             inherit determinate neovim-overlay;
+            inherit (self) packages;
           };
           modules = [ ./nix/hosts/colomar ];
         };

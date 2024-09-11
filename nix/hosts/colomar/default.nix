@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, packages, ... }:
 {
   imports = [
     ../../modules/profiles/darwin.nix
@@ -23,7 +23,10 @@
     };
   };
 
-  environment.shells = [ pkgs.zsh ];
+  environment = {
+    shells = [ pkgs.zsh ];
+    systemPackages = [ packages.${pkgs.system}.wezterm ];
+  };
 
   # Used for backwards compatibility, similarly to NixOS.
   # Before changing this value read the documentation for this option
