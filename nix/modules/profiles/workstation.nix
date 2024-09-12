@@ -5,6 +5,8 @@
     yq-go
     bat
     ripgrep
+    direnv
+    nix-direnv
     neovim-overlay.packages.${system}.default
   ];
 }

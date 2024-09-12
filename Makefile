@@ -69,7 +69,7 @@ endif
 ~/.wezterm.sh:
 	curl -fsSo $@ https://raw.githubusercontent.com/wez/wezterm/main/assets/shell-integration/wezterm.sh
 
-# --------- Neovim ---------
+# -------- Neovim ---------
 
 .PHONY: nvim clean-nvim
 nvim: ~/.config/nvim ## Configure the Neovim text editor
@@ -87,6 +87,19 @@ endif
 
 clean-nvim: ## Delete the Neovim state and caches
 	@rm -rvf ~/.local/share/nvim ~/.local/state/nvim ~/.cache/nvim ~/.config/nvim
+
+# -------- direnv ---------
+
+.PHONY: direnv
+direnv: ~/.config/direnv ## Set up direnv
+
+~/.config/direnv: | ~/.config
+ifeq ($(uname_s),Darwin)
+	@rm -rvf -- $@
+	ln -sf -- $(abspath direnv) $@
+else
+	ln -srTf -- direnv $@
+endif
 
 # ---------- Misc ---------- 
 
