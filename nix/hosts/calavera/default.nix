@@ -9,6 +9,8 @@
 
   nixpkgs.hostPlatform = "x86_64-linux";
 
+  networking.hostName = "calavera";
+
   wsl = {
     enable = true;
     defaultUser = "acotten";
