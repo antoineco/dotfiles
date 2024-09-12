@@ -1,7 +1,3 @@
-# Try all profiles directories instead of just /etc/profiles/per-user/$USER due to LnL7/nix-darwin#1074
-IFS=' ' read -r -a nix_profiles <<< "$NIX_PROFILES"
-for p in "${nix_profiles[@]}"; do
-  [[ -s "$p"/share/nix-direnv/direnvrc ]] && . "$p"/share/nix-direnv/direnvrc && break
-done
+. /etc/profiles/per-user/acotten/share/nix-direnv/direnvrc
 
 # vim: ft=bash sw=2 ts=2 et

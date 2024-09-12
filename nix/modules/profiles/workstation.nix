@@ -14,4 +14,6 @@
     packages.${pkgs.system}.nix-direnv
     neovim-overlay.packages.${pkgs.system}.default
   ];
+
+  environment.pathsToLink = [ "/share/nix-direnv" ];
 }
