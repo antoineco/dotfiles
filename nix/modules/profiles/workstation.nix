@@ -1,4 +1,9 @@
-{ pkgs, neovim-overlay, ... }:
+{
+  pkgs,
+  packages,
+  neovim-overlay,
+  ...
+}:
 {
   users.users.acotten.packages = with pkgs; [
     jq
@@ -6,7 +11,7 @@
     bat
     ripgrep
     direnv
-    nix-direnv
-    neovim-overlay.packages.${system}.default
+    packages.${pkgs.system}.nix-direnv
+    neovim-overlay.packages.${pkgs.system}.default
   ];
 }

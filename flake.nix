@@ -75,18 +75,30 @@
 
       formatter = forAllSystems ({ pkgs }: pkgs.nixfmt-rfc-style);
 
-      packages.aarch64-darwin = {
-        wezterm =
-          let
-            pkgs = nixpkgs.legacyPackages.aarch64-darwin;
-          in
-          with pkgs;
-          callPackage ./nix/pkgs/wezterm {
-            # error: package `bitstream-io v2.5.0` cannot be built because it requires
-            # rustc 1.79 or newer, while the currently active rustc version is 1.77.2
-            inherit (nixpkgs-unstable.legacyPackages.${system}) rustPlatform;
-          };
-      };
+      packages = forAllSystems (
+        { pkgs }:
+        {
+          nix-direnv =
+            with pkgs;
+            callPackage ./nix/pkgs/nix-direnv {
+              # nix-direnv 3.0.5 uses a hardcoded path to the 'nix' executable
+              # corresponding to the package's nix input. As of NixOS 24.05,
+              # this nix input is a few versions behind the one from the
+              # determinate input flake.
+              # Note that version 3.0.6 addresses this by attempting to use the
+              # ambient 'nix' executable first, before falling back to the
+              # bundled one (nix-community/nix-direnv#513).
+              nix = determinate.packages.${system}.default;
+            };
+          wezterm =
+            with pkgs;
+            callPackage ./nix/pkgs/wezterm {
+              # error: package `bitstream-io v2.5.0` cannot be built because it requires
+              # rustc 1.79 or newer, while the currently active rustc version is 1.77.2
+              inherit (nixpkgs-unstable.legacyPackages.${system}) rustPlatform;
+            };
+        }
+      );
 
       devShells = forAllSystems (
         { pkgs }:
@@ -131,6 +143,7 @@
         calavera = nixpkgs.lib.nixosSystem {
           specialArgs = {
             inherit determinate neovim-overlay nixos-wsl;
+            inherit (self) packages;
           };
           modules = [ ./nix/hosts/calavera ];
         };
