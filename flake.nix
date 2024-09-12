@@ -11,7 +11,10 @@
 
     nixos-wsl = {
       url = "github:nix-community/NixOS-WSL/main";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-compat.follows = "";
+      };
     };
 
     nix-darwin = {
@@ -28,7 +31,7 @@
       url = "github:nix-community/neovim-nightly-overlay";
       inputs = {
         nixpkgs.follows = "nixpkgs-unstable";
-        flake-compat.follows = "nixos-wsl/flake-compat";
+        flake-compat.follows = "";
       };
     };
 
