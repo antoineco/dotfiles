@@ -22,6 +22,15 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    mac-app-util = {
+      url = "github:hraban/mac-app-util";
+      inputs = {
+        nixpkgs.follows = "nixpkgs-unstable";
+        flake-utils.follows = "nixos-wsl/flake-utils";
+        flake-compat.follows = "";
+      };
+    };
+
     determinate = {
       url = "https://flakehub.com/f/DeterminateSystems/nix/*";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -55,6 +64,7 @@
       nixpkgs-unstable,
       nixos-wsl,
       nix-darwin,
+      mac-app-util,
       determinate,
       neovim-overlay,
       rust-overlay,
@@ -159,7 +169,7 @@
       darwinConfigurations = {
         colomar = nix-darwin.lib.darwinSystem {
           specialArgs = {
-            inherit determinate neovim-overlay;
+            inherit determinate neovim-overlay mac-app-util;
             inherit (self) packages;
           };
           modules = [ ./nix/hosts/colomar ];
