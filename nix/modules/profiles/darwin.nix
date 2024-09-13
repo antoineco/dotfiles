@@ -1,8 +1,7 @@
-{ determinate, mac-app-util, ... }:
+{ determinate, ... }:
 {
   imports = [
     determinate.darwinModules.default
-    mac-app-util.darwinModules.default
 
     ./common.nix
   ];

@@ -22,15 +22,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    mac-app-util = {
-      url = "github:hraban/mac-app-util";
-      inputs = {
-        nixpkgs.follows = "nixpkgs-unstable";
-        flake-utils.follows = "nixos-wsl/flake-utils";
-        flake-compat.follows = "";
-      };
-    };
-
     determinate = {
       url = "https://flakehub.com/f/DeterminateSystems/nix/*";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -64,7 +55,6 @@
       nixpkgs-unstable,
       nixos-wsl,
       nix-darwin,
-      mac-app-util,
       determinate,
       neovim-overlay,
       rust-overlay,
@@ -99,13 +89,6 @@
               # ambient 'nix' executable first, before falling back to the
               # bundled one (nix-community/nix-direnv#513).
               nix = determinate.packages.${system}.default;
-            };
-          wezterm =
-            with pkgs;
-            callPackage ./nix/pkgs/wezterm {
-              # error: package `bitstream-io v2.5.0` cannot be built because it requires
-              # rustc 1.79 or newer, while the currently active rustc version is 1.77.2
-              inherit (nixpkgs-unstable.legacyPackages.${system}) rustPlatform;
             };
         }
       );
@@ -169,7 +152,7 @@
       darwinConfigurations = {
         colomar = nix-darwin.lib.darwinSystem {
           specialArgs = {
-            inherit determinate neovim-overlay mac-app-util;
+            inherit determinate neovim-overlay;
             inherit (self) packages;
           };
           modules = [ ./nix/hosts/colomar ];
