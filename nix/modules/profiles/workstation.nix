@@ -11,8 +11,8 @@
     bat
     ripgrep
     direnv
-    packages.${pkgs.system}.nix-direnv
-    neovim-overlay.packages.${pkgs.system}.default
+    packages.${system}.nix-direnv
+    neovim-overlay.packages.${system}.default
   ];
 
   environment.pathsToLink = [ "/share/nix-direnv" ];
