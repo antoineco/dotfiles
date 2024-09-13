@@ -14,10 +14,6 @@ export VISUAL=nvim
 # Fpath mangling for user functions
 fpath=(${HOME}/.local/share/zsh/site-functions $fpath)
 
-# Homebrew
-# The 'brew' executable must be in the path before the zimfw/homebrew module gets loaded.
-path=(/opt/homebrew/bin(-N/) /opt/homebrew/sbin(-N/) $path)  # see "Glob Qualifiers" section of zshexpn(1)
-
 
 # -----------------
 # Zsh configuration
@@ -153,26 +149,6 @@ export GPG_TTY
 
 # Path mangling for user executables (Python, etc.)
 path=(${HOME}/.local/bin $path)
-
-# Homebrew
-if (( $+commands[brew] )); then
-  # Mimics eval'ing `brew shellenv zsh`, but omits the mangling of
-  #   PATH, which is done earlier using Zsh's tied variables
-  #   MANPATH, which is anyway empty and defaults to being derived from PATH
-  #   INFOPATH, which is useless since GNU info is no longer distributed with macOS
-  export HOMEBREW_PREFIX=/opt/homebrew
-  export HOMEBREW_CELLAR=/opt/homebrew/Cellar
-  export HOMEBREW_REPOSITORY=/opt/homebrew
-
-  # https://stackoverflow.com/a/55445034/4716370
-  brew_leaves() {
-    local -a leaves
-    leaves=( $(brew leaves) ) || return
-    (( ${#leaves} )) || return 0
-    brew deps --formula --for-each ${leaves} \
-      | sed "s/^.*:/$(tput setaf 4)&$(tput sgr0)/"
-  }
-fi
 
 # Go
 export GOPATH=${HOME}/go
