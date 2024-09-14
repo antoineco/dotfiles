@@ -64,30 +64,45 @@
       ];
 
       forAllSystems =
-        f: nixpkgs.lib.genAttrs allSystems (system: f { pkgs = nixpkgs.legacyPackages.${system}; });
+        f:
+        nixpkgs.lib.genAttrs allSystems (
+          system:
+          f {
+            pkgs = import nixpkgs {
+              inherit system;
+              overlays = [
+                self.overlays.default
+                rust-overlay.overlays.default
+                # Fails to overlay on top of nixos-24.05 (nix-community/neovim-nightly-overlay#533)
+                #neovim-overlay.overlays.default
+              ];
+            };
+          }
+        );
     in
     {
       inherit (flake-schemas) schemas;
 
       formatter = forAllSystems ({ pkgs }: pkgs.nixfmt-rfc-style);
 
-      packages = forAllSystems (
-        { pkgs }:
+      overlays.default =
+        _: super:
+        let
+          inherit (super) system;
+        in
         {
-          nix-direnv =
-            with pkgs;
-            callPackage ./nix/pkgs/nix-direnv {
-              # nix-direnv 3.0.5 uses a hardcoded path to the 'nix' executable
-              # corresponding to the package's nix input. As of NixOS 24.05,
-              # this nix input is a few versions behind the one from the
-              # determinate input flake.
-              # Note that version 3.0.6 addresses this by attempting to use the
-              # ambient 'nix' executable first, before falling back to the
-              # bundled one (nix-community/nix-direnv#513).
-              nix = determinate.packages.${system}.default;
-            };
-        }
-      );
+          nixd = nixpkgs-unstable.legacyPackages.${system}.nixd;
+          fh = nixpkgs-unstable.legacyPackages.${system}.fh;
+          neovim-nightly = neovim-overlay.packages.${system}.default;
+          # nix-direnv 3.0.5 uses a hardcoded path to the nix executable
+          # corresponding to the package's 'nix' input. As of NixOS 24.05,
+          # this 'nix' input is a few versions behind the one from the
+          # determinate input flake.
+          # Note that version 3.0.6 addresses this by attempting to use the
+          # ambient nix executable first, before falling back to the bundled
+          # one (nix-community/nix-direnv#513).
+          nix = determinate.packages.${system}.default;
+        };
 
       devShells = forAllSystems (
         { pkgs }:
@@ -98,8 +113,8 @@
               name = "nix";
               packages = [
                 nixfmt-rfc-style
-                nixpkgs-unstable.legacyPackages.${system}.nixd
-                nixpkgs-unstable.legacyPackages.${system}.fh
+                nixd
+                fh
               ];
             };
 
@@ -123,7 +138,7 @@
             with pkgs;
             mkShell {
               name = "rust";
-              packages = [ rust-overlay.packages.${system}.default ];
+              packages = [ rust-bin.stable.latest.default ];
             };
         }
       );
@@ -131,8 +146,7 @@
       nixosConfigurations = {
         calavera = nixpkgs.lib.nixosSystem {
           specialArgs = {
-            inherit determinate neovim-overlay nixos-wsl;
-            inherit (self) packages;
+            inherit self determinate nixos-wsl;
           };
           modules = [ ./nix/hosts/calavera ];
         };
@@ -148,8 +162,7 @@
       darwinConfigurations = {
         colomar = nix-darwin.lib.darwinSystem {
           specialArgs = {
-            inherit determinate neovim-overlay;
-            inherit (self) packages;
+            inherit self determinate;
           };
           modules = [ ./nix/hosts/colomar ];
         };

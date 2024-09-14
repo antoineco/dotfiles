@@ -1,18 +1,15 @@
+{ pkgs, self, ... }:
 {
-  pkgs,
-  packages,
-  neovim-overlay,
-  ...
-}:
-{
+  nixpkgs.overlays = [ self.overlays.default ];
+
   users.users.acotten.packages = with pkgs; [
     jq
     yq-go
     bat
     ripgrep
     direnv
-    packages.${system}.nix-direnv
-    neovim-overlay.packages.${system}.default
+    nix-direnv
+    neovim-nightly
   ];
 
   environment.pathsToLink = [ "/share/nix-direnv" ];
