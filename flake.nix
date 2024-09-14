@@ -4,6 +4,7 @@
   inputs = {
     nixpkgs.url = "https://flakehub.com/f/NixOS/nixpkgs/0.2405"; # nixos-24.05
     nixpkgs-unstable.url = "https://flakehub.com/f/NixOS/nixpkgs/0.1"; # nixpkgs-unstable
+    determinate.url = "https://flakehub.com/f/DeterminateSystems/determinate/*";
 
     nixos-wsl = {
       url = "github:nix-community/NixOS-WSL";
@@ -15,11 +16,6 @@
 
     nix-darwin = {
       url = "github:LnL7/nix-darwin";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    determinate = {
-      url = "https://flakehub.com/f/DeterminateSystems/nix/*";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -101,7 +97,7 @@
           # Note that version 3.0.6 addresses this by attempting to use the
           # ambient nix executable first, before falling back to the bundled
           # one (nix-community/nix-direnv#513).
-          nix = determinate.packages.${system}.default;
+          nix = determinate.inputs.nix.packages.${system}.default;
         };
 
       devShells = forAllSystems (
