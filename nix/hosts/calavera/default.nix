@@ -5,6 +5,8 @@
     ../../modules/profiles/workstation.nix
 
     nixos-wsl.nixosModules.default
+
+    ./docker-desktop.nix
   ];
 
   nixpkgs.hostPlatform = "x86_64-linux";
