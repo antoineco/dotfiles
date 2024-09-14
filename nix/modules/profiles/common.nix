@@ -1,6 +1,9 @@
 { pkgs, ... }:
 {
-  nix.channel.enable = false;
+  nix = {
+    channel.enable = false;
+    settings.trusted-users = [ "acotten" ];
+  };
 
   environment.systemPackages = [ pkgs.pkgsBuildBuild.wezterm.terminfo ];
 
