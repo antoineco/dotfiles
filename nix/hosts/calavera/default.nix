@@ -1,4 +1,4 @@
-{ pkgs, nixos-wsl, ... }:
+{ nixos-wsl, ... }:
 {
   imports = [
     ../../modules/profiles/nixos.nix
@@ -16,7 +16,7 @@
     defaultUser = "acotten";
   };
 
-  users.users.acotten.packages = [ pkgs.keychain ];
+  programs.ssh.startAgent = true;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
