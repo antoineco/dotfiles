@@ -3,7 +3,6 @@
 
   inputs = {
     nixpkgs.url = "https://flakehub.com/f/NixOS/nixpkgs/0.2405"; # nixos-24.05
-    nixpkgs-unstable.url = "https://flakehub.com/f/NixOS/nixpkgs/0.1"; # nixpkgs-unstable
     determinate.url = "https://flakehub.com/f/DeterminateSystems/determinate/*";
 
     nixos-wsl = {
@@ -22,19 +21,19 @@
     neovim-overlay = {
       url = "github:nix-community/neovim-nightly-overlay";
       inputs = {
-        nixpkgs.follows = "nixpkgs-unstable";
+        nixpkgs.follows = "determinate/nixpkgs";
         flake-compat.follows = "";
       };
     };
 
     rust-overlay = {
       url = "https://flakehub.com/f/oxalica/rust-overlay/0.1";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
+      inputs.nixpkgs.follows = "determinate/nixpkgs";
     };
 
     disko = {
       url = "https://flakehub.com/f/nix-community/disko/1.7";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
+      inputs.nixpkgs.follows = "determinate/nixpkgs";
     };
 
     flake-schemas.url = "https://flakehub.com/f/DeterminateSystems/flake-schemas/0.1";
@@ -44,7 +43,6 @@
     {
       self,
       nixpkgs,
-      nixpkgs-unstable,
       nixos-wsl,
       nix-darwin,
       determinate,
@@ -86,10 +84,14 @@
         let
           inherit (super) system;
         in
-        {
-          nixd = nixpkgs-unstable.legacyPackages.${system}.nixd;
-          fh = nixpkgs-unstable.legacyPackages.${system}.fh;
-          neovim-nightly = neovim-overlay.packages.${system}.default;
+        (with determinate.inputs.nixpkgs.legacyPackages.${system}; {
+          nixd = nixd;
+          fh = fh;
+        })
+        // (with neovim-overlay.packages.${system}; {
+          neovim-nightly = default;
+        })
+        // (with determinate.inputs.nix.packages.${system}; {
           # nix-direnv 3.0.5 uses a hardcoded path to the nix executable
           # corresponding to the package's 'nix' input. As of NixOS 24.05,
           # this 'nix' input is a few versions behind the one from the
@@ -97,8 +99,8 @@
           # Note that version 3.0.6 addresses this by attempting to use the
           # ambient nix executable first, before falling back to the bundled
           # one (nix-community/nix-direnv#513).
-          nix = determinate.inputs.nix.packages.${system}.default;
-        };
+          nix = default;
+        });
 
       devShells = forAllSystems (
         { pkgs }:
