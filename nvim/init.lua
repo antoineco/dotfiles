@@ -139,7 +139,6 @@ require "lazy".setup({
   },
   {
     "ramojus/mellifluous.nvim",
-    branch = "v1",
     lazy = colorscheme ~= "mellifluous",
     priority = 1000,
     opts = {
