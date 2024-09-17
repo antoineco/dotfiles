@@ -5,8 +5,6 @@
     ../../modules/profiles/workstation.nix
 
     nixos-wsl.nixosModules.default
-
-    ./docker-desktop.nix
   ];
 
   nixpkgs.hostPlatform = "x86_64-linux";
@@ -16,6 +14,7 @@
   wsl = {
     enable = true;
     defaultUser = "acotten";
+    docker-desktop.enable = true;
   };
 
   programs.ssh.startAgent = true;
