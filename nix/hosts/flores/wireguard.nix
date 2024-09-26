@@ -1,9 +1,16 @@
+{ config, secrets, ... }:
 let
   listenPort = 51820;
   ifaceName = "wg0";
   netPrefix = "10.200.200"; # /24
 in
 {
+  age.secrets."wireguard-${ifaceName}.key" = {
+    file = "${secrets}/wireguard-${ifaceName}.key.age";
+    mode = "0440";
+    group = "systemd-network";
+  };
+
   networking.firewall.allowedUDPPorts = [ listenPort ];
 
   systemd.network = {
@@ -15,7 +22,7 @@ in
       };
       wireguardConfig = {
         ListenPort = listenPort;
-        PrivateKeyFile = "/etc/wireguard/${ifaceName}.key";
+        PrivateKeyFile = config.age.secrets."wireguard-${ifaceName}.key".path;
       };
       wireguardPeers = [
         {

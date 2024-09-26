@@ -1,5 +1,34 @@
 {
   "nodes": {
+    "agenix": {
+      "inputs": {
+        "darwin": [
+          "nix-darwin"
+        ],
+        "home-manager": [],
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "systems": [
+          "nixos-wsl",
+          "flake-utils",
+          "systems"
+        ]
+      },
+      "locked": {
+        "lastModified": 1723293904,
+        "narHash": "sha256-b+uqzj+Wa6xgMS9aNbX4I+sXeb5biPDi39VgvSFqFvU=",
+        "owner": "ryantm",
+        "repo": "agenix",
+        "rev": "f6291c5935fdc4e0bef208cfc0dcab7e3f7a1c41",
+        "type": "github"
+      },
+      "original": {
+        "owner": "ryantm",
+        "repo": "agenix",
+        "type": "github"
+      }
+    },
     "determinate": {
       "inputs": {
         "determinate-nixd-aarch64-darwin": "determinate-nixd-aarch64-darwin",
@@ -554,6 +583,7 @@
     },
     "root": {
       "inputs": {
+        "agenix": "agenix",
         "determinate": "determinate",
         "disko": "disko",
         "flake-schemas": "flake-schemas",
@@ -561,7 +591,8 @@
         "nix-darwin": "nix-darwin",
         "nixos-wsl": "nixos-wsl",
         "nixpkgs": "nixpkgs_4",
-        "rust-overlay": "rust-overlay"
+        "rust-overlay": "rust-overlay",
+        "secrets": "secrets"
       }
     },
     "rust-overlay": {
@@ -582,6 +613,22 @@
       "original": {
         "type": "tarball",
         "url": "https://flakehub.com/f/oxalica/rust-overlay/0.1"
+      }
+    },
+    "secrets": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1727344673,
+        "narHash": "sha256-6SFbP5/uTuM/1QWbP9AikFxrBmFjKqEQoMq2rKMvCHc=",
+        "ref": "refs/heads/main",
+        "rev": "aca59d97543204f83f167fdd54b8d334d881471b",
+        "revCount": 1,
+        "type": "git",
+        "url": "ssh://git@github.com/antoineco/nix-secrets.git"
+      },
+      "original": {
+        "type": "git",
+        "url": "ssh://git@github.com/antoineco/nix-secrets.git"
       }
     },
     "systems": {

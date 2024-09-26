@@ -31,6 +31,20 @@
       inputs.nixpkgs.follows = "determinate/nixpkgs";
     };
 
+    agenix = {
+      url = "github:ryantm/agenix";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        darwin.follows = "nix-darwin";
+        systems.follows = "nixos-wsl/flake-utils/systems";
+        home-manager.follows = "";
+      };
+    };
+    secrets = {
+      url = "git+ssh://git@github.com/antoineco/nix-secrets.git";
+      flake = false;
+    };
+
     disko = {
       url = "https://flakehub.com/f/nix-community/disko/1.7";
       inputs.nixpkgs.follows = "determinate/nixpkgs";
@@ -49,6 +63,8 @@
       neovim-overlay,
       rust-overlay,
       disko,
+      agenix,
+      secrets,
       flake-schemas,
     }:
     let
@@ -151,7 +167,12 @@
 
         flores = nixpkgs.lib.nixosSystem {
           specialArgs = {
-            inherit determinate disko;
+            inherit
+              determinate
+              disko
+              agenix
+              secrets
+              ;
           };
           modules = [ ./nix/hosts/flores ];
         };

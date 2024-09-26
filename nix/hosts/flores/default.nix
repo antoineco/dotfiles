@@ -1,4 +1,4 @@
-{ disko, ... }:
+{ disko, agenix, ... }:
 {
   imports = [
     disko.nixosModules.disko
@@ -7,6 +7,7 @@
     ../../modules/profiles/nixos.nix
     ./openstack.nix
 
+    agenix.nixosModules.default
     ./wireguard.nix
   ];
 
