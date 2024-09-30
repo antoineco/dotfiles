@@ -73,44 +73,46 @@
     };
   };
 
-  launchd.user.agents.UserKeyMapping.serviceConfig = {
-    ProgramArguments =
-      let
-        matchDevs = {
-          ProductID = 0; # 0x0
-          VendorID = 0; # 0x0
-          Product = "Apple Internal Keyboard / Trackpad";
-        };
+  launchd.user.agents =
+    let
+      toQuotedXML = attrs: lib.escapeXML (builtins.toJSON attrs);
+    in
+    {
+      UserKeyMappingKbApple.serviceConfig = {
+        ProgramArguments =
+          let
+            matchDevs = {
+              ProductID = 0; # 0x0
+              VendorID = 0; # 0x0
+              Product = "Apple Internal Keyboard / Trackpad";
+            };
 
-        propVal = {
-          UserKeyMapping =
-            let
-              # https://developer.apple.com/library/archive/technotes/tn2450/_index.html
-              leftCtrl = 30064771296; # 0x7000000E0 - USB HID 0xE0
-              fnGlobe = 1095216660483; # 0xFF00000003 -USB HID (0x0003 + 0xFF00000000 - 0x700000000)
-            in
-            [
-              {
-                HIDKeyboardModifierMappingSrc = fnGlobe;
-                HIDKeyboardModifierMappingDst = leftCtrl;
-              }
-              {
-                HIDKeyboardModifierMappingSrc = leftCtrl;
-                HIDKeyboardModifierMappingDst = fnGlobe;
-              }
-            ];
-        };
-
-        toQuotedXML = attrs: lib.escapeXML (builtins.toJSON attrs);
-      in
-      [
-        "/usr/bin/hidutil"
-        "property"
-        "--match"
-        (toQuotedXML matchDevs)
-        "--set"
-        (toQuotedXML propVal)
-      ];
-    RunAtLoad = true;
-  };
+            propVal.UserKeyMapping =
+              let
+                # https://developer.apple.com/library/archive/technotes/tn2450/_index.html
+                leftCtrl = 30064771296; # 0x7000000E0 - USB HID 0xE0
+                fnGlobe = 1095216660483; # 0xFF00000003 - USB HID (0x0003 + 0xFF00000000 - 0x700000000)
+              in
+              [
+                {
+                  HIDKeyboardModifierMappingSrc = fnGlobe;
+                  HIDKeyboardModifierMappingDst = leftCtrl;
+                }
+                {
+                  HIDKeyboardModifierMappingSrc = leftCtrl;
+                  HIDKeyboardModifierMappingDst = fnGlobe;
+                }
+              ];
+          in
+          [
+            "/usr/bin/hidutil"
+            "property"
+            "--match"
+            (toQuotedXML matchDevs)
+            "--set"
+            (toQuotedXML propVal)
+          ];
+        RunAtLoad = true;
+      };
+    };
 }
