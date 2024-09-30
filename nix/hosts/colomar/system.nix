@@ -114,5 +114,42 @@
           ];
         RunAtLoad = true;
       };
+
+      UserKeyMappingKbMagicforce.serviceConfig = {
+        ProgramArguments =
+          let
+            matchDevs = {
+              VendorID = 1241; # 0x4d9
+              ProductID = 36; # 0x24
+              Product = "USB Gaming Keyboard";
+            };
+
+            propVal.UserKeyMapping =
+              let
+                # https://developer.apple.com/library/archive/technotes/tn2450/_index.html
+                leftAlt = 30064771298; # 0x7000000E2 - USB HID 0xE2
+                leftWin = 30064771299; # 0x7000000E3 - USB HID 0xE3
+              in
+              [
+                {
+                  HIDKeyboardModifierMappingSrc = leftWin;
+                  HIDKeyboardModifierMappingDst = leftAlt;
+                }
+                {
+                  HIDKeyboardModifierMappingSrc = leftAlt;
+                  HIDKeyboardModifierMappingDst = leftWin;
+                }
+              ];
+          in
+          [
+            "/usr/bin/hidutil"
+            "property"
+            "--match"
+            (toQuotedXML matchDevs)
+            "--set"
+            (toQuotedXML propVal)
+          ];
+        RunAtLoad = true;
+      };
     };
 }
