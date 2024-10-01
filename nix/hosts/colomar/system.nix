@@ -73,83 +73,42 @@
     };
   };
 
-  launchd.user.agents =
-    let
-      toQuotedXML = attrs: lib.escapeXML (builtins.toJSON attrs);
-    in
-    {
-      UserKeyMappingKbApple.serviceConfig = {
-        ProgramArguments =
-          let
-            matchDevs = {
-              ProductID = 0; # 0x0
-              VendorID = 0; # 0x0
-              Product = "Apple Internal Keyboard / Trackpad";
-            };
+  launchd.user.agents.UserKeyMappingKbApple.serviceConfig = {
+    ProgramArguments =
+      let
+        matchDevs = {
+          ProductID = 0; # 0x0
+          VendorID = 0; # 0x0
+          Product = "Apple Internal Keyboard / Trackpad";
+        };
 
-            propVal.UserKeyMapping =
-              let
-                # https://developer.apple.com/library/archive/technotes/tn2450/_index.html
-                leftCtrl = 30064771296; # 0x7000000E0 - USB HID 0xE0
-                fnGlobe = 1095216660483; # 0xFF00000003 - USB HID (0x0003 + 0xFF00000000 - 0x700000000)
-              in
-              [
-                {
-                  HIDKeyboardModifierMappingSrc = fnGlobe;
-                  HIDKeyboardModifierMappingDst = leftCtrl;
-                }
-                {
-                  HIDKeyboardModifierMappingSrc = leftCtrl;
-                  HIDKeyboardModifierMappingDst = fnGlobe;
-                }
-              ];
+        propVal.UserKeyMapping =
+          let
+            # https://developer.apple.com/library/archive/technotes/tn2450/_index.html
+            leftCtrl = 30064771296; # 0x7000000E0 - USB HID 0xE0
+            fnGlobe = 1095216660483; # 0xFF00000003 - USB HID (0x0003 + 0xFF00000000 - 0x700000000)
           in
           [
-            "/usr/bin/hidutil"
-            "property"
-            "--match"
-            (toQuotedXML matchDevs)
-            "--set"
-            (toQuotedXML propVal)
+            {
+              HIDKeyboardModifierMappingSrc = fnGlobe;
+              HIDKeyboardModifierMappingDst = leftCtrl;
+            }
+            {
+              HIDKeyboardModifierMappingSrc = leftCtrl;
+              HIDKeyboardModifierMappingDst = fnGlobe;
+            }
           ];
-        RunAtLoad = true;
-      };
 
-      UserKeyMappingKbMagicforce.serviceConfig = {
-        ProgramArguments =
-          let
-            matchDevs = {
-              VendorID = 1241; # 0x4d9
-              ProductID = 36; # 0x24
-              Product = "USB Gaming Keyboard";
-            };
-
-            propVal.UserKeyMapping =
-              let
-                # https://developer.apple.com/library/archive/technotes/tn2450/_index.html
-                leftAlt = 30064771298; # 0x7000000E2 - USB HID 0xE2
-                leftWin = 30064771299; # 0x7000000E3 - USB HID 0xE3
-              in
-              [
-                {
-                  HIDKeyboardModifierMappingSrc = leftWin;
-                  HIDKeyboardModifierMappingDst = leftAlt;
-                }
-                {
-                  HIDKeyboardModifierMappingSrc = leftAlt;
-                  HIDKeyboardModifierMappingDst = leftWin;
-                }
-              ];
-          in
-          [
-            "/usr/bin/hidutil"
-            "property"
-            "--match"
-            (toQuotedXML matchDevs)
-            "--set"
-            (toQuotedXML propVal)
-          ];
-        RunAtLoad = true;
-      };
-    };
+        toQuotedXML = attrs: lib.escapeXML (builtins.toJSON attrs);
+      in
+      [
+        "/usr/bin/hidutil"
+        "property"
+        "--match"
+        (toQuotedXML matchDevs)
+        "--set"
+        (toQuotedXML propVal)
+      ];
+    RunAtLoad = true;
+  };
 }
