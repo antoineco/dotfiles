@@ -496,7 +496,9 @@ require "lazy".setup({
               compositeLiteralFields = true,
               constantValues = true,
               functionTypeParameters = true
-            }
+            },
+            diagnosticsDelay = "1s",
+            diagnosticsTrigger = "Edit"
           }
         }
       },
