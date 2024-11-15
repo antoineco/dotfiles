@@ -289,7 +289,8 @@ require "lazy".setup({
               },
               workspace = {
                 library = {
-                  vim.env.VIMRUNTIME
+                  vim.env.VIMRUNTIME,
+                  "${3rd}/luv/library"
                 }
               }
             })
