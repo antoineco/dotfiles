@@ -101,8 +101,15 @@
           inherit (super) system;
         in
         (with determinate.inputs.nixpkgs.legacyPackages.${system}; {
-          nixd = nixd;
-          fh = fh;
+          inherit
+            nixd
+            fh
+            go
+            gopls
+            golangci-lint
+            gofumpt
+            delve
+            ;
         })
         // (with neovim-overlay.packages.${system}; {
           neovim-nightly = default;
