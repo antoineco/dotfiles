@@ -26,10 +26,8 @@ in
       };
       wireguardPeers = [
         {
-          wireguardPeerConfig = {
-            AllowedIPs = [ (netPrefix + ".2/32") ];
-            PublicKey = "vAVus81e6y9fOojJZQzq50n/RZL0EbyhTW5i65tppX4=";
-          };
+          AllowedIPs = [ (netPrefix + ".2/32") ];
+          PublicKey = "vAVus81e6y9fOojJZQzq50n/RZL0EbyhTW5i65tppX4=";
         }
       ];
     };
