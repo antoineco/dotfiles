@@ -2,7 +2,7 @@
   description = "System configurations for NixOS and macOS";
 
   inputs = {
-    nixpkgs.url = "https://flakehub.com/f/NixOS/nixpkgs/0.2405"; # nixos-24.05
+    nixpkgs.url = "nixpkgs/release-24.11";
     determinate.url = "https://flakehub.com/f/DeterminateSystems/determinate/*";
 
     nixos-wsl = {
@@ -83,8 +83,6 @@
               overlays = [
                 self.overlays.default
                 rust-overlay.overlays.default
-                # Fails to overlay on top of nixos-24.05 (nix-community/neovim-nightly-overlay#533)
-                #neovim-overlay.overlays.default
               ];
             };
           }
@@ -104,25 +102,10 @@
           inherit
             nixd
             fh
-            go
-            gopls
-            golangci-lint
-            gofumpt
-            delve
             ;
         })
         // (with neovim-overlay.packages.${system}; {
           neovim-nightly = default;
-        })
-        // (with determinate.inputs.nix.packages.${system}; {
-          # nix-direnv 3.0.5 uses a hardcoded path to the nix executable
-          # corresponding to the package's 'nix' input. As of NixOS 24.05,
-          # this 'nix' input is a few versions behind the one from the
-          # determinate input flake.
-          # Note that version 3.0.6 addresses this by attempting to use the
-          # ambient nix executable first, before falling back to the bundled
-          # one (nix-community/nix-direnv#513).
-          nix = default;
         });
 
       devShells = forAllSystems (
