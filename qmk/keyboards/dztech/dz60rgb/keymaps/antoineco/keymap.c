@@ -49,15 +49,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 bool rgb_matrix_indicators_user(void) {
-    if (rgb_matrix_get_suspend_state() || !rgb_matrix_config.enable) return false;
-
     if (host_keyboard_led_state().caps_lock) {
         rgb_matrix_set_color(40, RGB_WHITE); // KC_CAPSLOCK
     }
 
-    uint8_t active_layer = biton32(layer_state);
-
-    switch (active_layer) {
+    switch (biton32(layer_state)) {
     case _FL:
         /* Media keys
          */
