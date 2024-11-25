@@ -14,9 +14,11 @@
 └────┴────┴────┴────────────────────────┴───┴───┴───┴───┴───┘
  */
 
-# define _BL 0
-# define _FL 1
-# define _CL 2
+enum layers {
+    _BL,
+    _FL,
+    _CL
+};
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   /* Keymap _BL: Base Layer (Default Layer)
