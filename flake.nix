@@ -142,7 +142,16 @@
             with pkgs;
             mkShell {
               name = "rust";
-              packages = [ rust-bin.stable.latest.default ];
+              packages =
+                let
+                  rust-stable-custom = rust-bin.stable.latest.default.override {
+                    extensions = [
+                      "rust-analyzer"
+                      "rust-src"
+                    ];
+                  };
+                in
+                [ rust-stable-custom ];
             };
         }
       );
