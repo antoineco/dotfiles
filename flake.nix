@@ -7,48 +7,28 @@
 
     nixos-wsl = {
       url = "github:nix-community/NixOS-WSL";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        flake-compat.follows = "";
-      };
+      inputs.flake-compat.follows = "";
     };
 
-    nix-darwin = {
-      url = "github:LnL7/nix-darwin";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    nix-darwin.url = "github:LnL7/nix-darwin";
 
     neovim-overlay = {
       url = "github:nix-community/neovim-nightly-overlay";
-      inputs = {
-        nixpkgs.follows = "determinate/nixpkgs";
-        flake-compat.follows = "";
-      };
+      inputs.flake-compat.follows = "";
     };
 
-    rust-overlay = {
-      url = "https://flakehub.com/f/oxalica/rust-overlay/0.1";
-      inputs.nixpkgs.follows = "determinate/nixpkgs";
-    };
+    rust-overlay.url = "https://flakehub.com/f/oxalica/rust-overlay/0.1";
 
     agenix = {
       url = "github:ryantm/agenix";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        darwin.follows = "nix-darwin";
-        systems.follows = "nixos-wsl/flake-utils/systems";
-        home-manager.follows = "";
-      };
+      inputs.home-manager.follows = "";
     };
     secrets = {
       url = "git+ssh://git@github.com/antoineco/nix-secrets.git";
       flake = false;
     };
 
-    disko = {
-      url = "https://flakehub.com/f/nix-community/disko/1.7";
-      inputs.nixpkgs.follows = "determinate/nixpkgs";
-    };
+    disko.url = "https://flakehub.com/f/nix-community/disko/1.7";
 
     flake-schemas.url = "https://flakehub.com/f/DeterminateSystems/flake-schemas/0.1";
   };
