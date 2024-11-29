@@ -750,9 +750,9 @@ vim.api.nvim_create_autocmd("LspProgress", {
     local function process_message(msg)
       -- These messages tend to exceed v:echospace and cause hit-enter prompts.
       if (c and c.name) == "rust-analyzer" and v.title == "Roots Scanned" then
-        local prefix, relpath = msg:match "^(.+: )/.+%.rustup/toolchains/.+/(.*)$"
+        local prefix, relpath = msg:match "^(.+: )/.+/lib/rustlib/src/rust/(.*)$"
         if prefix then
-          return prefix .. "<rustup-toolchain>/" .. relpath
+          return prefix .. "<sysroot-rustsrc>/" .. relpath
         end
         prefix, relpath = msg:match "^(.+: )/.+%.cargo/registry/src/index.crates.io%-%w+/(.*)$"
         return prefix and prefix .. "<cargo-crates>/" .. relpath or msg
