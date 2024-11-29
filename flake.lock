@@ -545,11 +545,11 @@
     },
     "nixpkgs_10": {
       "locked": {
-        "lastModified": 1732617236,
-        "narHash": "sha256-PYkz6U0bSEaEB1al7O1XsqVNeSNS+s3NVclJw7YC43w=",
+        "lastModified": 1728538411,
+        "narHash": "sha256-f0SBJz1eZ2yOuKUr5CA9BHULGXVSn6miBuUWdTyhUhU=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "af51545ec9a44eadf3fe3547610a5cdd882bc34e",
+        "rev": "b69de56fac8c2b6f8fd27f2eca01dcda8e0a4221",
         "type": "github"
       },
       "original": {
@@ -699,12 +699,12 @@
         "nixpkgs": "nixpkgs_10"
       },
       "locked": {
-        "lastModified": 1732761189,
-        "narHash": "sha256-A2a4Cw66421Wojv1uqSGkD1XW960uJ7wHuwmvGCUJ8s=",
-        "rev": "fd0e3bf854b937632c92819d55d4ff8a130d5658",
-        "revCount": 1607,
+        "lastModified": 1732847586,
+        "narHash": "sha256-SnHHSBNZ+aj8mRzYxb6yXBl9ei3K3j5agC/D8Vjw/no=",
+        "rev": "97210ddff72fe139815f4c1ac5da74b5b0dde2d7",
+        "revCount": 1609,
         "type": "tarball",
-        "url": "https://api.flakehub.com/f/pinned/oxalica/rust-overlay/0.1.1607%2Brev-fd0e3bf854b937632c92819d55d4ff8a130d5658/0193709f-9bf5-7985-aadf-ea926105b36b/source.tar.gz"
+        "url": "https://api.flakehub.com/f/pinned/oxalica/rust-overlay/0.1.1609%2Brev-97210ddff72fe139815f4c1ac5da74b5b0dde2d7/019375c5-c21d-79c9-a670-f2634555ae0f/source.tar.gz"
       },
       "original": {
         "type": "tarball",
