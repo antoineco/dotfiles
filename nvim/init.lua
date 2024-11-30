@@ -523,6 +523,13 @@ require "lazy".setup({
           }
         },
         server = {
+          default_settings = {
+            ["rust-analyzer"] = {
+              files = {
+                excludeDirs = { ".direnv" }
+              }
+            }
+          },
           on_attach = function(_, bufnr)
             vim.keymap.set({ "n", "x" }, "gra", require "rustaceanvim.commands.code_action_group", {
               buffer = bufnr, desc = "Code Actions"
