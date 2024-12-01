@@ -2,7 +2,7 @@
   description = "System configurations for NixOS and macOS";
 
   inputs = {
-    nixpkgs.url = "nixpkgs/nixos-24.11";
+    nixpkgs.url = "https://flakehub.com/f/NixOS/nixpkgs/0.2411"; # nixos-24.11
     determinate.url = "https://flakehub.com/f/DeterminateSystems/determinate/*";
 
     nixos-wsl = {
