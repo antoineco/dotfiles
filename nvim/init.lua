@@ -177,6 +177,7 @@ require "lazy".setup({
         end
       },
       plugins = {
+        cmp = false,
         indent_blankline = false,
         nvim_tree = { enabled = false },
         neo_tree = { enabled = false },
@@ -212,11 +213,7 @@ require "lazy".setup({
     "neovim/nvim-lspconfig",
     event = { "BufReadPre", "BufNewFile" },
     config = function()
-      local capabilities = vim.tbl_deep_extend(
-        "force",
-        vim.lsp.protocol.make_client_capabilities(),
-        require "cmp_nvim_lsp".default_capabilities()
-      )
+      local capabilities = require "blink.cmp".get_lsp_capabilities(nil, true);
 
       local icons = {
         Error = " ",
@@ -266,7 +263,9 @@ require "lazy".setup({
         end
       })
 
-      require "lspconfig".lua_ls.setup {
+      local lspconfig = require "lspconfig"
+
+      lspconfig.lua_ls.setup {
         capabilities = capabilities,
         settings = {
           -- https://github.com/LuaLS/lua-language-server/blob/3.6.24/doc/en-us/config.md
@@ -298,9 +297,13 @@ require "lazy".setup({
         end
       }
 
-      require "lspconfig".bashls.setup {}
+      lspconfig.bashls.setup {
+        capabilities = capabilities
+      }
 
-      require "lspconfig".nixd.setup {}
+      lspconfig.nixd.setup {
+        capabilities = capabilities
+      }
     end
   },
 
@@ -309,125 +312,10 @@ require "lazy".setup({
   -- Completion {{{
 
   {
-    "hrsh7th/nvim-cmp",
+    "saghen/blink.cmp",
     event = "InsertEnter",
-    dependencies = {
-      -- snippets
-      {
-        "L3MON4D3/LuaSnip",
-        dependencies = "rafamadriz/friendly-snippets",
-        config = function(_, opts)
-          require "luasnip.config".setup(opts)
-          require "luasnip.loaders.from_vscode".lazy_load()
-        end
-      },
-      -- completion sources
-      {
-        "hrsh7th/cmp-nvim-lsp",
-        "hrsh7th/cmp-buffer",
-        "hrsh7th/cmp-path",
-        "saadparwaiz1/cmp_luasnip"
-      }
-    },
-    opts = function()
-      local cmp = require "cmp"
-      local luasnip = require "luasnip"
-
-      local has_words_before = function()
-        local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-        return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match "%s" == nil
-      end
-
-      local icons = {
-        Array = " ",
-        Boolean = " ",
-        Class = " ",
-        Color = " ",
-        Constant = " ",
-        Constructor = " ",
-        Copilot = " ",
-        Enum = " ",
-        EnumMember = " ",
-        Event = " ",
-        Field = " ",
-        File = " ",
-        Folder = " ",
-        Function = " ",
-        Interface = " ",
-        Key = " ",
-        Keyword = " ",
-        Method = " ",
-        Module = " ",
-        Namespace = " ",
-        Null = " ",
-        Number = " ",
-        Object = " ",
-        Operator = " ",
-        Package = " ",
-        Property = " ",
-        Reference = " ",
-        Snippet = " ",
-        String = " ",
-        Struct = " ",
-        Text = " ",
-        TypeParameter = " ",
-        Unit = " ",
-        Value = " ",
-        Variable = " "
-      }
-
-      return {
-        mapping = cmp.mapping.preset.insert {
-          ["<C-Space>"] = cmp.mapping.complete(),
-          ["<C-l>"] = cmp.mapping.complete_common_string(),
-          ["<C-b>"] = cmp.mapping.scroll_docs(-4),
-          ["<C-f>"] = cmp.mapping.scroll_docs(4),
-
-          -- Super-Tab; complete or expand snippet
-          -- https://github.com/hrsh7th/nvim-cmp/wiki/Example-mappings/0c933f3c#luasnip
-          ["<Tab>"] = cmp.mapping(function(fallback)
-            if cmp.visible() then
-              cmp.select_next_item()
-            elseif luasnip.expand_or_locally_jumpable() then
-              luasnip.expand_or_jump()
-            elseif has_words_before() then
-              cmp.complete()
-            else
-              fallback()
-            end
-          end, { "i", "s" }),
-
-          ["<S-Tab>"] = cmp.mapping(function(fallback)
-            if cmp.visible() then
-              cmp.select_prev_item()
-            elseif luasnip.jumpable(-1) then
-              luasnip.jump(-1)
-            else
-              fallback()
-            end
-          end, { "i", "s" })
-        },
-        snippet = {
-          expand = function(args)
-            require "luasnip".lsp_expand(args.body)
-          end
-        },
-        sources = {
-          { name = "nvim_lsp" },
-          { name = "luasnip" },
-          { name = "buffer" },
-          { name = "path" }
-        },
-        formatting = {
-          format = function(_, item)
-            if icons[item.kind] then
-              item.kind = icons[item.kind] .. item.kind
-            end
-            return item
-          end
-        }
-      }
-    end
+    dependencies = "rafamadriz/friendly-snippets",
+    opts = {}
   },
 
   -- }}}
@@ -530,6 +418,10 @@ require "lazy".setup({
               }
             }
           },
+          capabilities = vim.tbl_deep_extend("force",
+            require "rustaceanvim.config.server".create_client_capabilities(),
+            require "blink.cmp".get_lsp_capabilities()
+          ),
           on_attach = function(_, bufnr)
             vim.keymap.set({ "n", "x" }, "gra", require "rustaceanvim.commands.code_action_group", {
               buffer = bufnr, desc = "Code Actions"
