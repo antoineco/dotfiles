@@ -13,4 +13,9 @@ elif [[ ${OSTYPE} == darwin* ]] && [[ -n "$__NIX_DARWIN_SET_ENVIRONMENT_DONE" ]]
   setopt no_global_rcs
 fi
 
+# Source local environment
+if [[ -s ${ZDOTDIR:-${HOME}}/.zshenv.local ]]; then
+  . ${ZDOTDIR:-${HOME}}/.zshenv.local
+fi
+
 # vim: ft=zsh sw=2 ts=2 et
