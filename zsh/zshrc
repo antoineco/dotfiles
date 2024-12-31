@@ -13,6 +13,9 @@ export VISUAL=nvim
 
 # Fpath mangling for user functions
 fpath=(${HOME}/.local/share/zsh/site-functions $fpath)
+if (( ${+GHOSTTY_RESOURCES_DIR} )) && [[ -d ${GHOSTTY_RESOURCES_DIR} ]]; then
+  fpath=(${GHOSTTY_RESOURCES_DIR}/../zsh/site-functions $fpath)
+fi
 
 
 # -----------------
@@ -153,6 +156,9 @@ path=(${HOME}/.local/bin $path)
 # Go
 export GOPATH=${HOME}/go
 path=(${GOPATH}/bin $path)
+
+# Ghostty
+path=(${GHOSTTY_BIN_DIR} $path)
 
 # Allow command line editing in an external editor in the "vicmd" keymap.
 # Zim's "input" module already enables this in the default keymap ("viins").
