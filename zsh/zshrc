@@ -177,6 +177,18 @@ if [[ ${TERM_PROGRAM} == WezTerm ]]; then
   [[ -s ${HOME}/.wezterm.sh ]] && . ${HOME}/.wezterm.sh
 fi
 
+# Sets a fixed termtitle for the current terminal
+termtitle() {
+  local zhooks zhook
+  zstyle -a ':zim:termtitle' hooks 'zhooks' || zhooks=(precmd)
+  for zhook in ${zhooks}; do
+    add-zsh-hook -d ${zhook} termtitle_update_${zhook}
+  done
+  local -a print_args=(-rn)
+  (( $+_ghostty_fd )) && print_args+=(-u $_ghostty_fd)
+  print $print_args $'\e]2;'${(q)@}$'\a'
+}
+
 # Source local environment
 if [[ -s ${ZDOTDIR:-${HOME}}/.zshrc.local ]]; then
   . ${ZDOTDIR:-${HOME}}/.zshrc.local
