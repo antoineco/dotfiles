@@ -1,4 +1,4 @@
-uname_s := $(shell uname -s)
+gnu_ln := $(shell &>/dev/null ln --help; echo $$?)
 
 # ---------- Nix ----------
 
@@ -28,11 +28,11 @@ zim: ## Install the Zim Zsh configuration framework
 # Zsh dot files must be installed *after* Zim itself, otherwise the installation
 # gets aborted prematurely with the message "Zim already installed".
 $(zdotfiles): | ~/.zim
-ifeq ($(uname_s),Darwin)
+ifeq ($(gnu_ln),0)
+	ln -srTf -- $(subst .,zsh/,$(notdir $@)) $@
+else
 	@rm -vf -- $@
 	ln -sf -- $(abspath $(subst .,zsh/,$(notdir $@))) $@
-else
-	ln -srTf -- $(subst .,zsh/,$(notdir $@)) $@
 endif
 
 ~/.zim/modules/asciiship/asciiship.zsh-theme:
@@ -44,11 +44,11 @@ endif
 git: ~/.gitconfig ## Configure the Git revision control system
 
 ~/.gitconfig:
-ifeq ($(uname_s),Darwin)
+ifeq ($(gnu_ln),0)
+	ln -srTf -- gitconfig $@
+else
 	@rm -rvf -- $@
 	ln -sf -- $(abspath gitconfig) $@
-else
-	ln -srTf -- gitconfig $@
 endif
 
 # -------- WezTerm --------
@@ -59,11 +59,11 @@ wezterm: ~/.wezterm.sh
 wezterm: ## Set up the WezTerm terminal emulator and its shell integration
 
 ~/.config/wezterm: | ~/.config
-ifeq ($(uname_s),Darwin)
+ifeq ($(gnu_ln),0)
+	ln -srTf -- wezterm $@
+else
 	@rm -rvf -- $@
 	ln -sf -- $(abspath wezterm) $@
-else
-	ln -srTf -- wezterm $@
 endif
 
 ~/.wezterm.sh:
@@ -75,11 +75,11 @@ endif
 ghostty: ~/.config/ghostty ## Set up the Ghostty terminal emulator
 
 ~/.config/ghostty: | ~/.config
-ifeq ($(uname_s),Darwin)
+ifeq ($(gnu_ln),0)
+	ln -srTf -- ghostty $@
+else
 	@rm -rvf -- $@
 	ln -sf -- $(abspath ghostty) $@
-else
-	ln -srTf -- ghostty $@
 endif
 
 # -------- Neovim ---------
@@ -91,11 +91,11 @@ nvim: ~/.config/nvim ## Configure the Neovim text editor
 	@mkdir $@
 
 ~/.config/nvim: | ~/.config
-ifeq ($(uname_s),Darwin)
+ifeq ($(gnu_ln),0)
+	ln -srTf -- nvim $@
+else
 	@rm -rvf -- $@
 	ln -sf -- $(abspath nvim) $@
-else
-	ln -srTf -- nvim $@
 endif
 
 clean-nvim: ## Delete the Neovim state and caches
@@ -107,11 +107,11 @@ clean-nvim: ## Delete the Neovim state and caches
 direnv: ~/.config/direnv ## Set up direnv
 
 ~/.config/direnv: | ~/.config
-ifeq ($(uname_s),Darwin)
+ifeq ($(gnu_ln),0)
+	ln -srTf -- direnv $@
+else
 	@rm -rvf -- $@
 	ln -sf -- $(abspath direnv) $@
-else
-	ln -srTf -- direnv $@
 endif
 
 # ---------- Misc ---------- 
