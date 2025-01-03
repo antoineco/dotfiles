@@ -177,15 +177,16 @@ local lazy_spec = {
         end
       },
       plugins = {
+        aerial = false,
         cmp = false,
         indent_blankline = false,
-        nvim_tree = { enabled = false },
+        mason = false,
         neo_tree = { enabled = false },
-        telescope = { enabled = false },
-        startify = false,
         neorg = false,
         nvim_notify = false,
-        aerial = false
+        nvim_tree = { enabled = false },
+        startify = false,
+        telescope = { enabled = false }
       }
     },
     config = function(_, opts)
