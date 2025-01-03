@@ -181,7 +181,7 @@ local lazy_spec = {
         indent_blankline = false,
         nvim_tree = { enabled = false },
         neo_tree = { enabled = false },
-        telescope = { nvchad_like = false },
+        telescope = { enabled = false },
         startify = false,
         neorg = false,
         nvim_notify = false,
@@ -437,13 +437,14 @@ local lazy_spec = {
   -- Search {{{
 
   {
-    "nvim-telescope/telescope.nvim",
-    dependencies = "nvim-treesitter",
+    "ibhagwan/fzf-lua",
+    cmd = "FzfLua",
     keys = {
-      { "<leader>ff", function() require "telescope.builtin".find_files() end, desc = "Find Files" },
-      { "<leader>ft", function() require "telescope.builtin".live_grep() end,  desc = "Find Text" },
-      { "<leader>fb", function() require "telescope.builtin".buffers() end,    desc = "Find Buffers" }
-    }
+      { "<leader>ff", function() require "fzf-lua".files() end,     desc = "Find Files" },
+      { "<leader>ft", function() require "fzf-lua".live_grep() end, desc = "Find Text" },
+      { "<leader>fb", function() require "fzf-lua".buffers() end,   desc = "Find Buffers" }
+    },
+    opts = {}
   },
 
   -- }}}
