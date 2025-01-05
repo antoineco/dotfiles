@@ -47,7 +47,7 @@ git: ~/.gitconfig ## Configure the Git revision control system
 ifeq ($(gnu_ln),0)
 	ln -srTf -- gitconfig $@
 else
-	@rm -rvf -- $@
+	@rm -vf -- $@
 	ln -sf -- $(abspath gitconfig) $@
 endif
 
@@ -100,6 +100,19 @@ endif
 
 clean-nvim: ## Delete the Neovim state and caches
 	@rm -rvf ~/.local/share/nvim ~/.local/state/nvim ~/.cache/nvim ~/.config/nvim
+
+# ---------- Vim ----------
+
+.PHONY: vim
+vim: ~/.vimrc ## Configure the Vim text editor
+
+~/.vimrc:
+ifeq ($(gnu_ln),0)
+	ln -srTf -- vimrc $@
+else
+	@rm -vf -- $@
+	ln -sf -- $(abspath vimrc) $@
+endif
 
 # -------- direnv ---------
 
