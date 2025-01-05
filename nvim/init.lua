@@ -309,6 +309,7 @@ local lazy_spec = {
 
   {
     "saghen/blink.cmp",
+    build = "nix run .#build-plugin",
     event = "InsertEnter",
     dependencies = "rafamadriz/friendly-snippets",
     opts = {}
