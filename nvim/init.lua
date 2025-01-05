@@ -124,7 +124,6 @@ local lazy_spec = {
         end
       })
       vim.g.everforest_enable_italic = true
-      vim.cmd.colorscheme(colorscheme)
     end
   },
   {
@@ -188,11 +187,7 @@ local lazy_spec = {
         startify = false,
         telescope = { enabled = false }
       }
-    },
-    config = function(_, opts)
-      require "mellifluous".setup(opts)
-      vim.cmd.colorscheme(colorscheme)
-    end
+    }
   },
 
   "nvim-tree/nvim-web-devicons",
@@ -683,5 +678,7 @@ vim.api.nvim_create_autocmd("LspProgress", {
     vim.notify(content, vim.log.levels.INFO)
   end
 })
+
+vim.cmd.colorscheme(colorscheme)
 
 -- }}}
