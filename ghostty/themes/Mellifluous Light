@@ -25,3 +25,5 @@ foreground = 1b1b1b
 cursor-color = 1b1b1b
 
 selection-invert-fg-bg = true
+
+# vim: ft=ghostty
