@@ -94,14 +94,16 @@
       devShells = forAllSystems (
         { pkgs }:
         {
-          nix =
+          default =
             with pkgs;
             mkShell {
-              name = "nix";
+              name = "dots";
               packages = [
                 nixfmt-rfc-style
                 nixd
                 fh
+                lua-language-server
+                bash-language-server
               ];
             };
 
