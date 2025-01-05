@@ -14,7 +14,7 @@ export VISUAL=nvim
 # Fpath mangling for user functions
 fpath=(${HOME}/.local/share/zsh/site-functions $fpath)
 if (( ${+GHOSTTY_RESOURCES_DIR} )) && [[ -d ${GHOSTTY_RESOURCES_DIR} ]]; then
-  fpath=(${GHOSTTY_RESOURCES_DIR}/../zsh/site-functions $fpath)
+	fpath=(${GHOSTTY_RESOURCES_DIR}/../zsh/site-functions $fpath)
 fi
 
 
@@ -113,17 +113,17 @@ ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets)
 ZIM_HOME=${ZDOTDIR:-${HOME}}/.zim
 # Download zimfw plugin manager if missing.
 if [[ ! -e ${ZIM_HOME}/zimfw.zsh ]]; then
-  if (( ${+commands[curl]} )); then
-    curl -fsSL --create-dirs -o ${ZIM_HOME}/zimfw.zsh \
-        https://github.com/zimfw/zimfw/releases/latest/download/zimfw.zsh
-  else
-    mkdir -p ${ZIM_HOME} && wget -nv -O ${ZIM_HOME}/zimfw.zsh \
-        https://github.com/zimfw/zimfw/releases/latest/download/zimfw.zsh
-  fi
+	if (( ${+commands[curl]} )); then
+		curl -fsSL --create-dirs -o ${ZIM_HOME}/zimfw.zsh \
+			https://github.com/zimfw/zimfw/releases/latest/download/zimfw.zsh
+	else
+		mkdir -p ${ZIM_HOME} && wget -nv -O ${ZIM_HOME}/zimfw.zsh \
+			https://github.com/zimfw/zimfw/releases/latest/download/zimfw.zsh
+	fi
 fi
 # Install missing modules, and update ${ZIM_HOME}/init.zsh if missing or outdated.
 if [[ ! ${ZIM_HOME}/init.zsh -nt ${ZIM_CONFIG_FILE:-${ZDOTDIR:-${HOME}}/.zimrc} ]]; then
-  source ${ZIM_HOME}/zimfw.zsh init -q
+	source ${ZIM_HOME}/zimfw.zsh init -q
 fi
 # Initialize modules.
 source ${ZIM_HOME}/init.zsh
@@ -174,24 +174,22 @@ export FZF_DEFAULT_OPTS=("$FZF_DEFAULT_OPTS" '--color=16' '--color=fg+:7,bg+:235
 
 # Terminal shell integration
 if [[ ${TERM_PROGRAM} == WezTerm ]]; then
-  [[ -s ${HOME}/.wezterm.sh ]] && . ${HOME}/.wezterm.sh
+	[[ -s ${HOME}/.wezterm.sh ]] && . ${HOME}/.wezterm.sh
 fi
 
 # Sets a fixed termtitle for the current terminal
 termtitle() {
-  local zhooks zhook
-  zstyle -a ':zim:termtitle' hooks 'zhooks' || zhooks=(precmd)
-  for zhook in ${zhooks}; do
-    add-zsh-hook -d ${zhook} termtitle_update_${zhook}
-  done
-  local -a print_args=(-rn)
-  (( $+_ghostty_fd )) && print_args+=(-u $_ghostty_fd)
-  print $print_args $'\e]2;'${(q)@}$'\a'
+	local zhooks zhook
+	zstyle -a ':zim:termtitle' hooks 'zhooks' || zhooks=(precmd)
+	for zhook in ${zhooks}; do
+		add-zsh-hook -d ${zhook} termtitle_update_${zhook}
+	done
+	local -a print_args=(-rn)
+	(( $+_ghostty_fd )) && print_args+=(-u $_ghostty_fd)
+	print $print_args $'\e]2;'${(q)@}$'\a'
 }
 
 # Source local environment
 if [[ -s ${ZDOTDIR:-${HOME}}/.zshrc.local ]]; then
-  . ${ZDOTDIR:-${HOME}}/.zshrc.local
+	. ${ZDOTDIR:-${HOME}}/.zshrc.local
 fi
-
-# vim: ft=zsh sw=2 ts=2 et

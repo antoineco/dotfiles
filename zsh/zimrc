@@ -57,4 +57,4 @@ zmodule zsh-users/zsh-history-substring-search
 # Fish-like autosuggestions for Zsh.
 zmodule zsh-users/zsh-autosuggestions
 
-# vim: ft=zsh sw=2 ts=2 et
+# vim: ft=zsh
