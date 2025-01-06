@@ -119,7 +119,6 @@
                 delve
                 gomodifytags
                 gotests
-                impl
               ];
             };
 
