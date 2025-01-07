@@ -209,8 +209,6 @@ local lazy_spec = {
     "neovim/nvim-lspconfig",
     event = { "BufReadPre", "BufNewFile" },
     config = function()
-      local capabilities = require "blink.cmp".get_lsp_capabilities(nil, true);
-
       local icons = {
         Error = " ",
         Warn  = " ",
@@ -262,7 +260,6 @@ local lazy_spec = {
       local lspconfig = require "lspconfig"
 
       lspconfig.lua_ls.setup {
-        capabilities = capabilities,
         settings = {
           -- https://github.com/LuaLS/lua-language-server/blob/3.6.24/doc/en-us/config.md
           Lua = {
@@ -293,13 +290,9 @@ local lazy_spec = {
         end
       }
 
-      lspconfig.bashls.setup {
-        capabilities = capabilities
-      }
+      lspconfig.bashls.setup {}
 
-      lspconfig.nixd.setup {
-        capabilities = capabilities
-      }
+      lspconfig.nixd.setup {}
     end
   },
 
