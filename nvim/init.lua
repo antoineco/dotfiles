@@ -389,7 +389,7 @@ local lazy_spec = {
 
   {
     "mrcjkb/rustaceanvim",
-    ft = { "rust", "toml" },
+    lazy = false,
     config = function()
       vim.g.rustaceanvim = {
         tools = {
