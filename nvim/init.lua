@@ -408,10 +408,6 @@ local lazy_spec = {
               }
             }
           },
-          capabilities = vim.tbl_deep_extend("force",
-            require "rustaceanvim.config.server".create_client_capabilities(),
-            require "blink.cmp".get_lsp_capabilities()
-          ),
           on_attach = function(_, bufnr)
             vim.keymap.set({ "n", "x" }, "gra", require "rustaceanvim.commands.code_action_group", {
               buffer = bufnr, desc = "Code Actions"
