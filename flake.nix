@@ -136,10 +136,7 @@
                     ];
                   };
                 in
-                [
-                  rust-stable-custom
-                  lldb
-                ];
+                [ rust-stable-custom ];
             };
         }
       );
