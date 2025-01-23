@@ -69,19 +69,6 @@ endif
 ~/.wezterm.sh:
 	curl -fsSo $@ https://raw.githubusercontent.com/wez/wezterm/main/assets/shell-integration/wezterm.sh
 
-# -------- Ghostty --------
-
-.PHONY: ghostty
-ghostty: ~/.config/ghostty ## Set up the Ghostty terminal emulator
-
-~/.config/ghostty: | ~/.config
-ifeq ($(gnu_ln),0)
-	ln -srTf -- ghostty $@
-else
-	@rm -rvf -- $@
-	ln -sf -- $(abspath ghostty) $@
-endif
-
 # -------- Neovim ---------
 
 .PHONY: nvim clean-nvim

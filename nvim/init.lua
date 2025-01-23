@@ -102,7 +102,7 @@ vim.opt.rtp:prepend(lazypath)
 
 -- Setup {{{
 
-local lazy_spec = {
+require "lazy".setup({
   -- Shared Plugin Libraries {{{
 
   "nvim-lua/plenary.nvim",
@@ -589,20 +589,7 @@ local lazy_spec = {
   }
 
   -- }}}
-}
-
-if vim.env.GHOSTTY_RESOURCES_DIR then
-  local gty_rtp = vim.env.GHOSTTY_RESOURCES_DIR .. "/../vim/vimfiles"
-  if vim.fn.isdirectory(gty_rtp) then
-    table.insert(lazy_spec, {
-      "ghostty",
-      dir = gty_rtp,
-      lazy = false
-    })
-  end
-end
-
-require "lazy".setup(lazy_spec, {
+}, {
   defaults = {
     lazy = true
   },
