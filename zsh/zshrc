@@ -171,7 +171,11 @@ export FZF_DEFAULT_OPTS=("$FZF_DEFAULT_OPTS" '--color=16' '--color=fg+:7,bg+:235
 
 # Terminal shell integration
 if [[ ${TERM_PROGRAM} == WezTerm ]]; then
-	[[ -s ${HOME}/.wezterm.sh ]] && . ${HOME}/.wezterm.sh
+	if [[ -s ${WEZTERM_EXECUTABLE_DIR:h}/Resources/wezterm.sh ]]; then
+		. ${WEZTERM_EXECUTABLE_DIR:h}/Resources/wezterm.sh
+	elif [[ -s ${HOME}/.wezterm.sh ]]; then
+		. ${HOME}/.wezterm.sh
+	fi
 fi
 
 # Sets a fixed termtitle for the current terminal
