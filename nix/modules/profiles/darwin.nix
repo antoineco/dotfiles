@@ -5,4 +5,6 @@
 
     ./common.nix
   ];
+
+  nix.enable = false;
 }
