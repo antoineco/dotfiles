@@ -162,7 +162,7 @@
       darwinConfigurations = {
         colomar = nix-darwin.lib.darwinSystem {
           specialArgs = {
-            inherit self determinate;
+            inherit self;
           };
           modules = [ ./nix/hosts/colomar ];
         };
