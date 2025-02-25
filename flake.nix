@@ -10,10 +10,7 @@
       inputs.flake-compat.follows = "";
     };
 
-    nix-darwin = {
-      url = "github:LnL7/nix-darwin";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    nix-darwin.url = "nix-darwin/nix-darwin-24.11";
 
     neovim-overlay = {
       url = "github:nix-community/neovim-nightly-overlay";
