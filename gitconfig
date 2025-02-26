@@ -16,5 +16,19 @@
 [gpg "ssh"]
 	allowedSignersFile = ~/.ssh/allowed_signers
 
+[column]
+	ui = auto
+
+[branch]
+	sort = -committerdate
+
+[tag]
+	sort = version:refname
+
+[diff]
+	algorithm = histogram
+	colorMoved = default
+	mnemonicPrefix = true
+
 [include]
 	path = .gitconfig_local
