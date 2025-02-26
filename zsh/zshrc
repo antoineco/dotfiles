@@ -60,12 +60,22 @@ WORDCHARS=${WORDCHARS//[\/]}
 # Set a custom prefix for the generated aliases. The default prefix is 'G'.
 #zstyle ':zim:git' aliases-prefix 'g'
 
-typeset -g _git_log_oneline_nocolor_format='%h %s%d'
-alias Grif='git log --date-order --pretty=format:"${_git_log_oneline_nocolor_format}" origin..'\
-' | fzf -0 --no-multi --preview="git show --color=always {1}"'\
-' | cut -c -7'\
-' | sed "s/$/^/"'\
-' | xargs git rebase --interactive --autosquash'
+alias Grif=__git_rebase_fuzzy
+__git_rebase_fuzzy() {
+	local selected commit
+	local -i count=25
+	if (($# == 1)); then
+		count=$1
+	fi
+	selected="$(git log -${count} --date-order --pretty=format:'%h %s%d' \
+		| fzf -0 --no-multi --preview='git show --color=always {1}')"
+	local ret=$?
+	if [ -z ${selected} ]; then
+		return $ret
+	fi
+	commit=$(awk '{print $1}' <<< ${selected})
+	git rebase --interactive --autosquash "${commit}^"
+}
 
 #
 # input
