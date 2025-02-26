@@ -167,7 +167,9 @@ bindkey -M vicmd "${key_info[Control]}x${key_info[Control]}e" edit-command-line
 (( $+commands[limactl] )) && . <(limactl completion zsh) && compdef _limactl limactl
 
 # Shell theming
-export FZF_DEFAULT_OPTS=("$FZF_DEFAULT_OPTS" '--color=16' '--color=fg+:7,bg+:235,hl:8,hl+:3,prompt:6,pointer:4,marker:5,info:2')
+fzf_default_opts=(${FZF_DEFAULT_OPTS} '--color=16' '--color=fg+:7,bg+:235,hl:8,hl+:3,prompt:6,pointer:4,marker:5,info:2')
+export FZF_DEFAULT_OPTS=${fzf_default_opts}
+unset fzf_default_opts
 
 # Terminal shell integration
 if [[ ${TERM_PROGRAM} == WezTerm ]]; then
