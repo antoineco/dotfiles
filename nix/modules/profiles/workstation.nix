@@ -9,7 +9,7 @@
     ripgrep
     direnv
     nix-direnv
-    neovim-nightly
+    neovim
   ];
 
   environment.pathsToLink = [ "/share/nix-direnv" ];

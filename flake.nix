@@ -12,11 +12,6 @@
 
     nix-darwin.url = "nix-darwin/nix-darwin-24.11";
 
-    neovim-overlay = {
-      url = "github:nix-community/neovim-nightly-overlay";
-      inputs.flake-compat.follows = "";
-    };
-
     rust-overlay.url = "https://flakehub.com/f/oxalica/rust-overlay/0.1";
 
     agenix = {
@@ -40,7 +35,6 @@
       nixos-wsl,
       nix-darwin,
       determinate,
-      neovim-overlay,
       rust-overlay,
       disko,
       agenix,
@@ -78,15 +72,13 @@
         let
           inherit (super) system;
         in
-        (with determinate.inputs.nixpkgs.legacyPackages.${system}; {
+        with determinate.inputs.nixpkgs.legacyPackages.${system};
+        {
           inherit
             nixd
             fh
             ;
-        })
-        // (with neovim-overlay.packages.${system}; {
-          neovim-nightly = default;
-        });
+        };
 
       devShells = forAllSystems (
         { pkgs }:
