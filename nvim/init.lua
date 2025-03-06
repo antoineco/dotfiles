@@ -236,11 +236,18 @@ require "lazy".setup({
 
           map("n", "grt", lspb.type_definition, "Goto Type Definition")
           map("n", "gD", lspb.declaration, "Goto Declaration")
-          map("n", "gi", lspb.implementation, "Goto Implementation")
+          map("n", "gri", lspb.implementation, "Goto Implementation")
+          map("n", "grr", lspb.references, "Goto References")
+          map("n", "<leader>D", lspb.type_definition, "Goto Type Definition")
 
-          map("n", "<C-k>", lspb.signature_help, "Display Symbol Signature")
+          map("n", "gO", lspb.document_symbol, "List current buffer's symbols")
+
+          map({ "i", "s" }, "<C-S>", lspb.signature_help, "Display Symbol Signature")
 
           map("n", "<leader>fm", function() lspb.format { async = true } end, "Format")
+
+          map("n", "grn", lspb.rename, "Rename References")
+          map({ "n", "x" }, "gra", lspb.code_action, "Code Actions")
 
           map("n", "<leader>wa", lspb.add_workspace_folder, "Add Workspace Folder")
           map("n", "<leader>wr", lspb.remove_workspace_folder, "Remove Workspace Folder")
