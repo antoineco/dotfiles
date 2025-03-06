@@ -54,10 +54,7 @@
           f {
             pkgs = import nixpkgs {
               inherit system;
-              overlays = [
-                self.overlays.default
-                rust-overlay.overlays.default
-              ];
+              overlays = [ rust-overlay.overlays.default ];
             };
           }
         );
@@ -66,19 +63,6 @@
       inherit (flake-schemas) schemas;
 
       formatter = forAllSystems ({ pkgs }: pkgs.nixfmt-rfc-style);
-
-      overlays.default =
-        _: super:
-        let
-          inherit (super) system;
-        in
-        with determinate.inputs.nixpkgs.legacyPackages.${system};
-        {
-          inherit
-            nixd
-            fh
-            ;
-        };
 
       devShells = forAllSystems (
         { pkgs }:
@@ -133,7 +117,7 @@
       nixosConfigurations = {
         calavera = nixpkgs.lib.nixosSystem {
           specialArgs = {
-            inherit self determinate nixos-wsl;
+            inherit determinate nixos-wsl;
           };
           modules = [ ./nix/hosts/calavera ];
         };
@@ -153,9 +137,6 @@
 
       darwinConfigurations = {
         colomar = nix-darwin.lib.darwinSystem {
-          specialArgs = {
-            inherit self;
-          };
           modules = [ ./nix/hosts/colomar ];
         };
       };

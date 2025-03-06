@@ -1,7 +1,5 @@
-{ pkgs, self, ... }:
+{ pkgs, ... }:
 {
-  nixpkgs.overlays = [ self.overlays.default ];
-
   users.users.acotten.packages = with pkgs; [
     jq
     yq-go
