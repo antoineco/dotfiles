@@ -84,7 +84,6 @@
             name = "go";
             packages =
               (with pkgs; [
-                go
                 gopls
                 golangci-lint
                 gofumpt
@@ -94,14 +93,16 @@
               ])
               ++ (
                 let
-                  delveGo124 =
-                    let
-                      pkgs-unstable = determinate.inputs.nixpkgs.legacyPackages.${pkgs.system}; # nixpkgs-weekly
-                    in
-                    with pkgs-unstable;
-                    delve.override { buildGoModule = buildGo124Module; };
+                  pkgs-unstable = determinate.inputs.nixpkgs.legacyPackages.${pkgs.system}; # nixpkgs-weekly
                 in
-                [ delveGo124 ]
+                with pkgs-unstable;
+                [ go_1_24 ]
+                ++ (
+                  let
+                    delveGo124 = delve.override { buildGoModule = buildGo124Module; };
+                  in
+                  [ delveGo124 ]
+                )
               );
           };
 
