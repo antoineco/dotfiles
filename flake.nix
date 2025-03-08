@@ -80,21 +80,30 @@
               ];
             };
 
-          go =
-            with pkgs;
-            mkShell {
-              name = "go";
-              packages = [
+          go = pkgs.mkShell {
+            name = "go";
+            packages =
+              (with pkgs; [
                 go
                 gopls
                 golangci-lint
                 gofumpt
-                delve
                 gomodifytags
                 gotests
                 impl
-              ];
-            };
+              ])
+              ++ (
+                let
+                  delveGo124 =
+                    let
+                      pkgs-unstable = determinate.inputs.nixpkgs.legacyPackages.${pkgs.system}; # nixpkgs-weekly
+                    in
+                    with pkgs-unstable;
+                    delve.override { buildGoModule = buildGo124Module; };
+                in
+                [ delveGo124 ]
+              );
+          };
 
           rust =
             with pkgs;
