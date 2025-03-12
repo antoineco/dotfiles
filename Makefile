@@ -114,6 +114,19 @@ else
 	ln -sf -- $(abspath direnv) $@
 endif
 
+# --------- bat -----------
+
+.PHONY: bat
+bat: ~/.config/bat ## Set up bat
+
+~/.config/bat: | ~/.config
+ifeq ($(gnu_ln),0)
+	ln -srTf -- bat $@
+else
+	@rm -rvf -- $@
+	ln -sf -- $(abspath bat) $@
+endif
+
 # ---------- Misc ---------- 
 
 .DEFAULT_GOAL := help
