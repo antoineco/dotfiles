@@ -1,4 +1,26 @@
+# -------- Macros ---------
+
 gnu_ln := $(shell &>/dev/null ln --help; echo $$?)
+
+define symlink-dir
+$2: | $(dir $2)
+ifeq ($(gnu_ln),0)
+	ln -srTf -- $1 $$@
+else
+	@rm -rvf -- $$@
+	ln -sf -- $$(abspath $1) $$@
+endif
+endef
+
+define symlink-file
+$2:
+ifeq ($(gnu_ln),0)
+	ln -srTf -- $1 $$@
+else
+	@rm -vf -- $$@
+	ln -sf -- $$(abspath $1) $$@
+endif
+endef
 
 # ---------- Nix ----------
 
@@ -43,13 +65,7 @@ endif
 .PHONY: git
 git: ~/.gitconfig ## Configure the Git revision control system
 
-~/.gitconfig:
-ifeq ($(gnu_ln),0)
-	ln -srTf -- gitconfig $@
-else
-	@rm -vf -- $@
-	ln -sf -- $(abspath gitconfig) $@
-endif
+$(eval $(call symlink-file,gitconfig,~/.gitconfig))
 
 # -------- WezTerm --------
 
@@ -58,13 +74,7 @@ wezterm: ~/.config/wezterm
 wezterm: ~/.wezterm.sh
 wezterm: ## Set up the WezTerm terminal emulator and its shell integration
 
-~/.config/wezterm: | ~/.config
-ifeq ($(gnu_ln),0)
-	ln -srTf -- wezterm $@
-else
-	@rm -rvf -- $@
-	ln -sf -- $(abspath wezterm) $@
-endif
+$(eval $(call symlink-dir,wezterm,~/.config/wezterm))
 
 ~/.wezterm.sh:
 	curl -fsSo $@ https://raw.githubusercontent.com/wez/wezterm/main/assets/shell-integration/wezterm.sh
@@ -77,13 +87,7 @@ nvim: ~/.config/nvim ## Configure the Neovim text editor
 ~/.config:
 	@mkdir $@
 
-~/.config/nvim: | ~/.config
-ifeq ($(gnu_ln),0)
-	ln -srTf -- nvim $@
-else
-	@rm -rvf -- $@
-	ln -sf -- $(abspath nvim) $@
-endif
+$(eval $(call symlink-dir,nvim,~/.config/nvim))
 
 clean-nvim: ## Delete the Neovim state and caches
 	@rm -rvf ~/.local/share/nvim ~/.local/state/nvim ~/.cache/nvim ~/.config/nvim
@@ -93,39 +97,21 @@ clean-nvim: ## Delete the Neovim state and caches
 .PHONY: vim
 vim: ~/.vimrc ## Configure the Vim text editor
 
-~/.vimrc:
-ifeq ($(gnu_ln),0)
-	ln -srTf -- vimrc $@
-else
-	@rm -vf -- $@
-	ln -sf -- $(abspath vimrc) $@
-endif
+$(eval $(call symlink-file,vimrc,~/.vimrc))
 
 # -------- direnv ---------
 
 .PHONY: direnv
 direnv: ~/.config/direnv ## Set up direnv
 
-~/.config/direnv: | ~/.config
-ifeq ($(gnu_ln),0)
-	ln -srTf -- direnv $@
-else
-	@rm -rvf -- $@
-	ln -sf -- $(abspath direnv) $@
-endif
+$(eval $(call symlink-dir,direnv,~/.config/direnv))
 
 # --------- bat -----------
 
 .PHONY: bat
 bat: ~/.config/bat ## Set up bat
 
-~/.config/bat: | ~/.config
-ifeq ($(gnu_ln),0)
-	ln -srTf -- bat $@
-else
-	@rm -rvf -- $@
-	ln -sf -- $(abspath bat) $@
-endif
+$(eval $(call symlink-dir,bat,~/.config/bat))
 
 # ---------- Misc ---------- 
 
