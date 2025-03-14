@@ -3,6 +3,7 @@
 
   inputs = {
     nixpkgs.url = "https://flakehub.com/f/NixOS/nixpkgs/0.2411"; # nixos-24.11
+    nixpkgs-unstable.url = "https://flakehub.com/f/NixOS/nixpkgs/0.1";
     determinate.url = "https://flakehub.com/f/DeterminateSystems/determinate/3";
 
     nixos-wsl = {
@@ -32,6 +33,7 @@
     {
       self,
       nixpkgs,
+      nixpkgs-unstable,
       nixos-wsl,
       nix-darwin,
       determinate,
@@ -83,27 +85,20 @@
           go = pkgs.mkShell {
             name = "go";
             packages =
-              (with pkgs; [
+              let
+                pkgs-unstable = nixpkgs-unstable.legacyPackages.${pkgs.system};
+              in
+              with pkgs-unstable;
+              [
+                go
                 gopls
                 golangci-lint
                 gofumpt
+                delve
                 gomodifytags
                 gotests
                 impl
-              ])
-              ++ (
-                let
-                  pkgs-unstable = determinate.inputs.nixpkgs.legacyPackages.${pkgs.system}; # nixpkgs-weekly
-                in
-                with pkgs-unstable;
-                [ go_1_24 ]
-                ++ (
-                  let
-                    delveGo124 = delve.override { buildGoModule = buildGo124Module; };
-                  in
-                  [ delveGo124 ]
-                )
-              );
+              ];
           };
 
           rust =
