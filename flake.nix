@@ -114,7 +114,10 @@
                     ];
                   };
                 in
-                [ rust-stable-custom ];
+                [
+                  rust-stable-custom
+                  vscode-extensions.vadimcn.vscode-lldb.adapter
+                ];
             };
         }
       );
