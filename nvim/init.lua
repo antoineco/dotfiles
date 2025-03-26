@@ -590,6 +590,24 @@ require "lazy".setup({
 
   -- }}}
 
+  -- Debugging {{{
+
+  {
+    "mfussenegger/nvim-dap",
+    cmd = { "DapNew", "DapToggleBreakpoint" },
+    dependencies = {
+      {
+        "rcarriga/nvim-dap-ui",
+        dependencies = "nvim-neotest/nvim-nio",
+        opts = {}
+      },
+      -- adapters
+      { "leoluz/nvim-dap-go", opts = {} }
+    }
+  },
+
+  -- }}}
+
   -- Miscellaneous {{{
 
   {
