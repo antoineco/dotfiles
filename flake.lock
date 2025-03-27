@@ -261,6 +261,21 @@
         "type": "indirect"
       }
     },
+    "nixos-unstable-small": {
+      "locked": {
+        "lastModified": 1743039536,
+        "narHash": "sha256-O3GFPU0Uyv80LKVMMukVqrfxSzWKkBwQIHN2UnRSCZk=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "0ab4a506520ea9247e673e9849ecf84c72f88be2",
+        "type": "github"
+      },
+      "original": {
+        "id": "nixpkgs",
+        "ref": "nixos-unstable-small",
+        "type": "indirect"
+      }
+    },
     "nixos-wsl": {
       "inputs": {
         "flake-compat": [],
@@ -458,6 +473,7 @@
         "disko": "disko",
         "flake-schemas": "flake-schemas",
         "nix-darwin": "nix-darwin",
+        "nixos-unstable-small": "nixos-unstable-small",
         "nixos-wsl": "nixos-wsl",
         "nixpkgs": "nixpkgs_7",
         "nixpkgs-unstable": "nixpkgs-unstable",
