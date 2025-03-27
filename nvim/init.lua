@@ -209,8 +209,6 @@ require "lazy".setup({
     "neovim/nvim-lspconfig",
     event = { "BufReadPre", "BufNewFile" },
     config = function()
-      local capabilities = require "blink.cmp".get_lsp_capabilities();
-
       local icons = {
         Error = " ",
         Warn  = " ",
@@ -235,19 +233,9 @@ require "lazy".setup({
           end
 
           map("n", "grt", lspb.type_definition, "Goto Type Definition")
-          map("n", "gD", lspb.declaration, "Goto Declaration")
-          map("n", "gri", lspb.implementation, "Goto Implementation")
-          map("n", "grr", lspb.references, "Goto References")
-          map("n", "<leader>D", lspb.type_definition, "Goto Type Definition")
-
-          map("n", "gO", lspb.document_symbol, "List current buffer's symbols")
-
-          map({ "i", "s" }, "<C-S>", lspb.signature_help, "Display Symbol Signature")
+          map("n", "grD", lspb.declaration, "Goto Declaration")
 
           map("n", "<leader>fm", function() lspb.format { async = true } end, "Format")
-
-          map("n", "grn", lspb.rename, "Rename References")
-          map({ "n", "x" }, "gra", lspb.code_action, "Code Actions")
 
           map("n", "<leader>wa", lspb.add_workspace_folder, "Add Workspace Folder")
           map("n", "<leader>wr", lspb.remove_workspace_folder, "Remove Workspace Folder")
@@ -269,7 +257,6 @@ require "lazy".setup({
       local lspconfig = require "lspconfig"
 
       lspconfig.lua_ls.setup {
-        capabilities = capabilities,
         settings = {
           -- https://github.com/LuaLS/lua-language-server/blob/3.6.24/doc/en-us/config.md
           Lua = {
@@ -300,13 +287,9 @@ require "lazy".setup({
         end
       }
 
-      lspconfig.bashls.setup {
-        capabilities = capabilities
-      }
+      lspconfig.bashls.setup {}
 
-      lspconfig.nixd.setup {
-        capabilities = capabilities
-      }
+      lspconfig.nixd.setup {}
     end
   },
 
