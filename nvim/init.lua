@@ -209,17 +209,16 @@ require "lazy".setup({
     "neovim/nvim-lspconfig",
     event = { "BufReadPre", "BufNewFile" },
     config = function()
-      local icons = {
-        Error = " ",
-        Warn  = " ",
-        Hint  = " ",
-        Info  = " "
+      vim.diagnostic.config {
+        signs = {
+          text = {
+            [vim.diagnostic.severity.ERROR] = "◆",
+            [vim.diagnostic.severity.WARN] = "▼",
+            [vim.diagnostic.severity.INFO] = "■",
+            [vim.diagnostic.severity.HINT] = "●"
+          }
+        }
       }
-
-      for name, icon in pairs(icons) do
-        name = "DiagnosticSign" .. name
-        vim.fn.sign_define(name, { text = icon, texthl = name })
-      end
 
       vim.api.nvim_create_autocmd("LspAttach", {
         group = nvinit_augrp,
@@ -354,6 +353,7 @@ require "lazy".setup({
     "ray-x/go.nvim",
     ft = { "go", "gomod", "gosum", "gotmpl", "gohtmltmpl", "gotexttmpl" },
     opts = {
+      diagnostic = false,  -- configured globally via vim.diagnostic.config()
       lsp_cfg = {
         settings = {
           gopls = {
