@@ -3,8 +3,7 @@
 
   inputs = {
     nixpkgs.url = "https://flakehub.com/f/NixOS/nixpkgs/0.2411"; # nixos-24.11
-    nixpkgs-unstable.url = "https://flakehub.com/f/NixOS/nixpkgs/0.1";
-    nixos-unstable-small.url = "nixpkgs/nixos-unstable-small";
+    nixpkgs-unstable.url = "nixpkgs";
     determinate.url = "https://flakehub.com/f/DeterminateSystems/determinate/3";
 
     nixos-wsl = {
@@ -35,7 +34,6 @@
       self,
       nixpkgs,
       nixpkgs-unstable,
-      nixos-unstable-small,
       nixos-wsl,
       nix-darwin,
       determinate,
@@ -128,7 +126,7 @@
         calavera = nixpkgs.lib.nixosSystem {
           specialArgs = {
             inherit
-              nixos-unstable-small
+              nixpkgs-unstable
               determinate
               nixos-wsl
               ;
@@ -151,7 +149,7 @@
 
       darwinConfigurations = {
         colomar = nix-darwin.lib.darwinSystem {
-          specialArgs = { inherit nixos-unstable-small; };
+          specialArgs = { inherit nixpkgs-unstable; };
           modules = [ ./nix/hosts/colomar ];
         };
       };

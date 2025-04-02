@@ -1,4 +1,4 @@
-{ pkgs, nixos-unstable-small, ... }:
+{ pkgs, nixpkgs-unstable, ... }:
 {
   users.users.acotten.packages =
     (with pkgs; [
@@ -9,7 +9,7 @@
       direnv
       nix-direnv
     ])
-    ++ (with nixos-unstable-small.legacyPackages.${pkgs.system}; [
+    ++ (with nixpkgs-unstable.legacyPackages.${pkgs.system}; [
       neovim
     ]);
 
