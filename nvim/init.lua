@@ -506,6 +506,10 @@ require "lazy".setup({
       require "nvim-treesitter.configs".setup(opts)
     end
   },
+  {
+    "nvim-treesitter/nvim-treesitter-context",
+    cmd = "TSContextEnable"
+  },
 
   -- }}}
 
