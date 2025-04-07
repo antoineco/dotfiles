@@ -3,7 +3,7 @@
 
   inputs = {
     nixpkgs.url = "https://flakehub.com/f/NixOS/nixpkgs/0.2411"; # nixos-24.11
-    nixpkgs-unstable.url = "nixpkgs";
+    nixpkgs-unstable.url = "https://flakehub.com/f/NixOS/nixpkgs/0.1"; # nixos-unstable
     determinate.url = "https://flakehub.com/f/DeterminateSystems/determinate/3";
 
     nixos-wsl = {
