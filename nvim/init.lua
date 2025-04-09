@@ -236,6 +236,14 @@ require "lazy".setup({
 
           map("n", "<leader>fm", function() lspb.format { async = true } end, "Format")
 
+          -- Extend |CTRL-L-default|
+          -- https://github.com/neovim/neovim/blob/v0.11.0/runtime/lua/vim/_defaults.lua#L95-L100
+          map("n", "<C-L>", function()
+            vim.lsp.buf.clear_references()
+            vim.cmd "nohlsearch|diffupdate|normal! <C-L>"
+          end, "Clear document highlights")
+          map("n", "<leader>dh", lspb.document_highlight, "Request document highlights")
+
           map("n", "<leader>wa", lspb.add_workspace_folder, "Add Workspace Folder")
           map("n", "<leader>wr", lspb.remove_workspace_folder, "Remove Workspace Folder")
           map("n", "<leader>wl", function() print(vim.inspect(lspb.list_workspace_folders())) end,
