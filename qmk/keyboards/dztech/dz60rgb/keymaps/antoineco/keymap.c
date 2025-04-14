@@ -53,7 +53,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    */
 [_CL] = LAYOUT(
     _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  EE_CLR,
-    _______,  RGB_TOG,  RGB_MOD,  RGB_VAI,  RGB_HUI,  RGB_SAI,  RGB_SPI,  _______,  _______,  _______,  _______,  _______,  _______,  QK_BOOT,
+    _______,  RM_TOGG,  RM_NEXT,  RM_VALU,  RM_HUEU,  RM_SATU,  RM_SPDU,  _______,  _______,  _______,  _______,  _______,  _______,  QK_BOOT,
     _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,
     _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,            _______,  _______,
     _______,  _______,  _______,                                _______,                      _______,  TO(_BL),  _______,  _______,  _______
@@ -85,12 +85,12 @@ bool rgb_matrix_indicators_user(void) {
     case _CL:
         /* RGB control keys
          */
-        rgb_matrix_set_color(26, RGB_PURPLE);    // RGB_TOG
-        rgb_matrix_set_color(25, RGB_TURQUOISE); // RGB_MODE_FORWARD
-        rgb_matrix_set_color(24, RGB_TURQUOISE); // RGB_VAI
-        rgb_matrix_set_color(23, RGB_TURQUOISE); // RGB_HUI
-        rgb_matrix_set_color(22, RGB_TURQUOISE); // RGB_SAI
-        rgb_matrix_set_color(21, RGB_TURQUOISE); // RGB_SPI
+        rgb_matrix_set_color(26, RGB_PURPLE);    // RM_TOGG / QK_RGB_MATRIX_TOGGLE
+        rgb_matrix_set_color(25, RGB_TURQUOISE); // RM_NEXT / QK_RGB_MATRIX_MODE_NEXT
+        rgb_matrix_set_color(24, RGB_TURQUOISE); // RM_VALU / QK_RGB_MATRIX_VALUE_UP
+        rgb_matrix_set_color(23, RGB_TURQUOISE); // RM_HUEU / QK_RGB_MATRIX_HUE_UP
+        rgb_matrix_set_color(22, RGB_TURQUOISE); // RM_SATU / QK_RGB_MATRIX_SATURATION_UP
+        rgb_matrix_set_color(21, RGB_TURQUOISE); // RM_SPDU / QK_RGB_MATRIX_SPEED_UP
         /* QMK keys
          */
         rgb_matrix_set_color(0,  RGB_ORANGE); // QK_CLEAR_EEPROM
