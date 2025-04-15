@@ -3,6 +3,12 @@
 
 #define GRAVE_ESC_CTRL_OVERRIDE
 
+/* Custom Shift Keys
+ */
+
+// Apply custom shift keys only on Engram layer.
+#define CUSTOM_SHIFT_KEYS_LAYER_MASK (1 << 0)
+
 /* RGB Matrix
  */
 

@@ -15,23 +15,33 @@
  */
 
 enum layers {
-    _BL,
+    _EL,
+    _QL,
     _PL,
     _FL,
     _CL
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-  /* Keymap _BL: Base Layer, Mac (Default Layer)
+  /* Keymap _EL: Engram Layer, Mac (Default Layer)
    */
-[_BL] = LAYOUT(
-    QK_GESC,  KC_1,     KC_2,     KC_3,     KC_4,     KC_5,     KC_6,     KC_7,     KC_8,     KC_9,     KC_0,     KC_MINS,  KC_EQL,   KC_BSPC,
-    KC_TAB,   KC_Q,     KC_W,     KC_E,     KC_R,     KC_T,     KC_Y,     KC_U,     KC_I,     KC_O,     KC_P,     KC_LBRC,  KC_RBRC,  KC_BSLS,
-    KC_CAPS,  KC_A,     KC_S,     KC_D,     KC_F,     KC_G,     KC_H,     KC_J,     KC_K,     KC_L,     KC_SCLN,  KC_QUOT,  KC_ENT,
-    KC_LSFT,  KC_Z,     KC_X,     KC_C,     KC_V,     KC_B,     KC_N,     KC_M,     KC_COMM,  KC_DOT,   RSFT_T(KC_SLSH),    KC_UP,    KC_DEL,
+[_EL] = LAYOUT(
+    KC_LBRC,  KC_1,     KC_2,     KC_3,     KC_4,     KC_5,     KC_6,     KC_7,     KC_8,     KC_9,     KC_0,     KC_RBRC,  KC_SLSH,  KC_BSPC,
+    KC_TAB,   KC_B,     KC_Y,     KC_O,     KC_U,     KC_QUOT,  KC_DQT,   KC_L,     KC_D,     KC_W,     KC_V,     KC_Z,     KC_HASH,  KC_AT,
+    KC_ESC,   KC_C,     KC_I,     KC_E,     KC_A,     KC_COMM,  KC_DOT,   KC_H,     KC_T,     KC_S,     KC_N,     KC_Q,     KC_ENT,
+    KC_LSFT,  KC_G,     KC_X,     KC_J,     KC_K,     KC_MINS,  KC_QUES,  KC_R,     KC_M,     KC_F,     RSFT_T(KC_P),       KC_UP,    KC_DEL,
     KC_LCTL,  KC_LALT,  KC_LGUI,                                KC_SPC,                       KC_RGUI,  MO(_FL),  KC_LEFT,  KC_DOWN,  KC_RGHT
 ),
-  /* Keymap _PL: PC Layer
+  /* Keymap _QL: QWERTY Layer, Mac
+   */
+[_QL] = LAYOUT(
+    QK_GESC,  KC_1,     KC_2,     KC_3,     KC_4,     KC_5,     KC_6,     KC_7,     KC_8,     KC_9,     KC_0,     KC_MINS,  KC_EQL,   _______,
+    _______,  KC_Q,     KC_W,     KC_E,     KC_R,     KC_T,     KC_Y,     KC_U,     KC_I,     KC_O,     KC_P,     KC_LBRC,  KC_RBRC,  KC_BSLS,
+    KC_CAPS,  KC_A,     KC_S,     KC_D,     KC_F,     KC_G,     KC_H,     KC_J,     KC_K,     KC_L,     KC_SCLN,  KC_QUOT,  KC_ENT,
+    _______,  KC_Z,     KC_X,     KC_C,     KC_V,     KC_B,     KC_N,     KC_M,     KC_COMM,  KC_DOT,   RSFT_T(KC_SLSH),    _______,  _______,
+    _______,  _______,  _______,                                _______,                      _______,  _______,  _______,  _______,  _______
+),
+  /* Keymap _PL: PC Modifiers Layer
    */
 [_PL] = LAYOUT(
     _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,
@@ -44,7 +54,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    */
 [_FL] = LAYOUT(
     KC_GRV,   KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,    KC_F6,    KC_F7,    KC_F8,    KC_F9,    KC_F10,   KC_F11,   KC_F12,   _______,
-    _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  TG(_PL),  _______,  _______,  _______,
+    _______,  TG(_QL),  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  TG(_PL),  _______,  _______,  _______,
     _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,
     _______,  KC_VOLD,  KC_VOLU,  KC_MUTE,  KC_MPLY,  KC_MPRV,  KC_MNXT,  _______,  _______,  _______,  KC_INS,             KC_PGUP,  _______,
     _______,  _______,  _______,                                TO(_CL),                      _______,  _______,  KC_HOME,  KC_PGDN,  KC_END
@@ -56,8 +66,33 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______,  RM_TOGG,  RM_NEXT,  RM_VALU,  RM_HUEU,  RM_SATU,  RM_SPDU,  _______,  _______,  _______,  _______,  _______,  _______,  QK_BOOT,
     _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,
     _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,            _______,  _______,
-    _______,  _______,  _______,                                _______,                      _______,  TO(_BL),  _______,  _______,  _______
+    _______,  _______,  _______,                                _______,                      _______,  TO(_EL),  _______,  _______,  _______
 )
+};
+
+const custom_shift_key_t custom_shift_keys[] = {
+    /* Engram layout shifted symbols */
+    {KC_LBRC, KC_LCBR},
+    {KC_1,    KC_PIPE},
+    {KC_2,    KC_EQL},
+    {KC_3,    KC_TILD},
+    {KC_4,    KC_PLUS},
+    {KC_5,    KC_LT},
+    {KC_6,    KC_GT},
+    {KC_7,    KC_CIRC},
+    {KC_8,    KC_AMPR},
+    {KC_9,    KC_PERC},
+    {KC_0,    KC_ASTR},
+    {KC_RBRC, KC_RCBR},
+    {KC_SLSH, KC_BSLS},
+    {KC_QUOT, KC_LPRN},
+    {KC_DQT,  KC_RPRN},
+    {KC_HASH, KC_DLR},
+    {KC_AT,   KC_GRV},
+    {KC_COMM, KC_SCLN},
+    {KC_DOT,  KC_COLN},
+    {KC_MINS, KC_UNDS},
+    {KC_QUES, KC_EXLM},
 };
 
 bool rgb_matrix_indicators_user(void) {
@@ -65,6 +100,7 @@ bool rgb_matrix_indicators_user(void) {
     case _FL:
         /* Layer toggle keys
          */
+        rgb_matrix_set_color(26, RGB_RED); // KC_Q
         rgb_matrix_set_color(17, RGB_RED); // KC_P
         /* Media keys
          */
