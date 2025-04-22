@@ -123,14 +123,14 @@ endif
 
 .PHONY: qmk
 qmk: $(QMK_CLI_CFG_DIR)/qmk.ini
-qmk: ~/git/qmk/qmk_firmware/keyboards/dztech/dz60rgb/keymaps/antoineco
+qmk: ~/git/qmk/qmk_firmware/keyboards/wilba_tech/wt60_d/keymaps/antoineco
 qmk: ## Set up custom configurations for QMK keyboards
 
 $(QMK_CLI_CFG_DIR):
 	mkdir '$@'
 
 $(eval $(call symlink-file,qmk/qmk.ini,$(QMK_CLI_CFG_DIR)/qmk.ini))
-$(eval $(call symlink-dir,qmk/keyboards/dztech/dz60rgb/keymaps/antoineco,~/git/qmk/qmk_firmware/keyboards/dztech/dz60rgb/keymaps/antoineco))
+$(eval $(call symlink-dir,qmk/keyboards/wilba_tech/wt60_d/keymaps/antoineco,~/git/qmk/qmk_firmware/keyboards/wilba_tech/wt60_d/keymaps/antoineco))
 
 # ---------- Misc ---------- 
 
