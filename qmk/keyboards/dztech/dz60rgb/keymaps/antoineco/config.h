@@ -4,11 +4,6 @@
 #define TAPPING_TERM 200
 #define PERMISSIVE_HOLD
 
-/* Grave Escape
- */
-
-#define GRAVE_ESC_CTRL_OVERRIDE
-
 /* RGB Matrix
  */
 
