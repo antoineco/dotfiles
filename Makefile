@@ -13,12 +13,12 @@ endif
 endef
 
 define symlink-file
-$2:
+$2: | $(shell dirname '$2')
 ifeq ($(gnu_ln),0)
-	ln -srTf -- $1 $$@
+	ln -srTf -- $1 '$$@'
 else
-	@rm -vf -- $$@
-	ln -sf -- $$(abspath $1) $$@
+	@rm -vf -- '$$@'
+	ln -sf -- $$(abspath $1) '$$@'
 endif
 endef
 
@@ -112,6 +112,25 @@ $(eval $(call symlink-dir,direnv,~/.config/direnv))
 bat: ~/.config/bat ## Set up bat
 
 $(eval $(call symlink-dir,bat,~/.config/bat))
+
+# --------- QMK -----------
+
+ifeq ($(shell uname),Darwin)
+QMK_CLI_CFG_DIR := ~/Library/Application\ Support/qmk
+else
+QMK_CLI_CFG_DIR := ~/.config/qmk
+endif
+
+.PHONY: qmk
+qmk: $(QMK_CLI_CFG_DIR)/qmk.ini
+qmk: ~/git/qmk/qmk_firmware/keyboards/dztech/dz60rgb/keymaps/antoineco
+qmk: ## Set up custom configurations for QMK keyboards
+
+$(QMK_CLI_CFG_DIR):
+	mkdir '$@'
+
+$(eval $(call symlink-file,qmk/qmk.ini,$(QMK_CLI_CFG_DIR)/qmk.ini))
+$(eval $(call symlink-dir,qmk/keyboards/dztech/dz60rgb/keymaps/antoineco,~/git/qmk/qmk_firmware/keyboards/dztech/dz60rgb/keymaps/antoineco))
 
 # ---------- Misc ---------- 
 
