@@ -2,20 +2,51 @@
 
 (defcfg
   process-unmapped-keys no
+  log-layer-changes no
 
   macos-dev-names-include "Apple Internal Keyboard / Trackpad"
 )
 
-(defsrc)
-
-(deflayermap remaps
-  caps esc
-  spc  @spn
+(defsrc
+  q w e r t y u i o p
+  a s d f g h j k l ; '
+  z x c v b n m , . /
+         spc
 )
 
-(defalias
-  nav (layer-toggle navigation)
-  spn (tap-hold 200 200 spc @nav)
+(defvar
+  streak-count 3
+  streak-time 325
+  tap-timeout 200
+  hold-timeout 500
+  chord-timeout 50
+)
+
+(deftemplate charmod (char mod)
+  (switch
+    ((key-timing $streak-count less-than $streak-time)) $char break
+    () (tap-hold-release-timeout $tap-timeout $hold-timeout $char $mod $char) break
+  )
+)
+
+(defvirtualkeys
+  shift (multi (layer-switch main) lsft)
+  clear (multi (layer-switch main) (on-press release-virtualkey shift))
+)
+
+(deflayermap main
+  caps esc
+  fn lctl
+  lctl fn
+  a (t! charmod a lctl)
+  s (t! charmod s lalt)
+  d (t! charmod d lmet)
+  f (t! charmod f lsft)
+  j (t! charmod j rsft)
+  k (t! charmod k rmet)
+  l (t! charmod l lalt)
+  ; (t! charmod ; rctl)
+  spc (t! charmod spc (multi (layer-switch navigation) (on-release tap-virtualkey clear)))
 )
 
 (deflayermap navigation
