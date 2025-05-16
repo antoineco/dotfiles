@@ -79,6 +79,16 @@
   };
 
   launchd =
+    let
+      kanataSvcCfg = {
+        ProgramArguments = [
+          "${nixpkgs-unstable.legacyPackages.${pkgs.system}.kanata}/bin/kanata"
+          "-c"
+          "/Users/acotten/git/antoineco/dotfiles/kanata/apple_internal.kbd"
+        ];
+        RunAtLoad = false;
+      };
+    in
     {
       user.agents.UserKeyMappingKbApple.serviceConfig = {
         ProgramArguments =
@@ -118,31 +128,18 @@
           ];
         RunAtLoad = true;
       };
-    }
-    // (
-      let
-        serviceConfig = {
-          ProgramArguments = [
-            "${nixpkgs-unstable.legacyPackages.${pkgs.system}.kanata}/bin/kanata"
-            "-c"
-            "/Users/acotten/git/antoineco/dotfiles/kanata/apple_internal.kbd"
-          ];
-          RunAtLoad = false;
-        };
-      in
-      {
-        daemons.kanata.serviceConfig = serviceConfig // {
-          Label = "io.github.jtroo.kanata";
-          ProcessType = "Interactive";
-          StandardOutPath = "/var/log/kanata.out.log";
-          StandardErrorPath = "/var/log/kanata.err.log";
-        };
-        # Create a companion Agent plist to trigger a TCC prompt for the IOHIDDeviceOpen
-        # permission (Input Monitoring) in a login session (GUI).
-        # Ref: https://developer.apple.com/forums/thread/128641
-        user.agents.kanata.serviceConfig = serviceConfig // {
-          Label = "io.github.jtroo.kanata-tcc";
-        };
-      }
-    );
+
+      daemons.kanata.serviceConfig = kanataSvcCfg // {
+        Label = "io.github.jtroo.kanata";
+        ProcessType = "Interactive";
+        StandardOutPath = "/var/log/kanata.out.log";
+        StandardErrorPath = "/var/log/kanata.err.log";
+      };
+      # Create a companion Agent plist to trigger a TCC prompt for the IOHIDDeviceOpen
+      # permission (Input Monitoring) in a login session (GUI).
+      # Ref: https://developer.apple.com/forums/thread/128641
+      user.agents.kanata.serviceConfig = kanataSvcCfg // {
+        Label = "io.github.jtroo.kanata-tcc";
+      };
+    };
 }
