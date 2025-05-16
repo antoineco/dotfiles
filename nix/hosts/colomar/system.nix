@@ -102,10 +102,16 @@
             propVal.UserKeyMapping =
               let
                 # https://developer.apple.com/library/archive/technotes/tn2450/_index.html
+                capsLock = 30064771129; # 0x700000039 - USB HID 0x39
+                escape = 30064771113; # 0x700000029 - USB HID 0x29
                 leftCtrl = 30064771296; # 0x7000000E0 - USB HID 0xE0
                 fnGlobe = 1095216660483; # 0xFF00000003 - USB HID (0x0003 + 0xFF00000000 - 0x700000000)
               in
               [
+                {
+                  HIDKeyboardModifierMappingSrc = capsLock;
+                  HIDKeyboardModifierMappingDst = escape;
+                }
                 {
                   HIDKeyboardModifierMappingSrc = fnGlobe;
                   HIDKeyboardModifierMappingDst = leftCtrl;
