@@ -36,9 +36,23 @@
 )
 
 (deflayermap main
+  f1  brdn
+  f2  brup
+  f3  mctl
+  f4  sls
+  f5  dtn
+  f6  dnd
+  f7  prev
+  f8  pp
+  f9  next
+  f10 mute
+  f11 vold
+  f12 volu
+
   caps esc
-  fn lctl
-  lctl fn
+  fn   lctl
+  lctl @fn
+
   a (t! charmod a lctl)
   s (t! charmod s lalt)
   d (t! charmod d lmet)
@@ -47,6 +61,7 @@
   k (t! charmod k rmet)
   l (t! charmod l lalt)
   ; (t! charmod ; rctl)
+
   spc (t! charmod spc (multi (layer-switch navigation) (on-release tap-virtualkey clear)))
 )
 
@@ -60,4 +75,30 @@
   m pgdn
   , pgup
   . end
+)
+
+(deflayermap function
+  f1  f1
+  f2  f2
+  f3  f3
+  f4  f4
+  f5  f5
+  f6  f6
+  f7  f7
+  f8  f8
+  f9  f9
+  f10 f10
+  f11 f11
+  f12 f12
+
+  bspc del
+
+  left home
+  down pgdn
+  up   pgup
+  rght end
+)
+
+(defalias
+  fn (multi fn (layer-while-held function))
 )
