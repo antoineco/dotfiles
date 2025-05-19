@@ -39,16 +39,6 @@
             InputSourceKind = "Non Keyboard Input Method";
             "Bundle ID" = "com.apple.PressAndHold";
           }
-          {
-            InputSourceKind = "Keyboard Layout";
-            "KeyboardLayout Name" = "US Extended";
-            "KeyboardLayout ID" = -2;
-          }
-          {
-            InputSourceKind = "Keyboard Layout";
-            "KeyboardLayout Name" = "USInternational-PC";
-            "KeyboardLayout ID" = 15000;
-          }
         ];
       };
       "com.apple.symbolichotkeys" = {
