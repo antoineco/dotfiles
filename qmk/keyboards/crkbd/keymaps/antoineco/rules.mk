@@ -1,6 +1,8 @@
 NKRO_ENABLE = no # disable N-key rollover
 OLED_ENABLE = no # disable support for OLED displays
 
+CAPS_WORD_ENABLE = yes
+
 RGBLIGHT_ENABLE   = yes
 RGB_MATRIX_ENABLE = no
 
