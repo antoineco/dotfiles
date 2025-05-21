@@ -3,11 +3,9 @@ OLED_ENABLE = no # disable support for OLED displays
 
 CAPS_WORD_ENABLE = yes
 
-RGBLIGHT_ENABLE   = yes
-RGB_MATRIX_ENABLE = no
-
-VIA_ENABLE  = yes
-VIAL_ENABLE = yes
+VIA_ENABLE     = yes
+VIAL_ENABLE    = yes
+VIALRGB_ENABLE = yes
 
 # AVR microcontrollers are resource constrained. We need to disable extra
 # features in order to enable Vial support.

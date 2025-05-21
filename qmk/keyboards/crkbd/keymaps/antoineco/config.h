@@ -15,12 +15,14 @@
 
 #define BOTH_SHIFTS_TURNS_ON_CAPS_WORD
 
-/* RGB Lighting
+/* RGB Matrix
  */
 
 // Reduce max brightness level to prevent the controller from crashing, as
 // recommended in the keyboard's README.
-#define RGBLIGHT_LIMIT_VAL 120
+#define RGB_MATRIX_MAXIMUM_BRIGHTNESS 120
+
+#define RGB_MATRIX_SLEEP // Turn off effects when suspended
 
 /* Vial
  */
@@ -34,3 +36,5 @@
 
 #define DYNAMIC_KEYMAP_MACRO_COUNT 0
 #define DYNAMIC_KEYMAP_MACRO_EEPROM_SIZE 0
+
+#define VIALRGB_NO_DIRECT
