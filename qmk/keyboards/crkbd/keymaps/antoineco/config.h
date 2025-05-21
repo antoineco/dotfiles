@@ -23,18 +23,3 @@
 #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 120
 
 #define RGB_MATRIX_SLEEP // Turn off effects when suspended
-
-/* Vial
- */
-
-#define VIAL_KEYBOARD_UID {0x3B, 0x6B, 0xA0, 0x29, 0x80, 0x56, 0xED, 0xD1}
-
-// Secure unlock combination
-// https://get.vial.today/docs/porting-to-vial.html#6-set-up-a-secure-unlock-combination
-#define VIAL_UNLOCK_COMBO_ROWS {0, 0}
-#define VIAL_UNLOCK_COMBO_COLS {0, 1}
-
-#define DYNAMIC_KEYMAP_MACRO_COUNT 0
-#define DYNAMIC_KEYMAP_MACRO_EEPROM_SIZE 0
-
-#define VIALRGB_NO_DIRECT
