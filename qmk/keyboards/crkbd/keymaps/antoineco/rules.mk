@@ -8,3 +8,4 @@ GRAVE_ESC_ENABLE    = no # disable Grave Escape
 
 CAPS_WORD_ENABLE = yes
 MOUSEKEY_ENABLE  = yes
+TRI_LAYER_ENABLE = yes
