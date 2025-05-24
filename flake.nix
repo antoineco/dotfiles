@@ -2,8 +2,7 @@
   description = "System configurations for NixOS and macOS";
 
   inputs = {
-    nixpkgs.url = "https://flakehub.com/f/NixOS/nixpkgs/0.2411"; # nixos-24.11
-    nixpkgs-unstable.url = "https://flakehub.com/f/NixOS/nixpkgs/0.1"; # nixos-unstable
+    nixpkgs.url = "https://flakehub.com/f/NixOS/nixpkgs/0.2505"; # nixos-25.05
     determinate.url = "https://flakehub.com/f/DeterminateSystems/determinate/3";
 
     nixos-wsl = {
@@ -11,7 +10,7 @@
       inputs.flake-compat.follows = "";
     };
 
-    nix-darwin.url = "nix-darwin/nix-darwin-24.11";
+    nix-darwin.url = "nix-darwin/nix-darwin-25.05";
 
     rust-overlay.url = "https://flakehub.com/f/oxalica/rust-overlay/0.1";
 
@@ -33,7 +32,6 @@
     {
       self,
       nixpkgs,
-      nixpkgs-unstable,
       nixos-wsl,
       nix-darwin,
       determinate,
@@ -82,14 +80,11 @@
               ];
             };
 
-          go = pkgs.mkShell {
-            name = "go";
-            packages =
-              let
-                pkgs-unstable = nixpkgs-unstable.legacyPackages.${pkgs.system};
-              in
-              with pkgs-unstable;
-              [
+          go =
+            with pkgs;
+            mkShell {
+              name = "go";
+              packages = [
                 go
                 gopls
                 golangci-lint
@@ -99,7 +94,7 @@
                 gotests
                 impl
               ];
-          };
+            };
 
           rust =
             with pkgs;
@@ -126,7 +121,6 @@
         calavera = nixpkgs.lib.nixosSystem {
           specialArgs = {
             inherit
-              nixpkgs-unstable
               determinate
               nixos-wsl
               ;
@@ -149,7 +143,6 @@
 
       darwinConfigurations = {
         colomar = nix-darwin.lib.darwinSystem {
-          specialArgs = { inherit nixpkgs-unstable; };
           modules = [ ./nix/hosts/colomar ];
         };
       };
