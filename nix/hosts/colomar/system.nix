@@ -1,10 +1,7 @@
+{ lib, pkgs, ... }:
 {
-  lib,
-  pkgs,
-  nixpkgs-unstable,
-  ...
-}:
-{
+  system.primaryUser = "acotten";
+
   system.defaults = {
     NSGlobalDomain = {
       InitialKeyRepeat = 15;
@@ -72,7 +69,7 @@
     let
       kanataSvcCfg = {
         ProgramArguments = [
-          "${nixpkgs-unstable.legacyPackages.${pkgs.system}.kanata}/bin/kanata"
+          "${pkgs.kanata}/bin/kanata"
           "-c"
           "/Users/acotten/git/antoineco/dotfiles/kanata/apple_internal.kbd"
         ];
