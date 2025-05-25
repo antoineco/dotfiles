@@ -480,7 +480,7 @@ require "lazy".setup({
             ["aa"] = { query = "@parameter.outer", desc = "a parameter" },
             ["ia"] = { query = "@parameter.outer", desc = "inner parameter" },
             ["aB"] = { query = "@block.outer", desc = "a Block from [{ to ]} (with brackets)" },
-            ["iB"] = { query = "@parameter.outer", desc = "inner Block from [{ and ]}" },
+            ["iB"] = { query = "@block.inner", desc = "inner Block from [{ and ]}" },
             ["aS"] = { query = "@scope", desc = "language-specific scope" },
             ["iS"] = { query = "@scope", desc = "language-specific scope" }
           }
