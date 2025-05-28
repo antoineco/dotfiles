@@ -7,6 +7,9 @@ _aliases:
   held: &held {type: held}
   spc: &spc $$mdi:keyboard-space$$
   bspc: &bspc $$mdi:keyboard-backspace$$
+  llspc: &llspc {t: *spc, h: Lower}
+  ulbspc: &ulbspc {t: *bspc, h: Upper}
+  alspc: &alspc {t: *spc, h: Adjust}
   tab: &tab $$mdi:keyboard-tab$$
   ret: &ret $$mdi:keyboard-return$$
   sft: &sft $$mdi:apple-keyboard-shift$$
@@ -45,20 +48,20 @@ _aliases:
 
 layers:
   Base:
-  - [(, Q, W, E, R, T, Y, U, I, O, P, )]
-  - [Esc, *hmA, *hmS, *hmD, *hmF, G, H, *hmJ, *hmK, *hmL, *hmscln, "'"]
+  - [*tab, Q, W, E, R, T, Y, U, I, O, P, *bspc]
+  - [Esc, *hmA, *hmS, *hmD, *hmF, G, H, *hmJ, *hmK, *hmL, *hmscln, *ret]
   - ['[', Z, X, C, V, B, N, M, ',', ., /, ']']
-  - [*tab, *bspc, Upper, Lower, *spc, *ret]
+  - ['', '', *ulbspc, *llspc, '', '']
   Lower:
-  - ['%', /, 7, 8, 9, '*', ':', '[', (, ), ']', '']
-  - ['=', '-', 4, 5, 6, +, ←, ↓, ↑, →, '', '']
-  - ['!', <, 1, 2, 3, '>', Home, PgDn, PgUp, End, '', '']
-  - [., 0, Adjust, *held, *trns, '']
+  - ['%', /, 7, 8, 9, '*', '', '[', (, ), ']', *trns]
+  - ['=', '-', 4, 5, 6, +, ←, ↓, ↑, →, ':', '']
+  - ['!', 0, 1, 2, 3, ., Home, PgDn, PgUp, End, '', '']
+  - [*trns, *trns, *alspc, *held, *trns, *trns]
   Upper:
-  - ['', '`', '@', _, ., '', '', '[', (, ), ']', '']
+  - ['', '`', '@', _, ., '', '%', '[', (, ), ']', *trns]
   - ['~', <, '|', '-', '>', /, '!', ',', '{', '}', ;, '?']
   - ['', '&', "'", '"', +, \, '#', ^, ':', '=', $, '*']
-  - ['', *trns, *held, Adjust, *trns, '%']
+  - [*trns, *trns, *held, *alspc, *trns, *trns]
   Adjust:
   - [Boot, '', *rmtog, *rmhue, *rmsat, *rmval, '', '', '', '', '', '']
   - ['', '', '', *msb1, *msb2, '', *mslft, *msdwn, *msup, *msrgt, '', '']
