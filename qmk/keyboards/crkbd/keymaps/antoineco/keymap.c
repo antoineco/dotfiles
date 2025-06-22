@@ -46,15 +46,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   /* Lower layer: Numbers, Navigation
    */
 [_LOWR] = LAYOUT(
-    KC_PERC, KC_PSLS, KC_P7,   KC_P8,   KC_P9,   KC_PAST,                     XXXXXXX, KC_LBRC, KC_LPRN, KC_RPRN, KC_RBRC, _______,
-    KC_PEQL, KC_PMNS, KC_P4,   KC_P5,   KC_P6,   KC_PPLS,                     KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_COLN, XXXXXXX,
-    KC_EXLM, KC_P0,   KC_P1,   KC_P2,   KC_P3,   KC_PDOT,                     KC_HOME, KC_PGDN, KC_PGUP, KC_END,  XXXXXXX, XXXXXXX,
+    KC_TILD, KC_PSLS, KC_P7,   KC_P8,   KC_P9,   KC_PAST,                     KC_PERC, KC_LBRC, KC_LPRN, KC_RPRN, KC_RBRC, _______,
+    KC_PDOT, KC_PMNS, KC_P4,   KC_P5,   KC_P6,   KC_PPLS,                     KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_COLN, XXXXXXX,
+    KC_EXLM, KC_P0,   KC_P1,   KC_P2,   KC_P3,   KC_PEQL,                     KC_HOME, KC_PGDN, KC_PGUP, KC_END,  XXXXXXX, XXXXXXX,
                                         _______, _______, AL_SPC,    XXXXXXX, _______, _______
 ),
   /* Upper layer: Symbols
    */
 [_UPPR] = LAYOUT(
-    XXXXXXX, KC_GRV,  KC_AT,   KC_UNDS, KC_DOT,  XXXXXXX,                     KC_PERC, KC_LBRC, KC_LPRN, KC_RPRN, KC_RBRC, _______,
+    XXXXXXX, KC_GRV,  KC_DOT,  KC_UNDS, KC_ASTR, KC_AT,                       KC_PERC, KC_LBRC, KC_LPRN, KC_RPRN, KC_RBRC, _______,
     KC_TILD, KC_LT,   KC_PIPE, KC_MINS, KC_GT,   KC_SLSH,                     KC_EXLM, KC_COMM, KC_LCBR, KC_RCBR, KC_SCLN, KC_QUES,
     XXXXXXX, KC_AMPR, KC_QUOT, KC_DQUO, KC_PLUS, KC_BSLS,                     KC_HASH, KC_CIRC, KC_COLN, KC_EQL,  KC_DLR,  KC_ASTR,
                                         _______, _______, XXXXXXX,   AL_SPC,  _______, _______
