@@ -19,14 +19,13 @@
   streak-count 3
   streak-time 325
   tap-timeout 200
-  hold-timeout 500
-  chord-timeout 50
+  hold-timeout 200
 )
 
 (deftemplate charmod (char mod)
   (switch
     ((key-timing $streak-count less-than $streak-time)) $char break
-    () (tap-hold-release-timeout $tap-timeout $hold-timeout $char $mod $char) break
+    () (tap-hold-release $tap-timeout $hold-timeout $char $mod) break
   )
 )
 
