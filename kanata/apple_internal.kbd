@@ -5,6 +5,8 @@
   log-layer-changes no
 
   macos-dev-names-include "Apple Internal Keyboard / Trackpad"
+
+  concurrent-tap-hold yes  ;; requirement for defchordsv2
 )
 
 (defsrc
@@ -20,6 +22,7 @@
   streak-time 325
   tap-timeout 200
   hold-timeout 200
+  chord-timeout 30
 )
 
 (deftemplate charmod (char mod)
@@ -100,4 +103,8 @@
 
 (defalias
   fn (multi fn (layer-while-held function))
+)
+
+(defchordsv2
+  (f j) (caps-word 3000) $chord-timeout all-released (navigation function)
 )
