@@ -32,6 +32,10 @@
   )
 )
 
+(deftemplate combo (keys act)
+  $keys $act $chord-timeout all-released (navigation function)
+)
+
 (defvirtualkeys
   shift (multi (layer-switch main) lsft)
   clear (multi (layer-switch main) (on-press release-virtualkey shift))
@@ -106,5 +110,8 @@
 )
 
 (defchordsv2
-  (f j) (caps-word 3000) $chord-timeout all-released (navigation function)
+  (t! combo (f j) (caps-word 3000))
+  (t! combo (w e) tab)
+  (t! combo (z x) bspc)
+  (t! combo (, .) del)
 )
