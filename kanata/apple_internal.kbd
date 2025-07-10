@@ -10,11 +10,12 @@
 )
 
 (defsrc
-    ` 1 2 3 4 5 6 7 8 9 0 - =
-  tab q w e r t y u i o p [ ] \
-      a s d f g h j k l ; '
-      z x c v b n m , . /
-             spc
+         f1  f2  f3  f4  f5  f6  f7  f8  f9  f10 f11 f12
+       ` 1   2   3   4   5   6   7   8   9   0   -   =
+     tab q   w   e   r   t   y   u   i   o   p   [   ]   \
+    caps a   s   d   f   g   h   j   k   l   ;   '
+         z   x   c   v   b   n   m   ,   .   /
+  fn ctl                spc
 )
 
 (defvar
@@ -25,50 +26,22 @@
   chord-timeout 30
 )
 
-(deftemplate charmod (char mod)
-  (switch
-    ((key-timing $streak-count less-than $streak-time)) $char break
-    () (tap-hold-release $tap-timeout $hold-timeout $char $mod) break
-  )
+(deflayer base
+          brdn brup mctl sls  dtn  dnd  prev pp   next mute vold volu
+        ` 1    2    3    4    5    6    7    8    9    0    @<   =
+      tab b    l    d    w    z    '    f    o    u    j    [    ]    \
+      esc @n   @r   @t   @s   g    y    @h   @a   @e   @i   @?
+          x    m    c    v    q    k    p    .    -    ,
+  ctl @fn                   @spc
 )
 
-(deftemplate combo (keys act)
-  $keys $act $chord-timeout all-released (navigation function)
-)
-
-(defvirtualkeys
-  shift (multi (layer-switch main) lsft)
-  clear (multi (layer-switch main) (on-press release-virtualkey shift))
-)
-
-(deflayermap main
-  f1  brdn
-  f2  brup
-  f3  mctl
-  f4  sls
-  f5  dtn
-  f6  dnd
-  f7  prev
-  f8  pp
-  f9  next
-  f10 mute
-  f11 vold
-  f12 volu
-
-  caps esc
-  fn   lctl
-  lctl @fn
-
-  a (t! charmod a lctl)
-  s (t! charmod s lalt)
-  d (t! charmod d lmet)
-  f (t! charmod f lsft)
-  j (t! charmod j rsft)
-  k (t! charmod k rmet)
-  l (t! charmod l lalt)
-  ; (t! charmod ; rctl)
-
-  spc (t! charmod spc (multi (layer-switch navigation) (on-release tap-virtualkey clear)))
+(deflayermap shifted-symbols
+  y -               ;; '_
+  , ;               ;; .:
+  . '               ;; -"
+  / (unmod lsft ;)  ;; ,;
+  ' 1               ;; ?!
+  - .               ;; <>
 )
 
 (deflayermap navigation
@@ -105,8 +78,40 @@
   rght end
 )
 
+(deftemplate charmod (char mod)
+  (switch
+    ((key-timing $streak-count less-than $streak-time)) $char break
+    () (tap-hold-release $tap-timeout $hold-timeout $char $mod) break
+  )
+)
+
+(deftemplate combo (keys act)
+  $keys $act $chord-timeout all-released (navigation function)
+)
+
 (defalias
+  ;; home row mods
+  n (t! charmod n lctl)
+  r (t! charmod r lalt)
+  t (t! charmod t lmet)
+  s (t! charmod s (multi lsft (layer-while-held shifted-symbols)))
+  h (t! charmod h rsft)
+  a (t! charmod a rmet)
+  e (t! charmod e lalt)
+  i (t! charmod i rctl)
+
+  ;; shifted keys
+  ? S-/
+  < S-,
+
+  spc (t! charmod spc (multi (layer-switch navigation) (on-release tap-virtualkey clear)))
+
   fn (multi fn (layer-while-held function))
+)
+
+(defvirtualkeys
+  shift (multi (layer-switch base) lsft)
+  clear (multi (layer-switch base) (on-press release-virtualkey shift))
 )
 
 (defchordsv2
