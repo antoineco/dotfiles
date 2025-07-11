@@ -4,6 +4,7 @@
     jq
     yq-go
     bat
+    difftastic
     ripgrep
     direnv
     nix-direnv

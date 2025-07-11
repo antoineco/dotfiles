@@ -29,6 +29,7 @@
 	algorithm = histogram
 	colorMoved = default
 	mnemonicPrefix = true
+	external = difft
 
 [include]
 	path = .gitconfig_local
