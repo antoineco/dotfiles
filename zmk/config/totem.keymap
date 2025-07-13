@@ -1,6 +1,7 @@
 #include <behaviors.dtsi>
 #include <dt-bindings/zmk/keys.h>
 #include <dt-bindings/zmk/bt.h>
+#include <dt-bindings/zmk/outputs.h>
 
 #define ZMK_POINTING_DEFAULT_MOVE_VAL 1500
 #define ZMK_POINTING_DEFAULT_SCRL_VAL 20
@@ -41,6 +42,45 @@
             tapping-term-ms = <280>;
             quick-tap-ms = <175>;
             bindings = <&mo>, <&kp>;
+        };
+
+        bt0: bt_profile_0 {
+            compatible = "zmk,behavior-tap-dance";
+            display-name = "Bluetooth Profile 0";
+            #binding-cells = <0>;
+            bindings = <&macro_bt0>, <&bt BT_DISC 0>;
+        };
+        bt1: bt_profile_1 {
+            compatible = "zmk,behavior-tap-dance";
+            display-name = "Bluetooth Profile 1";
+            #binding-cells = <0>;
+            bindings = <&macro_bt1>, <&bt BT_DISC 1>;
+        };
+        bt2: bt_profile_2 {
+            compatible = "zmk,behavior-tap-dance";
+            display-name = "Bluetooth Profile 2";
+            #binding-cells = <0>;
+            bindings = <&macro_bt2>, <&bt BT_DISC 2>;
+        };
+    };
+
+    macros {
+        macro_bt0: bt_profile_0_macro {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&out OUT_BLE>, <&bt BT_SEL 0>;
+        };
+
+        macro_bt1: bt_profile_1_macro {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&out OUT_BLE>, <&bt BT_SEL 1>;
+        };
+
+        macro_bt2: bt_profile_2_macro {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&out OUT_BLE>, <&bt BT_SEL 2>;
         };
     };
 
@@ -130,7 +170,7 @@
         adjust_layer {
             display-name = "Adjust";
             bindings = <
-                             &bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2 &none        &bt BT_CLR                               &none        &none        &none        &none        &none
+                             &bt0         &bt1         &bt2         &out OUT_USB &bt BT_CLR                               &none        &none        &none        &none        &none
                              &none        &none        &mkp MB2     &mkp MB1     &none                                    &mmv MOVE_LEFT &mmv MOVE_DOWN &mmv MOVE_UP &mmv MOVE_RIGHT &none
                 &kp C_MUTE   &kp C_VOL_DN &kp C_VOL_UP &kp C_PREV   &kp C_PP     &kp C_NEXT                               &msc SCRL_LEFT &msc SCRL_DOWN &msc SCRL_UP &msc SCRL_RIGHT &none &none
                                                                     &none        &none        &none          &none        &none        &none
