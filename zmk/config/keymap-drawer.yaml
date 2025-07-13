@@ -77,9 +77,8 @@ layers:
 
 combos:
 - { tk: [L, D], k: *tab, l: [Base] }
-- { tk: [X, M], k: *bspc, l: [Base] }
-- { tk: [O, U], k: *ret, l: [Base] }
-- { tk: [., '-'], k: *del, l: [Base] }
+- { tk: [X, M], k: *del, l: [Base] }
+- { tk: [., '-'], k: *ret, l: [Base] }
 - { tk: [S, H], k: *caps, l: [Base] }
-- { tk: [1, 2], k: *spc, l: [Lower] }
-- { tk: [':', '='], k: *bspc, l: [Upper] }
+- { tk: [7, 8], k: *spc, l: [Lower] }
+- { tk: [(, )], k: *bspc, l: [Upper] }

@@ -119,39 +119,32 @@
             layers = <0>;
             bindings = <&kp TAB>;
         };
-
-        combo_bspc {
-            timeout-ms = <30>;
-            key-positions = <22 23>; // XM
-            layers = <0>;
-            bindings = <&kp BSPC>;
-        };
         combo_spc_lower {
             timeout-ms = <30>;
-            key-positions = <22 23>;
+            key-positions = <1 2>;
             layers = <1>;
             bindings = <&kp SPACE>;
         };
 
-        combo_enter {
-            timeout-ms = <30>;
-            require-prior-idle-ms = <175>;
-            key-positions = <7 8>; // OU
-            layers = <0>;
-            bindings = <&kp ENTER>;
-        };
-
         combo_del {
             timeout-ms = <30>;
-            key-positions = <28 29>; // .-
+            key-positions = <22 23>; // XM
             layers = <0>;
             bindings = <&kp DEL>;
         };
+
         combo_bspc_upper {
             timeout-ms = <30>;
-            key-positions = <28 29>;
+            key-positions = <7 8>; // OU
             layers = <2>;
             bindings = <&kp BSPC>;
+        };
+
+        combo_enter {
+            timeout-ms = <30>;
+            key-positions = <28 29>; // .-
+            layers = <0>;
+            bindings = <&kp ENTER>;
         };
 
         combo_caps_word {
