@@ -1,7 +1,6 @@
 {
     "userspace_version": "1.1",
     "build_targets": [
-        ["wilba_tech/wt60_d", "antoineco"],
-        ["crkbd/rev1", "antoineco"]
+        ["wilba_tech/wt60_d", "antoineco"]
     ]
 }
