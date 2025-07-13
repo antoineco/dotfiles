@@ -69,6 +69,12 @@
             bindings = <&kp SQT>, <&kp UNDER>;
             mods = <(MOD_LSFT)>;
         };
+        commqmark: shift_comma_qmark {
+            compatible = "zmk,behavior-mod-morph";
+            #binding-cells = <0>;
+            bindings = <&kp COMMA>, <&kp QMARK>;
+            mods = <(MOD_LSFT)>;
+        };
         mindqt: shift_minus_dquote {
             compatible = "zmk,behavior-mod-morph";
             #binding-cells = <0>;
@@ -126,6 +132,13 @@
             bindings = <&kp SPACE>;
         };
 
+        combo_enter {
+            timeout-ms = <30>;
+            key-positions = <7 8>; // OU
+            layers = <0 1>;
+            bindings = <&kp ENTER>;
+        };
+
         combo_del {
             timeout-ms = <30>;
             key-positions = <28 29>; // .-
@@ -165,7 +178,7 @@
             bindings = <
                              &kp B        &kp L        &kp D        &kp W        &kp Z                                    &sqtundr     &kp F        &kp O        &kp U        &kp J
                              &hml LCTRL N &hml LALT R  &hml LGUI T  &hml LSHFT S &kp G                                    &kp Y        &hmr RSHFT H &hmr RGUI A  &hmr RALT E  &hmr RCTRL I
-                &kp ESC      &kp Q        &kp X        &kp M        &kp C        &kp V                                    &kp K        &kp P        &kp DOT      &mindqt      &fslhlt      &kp ENTER
+                &kp ESC      &kp Q        &kp X        &kp M        &kp C        &kp V                                    &kp K        &kp P        &kp DOT      &mindqt      &fslhlt      &commqmark
                                                                     &none        &none        &ltt 3 BSPC    &ltt 2 SPACE &none        &none
             >;
         };
@@ -177,7 +190,7 @@
             bindings = <
                              &kp Q        &kp W        &kp E        &kp R        &kp T                                    &kp Y        &kp U        &kp I        &kp O        &kp P
                              &hml LCTRL A &hml LALT S  &hml LGUI D  &hml LSHFT F &kp G                                    &kp H        &hmr RSHFT J &hmr RGUI K  &hmr RALT L  &hmr RCTRL SEMI
-                &trans       &kp Z        &kp X        &kp C        &kp V        &kp B                                    &kp N        &kp M        &kp COMMA    &kp DOT      &kp FSLH     &trans
+                &trans       &kp Z        &kp X        &kp C        &kp V        &kp B                                    &kp N        &kp M        &kp COMMA    &kp DOT      &kp FSLH     &kp SQT
                                                                     &trans       &trans       &trans         &trans       &trans       &trans
             >;
         };
