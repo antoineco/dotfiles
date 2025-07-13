@@ -208,9 +208,9 @@
         lower_layer {
             display-name = "Lower";
             bindings = <
-                             &kp KP_SLASH &kp KP_N7    &kp KP_N8    &kp KP_N9    &kp KP_ASTERISK                          &kp PRCNT    &kp LBKT     &kp LPAR     &kp RPAR     &kp RBKT
-                             &kp KP_MINUS &kp KP_N4    &kp KP_N5    &kp KP_N6    &kp KP_PLUS                              &kp LEFT     &kp DOWN     &kp UP       &kp RIGHT    &kp COLON
-                &kp KP_DOT   &kp KP_N0    &kp KP_N1    &kp KP_N2    &kp KP_N3    &kp KP_EQUAL                             &kp HOME     &kp PG_DN    &kp PG_UP    &kp END      &none        &none
+                             &kp KP_MINUS &kp KP_N7    &kp KP_N8    &kp KP_N9    &kp KP_PLUS                              &kp PRCNT    &kp LBKT     &kp LPAR     &kp RPAR     &kp RBKT
+                             &kp KP_N0    &kp KP_N4    &kp KP_N5    &kp KP_N6    &kp KP_EQUAL                             &kp LEFT     &kp DOWN     &kp UP       &kp RIGHT    &kp KP_DOT
+                &kp COLON    &kp KP_SLASH &kp KP_N1    &kp KP_N2    &kp KP_N3    &kp KP_ASTERISK                          &kp HOME     &kp PG_DN    &kp PG_UP    &kp END      &kp X        &kp B
                                                                     &trans       &trans       &trans         &none        &trans       &trans
             >;
         };
