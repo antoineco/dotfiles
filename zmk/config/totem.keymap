@@ -69,10 +69,10 @@
             bindings = <&kp SQT>, <&kp UNDER>;
             mods = <(MOD_LSFT)>;
         };
-        commsemi: shift_comma_semicolon {
+        qexmarks: shift_qmark_exmark {
             compatible = "zmk,behavior-mod-morph";
             #binding-cells = <0>;
-            bindings = <&kp COMMA>, <&kp SEMI>;
+            bindings = <&kp QMARK>, <&kp EXCL>;
             mods = <(MOD_LSFT)>;
         };
         dotcolon: shift_dot_colon {
@@ -87,10 +87,10 @@
             bindings = <&kp MINUS>, <&kp DQT>;
             mods = <(MOD_LSFT)>;
         };
-        qexmarks: shift_qmark_exmark {
+        commsemi: shift_comma_semicolon {
             compatible = "zmk,behavior-mod-morph";
             #binding-cells = <0>;
-            bindings = <&kp QMARK>, <&kp EXCL>;
+            bindings = <&kp COMMA>, <&kp SEMI>;
             mods = <(MOD_LSFT)>;
         };
     };
@@ -186,7 +186,7 @@
             bindings = <
                              &kp B        &kp L        &kp D        &kp W        &kp Z                                    &sqtundr     &kp F        &kp O        &kp U        &kp J
                              &hml LCTRL N &hml LALT R  &hml LGUI T  &hml LSHFT S &kp G                                    &kp Y        &hmr RSHFT H &hmr RGUI A  &hmr RALT E  &hmr RCTRL I
-                &kp ESC      &kp Q        &kp X        &kp M        &kp C        &kp V                                    &kp K        &kp P        &dotcolon    &mindqt      &qexmarks    &commsemi
+                &kp ESC      &kp Q        &kp X        &kp M        &kp C        &kp V                                    &kp K        &kp P        &dotcolon    &mindqt      &commsemi    &qexmarks
                                                                     &none        &none        &ltt 3 BSPC    &ltt 2 SPACE &none        &none
             >;
         };
