@@ -69,10 +69,16 @@
             bindings = <&kp SQT>, <&kp UNDER>;
             mods = <(MOD_LSFT)>;
         };
-        commqmark: shift_comma_qmark {
+        commsemi: shift_comma_semicolon {
             compatible = "zmk,behavior-mod-morph";
             #binding-cells = <0>;
-            bindings = <&kp COMMA>, <&kp QMARK>;
+            bindings = <&kp COMMA>, <&kp SEMI>;
+            mods = <(MOD_LSFT)>;
+        };
+        dotcolon: shift_dot_colon {
+            compatible = "zmk,behavior-mod-morph";
+            #binding-cells = <0>;
+            bindings = <&kp DOT>, <&kp COLON>;
             mods = <(MOD_LSFT)>;
         };
         mindqt: shift_minus_dquote {
@@ -81,10 +87,10 @@
             bindings = <&kp MINUS>, <&kp DQT>;
             mods = <(MOD_LSFT)>;
         };
-        fslhlt: shift_fslash_less {
+        qexmarks: shift_qmark_exmark {
             compatible = "zmk,behavior-mod-morph";
             #binding-cells = <0>;
-            bindings = <&kp FSLH>, <&kp LT>;
+            bindings = <&kp QMARK>, <&kp EXCL>;
             mods = <(MOD_LSFT)>;
         };
     };
@@ -178,7 +184,7 @@
             bindings = <
                              &kp B        &kp L        &kp D        &kp W        &kp Z                                    &sqtundr     &kp F        &kp O        &kp U        &kp J
                              &hml LCTRL N &hml LALT R  &hml LGUI T  &hml LSHFT S &kp G                                    &kp Y        &hmr RSHFT H &hmr RGUI A  &hmr RALT E  &hmr RCTRL I
-                &kp ESC      &kp Q        &kp X        &kp M        &kp C        &kp V                                    &kp K        &kp P        &kp DOT      &mindqt      &fslhlt      &commqmark
+                &kp ESC      &kp Q        &kp X        &kp M        &kp C        &kp V                                    &kp K        &kp P        &dotcolon    &mindqt      &qexmarks    &commsemi
                                                                     &none        &none        &ltt 3 BSPC    &ltt 2 SPACE &none        &none
             >;
         };
