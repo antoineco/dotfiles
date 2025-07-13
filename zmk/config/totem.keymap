@@ -120,6 +120,7 @@
 
         combo_tab {
             timeout-ms = <30>;
+            require-prior-idle-ms = <175>;
             key-positions = <1 2>; // LD
             layers = <0 1>;
             bindings = <&kp TAB>;
@@ -140,6 +141,7 @@
 
         combo_enter {
             timeout-ms = <30>;
+            require-prior-idle-ms = <175>;
             key-positions = <7 8>; // OU
             layers = <0 1>;
             bindings = <&kp ENTER>;
