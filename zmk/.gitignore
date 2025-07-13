@@ -1,0 +1,12 @@
+/.direnv/
+
+# ZMK
+/.west/
+/modules/
+/zephyr/
+/zmk-keyboard-totem/
+/zmk/
+
+# Build artifacts
+/build/
+/*.uf2
