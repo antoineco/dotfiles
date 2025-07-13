@@ -89,41 +89,41 @@
 
         combo_tab {
             timeout-ms = <30>;
-            key-positions = <1 2>; // WE
-            layers = <0>;
+            key-positions = <1 2>; // LD
+            layers = <0 1>;
             bindings = <&kp TAB>;
         };
 
         combo_bspc {
             timeout-ms = <30>;
-            key-positions = <22 23>; // XC
-            layers = <0>;
+            key-positions = <22 23>; // XM
+            layers = <0 1>;
             bindings = <&kp BSPC>;
         };
         combo_spc_lower {
             timeout-ms = <30>;
             key-positions = <22 23>;
-            layers = <1>;
+            layers = <2>;
             bindings = <&kp SPACE>;
         };
 
         combo_del {
             timeout-ms = <30>;
             key-positions = <28 29>; // ,.
-            layers = <0>;
+            layers = <0 1>;
             bindings = <&kp DEL>;
         };
         combo_bspc_upper {
             timeout-ms = <30>;
             key-positions = <28 29>;
-            layers = <2>;
+            layers = <3>;
             bindings = <&kp BSPC>;
         };
 
         combo_caps_word {
             timeout-ms = <30>;
-            key-positions = <13 16>; // FJ
-            layers = <0>;
+            key-positions = <13 16>; // SH
+            layers = <0 1>;
             bindings = <&caps_word>;
         };
     };
@@ -131,21 +131,35 @@
     conditional_layers {
         compatible = "zmk,conditional-layers";
         tri_layer {
-            if-layers = <1 2>;
-            then-layer = <3>;
+            if-layers = <2 3>;
+            then-layer = <4>;
         };
     };
 
     keymap {
         compatible = "zmk,keymap";
 
+        /* Base (default), Graphite alphas
+         */
         base_layer {
             display-name = "Base";
             bindings = <
+                             &kp B        &kp L        &kp D        &kp W        &kp Z                                    &kp SQT      &kp F        &kp O        &kp U        &kp J
+                             &hml LCTRL N &hml LALT R  &hml LGUI T  &hml LSHFT S &kp G                                    &kp Y        &hmr RSHFT H &hmr RGUI A  &hmr RALT E  &hmr RCTRL I
+                &kp ESC      &kp Q        &kp X        &kp M        &kp C        &kp V                                    &kp K        &kp P        &kp COMMA    &kp DOT      &kp FSLH     &kp ENTER
+                                                                    &none        &none        &ltt 3 BSPC    &ltt 2 SPACE &none        &none
+            >;
+        };
+
+        /* QWERTY alphas
+         */
+        qwerty_layer {
+            display-name = "QWERTY";
+            bindings = <
                              &kp Q        &kp W        &kp E        &kp R        &kp T                                    &kp Y        &kp U        &kp I        &kp O        &kp P
                              &hml LCTRL A &hml LALT S  &hml LGUI D  &hml LSHFT F &kp G                                    &kp H        &hmr RSHFT J &hmr RGUI K  &hmr RALT L  &hmr RCTRL SEMI
-                &kp ESC      &kp Z        &kp X        &kp C        &kp V        &kp B                                    &kp N        &kp M        &kp COMMA    &kp DOT      &kp FSLH     &kp ENTER
-                                                                    &none        &none        &ltt 2 BSPC    &ltt 1 SPACE &none        &none
+                &trans       &kp Z        &kp X        &kp C        &kp V        &kp B                                    &kp N        &kp M        &trans       &trans       &trans       &trans
+                                                                    &trans       &trans       &trans         &trans       &trans       &trans
             >;
         };
 
@@ -180,7 +194,7 @@
             bindings = <
                              &bt0         &bt1         &bt2         &out OUT_USB &bt BT_CLR                               &none        &none        &none        &none        &none
                              &none        &none        &mkp MB2     &mkp MB1     &none                                    &mmv MOVE_LEFT &mmv MOVE_DOWN &mmv MOVE_UP &mmv MOVE_RIGHT &none
-                &kp C_MUTE   &kp C_VOL_DN &kp C_VOL_UP &kp C_PREV   &kp C_PP     &kp C_NEXT                               &msc SCRL_LEFT &msc SCRL_DOWN &msc SCRL_UP &msc SCRL_RIGHT &none &none
+                &kp C_MUTE   &kp C_VOL_DN &kp C_VOL_UP &kp C_PREV   &kp C_PP     &kp C_NEXT                               &msc SCRL_LEFT &msc SCRL_DOWN &msc SCRL_UP &msc SCRL_RIGHT &none &tog 1
                                                                     &none        &none        &none          &none        &none        &none
             >;
         };
