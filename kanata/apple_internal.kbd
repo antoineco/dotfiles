@@ -36,12 +36,12 @@
 )
 
 (deflayermap shifted-symbols
-  y -               ;; '_
-  , ;               ;; .:
-  . '               ;; -"
-  / (unmod lsft ;)  ;; ,;
-  ' 1               ;; ?!
-  - .               ;; <>
+  y -                 ;; '_
+  , ;                 ;; .:
+  . '                 ;; -"
+  / (unmod (lsft) ;)  ;; ,;
+  ' 1                 ;; ?!
+  - .                 ;; <>
 )
 
 (deflayermap navigation
