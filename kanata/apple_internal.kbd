@@ -30,7 +30,7 @@
           brdn brup mctl sls  dtn  dnd  prev pp   next mute vold volu
         ` 1    2    3    4    5    6    7    8    9    0    @<   =
       tab b    l    d    w    z    '    f    o    u    j    [    ]    \
-      esc @n   @r   @t   @s   g    y    @h   @a   @e   @i   @?
+      esc @n   @r   @t   @s   g    y    @h   @a   @e   @i   /
           x    m    c    v    q    k    p    .    -    ,
   ctl @fn                   @spc
 )
@@ -40,7 +40,6 @@
   , ;                 ;; .:
   . '                 ;; -"
   / (unmod (lsft) ;)  ;; ,;
-  ' 1                 ;; ?!
   - .                 ;; <>
 )
 
@@ -101,7 +100,6 @@
   i (t! charmod i rctl)
 
   ;; shifted keys
-  ? S-/
   < S-,
 
   spc (t! charmod spc (multi (layer-switch navigation) (on-release tap-virtualkey clear)))
