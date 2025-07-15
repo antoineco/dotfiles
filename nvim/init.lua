@@ -516,7 +516,7 @@ require "lazy".setup({
   },
   {
     "nvim-treesitter/nvim-treesitter-context",
-    cmd = "TSContextEnable"
+    cmd = "TSContext"
   },
 
   -- }}}
