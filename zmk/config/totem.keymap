@@ -195,9 +195,9 @@
         upper_layer {
             display-name = "Upper";
             bindings = <
-                             &kp GRAVE    &kp DOT      &kp UNDER    &kp ASTRK    &kp AT                                   &kp PRCNT    &kp LBKT     &kp LPAR     &kp RPAR     &kp RBKT
+                             &kp TILDE    &kp DOT      &kp ASTRK    &kp AMPS     &kp AT                                   &kp PRCNT    &kp LBKT     &kp LPAR     &kp RPAR     &kp RBKT
                              &kp LT       &kp PIPE     &kp MINUS    &kp GT       &kp FSLH                                 &kp EXCL     &kp COMMA    &kp LBRC     &kp RBRC     &kp SEMI
-                &kp TILDE    &kp AMPS     &kp SQT      &kp DQT      &kp PLUS     &kp BSLH                                 &kp HASH     &kp CARET    &kp COLON    &kp EQUAL    &kp DLLR     &kp QMARK
+                &kp UNDER    &kp GRAVE    &kp SQT      &kp DQT      &kp PLUS     &kp BSLH                                 &kp HASH     &kp CARET    &kp COLON    &kp EQUAL    &kp DLLR     &kp QMARK
                                                                     &trans       &trans       &none          &trans       &trans       &trans
             >;
         };
