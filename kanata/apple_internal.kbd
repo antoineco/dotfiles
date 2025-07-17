@@ -115,6 +115,7 @@
 (defchordsv2
   (t! combo (f j) (caps-word 3000))
   (t! combo (w e) tab)
-  (t! combo (z x) bspc)
-  (t! combo (, .) del)
+  (t! combo (z x) del)
+  (t! combo (i o) bspc)
+  (t! combo (, .) ret)
 )
