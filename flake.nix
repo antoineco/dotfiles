@@ -10,7 +10,10 @@
       inputs.flake-compat.follows = "";
     };
 
-    nix-darwin.url = "nix-darwin/nix-darwin-25.05";
+    nix-darwin = {
+      url = "nix-darwin/nix-darwin-25.05";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     rust-overlay.url = "https://flakehub.com/f/oxalica/rust-overlay/0.1";
 
