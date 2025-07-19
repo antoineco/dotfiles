@@ -416,7 +416,7 @@ require "lazy".setup({
             }
           },
           on_attach = function(_, bufnr)
-            vim.keymap.set({ "n", "x" }, "gra", require "rustaceanvim.commands.code_action_group", {
+            vim.keymap.set({ "n", "x" }, "gra", function() vim.cmd.RustLsp "codeAction" end, {
               buffer = bufnr, desc = "Code Actions"
             })
           end
