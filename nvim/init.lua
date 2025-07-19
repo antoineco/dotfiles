@@ -363,6 +363,7 @@ require "lazy".setup({
     ft = { "go", "gomod", "gosum", "gotmpl", "gohtmltmpl", "gotexttmpl" },
     opts = {
       diagnostic = false,  -- configured globally via vim.diagnostic.config()
+      textobjects = false,
       lsp_cfg = {
         settings = {
           gopls = {
@@ -446,73 +447,80 @@ require "lazy".setup({
 
   {
     "nvim-treesitter/nvim-treesitter",
+    branch = "main",
+    lazy = false,
     build = ":TSUpdate",
-    cmd = "TSUpdateSync",
+    config = function()
+      local function autostart(ft)
+        vim.api.nvim_create_autocmd("FileType", {
+          pattern = { ft },
+          callback = function()
+            require "nvim-treesitter".install(ft):wait(1000 * 60 * 5)
+            vim.treesitter.start()
+          end
+        })
+      end
+      autostart "go"
+      autostart "rust"
+    end
+  },
+  {
+    "nvim-treesitter/nvim-treesitter-textobjects",
+    branch = "main",
     event = { "BufReadPost", "BufNewFile" },
-    dependencies = "nvim-treesitter/nvim-treesitter-textobjects",
-    opts = {
-      ensure_installed = { "go", "rust" },
+    config = function()
+      local function map(mode, l, query, desc, r)
+        vim.keymap.set(mode, l, function() r(query, "textobjects") end, { desc = desc })
+      end
 
-      highlight = {
-        enable = true
-      },
+      local function map_select(l, query, desc)
+        map({ "x", "o" }, l, query, desc, require "nvim-treesitter-textobjects.select".select_textobject)
+      end
 
-      indent = {
-        enable = true
-      },
-
-      incremental_selection = {
-        enable = true,
-        keymaps = {
-          init_selection = "<C-Space>",
-          node_incremental = "<C-Space>",
-          node_decremental = "<BS>"
+      local function map_move(l, query, desc, r)
+        local query_desc = {
+          ["@function.outer"] = "function",
+          ["@class.outer"] = "class or type",
+          ["@parameter.outer"] = "parameter"
         }
-      },
+        map({ "n", "x", "o" }, l, query, table.concat({ desc, query_desc[query] }, " "), r)
+      end
+      local function map_move_next_start(l, query)
+        map_move(l, query, "start of next", require "nvim-treesitter-textobjects.move".goto_next_start)
+      end
+      local function map_move_next_end(l, query)
+        map_move(l, query, "end of next", require "nvim-treesitter-textobjects.move".goto_next_end)
+      end
+      local function map_move_previous_start(l, query)
+        map_move(l, query, "start of previous", require "nvim-treesitter-textobjects.move".goto_previous_start)
+      end
+      local function map_move_previous_end(l, query)
+        map_move(l, query, "end of previous", require "nvim-treesitter-textobjects.move".goto_previous_end)
+      end
 
-      textobjects = {
-        select = {
-          enable = true,
-          keymaps = {
-            ["af"] = { query = "@function.outer", desc = "a function (with keyword, name and params)" },
-            ["if"] = { query = "@function.inner", desc = "inner function" },
-            ["ac"] = { query = "@class.outer", desc = "a class or type (with keyword and name)" },
-            ["ic"] = { query = "@class.inner", desc = "inner class or type" },
-            ["aa"] = { query = "@parameter.outer", desc = "a parameter" },
-            ["ia"] = { query = "@parameter.outer", desc = "inner parameter" },
-            ["aB"] = { query = "@block.outer", desc = "a Block from [{ to ]} (with brackets)" },
-            ["iB"] = { query = "@block.inner", desc = "inner Block from [{ and ]}" },
-            ["aS"] = { query = "@scope", desc = "language-specific scope" },
-            ["iS"] = { query = "@scope", desc = "language-specific scope" }
-          }
-        },
-        move = {
-          enable = true,
-          goto_next_start = {
-            ["]m"] = "@function.outer",
-            ["]]"] = "@class.outer",
-            ["]a"] = "@parameter.outer"
-          },
-          goto_next_end = {
-            ["]M"] = "@function.outer",
-            ["]["] = "@class.outer",
-            ["]A"] = "@parameter.outer"
-          },
-          goto_previous_start = {
-            ["[m"] = "@function.outer",
-            ["[["] = "@class.outer",
-            ["[a"] = "@parameter.outer"
-          },
-          goto_previous_end = {
-            ["[M"] = "@function.outer",
-            ["[]"] = "@class.outer",
-            ["[A"] = "@parameter.outer"
-          }
-        }
-      }
-    },
-    config = function(_, opts)
-      require "nvim-treesitter.configs".setup(opts)
+      map_select("af", "@function.outer", "a function (with keyword, name and params)")
+      map_select("if", "@function.inner", "inner function")
+      map_select("ac", "@class.outer", "a class or type (with keyword and name)")
+      map_select("ic", "@class.inner", "inner class or type")
+      map_select("aa", "@parameter.outer", "a parameter")
+      map_select("ia", "@parameter.inner", "inner parameter")
+      map_select("aB", "@block.outer", "a Block from [{ to ]} (with brackets)")
+      map_select("iB", "@block.inner", "inner Block from [{ and ]}")
+      map_select("aS", "@scope", "language-specific scope")
+      map_select("iS", "@scope", "language-specific scope")
+
+      map_move_next_start("]m", "@function.outer")
+      map_move_next_start("]]", "@class.outer")
+      map_move_next_start("]a", "@parameter.outer")
+      map_move_next_end("]M", "@function.outer")
+      map_move_next_end("][", "@class.outer")
+      map_move_next_end("]A", "@parameter.outer")
+      map_move_previous_start("[m", "@function.outer")
+      map_move_previous_start("[[", "@class.outer")
+      map_move_previous_start("[a", "@parameter.outer")
+      map_move_previous_end("[M", "@function.outer")
+      map_move_previous_end("[]", "@class.outer")
+      map_move_previous_end("[A", "@parameter.outer")
     end
   },
   {

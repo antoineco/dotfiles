@@ -9,6 +9,7 @@
     direnv
     nix-direnv
     neovim
+    tree-sitter
   ];
 
   environment.pathsToLink = [ "/share/nix-direnv" ];
