@@ -140,13 +140,6 @@
             bindings = <&kp BSPC>;
         };
 
-        combo_enter {
-            timeout-ms = <30>;
-            key-positions = <28 29>; // .-
-            layers = <0>;
-            bindings = <&kp ENTER>;
-        };
-
         combo_caps_word {
             timeout-ms = <30>;
             key-positions = <13 16>; // SH
@@ -173,7 +166,7 @@
             bindings = <
                              &kp B        &kp L        &kp D        &kp W        &kp Z                                    &sqtundr     &kp F        &kp O        &kp U        &kp J
                              &hml LCTRL N &hml LALT R  &hml LGUI T  &hml LSHFT S &kp G                                    &kp Y        &hmr RSHFT H &hmr RGUI A  &hmr RALT E  &hmr RCTRL I
-                &kp ESC      &kp Q        &kp X        &kp M        &kp C        &kp V                                    &kp K        &kp P        &dotcolon    &mindqt      &commsemi    &kp FSLH
+                &kp ESC      &kp Q        &kp X        &kp M        &kp C        &kp V                                    &kp K        &kp P        &dotcolon    &mindqt      &commsemi    &kp ENTER
                                                                     &none        &none        &ltt 2 BSPC    &ltt 1 SPACE &none        &none
             >;
         };

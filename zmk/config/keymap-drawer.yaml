@@ -18,7 +18,6 @@ _aliases:
   opt: &opt $$mdi:apple-keyboard-option$$
   cmd: &cmd $$mdi:apple-keyboard-command$$
   caps: &caps $$mdi:apple-keyboard-caps$$
-  fslh: &fslh {t: /, s: '?'}
   sftdot: &sftdot {t: ., s: ':'}
   sftcom: &sftcom {t: ',', s: ;}
   sftsqt: &sftsqt {t: "'", s: _}
@@ -57,7 +56,7 @@ layers:
   Base:
   - [B, L, D, W, Z, *sftsqt, F, O, U, J]
   - [*hmN, *hmR, *hmT, *hmS, G, Y, *hmH, *hmA, *hmE, *hmI]
-  - [Esc, Q, X, M, C, V, K, P, *sftdot, *sftmin, *sftcom, *fslh]
+  - [Esc, Q, X, M, C, V, K, P, *sftdot, *sftmin, *sftcom, *ret]
   - ['', '', *ulbspc, *llspc, '', '']
   Lower:
   - ['-', 7, 8, 9, +, '%', '[', (, ), ']']
@@ -78,7 +77,6 @@ layers:
 combos:
 - { tk: [L, D], k: *tab, l: [Base] }
 - { tk: [X, M], k: *del, l: [Base] }
-- { tk: [., '-'], k: *ret, l: [Base] }
 - { tk: [S, H], k: *caps, l: [Base] }
 - { tk: [7, 8], k: *spc, l: [Lower] }
 - { tk: [(, )], k: *bspc, l: [Upper] }
