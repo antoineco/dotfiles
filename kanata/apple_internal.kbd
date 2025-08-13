@@ -13,7 +13,7 @@
          f1  f2  f3  f4  f5  f6  f7  f8  f9  f10 f11 f12
        ` 1   2   3   4   5   6   7   8   9   0   -   =
      tab q   w   e   r   t   y   u   i   o   p   [   ]   \
-    caps a   s   d   f   g   h   j   k   l   ;   '
+    caps a   s   d   f   g   h   j   k   l   ;   '   ret
          z   x   c   v   b   n   m   ,   .   /
   fn ctl                spc
 )
@@ -30,7 +30,7 @@
           brdn brup mctl sls  dtn  dnd  prev pp   next mute vold volu
         ` 1    2    3    4    5    6    7    8    9    0    @<   =
       tab b    l    d    w    z    '    f    o    u    j    [    ]    \
-      esc @n   @r   @t   @s   g    y    @h   @a   @e   @i   /
+      esc @n   @r   @t   @s   g    y    @h   @a   @e   @i   /    ret
           x    m    c    v    q    k    p    .    -    ,
   ctl @fn                   @spc
 )
