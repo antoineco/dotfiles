@@ -1,6 +1,6 @@
 manifest:
   defaults:
-    revision: v0.2
+    revision: v0.3
   remotes:
     - name: zmkfirmware
       url-base: https://github.com/zmkfirmware
@@ -12,6 +12,5 @@ manifest:
       import: app/west.yml
     - name: zmk-keyboard-totem
       remote: antoineco
-      revision: main
   self:
     path: config
