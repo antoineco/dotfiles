@@ -43,16 +43,13 @@
   - .                 ;; <>
 )
 
-(deflayermap navigation
-  g caps
-  h left
-  j down
-  k up
-  l rght
-  n home
-  m pgdn
-  , pgup
-  . end
+(deflayer navnum
+          _    _    _    _    _    _    _    _    _    _    _    _
+      _   _    _    _    _    _    _    _    _    _    _    _    _
+      _   kp-  7    8    9    kp+  S-5  [    S-9  S-0  ]    _    _    _
+      S-; 0    4    5    6    @kpe left down up   rght .    b    _
+      kp/ 1    2    3    kp*  _    home pgdn pgup end  x
+  _   _                       XX
 )
 
 (deflayermap function
@@ -85,7 +82,7 @@
 )
 
 (deftemplate combo (keys act)
-  $keys $act $chord-timeout all-released (navigation function)
+  $keys $act $chord-timeout all-released (navnum)
 )
 
 (defalias
@@ -99,13 +96,16 @@
   e (t! charmod e lalt)
   i (t! charmod i rctl)
 
+  q (t! charmod q (multi lsft (layer-while-held shifted-symbols)))
+
   ;; shifted keys
   < S-,
 
-  spc (t! charmod spc (multi (layer-switch navigation) (on-release tap-virtualkey clear)))
-  q (t! charmod q (multi lsft (layer-while-held shifted-symbols)))
+  spc (t! charmod spc (multi (layer-switch navnum) (on-release tap-virtualkey clear)))
 
   fn (multi fn (layer-while-held function))
+
+  kpe NumpadEqual
 )
 
 (defvirtualkeys
