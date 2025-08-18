@@ -76,6 +76,7 @@ vim.keymap.set("t", "<leader><esc>", "<C-\\><C-n>", { desc = "Exit Terminal Inse
 -- Appearance {{{
 
 vim.o.termguicolors = true  -- enable 24-bit true color
+vim.o.guifont = "MonoLisa"  -- for Neovide
 
 -- }}}
 
