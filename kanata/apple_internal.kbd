@@ -14,7 +14,7 @@
        ` 1   2   3   4   5   6   7   8   9   0   -   =
      tab q   w   e   r   t   y   u   i   o   p   [   ]   \
     caps a   s   d   f   g   h   j   k   l   ;   '   ret
-         z   x   c   v   b   n   m   ,   .   /
+    lsft z   x   c   v   b   n   m   ,   .   /
   fn ctl                spc
 )
 
@@ -31,8 +31,8 @@
         ` 1    2    3    4    5    6    7    8    9    0    @<   =
       tab b    l    d    w    z    '    f    o    u    j    [    ]    \
       esc @n   @r   @t   @s   g    y    @h   @a   @e   @i   /    ret
-          x    m    c    v    q    k    p    .    -    ,
-  ctl @fn                   @spc
+      @q  x    m    c    v    XX   k    p    .    -    ,
+  ctl @fn                    @spc
 )
 
 (deflayermap shifted-symbols
@@ -103,6 +103,7 @@
   < S-,
 
   spc (t! charmod spc (multi (layer-switch navigation) (on-release tap-virtualkey clear)))
+  q (t! charmod q (multi lsft (layer-while-held shifted-symbols)))
 
   fn (multi fn (layer-while-held function))
 )
