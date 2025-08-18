@@ -1,0 +1,51 @@
+layout:
+  qmk_keyboard: ares
+  layout_name: LAYOUT_60_ansi_wkl
+
+_aliases:
+  held: &held {type: held}
+  spc: &spc $$mdi:keyboard-space$$
+  bspc: &bspc $$mdi:keyboard-backspace$$
+  del: &del $$mdi:backspace-reverse$$
+  llspc: &llspc {t: *spc, h: Lower}
+  tab: &tab $$mdi:keyboard-tab$$
+  ret: &ret $$mdi:keyboard-return$$
+  sft: &sft $$mdi:apple-keyboard-shift$$
+  ctl: &ctl $$mdi:apple-keyboard-control$$
+  opt: &opt $$mdi:apple-keyboard-option$$
+  cmd: &cmd $$mdi:apple-keyboard-command$$
+  caps: &caps $$mdi:apple-keyboard-caps$$
+  sftdot: &sftdot {t: ., s: ':'}
+  sftcom: &sftcom {t: ',', s: ;}
+  sftsqt: &sftsqt {t: "'", s: _}
+  sftmin: &sftmin {t: -, s: '"'}
+  sftlt: &sftlt {t: <, s: '>'}
+  hmN: &hmN {t: N, h: *ctl}
+  hmR: &hmR {t: R, h: *opt}
+  hmT: &hmT {t: T, h: *cmd}
+  hmS: &hmS {t: S, h: *sft}
+  hmH: &hmH {t: H, h: *sft}
+  hmA: &hmA {t: A, h: *cmd}
+  hmE: &hmE {t: E, h: *opt}
+  hmI: &hmI {t: I, h: *ctl}
+
+layers:
+  Base:
+  - ['~', 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, *sftlt, '=', *bspc]
+  - [*tab, B, L, D, W, Z, *sftsqt, F, O, U, J, '[', ']', \]
+  - [Esc, *hmN, *hmR, *hmT, *hmS, G, Y, *hmH, *hmA, *hmE, *hmI, /, *ret]
+  - [Q, X, M, C, V, '', K, P, *sftdot, *sftmin, *sftcom, *sft]
+  - ['', '', *llspc, '', '']
+  Lower:
+  - ['', '', '', '', '', '', '', '', '', '', '', '', '', '']
+  - ['', '-', 7, 8, 9, +, '%', '[', (, ), ']', '', '', '']
+  - [':', 0, 4, 5, 6, '=', ←, ↓, ↑, →, ., b, '']
+  - [/, 1, 2, 3, '*', '', Home, PgDn, PgUp, End, x, '']
+  - ['', '', *held, '', '']
+
+combos:
+- { tk: [L, D], k: *tab, l: [Base] }
+- { tk: [X, M], k: *del, l: [Base] }
+- { tk: [S, H], k: *caps, l: [Base] }
+- { tk: [O, U], k: *bspc, l: [Base] }
+- { tk: [., -], k: *ret, l: [Base] }
