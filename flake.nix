@@ -12,6 +12,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    neovim-overlay.url = "github:nix-community/neovim-nightly-overlay";
     rust-overlay.url = "https://flakehub.com/f/oxalica/rust-overlay/0.1";
 
     agenix.url = "github:ryantm/agenix";
@@ -32,6 +33,7 @@
       determinate,
       nixos-wsl,
       nix-darwin,
+      neovim-overlay,
       rust-overlay,
       agenix,
       secrets,
@@ -120,6 +122,7 @@
             inherit
               determinate
               nixos-wsl
+              neovim-overlay
               ;
           };
           modules = [ ./nix/hosts/calavera ];
@@ -140,6 +143,7 @@
 
       darwinConfigurations = {
         colomar = nix-darwin.lib.darwinSystem {
+          specialArgs = { inherit neovim-overlay; };
           modules = [ ./nix/hosts/colomar ];
         };
       };
