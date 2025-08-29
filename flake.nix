@@ -5,10 +5,7 @@
     nixpkgs.url = "https://flakehub.com/f/NixOS/nixpkgs/0.2505"; # nixos-25.05
     determinate.url = "https://flakehub.com/f/DeterminateSystems/determinate/3";
 
-    nixos-wsl = {
-      url = "github:nix-community/NixOS-WSL";
-      inputs.flake-compat.follows = "";
-    };
+    nixos-wsl.url = "github:nix-community/NixOS-WSL";
 
     nix-darwin = {
       url = "nix-darwin/nix-darwin-25.05";
@@ -17,10 +14,7 @@
 
     rust-overlay.url = "https://flakehub.com/f/oxalica/rust-overlay/0.1";
 
-    agenix = {
-      url = "github:ryantm/agenix";
-      inputs.home-manager.follows = "";
-    };
+    agenix.url = "github:ryantm/agenix";
     secrets = {
       url = "git+ssh://git@github.com/antoineco/nix-secrets.git";
       flake = false;
@@ -35,13 +29,13 @@
     {
       self,
       nixpkgs,
+      determinate,
       nixos-wsl,
       nix-darwin,
-      determinate,
       rust-overlay,
-      disko,
       agenix,
       secrets,
+      disko,
       flake-schemas,
     }:
     let
