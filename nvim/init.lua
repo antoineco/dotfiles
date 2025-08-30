@@ -104,12 +104,6 @@ vim.opt.rtp:prepend(lazypath)
 -- Setup {{{
 
 require "lazy".setup({
-  -- Shared Plugin Libraries {{{
-
-  "nvim-lua/plenary.nvim",
-
-  -- }}}
-
   -- User Interface {{{
 
   {
@@ -531,6 +525,7 @@ require "lazy".setup({
   {
     "nvim-neotest/neotest",
     dependencies = {
+      "nvim-lua/plenary.nvim",
       "nvim-neotest/nvim-nio",
       "antoinemadec/FixCursorHold.nvim",
       -- adapters
