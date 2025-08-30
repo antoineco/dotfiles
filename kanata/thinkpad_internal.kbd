@@ -1,0 +1,102 @@
+;; Configuration for the ThinkPad internal keyboard.
+
+(defcfg
+  process-unmapped-keys no
+  log-layer-changes no
+
+  concurrent-tap-hold yes  ;; requirement for defchordsv2
+)
+
+(defsrc
+     ` 1   2   3   4   5   6   7   8   9   0   -   =
+   tab q   w   e   r   t   y   u   i   o   p   [   ]   \
+  caps a   s   d   f   g   h   j   k   l   ;   '   ret
+  102d z   x   c   v   b   n   m   ,   .   /
+         lalt         spc         ralt
+)
+
+(defvar
+  streak-count 3
+  streak-time 325
+  tap-timeout 200
+  hold-timeout 200
+  chord-timeout 30
+)
+
+(deflayer base
+    ` 1    2    3    4    5    6    7    8    9    0    @<   =
+  tab b    l    d    w    z    '    f    o    u    j    [    ]    \
+  esc @n   @r   @t   @s   g    y    @h   @a   @e   @i   /    ret
+  q   x    m    c    v    XX   k    p    .    -    ,
+         @lalt           @spc          @ralt
+)
+
+(deflayermap shifted-symbols
+  y -                 ;; '_
+  , ;                 ;; .:
+  . '                 ;; -"
+  / (unmod (lsft) ;)  ;; ,;
+  - .                 ;; <>
+)
+
+(deflayer navnum
+  _   _    _    _    _    _    _    _    _    _    _    _    _
+  _   kp-  7    8    9    kp+  S-5  [    S-9  S-0  ]    _    _    _
+  S-; 0    4    5    6    @kpe left down up   rght .    b    _
+  kp/ 1    2    3    kp*  _    home pgdn pgup end  x
+           _              XX             _
+)
+
+(deflayer symbols
+  _   _    _    _    _    _    _    _    _    _    _    _    _
+  _   S-`  .    S-8  S-7  S-2  S-5  [    S-9  S-0  ]    _    _    _
+  S-- S-,  S-\  -    S-.  /    S-1  ,    S-[  S-]  ;    S-/  _
+  `   '    S-'  S-=  \    _    S-3  S-6  S-;  =    S-4
+          XX              _              XX
+)
+
+(deftemplate charmod (char mod)
+  (switch
+    ((key-timing $streak-count less-than $streak-time)) $char break
+    () (tap-hold-release $tap-timeout $hold-timeout $char $mod) break
+  )
+)
+
+(deftemplate combo (keys act)
+  $keys $act $chord-timeout all-released (navnum)
+)
+
+(defalias
+  ;; home row mods
+  n (t! charmod n lctl)
+  r (t! charmod r lalt)
+  t (t! charmod t lmet)
+  s (t! charmod s (multi lsft (layer-while-held shifted-symbols)))
+  h (t! charmod h rsft)
+  a (t! charmod a rmet)
+  e (t! charmod e lalt)
+  i (t! charmod i rctl)
+
+  ;; shifted keys
+  < S-,
+
+  spc (t! charmod spc (multi (layer-switch navnum) (on-release tap-virtualkey clear)))
+
+  lalt (layer-while-held symbols)
+  ralt (layer-while-held symbols)
+
+  kpe NumpadEqual
+)
+
+(defvirtualkeys
+  shift (multi (layer-switch base) lsft)
+  clear (multi (layer-switch base) (on-press release-virtualkey shift))
+)
+
+(defchordsv2
+  (t! combo (f j) (caps-word 3000))
+  (t! combo (w e) tab)
+  (t! combo (z x) del)
+  (t! combo (i o) bspc)
+  (t! combo (, .) ret)
+)
