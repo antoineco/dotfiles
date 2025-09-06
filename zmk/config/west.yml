@@ -6,11 +6,15 @@ manifest:
       url-base: https://github.com/zmkfirmware
     - name: antoineco
       url-base: https://github.com/antoineco
+    - name: urob
+      url-base: https://github.com/urob
   projects:
     - name: zmk
       remote: zmkfirmware
       import: app/west.yml
     - name: zmk-keyboard-totem
       remote: antoineco
+    - name: zmk-helpers
+      remote: urob
   self:
     path: config

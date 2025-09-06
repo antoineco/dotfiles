@@ -5,6 +5,7 @@
 /modules/
 /zephyr/
 /zmk-keyboard-totem/
+/zmk-helpers/
 /zmk/
 
 # Build artifacts
