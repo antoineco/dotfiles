@@ -47,14 +47,11 @@ MAKE_MORPH(dotcolon, LSFT, &kp DOT, &kp COLON)
 MAKE_MORPH(mindqt, LSFT, &kp MINUS, &kp DQT)
 MAKE_MORPH(commsemi, LSFT, &kp COMMA, &kp SEMI)
 
-#define MAKE_COMBO(NAME, BINDINGS, KEYPOS, LAYERS)   \
-  ZMK_COMBO(NAME, BINDINGS, KEYPOS, LAYERS, 30, 175)
-
-MAKE_COMBO(tab, &kp TAB, LT2 LT3, BASE)
-MAKE_COMBO(spc_lower, &kp SPACE, LT2 LT3, LOWR)
-MAKE_COMBO(del, &kp DEL, LB2 LB3, BASE)
-MAKE_COMBO(bspc_upper, &kp BSPC, RT2 RT3, UPPR)
-MAKE_COMBO(caps_word, &caps_word, LM1 RM1, BASE)
+ZMK_COMBO(tab, &kp TAB, LT2 LT3, BASE, 18)
+ZMK_COMBO(spc_lower, &kp SPACE, LT2 LT3, LOWR)
+ZMK_COMBO(del, &kp DEL, LB2 LB3, BASE)
+ZMK_COMBO(bspc_upper, &kp BSPC, RT2 RT3, UPPR)
+ZMK_COMBO(caps_word, &caps_word, LM1 RM1, BASE)
 
 #define MAKE_BT_TAP_DANCE(PROFILE)                                                           \
   ZMK_TAP_DANCE(bt##PROFILE, display-name = ZMK_HELPER_STRINGIFY(Bluetooth Profile PROFILE); \
