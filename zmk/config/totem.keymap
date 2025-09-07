@@ -32,11 +32,15 @@
 MAKE_HRM(hml, "Home Row Mod L", KEYS_R)
 MAKE_HRM(hmr, "Home Row Mod R", KEYS_L)
 
-ZMK_HOLD_TAP(ltt, display-name = "Layer-Tap"; \
-             bindings = <&mo>, <&kp>;         \
-             flavor = "balanced";             \
-             tapping-term-ms = <280>;         \
-             quick-tap-ms = <175>;)
+#define MAKE_LAYER_TAP(NAME, DISP, BINDING) \
+  ZMK_HOLD_TAP(NAME, display-name = DISP;   \
+               bindings = <&mo>, <BINDING>; \
+               flavor = "balanced";         \
+               tapping-term-ms = <280>;     \
+               quick-tap-ms = <175>;)
+
+MAKE_LAYER_TAP(ltt, "Layer-Tap", &kp)
+MAKE_LAYER_TAP(ltb, "Layer-Tap Backspace", &bspcdel)
 
 #define MAKE_MORPH(NAME, MOD, BINDING1, BINDING2)   \
   ZMK_MOD_MORPH(NAME, mods = <(MOD_##MOD)>;         \
@@ -46,10 +50,10 @@ MAKE_MORPH(sqtundr, LSFT, &kp SQT, &kp UNDER)
 MAKE_MORPH(dotcolon, LSFT, &kp DOT, &kp COLON)
 MAKE_MORPH(mindqt, LSFT, &kp MINUS, &kp DQT)
 MAKE_MORPH(commsemi, LSFT, &kp COMMA, &kp SEMI)
+MAKE_MORPH(bspcdel, RSFT, &kp BSPC, &kp DEL)
 
 ZMK_COMBO(tab, &kp TAB, LT2 LT3, BASE, 18)
 ZMK_COMBO(spc_lower, &kp SPACE, LT2 LT3, LOWR)
-ZMK_COMBO(del, &kp DEL, LB2 LB3, BASE)
 ZMK_COMBO(enter, &kp ENTER, RT2 RT3, BASE, 18)
 ZMK_COMBO(bspc_upper, &kp BSPC, RT2 RT3, UPPR)
 ZMK_COMBO(caps_word, &caps_word, LM1 RM1, BASE)
@@ -77,7 +81,7 @@ ZMK_CONDITIONAL_LAYER(adjust, LOWR UPPR, ADJU)
                              &kp B        &kp L        &kp D        &kp W        &kp Z                                    &sqtundr     &kp F        &kp O        &kp U        &kp J
                              &hml LCTRL N &hml LALT R  &hml LGUI T  &hml LSHFT S &kp G                                    &kp Y        &hmr RSHFT H &hmr RGUI A  &hmr RALT E  &hmr RCTRL I
                 &kp ESC      &kp Q        &kp X        &kp M        &kp C        &kp V                                    &kp K        &kp P        &dotcolon    &mindqt      &commsemi    &kp FSLH
-                                                                    &none        &none        &ltt 2 BSPC    &ltt 1 SPACE &none        &none
+                                                                    &none        &none        &ltb 2 BSPC    &ltt 1 SPACE &none        &none
             >;
         };
 

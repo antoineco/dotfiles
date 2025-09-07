@@ -350,7 +350,8 @@ path.combo {
 <use href="#mdi:keyboard-backspace" xlink:href="#mdi:keyboard-backspace" x="-7" y="-7" height="14" width="14.0" class="key tap glyph mdi:keyboard-backspace"/>
 <a href="#Upper">
 <text x="0" y="24" class="key hold layer-activator">Upper</text>
-</a></g>
+</a><use href="#mdi:backspace-reverse" xlink:href="#mdi:backspace-reverse" x="-5" y="-24" height="10" width="10.0" class="key shifted glyph mdi:backspace-reverse"/>
+</g>
 <g transform="translate(470, 270) rotate(-30.0)" class="key keypos-35">
 <rect rx="6" ry="6" x="-28" y="-26" width="55" height="52" class="key"/>
 <use href="#mdi:keyboard-space" xlink:href="#mdi:keyboard-space" x="-7" y="-7" height="14" width="14.0" class="key tap glyph mdi:keyboard-space"/>
@@ -368,14 +369,10 @@ path.combo {
 <use href="#mdi:keyboard-tab" xlink:href="#mdi:keyboard-tab" x="171" y="38" height="14" width="14.0" class="combo tap glyph mdi:keyboard-tab"/>
 </g>
 <g class="combo combopos-1">
-<rect rx="6" ry="6" x="168" y="144" width="28" height="26" class="combo"/>
-<use href="#mdi:backspace-reverse" xlink:href="#mdi:backspace-reverse" x="175" y="150" height="14" width="14.0" class="combo tap glyph mdi:backspace-reverse"/>
-</g>
-<g class="combo combopos-2">
 <rect rx="6" ry="6" x="659" y="32" width="28" height="26" class="combo"/>
 <use href="#mdi:keyboard-return" xlink:href="#mdi:keyboard-return" x="666" y="38" height="14" width="14.0" class="combo tap glyph mdi:keyboard-return"/>
 </g>
-<g class="combo combopos-3">
+<g class="combo combopos-2">
 <path d="M425,112 l-134,0" class="combo"/>
 <path d="M425,112 l134,0" class="combo"/>
 <rect rx="6" ry="6" x="411" y="99" width="28" height="26" class="combo"/>
