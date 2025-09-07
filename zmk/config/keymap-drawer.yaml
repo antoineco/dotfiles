@@ -8,7 +8,7 @@ _aliases:
   bspc: &bspc $$mdi:keyboard-backspace$$
   del: &del $$mdi:backspace-reverse$$
   llspc: &llspc {t: *spc, h: Lower}
-  ulbspc: &ulbspc {t: *bspc, h: Upper}
+  ulbspc: &ulbspc {t: *bspc, s: *del, h: Upper}
   albspc: &albspc {t: *bspc, h: Adjust}
   alspc: &alspc {t: *spc, h: Adjust}
   tab: &tab $$mdi:keyboard-tab$$
@@ -77,7 +77,6 @@ layers:
 
 combos:
 - { tk: [L, D], k: *tab, l: [Base] }
-- { tk: [X, M], k: *del, l: [Base] }
 - { tk: [O, U], k: *ret, l: [Base] }
 - { tk: [S, H], k: *caps, l: [Base] }
 - { tk: [7, 8], k: *spc, l: [Lower] }
