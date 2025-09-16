@@ -126,18 +126,13 @@
   ;; shifted keys
   < S-,
 
-  spc (t! charmod spc (multi (layer-switch navnum) (on-release tap-virtualkey clear)))
+  spc (t! charmod spc (layer-while-held navnum))
 
-  lcmd (t! charmod bspc (multi (layer-switch symbols) (on-release tap-virtualkey clear)))
+  lcmd (t! charmod bspc (layer-while-held symbols))
   rcmd (layer-while-held symbols)
   fn (multi fn (layer-while-held function))
 
   kpe NumpadEqual
-)
-
-(defvirtualkeys
-  shift (multi (layer-switch base) lsft)
-  clear (multi (layer-switch base) (on-press release-virtualkey shift))
 )
 
 (defchordsv2
