@@ -7,6 +7,8 @@
   macos-dev-names-include "Apple Internal Keyboard / Trackpad"
 
   concurrent-tap-hold yes  ;; requirement for defchordsv2
+
+  chords-v2-min-idle 125
 )
 
 (defsrc
@@ -23,7 +25,9 @@
   streak-time 325
   tap-repress-timeout 200
   hold-timeout 200
-  chord-timeout 30
+
+  chord-timeout-slow 30
+  chord-timeout-fast 18
 )
 
 (deflayer base
@@ -83,6 +87,10 @@
   rght end
 )
 
+(defoverrides
+  (rsft bspc) (del)
+)
+
 (deftemplate charmod (char mod)
   (switch
     ((key-timing $streak-count less-than $streak-time)) $char break
@@ -90,8 +98,16 @@
   )
 )
 
-(deftemplate combo (keys act)
-  $keys $act $chord-timeout all-released (navnum)
+(deftemplate combo (keys act timeout)
+  $keys $act $timeout all-released (navnum)
+)
+
+(deftemplate combo-slow (keys act)
+  (t! combo $keys $act $chord-timeout-slow)
+)
+
+(deftemplate combo-fast (keys act)
+  (t! combo $keys $act $chord-timeout-fast)
 )
 
 (defalias
@@ -112,7 +128,7 @@
 
   spc (t! charmod spc (multi (layer-switch navnum) (on-release tap-virtualkey clear)))
 
-  lcmd (layer-while-held symbols)
+  lcmd (t! charmod bspc (multi (layer-switch symbols) (on-release tap-virtualkey clear)))
   rcmd (layer-while-held symbols)
   fn (multi fn (layer-while-held function))
 
@@ -125,9 +141,7 @@
 )
 
 (defchordsv2
-  (t! combo (f j) (caps-word 3000))
-  (t! combo (w e) tab)
-  (t! combo (z x) del)
-  (t! combo (i o) bspc)
-  (t! combo (, .) ret)
+  (t! combo-slow (f j) (caps-word 3000))
+  (t! combo-fast (w e) tab)
+  (t! combo-fast (i o) ret)
 )
