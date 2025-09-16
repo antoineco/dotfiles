@@ -52,9 +52,12 @@ MAKE_MORPH(mindqt, LSFT, &kp MINUS, &kp DQT)
 MAKE_MORPH(commsemi, LSFT, &kp COMMA, &kp SEMI)
 MAKE_MORPH(bspcdel, RSFT, &kp BSPC, &kp DEL)
 
-ZMK_COMBO(tab, &kp TAB, LT2 LT3, BASE, 18)
+#define MAKE_COMBO_FAST(NAME, BINDINGS, KEYPOS)    \
+  ZMK_COMBO(NAME, BINDINGS, KEYPOS, BASE, 18, 125)
+
+MAKE_COMBO_FAST(tab, &kp TAB, LT2 LT3)
+MAKE_COMBO_FAST(enter, &kp ENTER, RT2 RT3)
 ZMK_COMBO(spc_lower, &kp SPACE, LT2 LT3, LOWR)
-ZMK_COMBO(enter, &kp ENTER, RT2 RT3, BASE, 18)
 ZMK_COMBO(bspc_upper, &kp BSPC, RT2 RT3, UPPR)
 ZMK_COMBO(caps_word, &caps_word, LM1 RM1, BASE)
 
