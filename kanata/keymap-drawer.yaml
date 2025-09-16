@@ -8,6 +8,7 @@ _aliases:
   bspc: &bspc $$mdi:keyboard-backspace$$
   del: &del $$mdi:backspace-reverse$$
   llspc: &llspc {t: *spc, h: Lower}
+  ulbspc: &ulbspc {t: *bspc, s: *del, h: Upper}
   ul: &ul {h: Upper}
   tab: &tab $$mdi:keyboard-tab$$
   ret: &ret $$mdi:keyboard-return$$
@@ -36,7 +37,7 @@ layers:
   - [*tab, B, L, D, W, Z, *sftsqt, F, O, U, J, '[', ']', \]
   - [Esc, *hmN, *hmR, *hmT, *hmS, G, Y, *hmH, *hmA, *hmE, *hmI, /, *ret]
   - [Q, X, M, C, V, '', K, P, *sftdot, *sftmin, *sftcom, *sft]
-  - ['', *ul, *llspc, *ul, '']
+  - ['', *ulbspc, *llspc, *ul, '']
   Lower:
   - ['', '', '', '', '', '', '', '', '', '', '', '', '', '']
   - ['', '-', 7, 8, 9, +, '%', '[', (, ), ']', '', '', '']
@@ -52,7 +53,5 @@ layers:
 
 combos:
 - { tk: [L, D], k: *tab, l: [Base] }
-- { tk: [X, M], k: *del, l: [Base] }
+- { tk: [O, U], k: *ret, l: [Base] }
 - { tk: [S, H], k: *caps, l: [Base] }
-- { tk: [O, U], k: *bspc, l: [Base] }
-- { tk: [., -], k: *ret, l: [Base] }
