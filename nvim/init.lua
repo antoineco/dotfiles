@@ -530,7 +530,8 @@ require "lazy".setup({
       "antoinemadec/FixCursorHold.nvim",
       -- adapters
       {
-        "fredrikaverpil/neotest-golang"
+        "fredrikaverpil/neotest-golang",
+        branch = "feat/treesitter-main"
       }
     },
     config = function()
