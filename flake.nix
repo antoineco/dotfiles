@@ -3,6 +3,7 @@
 
   inputs = {
     nixpkgs.url = "https://flakehub.com/f/NixOS/nixpkgs/0.2505"; # nixos-25.05
+    nixpkgs-unstable.url = "https://flakehub.com/f/NixOS/nixpkgs/0.1"; # nixos-unstable
     determinate.url = "https://flakehub.com/f/DeterminateSystems/determinate/3";
 
     nixos-wsl.url = "github:nix-community/NixOS-WSL";
@@ -30,6 +31,7 @@
     {
       self,
       nixpkgs,
+      nixpkgs-unstable,
       determinate,
       nixos-wsl,
       nix-darwin,
@@ -79,11 +81,14 @@
               ];
             };
 
-          go =
-            with pkgs;
-            mkShell {
-              name = "go";
-              packages = [
+          go = pkgs.mkShell {
+            name = "go";
+            packages =
+              let
+                pkgs-unstable = nixpkgs-unstable.legacyPackages.${pkgs.system};
+              in
+              with pkgs-unstable;
+              [
                 go
                 gopls
                 golangci-lint
@@ -93,7 +98,7 @@
                 gotests
                 impl
               ];
-            };
+          };
 
           rust =
             with pkgs;
