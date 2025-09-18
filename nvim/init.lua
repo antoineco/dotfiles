@@ -580,6 +580,13 @@ require "lazy".setup({
           require "neotest".output.open()
         end,
         desc = "Open Test Output"
+      },
+      {
+        "<leader>tp",
+        function()
+          require "neotest".output_panel.toggle()
+        end,
+        desc = "Toggle Tests Output Panel"
       }
     }
   },
@@ -595,10 +602,19 @@ require "lazy".setup({
       {
         "rcarriga/nvim-dap-ui",
         dependencies = "nvim-neotest/nvim-nio",
-        opts = {}
+        opts = {},
+        keys = {
+          { "<leader>du", function() require "dapui".toggle() end, desc = "Toggle DAP UI" }
+        }
       },
       -- adapters
       { "leoluz/nvim-dap-go", opts = {} }
+    },
+    keys = {
+      { "<F5>", function() require "dap".step_over() end, desc = "Step Over" },
+      { "<F6>", function() require "dap".step_into() end, desc = "Step Into" },
+      { "<F4>", function() require "dap".step_out() end,  desc = "Step Out" },
+      { "<F8>", function() require "dap".step_back() end, desc = "Step Back" }
     }
   },
 
