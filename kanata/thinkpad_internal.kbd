@@ -35,6 +35,10 @@
          @lalt           @spc          @ralt
 )
 
+#|
+Shifted punctuation is implemented on a dedicated layer instead of via defoverrides,
+because defoverrides would conflict with symbols that appear shifted on the 'symbols' layer.
+|#
 (deflayermap shifted-symbols
   y -                 ;; '_
   , ;                 ;; .:
@@ -96,8 +100,8 @@
   ;; shifted keys
   < S-,
 
+  ;; layer taps
   spc (t! charmod spc (layer-while-held navnum))
-
   lalt (t! charmod bspc (layer-while-held symbols))
   ralt (layer-while-held symbols)
 
@@ -105,7 +109,7 @@
 )
 
 (defchordsv2
-  (t! combo-slow (f j) (caps-word 3000))
+  (t! combo-slow (f j) (caps-word-toggle 3000))
   (t! combo-fast (w e) tab)
   (t! combo-fast (i o) ret)
 )

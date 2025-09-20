@@ -35,10 +35,14 @@
         ` 1    2    3    4    5    6    7    8    9    0    @<   =
       tab b    l    d    w    z    '    f    o    u    j    [    ]    \
       esc @n   @r   @t   @s   g    y    @h   @a   @e   @i   /    ret
-      @q  x    m    c    v    XX   k    p    .    -    ,
+      q   x    m    c    v    XX   k    p    .    -    ,
   ctl @fn    @lcmd           @spc          @rcmd
 )
 
+#|
+Shifted punctuation is implemented on a dedicated layer instead of via defoverrides,
+because defoverrides would conflict with symbols that appear shifted on the 'symbols' layer.
+|#
 (deflayermap shifted-symbols
   y -                 ;; '_
   , ;                 ;; .:
@@ -121,22 +125,21 @@
   e (t! charmod e lalt)
   i (t! charmod i rctl)
 
-  q (t! charmod q (multi lsft (layer-while-held shifted-symbols)))
-
   ;; shifted keys
   < S-,
 
+  ;; layer taps
   spc (t! charmod spc (layer-while-held navnum))
-
   lcmd (t! charmod bspc (layer-while-held symbols))
   rcmd (layer-while-held symbols)
+
   fn (multi fn (layer-while-held function))
 
   kpe NumpadEqual
 )
 
 (defchordsv2
-  (t! combo-slow (f j) (caps-word 3000))
+  (t! combo-slow (f j) (caps-word-toggle 3000))
   (t! combo-fast (w e) tab)
   (t! combo-fast (i o) ret)
 )
