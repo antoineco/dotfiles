@@ -73,6 +73,18 @@ MAKE_BT_TAP_DANCE(2)
 
 ZMK_CONDITIONAL_LAYER(adjust, LOWR UPPR, ADJU)
 
+#define HM_N &hml LCTRL N
+#define HM_R &hml LALT R
+#define HM_T &hml LGUI T
+#define HM_S &hml LSHFT S
+#define HM_H &hmr RSHFT H
+#define HM_A &hmr RGUI A
+#define HM_E &hmr RALT E
+#define HM_I &hmr RCTRL I
+
+#define SPC_LOWR  &ltt LOWR SPACE
+#define BSPC_UPPR &ltb UPPR 0x0   /* second arg irrelevant due to usage of mod_morph binding */
+
 / {
     keymap {
         compatible = "zmk,keymap";
@@ -83,9 +95,9 @@ ZMK_CONDITIONAL_LAYER(adjust, LOWR UPPR, ADJU)
             display-name = "Base";
             bindings = <
                              &kp B        &kp L        &kp D        &kp W        &kp Z                                    &sqtundr     &kp F        &kp O        &kp U        &kp J
-                             &hml LCTRL N &hml LALT R  &hml LGUI T  &hml LSHFT S &kp G                                    &kp Y        &hmr RSHFT H &hmr RGUI A  &hmr RALT E  &hmr RCTRL I
+                             HM_N         HM_R         HM_T         HM_S         &kp G                                    &kp Y        HM_H         HM_A         HM_E         HM_I
                 &kp ESC      &kp Q        &kp X        &kp M        &kp C        &kp V                                    &kp K        &kp P        &dotcolon    &mindqt      &commsemi    &kp FSLH
-                                                                    &none        &none        &ltb 2 BSPC    &ltt 1 SPACE &mo FUNC     &none
+                                                                    &none        &none        BSPC_UPPR      SPC_LOWR     &mo FUNC     &none
             >;
         };
 
