@@ -256,9 +256,7 @@ require "lazy".setup({
         end
       })
 
-      local lspconfig = require "lspconfig"
-
-      lspconfig.lua_ls.setup {
+      vim.lsp.config("lua_ls", {
         settings = {
           -- https://github.com/LuaLS/lua-language-server/blob/3.6.24/doc/en-us/config.md
           Lua = {
@@ -288,11 +286,12 @@ require "lazy".setup({
             })
           end
         end
-      }
+      })
+      vim.lsp.enable "lua_ls"
 
-      lspconfig.bashls.setup {}
+      vim.lsp.enable "bashls"
 
-      lspconfig.nixd.setup {}
+      vim.lsp.enable "nixd"
     end
   },
 
