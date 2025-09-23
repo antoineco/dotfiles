@@ -256,6 +256,10 @@ require "lazy".setup({
         end
       })
 
+      local luals_markers = vim.lsp.config["lua_ls"].root_markers or {}
+      local idx_git = vim.iter(luals_markers):enumerate():find(function(_, f) return f == ".git" end) or
+        (#luals_markers + 1)
+      table.insert(luals_markers, idx_git, ".editorconfig")
       vim.lsp.config("lua_ls", {
         settings = {
           -- https://github.com/LuaLS/lua-language-server/blob/3.6.24/doc/en-us/config.md
@@ -268,10 +272,11 @@ require "lazy".setup({
             }
           }
         },
+        root_markers = luals_markers,
         on_init = function(client)
-          local ws = client.workspace_folders[1].name
-          if not vim.uv.fs_stat(ws .. "/.luarc.json") and not vim.uv.fs_stat(ws .. "/.luarc.jsonc") then
-            -- Assume Neovim workspace
+          local ws = client.workspace_folders and client.workspace_folders[1].name or nil
+          local is_neovim_workspace = ws == vim.uv.fs_realpath(vim.fn.stdpath "config")
+          if is_neovim_workspace and not (vim.uv.fs_stat(ws .. "/.luarc.json") or vim.uv.fs_stat(ws .. "/.luarc.jsonc")) then
             client.config.settings.Lua = vim.tbl_deep_extend("force", client.config.settings.Lua, {
               runtime = {
                 version = "LuaJIT"
@@ -280,8 +285,7 @@ require "lazy".setup({
                 library = {
                   vim.env.VIMRUNTIME,
                   "${3rd}/luv/library"
-                },
-                ignoreDir = { "/zmk/" }
+                }
               }
             })
           end
