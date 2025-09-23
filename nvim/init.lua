@@ -262,11 +262,8 @@ require "lazy".setup({
       table.insert(luals_markers, idx_git, ".editorconfig")
       vim.lsp.config("lua_ls", {
         settings = {
-          -- https://github.com/LuaLS/lua-language-server/blob/3.6.24/doc/en-us/config.md
+          -- https://github.com/LuaLS/lua-language-server/blob/3.15.0/doc/en-us/config.md
           Lua = {
-            workspace = {
-              checkThirdParty = false  -- remove prompts to configure work environment
-            },
             completion = {
               callSnippet = "Replace"  -- snippet support on completion
             }
@@ -279,12 +276,19 @@ require "lazy".setup({
           if is_neovim_workspace and not (vim.uv.fs_stat(ws .. "/.luarc.json") or vim.uv.fs_stat(ws .. "/.luarc.jsonc")) then
             client.config.settings.Lua = vim.tbl_deep_extend("force", client.config.settings.Lua, {
               runtime = {
-                version = "LuaJIT"
+                version = "LuaJIT",
+                -- Find Lua modules the same way Neovim does (see `:h lua-module-load`)
+                path = {
+                  "lua/?.lua",
+                  "lua/?/init.lua"
+                }
               },
               workspace = {
+                checkThirdParty = false,  -- remove prompts to configure work environment
                 library = {
                   vim.env.VIMRUNTIME,
-                  "${3rd}/luv/library"
+                  "${3rd}/luv/library",
+                  "${3rd}/busted/library"
                 }
               }
             })
@@ -654,7 +658,7 @@ require "lazy".setup({
 -- [[ Miscellaneous ]] {{{
 
 -- Status line - requires some of the plugins installed above
-vim.o.statusline = "%!v:lua.St.draw()"  -- ref. ":h v:lua-call"
+vim.o.statusline = "%!v:lua.St.draw()"  -- see `:h v:lua-call`
 
 -- LSP progress messages (Neovim 0.10+)
 vim.api.nvim_create_autocmd("LspProgress", {
