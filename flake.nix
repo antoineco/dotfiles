@@ -95,6 +95,7 @@
                 gofumpt
                 delve
                 gomodifytags
+                gotestsum
                 gotests
                 impl
               ];
