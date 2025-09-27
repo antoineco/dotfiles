@@ -113,23 +113,6 @@ bat: ~/.config/bat ## Set up bat
 
 $(eval $(call symlink-dir,bat,~/.config/bat))
 
-# --------- QMK -----------
-
-ifeq ($(shell uname),Darwin)
-QMK_CLI_CFG_DIR := ~/Library/Application\ Support/qmk
-else
-QMK_CLI_CFG_DIR := ~/.config/qmk
-endif
-
-.PHONY: qmk
-qmk: $(QMK_CLI_CFG_DIR)/qmk.ini
-qmk: ## Set up custom configurations for QMK keyboards
-
-$(QMK_CLI_CFG_DIR):
-	mkdir '$@'
-
-$(eval $(call symlink-file,qmk/qmk.ini,$(QMK_CLI_CFG_DIR)/qmk.ini))
-
 # ---------- Misc ---------- 
 
 .DEFAULT_GOAL := help
