@@ -193,6 +193,9 @@ fzf_default_opts=(${FZF_DEFAULT_OPTS} '--color=16' '--color=fg+:7,hl:3,hl+:11,pr
 export FZF_DEFAULT_OPTS=${fzf_default_opts}
 unset fzf_default_opts
 
+# Difftastic
+export DFT_BACKGROUND=light  # disable usage of bright ANSI colors
+
 # Terminal shell integration
 if [[ ${TERM_PROGRAM} == WezTerm ]]; then
 	if [[ -s ${WEZTERM_EXECUTABLE_DIR:h}/Resources/wezterm.sh ]]; then
