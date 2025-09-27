@@ -167,6 +167,10 @@ bindkey -M vicmd "${key_info[Control]}x${key_info[Control]}e" edit-command-line
 (( $+commands[limactl] )) && . <(limactl completion zsh) && compdef _limactl limactl
 
 # Aliases
+alias Gid='git diff --cached'
+alias GiD='git diff --cached --word-diff'
+alias Gwd='git diff'
+alias GwD='git diff --word-diff'
 alias Grif=__git_rebase_fuzzy
 __git_rebase_fuzzy() {
 	local selected commit
