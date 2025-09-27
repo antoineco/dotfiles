@@ -60,23 +60,6 @@ WORDCHARS=${WORDCHARS//[\/]}
 # Set a custom prefix for the generated aliases. The default prefix is 'G'.
 #zstyle ':zim:git' aliases-prefix 'g'
 
-alias Grif=__git_rebase_fuzzy
-__git_rebase_fuzzy() {
-	local selected commit
-	local -i count=25
-	if (($# == 1)); then
-		count=$1
-	fi
-	selected="$(git log -${count} --date-order --pretty=format:'%h %s%d' \
-		| fzf -0 --no-multi --preview='git show --color=always {1}')"
-	local ret=$?
-	if [ -z ${selected} ]; then
-		return $ret
-	fi
-	commit=$(awk '{print $1}' <<< ${selected})
-	git rebase --interactive --autosquash "${commit}^"
-}
-
 #
 # input
 #
@@ -182,6 +165,24 @@ bindkey -M vicmd "${key_info[Control]}x${key_info[Control]}e" edit-command-line
 
 # Commands completion
 (( $+commands[limactl] )) && . <(limactl completion zsh) && compdef _limactl limactl
+
+# Aliases
+alias Grif=__git_rebase_fuzzy
+__git_rebase_fuzzy() {
+	local selected commit
+	local -i count=25
+	if (($# == 1)); then
+		count=$1
+	fi
+	selected="$(git log -${count} --date-order --pretty=format:'%h %s%d' \
+		| fzf -0 --no-multi --preview='git show --color=always {1}')"
+	local ret=$?
+	if [ -z ${selected} ]; then
+		return $ret
+	fi
+	commit=$(awk '{print $1}' <<< ${selected})
+	git rebase --interactive --autosquash "${commit}^"
+}
 
 # Shell theming
 fzf_default_opts=(${FZF_DEFAULT_OPTS} '--color=16' '--color=fg+:7,hl:3,hl+:11,prompt:6,pointer:4,marker:5,info:2')
