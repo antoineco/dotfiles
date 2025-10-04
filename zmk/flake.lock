@@ -1,5 +1,22 @@
 {
   "nodes": {
+    "glove80-zmk": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1754104430,
+        "narHash": "sha256-lfW2QBadlPjO7Q4pVs7ZgEBbhh/i+hONWGG/WCkn5eo=",
+        "owner": "moergo-sc",
+        "repo": "zmk",
+        "rev": "395eb4ae2160f372585f74ce3a82aefb5905f38f",
+        "type": "github"
+      },
+      "original": {
+        "owner": "moergo-sc",
+        "ref": "v25.08",
+        "repo": "zmk",
+        "type": "github"
+      }
+    },
     "nix-github-actions": {
       "inputs": {
         "nixpkgs": [
@@ -60,6 +77,7 @@
     },
     "root": {
       "inputs": {
+        "glove80-zmk": "glove80-zmk",
         "nixpkgs": "nixpkgs",
         "zephyr": "zephyr",
         "zephyr-nix": "zephyr-nix"

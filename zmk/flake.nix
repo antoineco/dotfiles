@@ -12,10 +12,19 @@
     zephyr-nix.url = "github:adisbladis/zephyr-nix";
     zephyr-nix.inputs.zephyr.follows = "zephyr";
     zephyr-nix.inputs.nixpkgs.follows = "nixpkgs";
+
+    # Glove80 ZMK fork with self-contained Zephyr toolchain.
+    glove80-zmk.url = "github:moergo-sc/zmk?ref=v25.08";
+    glove80-zmk.flake = false;
   };
 
   outputs =
-    { nixpkgs, zephyr-nix, ... }:
+    {
+      nixpkgs,
+      zephyr-nix,
+      glove80-zmk,
+      ...
+    }:
     let
       allSystems = [
         "x86_64-linux"
@@ -49,6 +58,17 @@
               pkgs.ninja
             ];
           };
+        }
+      );
+
+      packages = forAllSystems (
+        { pkgs }:
+        {
+          glove80 =
+            let
+              firmware = import glove80-zmk { inherit pkgs; };
+            in
+            firmware.glove80_combined;
         }
       );
     };
