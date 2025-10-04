@@ -80,7 +80,8 @@
         "glove80-zmk": "glove80-zmk",
         "nixpkgs": "nixpkgs",
         "zephyr": "zephyr",
-        "zephyr-nix": "zephyr-nix"
+        "zephyr-nix": "zephyr-nix",
+        "zmk-helpers": "zmk-helpers"
       }
     },
     "zephyr": {
@@ -122,6 +123,23 @@
       "original": {
         "owner": "adisbladis",
         "repo": "zephyr-nix",
+        "type": "github"
+      }
+    },
+    "zmk-helpers": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1754092354,
+        "narHash": "sha256-yPIzad8uPt+2gcxCq68JqHh+eC1/85zMOQYycAcfRWg=",
+        "owner": "urob",
+        "repo": "zmk-helpers",
+        "rev": "b1548efd28d2cc64b9506654e6883695c258190f",
+        "type": "github"
+      },
+      "original": {
+        "owner": "urob",
+        "ref": "v0.3",
+        "repo": "zmk-helpers",
         "type": "github"
       }
     }

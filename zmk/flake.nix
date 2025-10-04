@@ -16,6 +16,9 @@
     # Glove80 ZMK fork with self-contained Zephyr toolchain.
     glove80-zmk.url = "github:moergo-sc/zmk?ref=v25.08";
     glove80-zmk.flake = false;
+
+    zmk-helpers.url = "github:urob/zmk-helpers?ref=v0.3";
+    zmk-helpers.flake = false;
   };
 
   outputs =
@@ -23,6 +26,7 @@
       nixpkgs,
       zephyr-nix,
       glove80-zmk,
+      zmk-helpers,
       ...
     }:
     let
@@ -67,8 +71,18 @@
           glove80 =
             let
               firmware = import glove80-zmk { inherit pkgs; };
+
+              config = ./config;
+              overrides = {
+                keymap = "${config}/glove80.keymap";
+                kconfig = "${config}/glove80.conf";
+                extraModules = [ zmk-helpers ];
+              };
+
+              left = firmware.zmk.override (overrides // { board = "glove80_lh"; });
+              right = firmware.zmk.override (overrides // { board = "glove80_rh"; });
             in
-            firmware.glove80_combined;
+            firmware.combine_uf2 left right;
         }
       );
     };

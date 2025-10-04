@@ -8,8 +8,8 @@
 
 #include <dt-bindings/zmk/pointing.h>
 
-#include "zmk-helpers/helper.h"
-#include "zmk-helpers/key-labels/totem.h"
+#include <zmk-helpers/helper.h>
+#include <zmk-helpers/key-labels/totem.h>
 
 #define BASE 0
 #define LOWR 1

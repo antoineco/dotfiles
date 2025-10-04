@@ -1,0 +1,110 @@
+layout:
+  zmk_keyboard: glove80
+
+_aliases:
+  trns: &trns {t: ▽, type: trans}
+  held: &held {type: held}
+  spc: &spc $$mdi:keyboard-space$$
+  bspc: &bspc $$mdi:keyboard-backspace$$
+  del: &del $$mdi:backspace-reverse$$
+  llspc: &llspc {t: *spc, h: Lower}
+  ulbspc: &ulbspc {t: *bspc, s: *del, h: Upper}
+  albspc: &albspc {t: *bspc, h: Adjust}
+  alspc: &alspc {t: *spc, h: Adjust}
+  magic: &magic {t: $$mdi:heart-pulse$$}
+  tab: &tab $$mdi:keyboard-tab$$
+  ret: &ret $$mdi:keyboard-return$$
+  sft: &sft $$mdi:apple-keyboard-shift$$
+  ctl: &ctl $$mdi:apple-keyboard-control$$
+  opt: &opt $$mdi:apple-keyboard-option$$
+  cmd: &cmd $$mdi:apple-keyboard-command$$
+  caps: &caps $$mdi:apple-keyboard-caps$$
+  fslh: &fslh {t: /, s: '?'}
+  sftdot: &sftdot {t: ., s: ':'}
+  sftcom: &sftcom {t: ',', s: ;}
+  sftsqt: &sftsqt {t: "'", s: _}
+  sftmin: &sftmin {t: '-', s: '"'}
+  hmN: &hmN {t: N, h: *ctl}
+  hmR: &hmR {t: R, h: *opt}
+  hmT: &hmT {t: T, h: *cmd}
+  hmS: &hmS {t: S, h: *sft}
+  hmH: &hmH {t: H, h: *sft}
+  hmA: &hmA {t: A, h: *cmd}
+  hmE: &hmE {t: E, h: *opt}
+  hmI: &hmI {t: I, h: *ctl}
+  sksft: &sksft {t: *sft, h: sticky}
+  skctl: &skctl {t: *ctl, h: sticky}
+  skopt: &skopt {t: *opt, h: sticky}
+  skcmd: &skcmd {t: *cmd, h: sticky}
+  mute: &mute $$mdi:volume-mute$$
+  vold: &vold $$mdi:volume-minus$$
+  volu: &volu $$mdi:volume-plus$$
+  mply: &mply $$mdi:play-pause$$
+  mprv: &mprv $$mdi:skip-previous$$
+  mnxt: &mnxt $$mdi:skip-next$$
+  msb1: &msb1 $$mdi:mouse-left-click$$
+  msb2: &msb2 $$mdi:mouse-right-click$$
+  mslft: &mslft {t: $$mdi:mouse$$, right: ←}
+  msdwn: &msdwn {t: $$mdi:mouse$$, right: ↓}
+  msup: &msup {t: $$mdi:mouse$$, right: ↑}
+  msrgt: &msrgt {t: $$mdi:mouse$$, right: →}
+  mwlft: &mwlft {t: $$mdi:mouse-scroll-wheel$$, right: ←}
+  mwdwn: &mwdwn {t: $$mdi:mouse-scroll-wheel$$, right: ↓}
+  mwup: &mwup {t: $$mdi:mouse-scroll-wheel$$, right: ↑}
+  mwrgt: &mwrgt {t: $$mdi:mouse-scroll-wheel$$, right: →}
+  bt0: &bt0 {t: $$mdi:bluetooth$$, right: 0}
+  bt1: &bt1 {t: $$mdi:bluetooth$$, right: 1}
+  bt2: &bt2 {t: $$mdi:bluetooth$$, right: 2}
+  btclr: &btclr {t: $$mdi:bluetooth$$, right: $$mdi:delete$$}
+  usb: &usb {t: $$mdi:usb$$}
+
+layers:
+  Base:
+  - ['', '', '', '', '', '', '', '', '', '']
+  - ['', '', '', '', '', '', '', '', '', '', '', '']
+  - ['', B, L, D, W, Z, *sftsqt, F, O, U, J, '']
+  - [Esc, *hmN, *hmR, *hmT, *hmS, G, Y, *hmH, *hmA, *hmE, *hmI, *fslh]
+  - ['', Q, X, M, C, V, '', '', '', '', '', '', K, P, *sftdot, *sftmin, *sftcom, '']
+  - [*magic, '', '', '', '', *ulbspc, {h: Media}, '', '', {h: Function}, *llspc, '', '', '', '', '']
+  Lower:
+  - ['', '', '', '', '', '', '', '', '', '']
+  - ['', '', '', '', '', '', '', '', '', '', '', '']
+  - ['', '-', 7, 8, 9, +, '%', '[', (, ), ']', '']
+  - [':', 0, 4, 5, 6, '=', ←, ↓, ↑, →, ., b]
+  - ['', /, 1, 2, 3, '*', '', '', '', '', '', '', Home, PgDn, PgUp, End, x, '']
+  - ['', '', '', '', '', *albspc, *trns, '', '', *trns, *held, '', '', '', '', '']
+  Upper:
+  - ['', '', '', '', '', '', '', '', '', '']
+  - ['', '', '', '', '', '', '', '', '', '', '', '']
+  - ['', '~', ., '*', '&', '@', '%', '[', (, ), ']', '']
+  - [_, <, '|', '-', '>', /, '!', ',', '{', '}', ;, '?']
+  - ['', '`', "'", '"', +, \, '', '', '', '', '', '', '#', ^, ':', '=', $, '']
+  - ['', '', '', '', '', *held, *trns, '', '', *trns, *alspc, '', '', '', '', '']
+  Adjust:
+  - ['', '', '', '', '', '', '', '', '', '']
+  - ['', '', '', '', '', '', '', '', '', '', '', '']
+  - ['', *bt0, *bt1, *bt2, *usb, *btclr, '', '', '', '', '', '']
+  - ['', '', '', *msb1, *msb2, '', *mslft, *msdwn, *msup, *msrgt, '', '']
+  - ['', '', '', '', '', '', '', '', '', '', '', '', *mwlft, *mwdwn, *mwup, *mwrgt, '', '']
+  - ['', '', '', '', '', *held, *trns, '', '', *trns, *held, '', '', '', '', '']
+  Function:
+  - ['', '', '', '', '', '', '', '', '', '']
+  - ['', '', '', '', '', '', '', '', '', '', '', '']
+  - ['', F12, F7, F8, F9, '', '', F19, F20, F21, F24, '']
+  - ['', F11, F4, F5, F6, '', '', F16, F17, F18, F23, '']
+  - ['', F10, F1, F2, F3, '', '', '', '', '', '', '', '', F13, F14, F15, F22, '']
+  - ['', '', '', '', '', *trns, *trns, '', '', *held, *trns, '', '', '', '', '']
+  Media:
+  - ['', '', '', '', '', '', '', '', '', '']
+  - ['', '', '', '', '', '', '', '', '', '', '', '']
+  - ['', '', '', '', '', '', '', *mprv, *mply, *mnxt, '', '']
+  - ['', *skctl, *skopt, *skcmd, *sksft, '', '', *mute, *vold, *volu, '', '']
+  - ['', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '']
+  - ['', '', '', '', '', *trns, *held, '', '', *trns, *trns, '', '', '', '', '']
+
+combos:
+- { tk: [L, D], k: *tab, l: [Base] }
+- { tk: [O, U], k: *ret, l: [Base] }
+- { tk: [S, H], k: *caps, l: [Base] }
+- { tk: [7, 8], k: *spc, l: [Lower] }
+- { tk: [(, )], k: *bspc, l: [Upper] }

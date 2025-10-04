@@ -1,3 +1,3 @@
 Generated with [Keymap Drawer](https://github.com/caksoylar/keymap-drawer)
 
-![Keymap](./keymap-drawer.svg)
+![TOTEM Keymap](./totem-keymap-drawer.svg)
