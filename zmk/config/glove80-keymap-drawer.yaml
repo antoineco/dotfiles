@@ -11,7 +11,7 @@ _aliases:
   ulbspc: &ulbspc {t: *bspc, s: *del, h: Upper}
   albspc: &albspc {t: *bspc, h: Adjust}
   alspc: &alspc {t: *spc, h: Adjust}
-  magic: &magic {t: $$mdi:heart-pulse$$}
+  magic: &magic {t: $$mdi:heart-pulse$$, h: Magic}
   tab: &tab $$mdi:keyboard-tab$$
   ret: &ret $$mdi:keyboard-return$$
   sft: &sft $$mdi:apple-keyboard-shift$$
@@ -55,8 +55,20 @@ _aliases:
   bt0: &bt0 {t: $$mdi:bluetooth$$, right: 0}
   bt1: &bt1 {t: $$mdi:bluetooth$$, right: 1}
   bt2: &bt2 {t: $$mdi:bluetooth$$, right: 2}
+  bt3: &bt3 {t: $$mdi:bluetooth$$, right: 3}
   btclr: &btclr {t: $$mdi:bluetooth$$, right: $$mdi:delete$$}
+  btclra: &btclra {t: $$mdi:bluetooth$$, right: $$mdi:delete-forever$$}
   usb: &usb {t: $$mdi:usb$$}
+  rmspi: &rmspi {t: $$mdi:wall-sconce-flat-variant$$, right: $$mdi:fan-plus$$}
+  rmspd: &rmspd {t: $$mdi:wall-sconce-flat-variant$$, right: $$mdi:fan-minus$$}
+  rmsai: &rmsai {t: $$mdi:wall-sconce-flat-variant$$, right: $$mdi:water$$}
+  rmsad: &rmsad {t: $$mdi:wall-sconce-flat-variant$$, right: $$mdi:water-opacity$$}
+  rmhui: &rmhui {t: $$mdi:wall-sconce-flat-variant$$, right: $$mdi:palette$$}
+  rmhud: &rmhud {t: $$mdi:wall-sconce-flat-variant$$, right: $$mdi:palette-outline$$}
+  rmbri: &rmbri {t: $$mdi:wall-sconce-flat-variant$$, right: $$mdi:lightbulb-on$$}
+  rmbrd: &rmbrd {t: $$mdi:wall-sconce-flat-variant$$, right: $$mdi:lightbulb-on-20$$}
+  rmtog: &rmtog $$mdi:wall-sconce-flat-variant$$
+  rmeff: &rmeff {t: $$mdi:wall-sconce-flat-variant$$, right: $$mdi:creation$$}
 
 layers:
   Base:
@@ -83,7 +95,7 @@ layers:
   Adjust:
   - ['', '', '', '', '', '', '', '', '', '']
   - ['', '', '', '', '', '', '', '', '', '', '', '']
-  - ['', *bt0, *bt1, *bt2, *usb, *btclr, '', '', '', '', '', '']
+  - ['', '', '', '', '', '', '', '', '', '', '', '']
   - ['', '', '', *msb1, *msb2, '', *mslft, *msdwn, *msup, *msrgt, '', '']
   - ['', '', '', '', '', '', '', '', '', '', '', '', *mwlft, *mwdwn, *mwup, *mwrgt, '', '']
   - ['', '', '', '', '', *held, *trns, '', '', *trns, *held, '', '', '', '', '']
@@ -101,6 +113,13 @@ layers:
   - ['', *skctl, *skopt, *skcmd, *sksft, '', '', *mute, *vold, *volu, '', '']
   - ['', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '']
   - ['', '', '', '', '', *trns, *held, '', '', *trns, *trns, '', '', '', '', '']
+  Magic:
+  - [*btclr, '', '', '', '', '', '', '', '', *btclra]
+  - ['', '', '', '', '', '', '', '', '', '', '', '']
+  - ['', *rmspi, *rmsai, *rmhui, *rmbri, *rmtog, '', '', '', '', '', '']
+  - ['', *rmspd, *rmsad, *rmhud, *rmbrd, *rmeff, '', '', '', '', '', '']
+  - ['', '', '', '', '', '', *bt2, *bt3, '', '', '', '', '', '', '', '', '', '']
+  - [*held, '', '', '', '', *bt0, *bt1, *usb, '', '', '', '', '', '', '', '']
 
 combos:
 - { tk: [L, D], k: *tab, l: [Base] }
