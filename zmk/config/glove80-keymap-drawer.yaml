@@ -7,13 +7,15 @@ _aliases:
   spc: &spc $$mdi:keyboard-space$$
   bspc: &bspc $$mdi:keyboard-backspace$$
   del: &del $$mdi:backspace-reverse$$
+  ret: &ret $$mdi:keyboard-return$$
   llspc: &llspc {t: *spc, h: Lower}
-  ulbspc: &ulbspc {t: *bspc, s: *del, h: Upper}
+  ulbspc: &ulbspc {t: *bspc, h: Upper}
   albspc: &albspc {t: *bspc, h: Adjust}
   alspc: &alspc {t: *spc, h: Adjust}
+  flret: &flret {t: *ret, h: Function}
+  mldel: &mldel {t: *del, h: Media}
   magic: &magic {t: $$mdi:heart-pulse$$, h: Magic}
   tab: &tab $$mdi:keyboard-tab$$
-  ret: &ret $$mdi:keyboard-return$$
   sft: &sft $$mdi:apple-keyboard-shift$$
   ctl: &ctl $$mdi:apple-keyboard-control$$
   opt: &opt $$mdi:apple-keyboard-option$$
@@ -77,7 +79,7 @@ layers:
   - ['', B, L, D, W, Z, *sftsqt, F, O, U, J, '']
   - [Esc, *hmN, *hmR, *hmT, *hmS, G, Y, *hmH, *hmA, *hmE, *hmI, *fslh]
   - ['', Q, X, M, C, V, '', '', '', '', '', '', K, P, *sftdot, *sftmin, *sftcom, '']
-  - [*magic, '', '', '', '', *ulbspc, {h: Media}, '', '', {h: Function}, *llspc, '', '', '', '', '']
+  - [*magic, '', '', '', '', *ulbspc, *mldel, '', '', *flret, *llspc, '', '', '', '', '']
   Lower:
   - ['', '', '', '', '', '', '', '', '', '']
   - ['', '', '', '', '', '', '', '', '', '', '', '']

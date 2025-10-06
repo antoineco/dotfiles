@@ -45,7 +45,6 @@ MAKE_HRM(hmr, "Home Row Mod R", KEYS_L)
                quick-tap-ms = <175>;)
 
 MAKE_LAYER_TAP(ltt, "Layer-Tap", &kp)
-MAKE_LAYER_TAP(ltb, "Layer-Tap Backspace", &bspcdel)
 
 MAKE_LAYER_TAP(magic, "Magic", &macro_rgb_sta)  /* must use macro as 2nd binding because RGB_STATUS expands to 2 params */
 ZMK_MACRO(macro_rgb_sta, bindings = <&rgb_ug RGB_STATUS>;)
@@ -58,7 +57,6 @@ MAKE_MORPH(sqtundr, LSFT, &kp SQT, &kp UNDER)
 MAKE_MORPH(dotcolon, LSFT, &kp DOT, &kp COLON)
 MAKE_MORPH(mindqt, LSFT, &kp MINUS, &kp DQT)
 MAKE_MORPH(commsemi, LSFT, &kp COMMA, &kp SEMI)
-MAKE_MORPH(bspcdel, RSFT, &kp BSPC, &kp DEL)
 
 #define MAKE_COMBO_IDLE(NAME, BINDINGS, KEYPOS)    \
   ZMK_COMBO(NAME, BINDINGS, KEYPOS, BASE, COMBO_TERM, 175)
@@ -91,7 +89,9 @@ ZMK_CONDITIONAL_LAYER(adjust, LOWR UPPR, ADJU)
 #define HM_I &hmr RCTRL I
 
 #define SPC_LOWR  &ltt   LOWR SPACE
-#define BSPC_UPPR &ltb   UPPR 0x0   /* second arg irrelevant due to usage of mod_morph binding */
+#define RET_FUNC  &ltt   FUNC ENTER
+#define BSPC_UPPR &ltt   UPPR BSPC
+#define DEL_MEDI  &ltt   MEDI DEL
 #define MAGIC     &magic MAGI 0x0   /* second arg irrelevant due to usage of macro binding */
 
 #define RM_SPI &rgb_ug RGB_SPI
@@ -116,7 +116,7 @@ GLV80_LAYER(Base,
   MAGIC        &none        &none        &none        &none                     ,              &none        &none        &none        &none        &none
                                                                                 ,
                                          &none        &none        &none          &none        &none        &none,
-                                         BSPC_UPPR    &mo MEDI     &none          &none        &mo FUNC     SPC_LOWR
+                                         BSPC_UPPR    DEL_MEDI     &none          &none        RET_FUNC     SPC_LOWR
 )
 
 /* Numbers, Navigation

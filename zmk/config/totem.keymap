@@ -42,7 +42,6 @@ MAKE_HRM(hmr, "Home Row Mod R", KEYS_L)
                quick-tap-ms = <175>;)
 
 MAKE_LAYER_TAP(ltt, "Layer-Tap", &kp)
-MAKE_LAYER_TAP(ltb, "Layer-Tap Backspace", &bspcdel)
 
 #define MAKE_MORPH(NAME, MOD, BINDING1, BINDING2)   \
   ZMK_MOD_MORPH(NAME, mods = <(MOD_##MOD)>;         \
@@ -52,7 +51,6 @@ MAKE_MORPH(sqtundr, LSFT, &kp SQT, &kp UNDER)
 MAKE_MORPH(dotcolon, LSFT, &kp DOT, &kp COLON)
 MAKE_MORPH(mindqt, LSFT, &kp MINUS, &kp DQT)
 MAKE_MORPH(commsemi, LSFT, &kp COMMA, &kp SEMI)
-MAKE_MORPH(bspcdel, RSFT, &kp BSPC, &kp DEL)
 
 #define MAKE_COMBO_IDLE(NAME, BINDINGS, KEYPOS)    \
   ZMK_COMBO(NAME, BINDINGS, KEYPOS, BASE, COMBO_TERM, 175)
@@ -84,7 +82,9 @@ ZMK_CONDITIONAL_LAYER(adjust, LOWR UPPR, ADJU)
 #define HM_I &hmr RCTRL I
 
 #define SPC_LOWR  &ltt LOWR SPACE
-#define BSPC_UPPR &ltb UPPR 0x0   /* second arg irrelevant due to usage of mod_morph binding */
+#define RET_FUNC  &ltt FUNC ENTER
+#define BSPC_UPPR &ltt UPPR BSPC
+#define DEL_MEDI  &ltt MEDI DEL
 
 / {
     keymap {
@@ -98,7 +98,7 @@ ZMK_CONDITIONAL_LAYER(adjust, LOWR UPPR, ADJU)
                              &kp B        &kp L        &kp D        &kp W        &kp Z                                    &sqtundr     &kp F        &kp O        &kp U        &kp J
                              HM_N         HM_R         HM_T         HM_S         &kp G                                    &kp Y        HM_H         HM_A         HM_E         HM_I
                 &kp ESC      &kp Q        &kp X        &kp M        &kp C        &kp V                                    &kp K        &kp P        &dotcolon    &mindqt      &commsemi    &kp FSLH
-                                                                    &none        &mo MEDI     BSPC_UPPR      SPC_LOWR     &mo FUNC     &none
+                                                                    &none        DEL_MEDI     BSPC_UPPR      SPC_LOWR     RET_FUNC     &none
             >;
         };
 
