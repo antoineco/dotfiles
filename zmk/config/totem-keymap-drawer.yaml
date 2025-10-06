@@ -69,12 +69,12 @@ layers:
   - ['-', 7, 8, 9, +, '%', '[', (, ), ']']
   - [0, 4, 5, 6, '=', ←, ↓, ↑, →, .]
   - [':', /, 1, 2, 3, '*', Home, PgDn, PgUp, End, x, b]
-  - [*trns, *trns, *albspc, *held, *trns, *trns]
+  - ['', *trns, *albspc, *held, '', '']
   Upper:
   - ['~', ., '*', '&', '@', '%', '[', (, ), ']']
   - [<, '|', '-', '>', /, '!', ',', '{', '}', ;]
   - [_, '`', "'", '"', +, \, '#', ^, ':', '=', $, '?']
-  - [*trns, *trns, *held, *alspc, *trns, *trns]
+  - ['', '', *held, *alspc, *trns, '']
   Adjust:
   - [*bt0, *bt1, *bt2, *usb, *btclr, '', '', '', '', '']
   - ['', '', *msb1, *msb2, '', *mslft, *msdwn, *msup, *msrgt, '']
@@ -84,12 +84,12 @@ layers:
   - [F12, F7, F8, F9, '', '', F19, F20, F21, F24]
   - [F11, F4, F5, F6, '', '', F16, F17, F18, F23]
   - ['', F10, F1, F2, F3, '', '', F13, F14, F15, F22, '']
-  - [*trns, *trns, *trns, *trns, *held, *trns]
+  - ['', '', '', '', *held, '']
   Media:
   - ['', '', '', '', '', '', *mprv, *mply, *mnxt, '']
   - [*skctl, *skopt, *skcmd, *sksft, '', '', *mute, *vold, *volu, '']
   - ['', '', '', '', '', '', '', '', '', '', '', '']
-  - [*trns, *held, *trns, *trns, *trns, *trns]
+  - ['', *held, '', '', '', '']
 
 combos:
 - { tk: [L, D], k: *tab, l: [Base] }
