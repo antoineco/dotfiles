@@ -106,7 +106,7 @@ ZMK_CONDITIONAL_LAYER(adjust, LOWR UPPR, ADJU)
 #define RM_EFF &rgb_ug RGB_EFF
 
 /* Base (default), Graphite alphas
-*/
+ */
 GLV80_LAYER(Base,
   &none        &none        &none        &none        &none                                    &none        &none        &none        &none        &none
   &none        &none        &none        &none        &none        &none          &none        &none        &none        &none        &none        &none
@@ -120,7 +120,7 @@ GLV80_LAYER(Base,
 )
 
 /* Numbers, Navigation
-*/
+ */
 GLV80_LAYER(Lower,
   &none        &none        &none        &none        &none                                    &none        &none        &none        &none        &none
   &none        &none        &none        &none        &none        &none          &none        &none        &none        &none        &none        &none
@@ -134,7 +134,7 @@ GLV80_LAYER(Lower,
 )
 
 /* Symbols
-*/
+ */
 GLV80_LAYER(Upper,
   &none        &none        &none        &none        &none                                    &none        &none        &none        &none        &none
   &none        &none        &none        &none        &none        &none          &none        &none        &none        &none        &none        &none
@@ -148,7 +148,7 @@ GLV80_LAYER(Upper,
 )
 
 /* Mouse
-*/
+ */
 GLV80_LAYER(Adjust,
   &none        &none        &none        &none        &none                                    &none        &none        &none        &none        &none
   &none        &none        &none        &none        &none        &none          &none        &none        &none        &none        &none        &none
@@ -162,7 +162,7 @@ GLV80_LAYER(Adjust,
 )
 
 /* Function keys
-*/
+ */
 GLV80_LAYER(Function,
   &none        &none        &none        &none        &none                                    &none        &none        &none        &none        &none
   &none        &none        &none        &none        &none        &none          &none        &none        &none        &none        &none        &none
@@ -190,7 +190,7 @@ GLV80_LAYER(Media,
 )
 
 /* Keyboard control
-*/
+ */
 GLV80_LAYER(Magic,
   &bt BT_CLR   &none        &none        &none        &none                                    &none        &none        &none        &none        &bt BT_CLR_ALL
   &none        &none        &none        &none        &none        &none          &none        &none        &none        &none        &none        &none
