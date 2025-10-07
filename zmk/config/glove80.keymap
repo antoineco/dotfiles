@@ -10,86 +10,19 @@
 
 #include "mouse.h"
 
-#define BASE 0
-#define LOWR 1
-#define UPPR 2
-#define ADJU 3
-#define FUNC 4
-#define MEDI 5
-#define MAGI 6
-
 #define KEYS_L LT0 LT1 LT2 LT3 LT4 LM0 LM1 LM2 LM3 LM4 LM5 LB0 LB1 LB2 LB3 LB4 LH0 LH1 LH2
 #define KEYS_R RT0 RT1 RT2 RT3 RT4 RM0 RM1 RM2 RM3 RM4 RM5 RB0 RB1 RB2 RB3 RB4 RH0 RH1 RH2
 
-#define MAKE_HRM(NAME, DISP, TRIGGER_POS)                  \
-  ZMK_HOLD_TAP(NAME, display-name = DISP;                  \
-               bindings = <&kp>, <&kp>;                    \
-               flavor = "balanced";                        \
-               require-prior-idle-ms = <125>;              \
-               tapping-term-ms = <280>;                    \
-               quick-tap-ms = <175>;                       \
-               hold-trigger-key-positions = <TRIGGER_POS>; \
-               hold-trigger-on-release;)
+#include "keymap.dtsi"
 
-MAKE_HRM(hml, "Home Row Mod L", KEYS_R)
-MAKE_HRM(hmr, "Home Row Mod R", KEYS_L)
-
-#define MAKE_LAYER_TAP(NAME, DISP, BINDING) \
-  ZMK_HOLD_TAP(NAME, display-name = DISP;   \
-               bindings = <&mo>, <BINDING>; \
-               flavor = "balanced";         \
-               tapping-term-ms = <280>;     \
-               quick-tap-ms = <175>;)
-
-MAKE_LAYER_TAP(ltt, "Layer-Tap", &kp)
+#define MAGI 6
 
 MAKE_LAYER_TAP(magic, "Magic", &macro_rgb_sta)  /* must use macro as 2nd binding because RGB_STATUS expands to 2 params */
 ZMK_MACRO(macro_rgb_sta, bindings = <&rgb_ug RGB_STATUS>;)
 
-#define MAKE_MORPH(NAME, MOD, BINDING1, BINDING2)   \
-  ZMK_MOD_MORPH(NAME, mods = <(MOD_##MOD)>;         \
-                bindings = <BINDING1>, <BINDING2>;)
+#define MAGIC &magic MAGI 0x0 /* second arg irrelevant due to usage of macro binding */
 
-MAKE_MORPH(sqtundr, LSFT, &kp SQT, &kp UNDER)
-MAKE_MORPH(dotcolon, LSFT, &kp DOT, &kp COLON)
-MAKE_MORPH(mindqt, LSFT, &kp MINUS, &kp DQT)
-MAKE_MORPH(commsemi, LSFT, &kp COMMA, &kp SEMI)
-
-#define MAKE_COMBO_IDLE(NAME, BINDINGS, KEYPOS)    \
-  ZMK_COMBO(NAME, BINDINGS, KEYPOS, BASE, COMBO_TERM, 175)
-
-MAKE_COMBO_IDLE(tab, &kp TAB, LT2 LT3)
-MAKE_COMBO_IDLE(enter, &kp ENTER, RT2 RT3)
-ZMK_COMBO(spc_lower, &kp SPACE, LT2 LT3, LOWR)
-ZMK_COMBO(bspc_upper, &kp BSPC, RT2 RT3, UPPR)
-ZMK_COMBO(caps_word, &caps_word, LM1 RM1, BASE)
-
-#define MAKE_BT_TAP_DANCE(PROFILE)                                                           \
-  ZMK_TAP_DANCE(bt##PROFILE, display-name = ZMK_HELPER_STRINGIFY(Bluetooth Profile PROFILE); \
-                bindings = <&macro_bt##PROFILE>, <&bt BT_DISC PROFILE>;)                     \
-  ZMK_MACRO(macro_bt##PROFILE, bindings = <&out OUT_BLE>, <&bt BT_SEL PROFILE>;)
-
-MAKE_BT_TAP_DANCE(0)
-MAKE_BT_TAP_DANCE(1)
-MAKE_BT_TAP_DANCE(2)
 MAKE_BT_TAP_DANCE(3)
-
-ZMK_CONDITIONAL_LAYER(adjust, LOWR UPPR, ADJU)
-
-#define HM_N &hml LCTRL N
-#define HM_R &hml LALT R
-#define HM_T &hml LGUI T
-#define HM_S &hml LSHFT S
-#define HM_H &hmr RSHFT H
-#define HM_A &hmr RGUI A
-#define HM_E &hmr RALT E
-#define HM_I &hmr RCTRL I
-
-#define SPC_LOWR  &ltt   LOWR SPACE
-#define RET_FUNC  &ltt   FUNC ENTER
-#define BSPC_UPPR &ltt   UPPR BSPC
-#define DEL_MEDI  &ltt   MEDI DEL
-#define MAGIC     &magic MAGI 0x0   /* second arg irrelevant due to usage of macro binding */
 
 #define RM_SPI &rgb_ug RGB_SPI
 #define RM_SPD &rgb_ug RGB_SPD
