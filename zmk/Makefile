@@ -7,7 +7,7 @@ init:
 	west update
 	west zephyr-export
 
-%.uf2: config/totem.keymap config/totem.conf config/%.conf
+%.uf2: config/totem.keymap config/totem.conf config/%.conf config/mouse.h
 	west build -p -s zmk/app -d build/$* -b seeeduino_xiao_ble -- -DZMK_CONFIG=$(CURDIR)/config -DSHIELD=$*
 	cp build/$*/zephyr/zmk.uf2 $@
 
