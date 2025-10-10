@@ -69,7 +69,6 @@ vim.opt.wildmode = {
 -- Mappings {{{
 
 vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Add Diagnostics to Location List" })
-vim.keymap.set("t", "<leader><esc>", "<C-\\><C-n>", { desc = "Exit Terminal Insert mode" })
 
 -- }}}
 
