@@ -429,9 +429,10 @@ require "lazy".setup({
     "ibhagwan/fzf-lua",
     cmd = "FzfLua",
     keys = {
-      { "<leader>ff", function() require "fzf-lua".files() end,     desc = "Find Files" },
-      { "<leader>ft", function() require "fzf-lua".live_grep() end, desc = "Find Text" },
-      { "<leader>fb", function() require "fzf-lua".buffers() end,   desc = "Find Buffers" }
+      { "<leader>fz", function() require "fzf-lua.cmd".run_command() end, desc = "Fzf Actions" },
+      { "<leader>ff", function() require "fzf-lua".files() end,           desc = "Find Files" },
+      { "<leader>ft", function() require "fzf-lua".live_grep() end,       desc = "Find Text" },
+      { "<leader>fb", function() require "fzf-lua".buffers() end,         desc = "Find Buffers" }
     },
     opts = {}
   },
