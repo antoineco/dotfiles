@@ -308,7 +308,7 @@ require "lazy".setup({
 
   {
     "saghen/blink.cmp",
-    build = "nix run .#build-plugin",
+    version = "1.*",
     event = "InsertEnter",
     dependencies = "rafamadriz/friendly-snippets",
     opts = {}
