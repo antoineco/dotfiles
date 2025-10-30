@@ -363,7 +363,6 @@ require "lazy".setup({
     "ray-x/go.nvim",
     ft = { "go", "gomod", "gosum", "gotmpl", "gohtmltmpl", "gotexttmpl" },
     opts = {
-      diagnostic = false,  -- configured globally via vim.diagnostic.config()
       textobjects = false,
       lsp_cfg = {
         settings = {
