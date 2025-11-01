@@ -613,7 +613,27 @@ require "lazy".setup({
         }
       },
       -- adapters
-      { "leoluz/nvim-dap-go", opts = {} }
+      {
+        "leoluz/nvim-dap-go",
+        opts = {},
+        config = function(_, opts)
+          require "dap-go".setup(opts)
+
+          local dap = require "dap"
+          local dap_go_adapter = dap.adapters.go
+          dap.adapters.go = function(callback, client_config)
+            if client_config.mode == "remote" and client_config.host and client_config.port then
+              callback {
+                type = "server",
+                host = client_config.host,
+                port = client_config.port
+              }
+              return
+            end
+            dap_go_adapter(callback, client_config)
+          end
+        end
+      }
     },
     keys = {
       { "<F5>", function() require "dap".step_over() end, desc = "Step Over" },
