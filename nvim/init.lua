@@ -106,21 +106,6 @@ require "lazy".setup({
   -- User Interface {{{
 
   {
-    "sainnhe/everforest",
-    lazy = colorscheme ~= "everforest",
-    priority = 1000,
-    config = function()
-      vim.api.nvim_create_autocmd("ColorSchemePre", {
-        group = nvinit_augrp,
-        pattern = "everforest",
-        callback = function()
-          vim.g.everforest_background = vim.o.bg == "dark" and "medium" or "hard"
-        end
-      })
-      vim.g.everforest_enable_italic = true
-    end
-  },
-  {
     "ramojus/mellifluous.nvim",
     lazy = colorscheme ~= "mellifluous",
     priority = 1000,

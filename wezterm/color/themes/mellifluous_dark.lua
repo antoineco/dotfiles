@@ -1,4 +1,3 @@
-local wezterm = require 'wezterm'
 local scheme = require 'color.scheme'
 
 ---@type Scheme
