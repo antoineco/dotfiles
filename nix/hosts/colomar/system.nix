@@ -1,4 +1,9 @@
-{ lib, pkgs, ... }:
+{
+  lib,
+  pkgs,
+  nixpkgs-unstable,
+  ...
+}:
 {
   system.primaryUser = "acotten";
 
@@ -67,9 +72,11 @@
 
   launchd =
     let
+      pkgs-unstable = nixpkgs-unstable.legacyPackages.${pkgs.system};
+
       kanataSvcCfg = {
         ProgramArguments = [
-          "${pkgs.kanata}/bin/kanata"
+          "${pkgs-unstable.kanata}/bin/kanata"
           "-c"
           "/Users/acotten/git/antoineco/dotfiles/kanata/apple_internal.kbd"
         ];

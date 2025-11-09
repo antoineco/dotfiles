@@ -149,7 +149,7 @@
 
       darwinConfigurations = {
         colomar = nix-darwin.lib.darwinSystem {
-          specialArgs = { inherit neovim-overlay; };
+          specialArgs = { inherit nixpkgs-unstable neovim-overlay; };
           modules = [ ./nix/hosts/colomar ];
         };
       };
