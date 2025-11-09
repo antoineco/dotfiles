@@ -9,7 +9,7 @@
   ZMK_HOLD_TAP(NAME, display-name = DISP;                  \
                bindings = <&kp>, <&kp>;                    \
                flavor = "balanced";                        \
-               require-prior-idle-ms = <125>;              \
+               require-prior-idle-ms = <80>;               \
                tapping-term-ms = <280>;                    \
                quick-tap-ms = <175>;                       \
                hold-trigger-key-positions = <TRIGGER_POS>; \
