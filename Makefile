@@ -13,12 +13,12 @@ endif
 endef
 
 define symlink-file
-$2: | $(shell dirname '$2')
+$2:
 ifeq ($(gnu_ln),0)
-	ln -srTf -- $1 '$$@'
+	ln -srTf -- $1 $$@
 else
-	@rm -vf -- '$$@'
-	ln -sf -- $$(abspath $1) '$$@'
+	@rm -vf -- $$@
+	ln -sf -- $$(abspath $1) $$@
 endif
 endef
 
