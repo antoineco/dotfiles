@@ -72,7 +72,7 @@
 
   launchd =
     let
-      pkgs-unstable = nixpkgs-unstable.legacyPackages.${pkgs.system};
+      pkgs-unstable = nixpkgs-unstable.legacyPackages.${pkgs.stdenv.hostPlatform.system};
 
       kanataSvcCfg = {
         ProgramArguments = [

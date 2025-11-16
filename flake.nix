@@ -85,7 +85,7 @@
             name = "go";
             packages =
               let
-                pkgs-unstable = nixpkgs-unstable.legacyPackages.${pkgs.system};
+                pkgs-unstable = nixpkgs-unstable.legacyPackages.${pkgs.stdenv.hostPlatform.system};
               in
               with pkgs-unstable;
               [

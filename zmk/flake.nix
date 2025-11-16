@@ -47,7 +47,7 @@
       devShells = forAllSystems (
         { pkgs }:
         let
-          zephyr = zephyr-nix.packages.${pkgs.system};
+          zephyr = zephyr-nix.packages.${pkgs.stdenv.hostPlatform.system};
         in
         {
           default = pkgs.mkShellNoCC {
