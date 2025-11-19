@@ -92,7 +92,7 @@ vim.pack.add {
   -- Language Servers
   "https://github.com/neovim/nvim-lspconfig.git",
   -- Completion
-  { src = "https://github.com/saghen/blink.cmp.git",                            version = vim.version.range "1.*" },
+  { src = "https://github.com/saghen/blink.cmp.git", version = vim.version.range "1.*" },
   "https://github.com/rafamadriz/friendly-snippets.git",
   -- Version Control
   "https://github.com/lewis6991/gitsigns.nvim.git",
@@ -103,8 +103,6 @@ vim.pack.add {
   -- Search
   "https://github.com/ibhagwan/fzf-lua.git",
   -- Tree-sitter
-  { src = "https://github.com/nvim-treesitter/nvim-treesitter.git",             version = "main" },
-  { src = "https://github.com/nvim-treesitter/nvim-treesitter-textobjects.git", version = "main" },
   "https://github.com/nvim-treesitter/nvim-treesitter-context.git",
   -- Testing
   "https://github.com/nvim-neotest/neotest.git",
@@ -373,15 +371,11 @@ do
   vim.keymap.set("n", "<leader>fb", function() require "fzf-lua".buffers() end, { desc = "Find Buffers" })
 end
 
--- FIXME: TSUpdate on update
 do
   local function autostart(ft)
     vim.api.nvim_create_autocmd("FileType", {
       pattern = { ft },
-      callback = function()
-        require "nvim-treesitter".install(ft):wait(1000 * 60 * 5)
-        vim.treesitter.start()
-      end
+      callback = function() vim.treesitter.start() end
     })
   end
   autostart "go"
