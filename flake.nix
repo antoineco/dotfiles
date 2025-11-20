@@ -142,16 +142,15 @@
             { pkgs, ... }:
             {
               startupPlugins = {
-                general = [
-                  pkgs.vimPlugins.nvim-treesitter-textobjects
-                ]
-                # Allow collate_grammars to collect grammars under the grammarPackName directory.
-                # When using pkgs.vimPlugins.nvim-treesitter.withPlugins, grammars end up in the
-                # packageName directory instead.
-                ++ (with pkgs.tree-sitter-grammars; [
-                  (pkgs.neovimUtils.grammarToPlugin tree-sitter-go)
-                  (pkgs.neovimUtils.grammarToPlugin tree-sitter-rust)
-                ]);
+                general = with pkgs.vimPlugins; [
+                  (nvim-treesitter.withPlugins (
+                    p: with p; [
+                      go
+                      rust
+                    ]
+                  ))
+                  nvim-treesitter-textobjects
+                ];
               };
             };
 
@@ -163,6 +162,9 @@
                   wrapRc = false;
                   aliases = [ "vi" ];
                   neovim-unwrapped = neovim-overlay.packages.${system}.neovim;
+                  # The nvim-treesitter-main overlay collates grammars itself,
+                  # making this setting ineffective (iofq/nvim-treesitter-main#19).
+                  collate_grammars = false;
                 };
                 categories = {
                   general = true;
