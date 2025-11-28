@@ -14,7 +14,7 @@
     zephyr-nix.inputs.nixpkgs.follows = "nixpkgs";
 
     # Glove80 ZMK fork with self-contained Zephyr toolchain.
-    glove80-zmk.url = "github:moergo-sc/zmk?ref=v25.08";
+    glove80-zmk.url = "github:moergo-sc/zmk?ref=v25.11";
     glove80-zmk.flake = false;
 
     zmk-helpers.url = "github:urob/zmk-helpers?ref=v0.3";
