@@ -8,8 +8,8 @@ typeset -U path fpath
 # Editor
 # In absence of explicit zle configuration (e.g. via bindkey), Zsh sets its key bindings based on the value of $EDITOR.
 # We set it first to be on the safe side.
-export EDITOR=nvim
-export VISUAL=nvim
+export EDITOR=vi
+export VISUAL=vi
 
 # Fpath mangling for user functions
 fpath=(${HOME}/.local/share/zsh/site-functions $fpath)
