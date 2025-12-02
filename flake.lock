@@ -324,9 +324,10 @@
         "type": "github"
       },
       "original": {
-        "id": "nix-darwin",
+        "owner": "nix-darwin",
         "ref": "nix-darwin-25.11",
-        "type": "indirect"
+        "repo": "nix-darwin",
+        "type": "github"
       }
     },
     "nixCats": {

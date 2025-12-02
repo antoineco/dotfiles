@@ -9,7 +9,7 @@
     nixos-wsl.url = "github:nix-community/NixOS-WSL";
 
     nix-darwin = {
-      url = "nix-darwin/nix-darwin-25.11";
+      url = "github:nix-darwin/nix-darwin/nix-darwin-25.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
