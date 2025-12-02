@@ -2,14 +2,14 @@
   description = "System configurations for NixOS and macOS";
 
   inputs = {
-    nixpkgs.url = "https://flakehub.com/f/NixOS/nixpkgs/0.2505"; # nixos-25.05
+    nixpkgs.url = "https://flakehub.com/f/NixOS/nixpkgs/0.2511"; # nixos-25.11
     nixpkgs-unstable.url = "https://flakehub.com/f/NixOS/nixpkgs/0.1"; # nixos-unstable
     determinate.url = "https://flakehub.com/f/DeterminateSystems/determinate/3";
 
     nixos-wsl.url = "github:nix-community/NixOS-WSL";
 
     nix-darwin = {
-      url = "nix-darwin/nix-darwin-25.05";
+      url = "nix-darwin/nix-darwin-25.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
