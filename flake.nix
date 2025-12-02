@@ -86,14 +86,11 @@
               ];
             };
 
-          go = pkgs.mkShell {
-            name = "go";
-            packages =
-              let
-                pkgs-unstable = nixpkgs-unstable.legacyPackages.${pkgs.stdenv.hostPlatform.system};
-              in
-              with pkgs-unstable;
-              [
+          go =
+            with pkgs;
+            mkShell {
+              name = "go";
+              packages = [
                 go
                 gopls
                 golangci-lint
@@ -104,7 +101,7 @@
                 gotests
                 impl
               ];
-          };
+            };
 
           rust =
             with pkgs;
