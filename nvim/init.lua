@@ -98,6 +98,7 @@ vim.pack.add {
   "https://github.com/lewis6991/gitsigns.nvim.git",
   -- Go language
   "https://github.com/ray-x/go.nvim.git",
+  "https://github.com/ray-x/guihua.lua.git",
   -- Rust language
   "https://github.com/mrcjkb/rustaceanvim.git",
   -- Search
