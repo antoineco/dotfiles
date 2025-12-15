@@ -73,15 +73,6 @@
   launchd =
     let
       pkgs-unstable = nixpkgs-unstable.legacyPackages.${pkgs.stdenv.hostPlatform.system};
-
-      kanataSvcCfg = {
-        ProgramArguments = [
-          "${pkgs-unstable.kanata}/bin/kanata"
-          "-c"
-          "/Users/acotten/git/antoineco/dotfiles/kanata/apple_internal.kbd"
-        ];
-        RunAtLoad = false;
-      };
     in
     {
       user.agents.UserKeyMappingKbApple.serviceConfig = {
@@ -129,17 +120,17 @@
         RunAtLoad = true;
       };
 
-      daemons.kanata.serviceConfig = kanataSvcCfg // {
+      daemons.kanata.serviceConfig = {
         Label = "io.github.jtroo.kanata";
+        ProgramArguments = [
+          "${pkgs-unstable.kanata}/bin/kanata"
+          "-c"
+          "/Users/acotten/git/antoineco/dotfiles/kanata/apple_internal.kbd"
+        ];
+        RunAtLoad = false;
         ProcessType = "Interactive";
         StandardOutPath = "/var/log/kanata.out.log";
         StandardErrorPath = "/var/log/kanata.err.log";
-      };
-      # Create a companion Agent plist to trigger a TCC prompt for the IOHIDDeviceOpen
-      # permission (Input Monitoring) in a login session (GUI).
-      # Ref: https://developer.apple.com/forums/thread/128641
-      user.agents.kanata.serviceConfig = kanataSvcCfg // {
-        Label = "io.github.jtroo.kanata-tcc";
       };
     };
 }
