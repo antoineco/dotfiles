@@ -92,7 +92,6 @@ vim.pack.add {
   -- Language Servers
   "https://github.com/neovim/nvim-lspconfig.git",
   -- Completion
-  { src = "https://github.com/saghen/blink.cmp.git", version = vim.version.range "1.*" },
   "https://github.com/rafamadriz/friendly-snippets.git",
   -- Version Control
   "https://github.com/lewis6991/gitsigns.nvim.git",

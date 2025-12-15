@@ -147,6 +147,7 @@
                     ]
                   ))
                   nvim-treesitter-textobjects
+                  blink-cmp
                 ];
               };
             };
