@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 {
   imports = [
     ../../modules/profiles/darwin.nix
@@ -7,7 +7,16 @@
     ./system.nix
   ];
 
-  nixpkgs.hostPlatform = "aarch64-darwin";
+  nixpkgs = {
+    hostPlatform = "aarch64-darwin";
+
+    config.allowUnfreePredicate =
+      pkg:
+      builtins.elem (lib.getName pkg) [
+        "appcleaner"
+        "betterdisplay"
+      ];
+  };
 
   networking.hostName = "colomar";
 
@@ -23,7 +32,15 @@
     };
   };
 
-  environment.shells = [ pkgs.zsh ];
+  environment = with pkgs; {
+    shells = [ zsh ];
+
+    systemPackages = [
+      wezterm
+      appcleaner
+      betterdisplay
+    ];
+  };
 
   # Used for backwards compatibility, similarly to NixOS.
   # Before changing this value read the documentation for this option
