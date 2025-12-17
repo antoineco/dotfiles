@@ -111,5 +111,16 @@ because defoverrides would conflict with symbols that appear shifted on the 'sym
 (defchordsv2
   (t! combo-slow (f j) (caps-word-toggle 3000))
   (t! combo-fast (w e) tab)
-  (t! combo-fast (i o) ret)
+  (t! combo-fast (i o) @ret)
+)
+
+#|
+When combined with a tap-hold-release key (@s), the hold action key (LShift) gets pressed
+after the chord key (Enter) if the chord is triggered before the hold-timeout.
+This results in Enter being sent in situations where S-Enter was expected.
+Using a virtual key as the chord action causes the modifier to be pressed before the chord key.
+|#
+(defvirtualkeys ret ret)
+(defalias
+  ret (multi (on-press press-vkey ret) (on-release release-vkey ret))
 )
