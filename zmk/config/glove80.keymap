@@ -41,8 +41,9 @@ GLV80_LAYER(Base,
   &none        &none        &none        &none        &none                                    &none        &none        &none        &none        &none
   &none        &none        &none        &none        &none        &none          &none        &none        &none        &none        &none        &none
   &none        &kp B        &kp L        &kp D        &kp W        &kp Z          &sqtundr     &kp F        &kp O        &kp U        &kp J        &none
-  &kp ESC      HM_N         HM_R         HM_T         HM_S         &kp G          &kp Y        HM_H         HM_A         HM_E         HM_I         &kp FSLH
-  &none        &kp Q        &kp X        &kp M        &kp C        &kp V        , &kp K        &kp P        &dotcolon    &mindqt      &commsemi    &none
+  &kp ESC      HM_N         HM_R         HM_T         HM_S         &kp G          &kp Y        HM_H         HM_A         HM_E         HM_I         &none
+  &none        &kp Q        &kp X        &kp M        &kp C        &kp V        , &kp K        &kp P        &dotcolon    &mindqt      &commsemi    &kp FSLH
+
   MAGIC        &none        &none        &none        &none                     ,              &none        &none        &none        &none        &none
                                                                                 ,
                                          &none        &none        &none          &none        &none        &none,
@@ -55,8 +56,8 @@ GLV80_LAYER(Lower,
   &none        &none        &none        &none        &none                                    &none        &none        &none        &none        &none
   &none        &none        &none        &none        &none        &none          &none        &none        &none        &none        &none        &none
   &none        &kp KP_MINUS &kp N7       &kp N8       &kp N9       &kp KP_PLUS    &kp PRCNT    &kp LBKT     &kp LPAR     &kp RPAR     &kp RBKT     &none
-  &kp COLON    &kp N0       &kp N4       &kp N5       &kp N6       &kp KP_EQUAL   &kp LEFT     &kp DOWN     &kp UP       &kp RIGHT    &kp KP_DOT   &kp B
-  &none        &kp KP_SLASH &kp N1       &kp N2       &kp N3       &kp KP_ASTERISK,&kp HOME    &kp PG_DN    &kp PG_UP    &kp END      &kp X        &none
+  &kp COLON    &kp N0       &kp N4       &kp N5       &kp N6       &kp KP_EQUAL   &kp LEFT     &kp DOWN     &kp UP       &kp RIGHT    &kp KP_DOT   &none
+  &none        &kp KP_SLASH &kp N1       &kp N2       &kp N3       &kp KP_ASTERISK,&kp HOME    &kp PG_DN    &kp PG_UP    &kp END      &kp X        &kp B
   &none        &none        &none        &none        &none                     ,              &none        &none        &none        &none        &none
                                                                                 ,
                                          &none        &none        &none          &none        &none        &none,
@@ -69,8 +70,8 @@ GLV80_LAYER(Upper,
   &none        &none        &none        &none        &none                                    &none        &none        &none        &none        &none
   &none        &none        &none        &none        &none        &none          &none        &none        &none        &none        &none        &none
   &none        &kp TILDE    &kp DOT      &kp ASTRK    &kp AMPS     &kp AT         &kp PRCNT    &kp LBKT     &kp LPAR     &kp RPAR     &kp RBKT     &none
-  &kp UNDER    &kp LT       &kp PIPE     &kp MINUS    &kp GT       &kp FSLH       &kp EXCL     &kp COMMA    &kp LBRC     &kp RBRC     &kp SEMI     &kp QMARK
-  &none        &kp GRAVE    &kp SQT      &kp DQT      &kp PLUS     &kp BSLH     , &kp HASH     &kp CARET    &kp COLON    &kp EQUAL    &kp DLLR     &none
+  &kp UNDER    &kp LT       &kp PIPE     &kp MINUS    &kp GT       &kp FSLH       &kp EXCL     &kp COMMA    &kp LBRC     &kp RBRC     &kp SEMI     &none
+  &none        &kp GRAVE    &kp SQT      &kp DQT      &kp PLUS     &kp BSLH     , &kp HASH     &kp CARET    &kp COLON    &kp EQUAL    &kp DLLR     &kp QMARK
   &none        &none        &none        &none        &none                     ,              &none        &none        &none        &none        &none
                                                                                 ,
                                          &none        &none        &none          &none        &none        &none,
