@@ -120,17 +120,19 @@
         RunAtLoad = true;
       };
 
-      daemons.kanata.serviceConfig = {
-        Label = "io.github.jtroo.kanata";
-        ProgramArguments = [
-          "${pkgs-unstable.kanata}/bin/kanata"
-          "-c"
-          "/Users/acotten/git/antoineco/dotfiles/kanata/apple_internal.kbd"
-        ];
-        RunAtLoad = false;
-        ProcessType = "Interactive";
-        StandardOutPath = "/var/log/kanata.out.log";
-        StandardErrorPath = "/var/log/kanata.err.log";
+      daemons = {
+        kanata.serviceConfig = {
+          Label = "io.github.jtroo.kanata";
+          ProgramArguments = [
+            "${pkgs-unstable.kanata}/bin/kanata"
+            "-c"
+            "/Users/acotten/git/antoineco/dotfiles/kanata/apple_internal.kbd"
+          ];
+          RunAtLoad = false;
+          ProcessType = "Interactive";
+          StandardOutPath = "/var/log/kanata.out.log";
+          StandardErrorPath = "/var/log/kanata.err.log";
+        };
       };
     };
 }
