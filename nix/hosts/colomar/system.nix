@@ -133,6 +133,16 @@
           StandardOutPath = "/var/log/kanata.out.log";
           StandardErrorPath = "/var/log/kanata.err.log";
         };
+
+        # https://github.com/pqrs-org/Karabiner-DriverKit-VirtualHIDDevice/tree/v6.7.0/files/LaunchDaemons
+        karabiner-virtualhiddevice.serviceConfig = {
+          Label = "org.pqrs.service.daemon.Karabiner-VirtualHIDDevice-Daemon";
+          ProgramArguments = [
+            "/Library/Application Support/org.pqrs/Karabiner-DriverKit-VirtualHIDDevice/Applications/Karabiner-VirtualHIDDevice-Daemon.app/Contents/MacOS/Karabiner-VirtualHIDDevice-Daemon"
+          ];
+          KeepAlive = true;
+          ProcessType = "Interactive";
+        };
       };
     };
 }
