@@ -484,8 +484,8 @@ end
 do
   vim.keymap.set("n", "<F5>", function() require "dap".step_over() end, { desc = "Step Over" })
   vim.keymap.set("n", "<F6>", function() require "dap".step_into() end, { desc = "Step Into" })
-  vim.keymap.set("n", "<F4>", function() require "dap".step_out() end, { desc = "Step Out" })
-  vim.keymap.set("n", "<F8>", function() require "dap".step_back() end, { desc = "Step Back" })
+  vim.keymap.set("n", "<F4>", function() require "dap".step_back() end, { desc = "Step Back" })
+  vim.keymap.set("n", "<F8>", function() require "dap".step_out() end, { desc = "Step Out" })
 
   do
     vim.keymap.set("n", "<leader>du", function() require "dapui".toggle() end, { desc = "Toggle DAP UI" })
