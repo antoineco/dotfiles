@@ -1,6 +1,6 @@
 # -------- Macros ---------
 
-gnu_ln := $(shell &>/dev/null ln --help; echo $$?)
+gnu_ln := $(shell 2>&1 >/dev/null ln --help; echo $$?)
 
 define symlink-dir
 $2: | $(dir $2)
