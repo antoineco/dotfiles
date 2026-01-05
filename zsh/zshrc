@@ -182,8 +182,8 @@ export DFT_BACKGROUND=light  # disable usage of bright ANSI colors
 
 # Terminal shell integration
 if [[ ${TERM_PROGRAM} == WezTerm ]]; then
-	if [[ -s ${WEZTERM_EXECUTABLE_DIR:h}/Resources/wezterm.sh ]]; then
-		. ${WEZTERM_EXECUTABLE_DIR:h}/Resources/wezterm.sh
+	if [[ -s ${WEZTERM_EXECUTABLE_DIR}/wezterm.sh ]]; then
+		. ${WEZTERM_EXECUTABLE_DIR}/wezterm.sh
 	elif [[ -s ${HOME}/.wezterm.sh ]]; then
 		. ${HOME}/.wezterm.sh
 	fi
