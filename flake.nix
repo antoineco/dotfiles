@@ -19,6 +19,14 @@
 
     rust-overlay.url = "https://flakehub.com/f/oxalica/rust-overlay/0.1";
 
+    monolisa = {
+      url = "git+ssh://git@github.com/antoineco/monolisa.git";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-schemas.follows = "flake-schemas";
+      };
+    };
+
     agenix.url = "github:ryantm/agenix";
     secrets = {
       url = "git+ssh://git@github.com/antoineco/nix-secrets.git";
@@ -42,6 +50,7 @@
       neovim-overlay,
       nvim-treesitter-main,
       rust-overlay,
+      monolisa,
       agenix,
       secrets,
       disko,
@@ -202,7 +211,7 @@
 
       darwinConfigurations = {
         colomar = nix-darwin.lib.darwinSystem {
-          specialArgs = { inherit self nixpkgs-unstable; };
+          specialArgs = { inherit self nixpkgs-unstable monolisa; };
           modules = [ ./nix/hosts/colomar ];
         };
       };

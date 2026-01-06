@@ -1,4 +1,9 @@
-{ pkgs, lib, ... }:
+{
+  pkgs,
+  lib,
+  monolisa,
+  ...
+}:
 {
   imports = [
     ../../modules/profiles/darwin.nix
@@ -10,11 +15,14 @@
   nixpkgs = {
     hostPlatform = "aarch64-darwin";
 
+    overlays = [ monolisa.overlays.default ];
+
     config.allowUnfreePredicate =
       pkg:
       builtins.elem (lib.getName pkg) [
         "appcleaner"
         "betterdisplay"
+        "monolisa-plus"
       ];
   };
 
@@ -41,6 +49,8 @@
       betterdisplay
     ];
   };
+
+  fonts.packages = [ pkgs.monolisa-plus ];
 
   # Used for backwards compatibility, similarly to NixOS.
   # Before changing this value read the documentation for this option

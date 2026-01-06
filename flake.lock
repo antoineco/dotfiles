@@ -252,6 +252,29 @@
         "type": "github"
       }
     },
+    "monolisa": {
+      "inputs": {
+        "flake-schemas": [
+          "flake-schemas"
+        ],
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1767729902,
+        "narHash": "sha256-pIYn6cWLYEqsJvhEdog/XCWkD5pvHiFaN7ZEF2b2u9U=",
+        "ref": "refs/heads/main",
+        "rev": "7c27141d52f730408c97c86725f814db79ae1bf6",
+        "revCount": 2,
+        "type": "git",
+        "url": "ssh://git@github.com/antoineco/monolisa.git"
+      },
+      "original": {
+        "type": "git",
+        "url": "ssh://git@github.com/antoineco/monolisa.git"
+      }
+    },
     "neovim-overlay": {
       "inputs": {
         "flake-parts": "flake-parts_2",
@@ -608,6 +631,7 @@
         "determinate": "determinate",
         "disko": "disko",
         "flake-schemas": "flake-schemas",
+        "monolisa": "monolisa",
         "neovim-overlay": "neovim-overlay",
         "nix-darwin": "nix-darwin",
         "nixCats": "nixCats",
