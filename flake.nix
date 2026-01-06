@@ -140,16 +140,18 @@
             { pkgs, ... }:
             {
               startupPlugins = {
-                general = with pkgs.vimPlugins; [
-                  (nvim-treesitter.withPlugins (
-                    p: with p; [
-                      go
-                      rust
-                    ]
-                  ))
-                  nvim-treesitter-textobjects
-                  blink-cmp
-                ];
+                general =
+                  (with pkgs.vimPlugins; [
+                    nvim-treesitter-textobjects
+                    blink-cmp
+                  ])
+                  # Allow collate_grammars to collect grammars under the grammarPackName directory.
+                  # When using pkgs.vimPlugins.nvim-treesitter.withPlugins, grammars end up in the
+                  # packageName directory under nvim-treesitter-grammars/ instead.
+                  ++ (with pkgs.tree-sitter-grammars; [
+                    (pkgs.neovimUtils.grammarToPlugin tree-sitter-go)
+                    (pkgs.neovimUtils.grammarToPlugin tree-sitter-rust)
+                  ]);
               };
             };
 
