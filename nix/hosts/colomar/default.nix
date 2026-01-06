@@ -50,7 +50,10 @@
     ];
   };
 
-  fonts.packages = [ pkgs.monolisa-plus ];
+  fonts.packages = with pkgs; [
+    monolisa-plus
+    nerd-fonts.symbols-only
+  ];
 
   # Used for backwards compatibility, similarly to NixOS.
   # Before changing this value read the documentation for this option
