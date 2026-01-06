@@ -15,7 +15,6 @@
 
     nixCats.url = "github:BirdeeHub/nixCats-nvim";
     neovim-overlay.url = "github:nix-community/neovim-nightly-overlay";
-    nvim-treesitter-main.url = "github:iofq/nvim-treesitter-main";
 
     rust-overlay.url = "https://flakehub.com/f/oxalica/rust-overlay/0.1";
 
@@ -48,7 +47,6 @@
       nix-darwin,
       nixCats,
       neovim-overlay,
-      nvim-treesitter-main,
       rust-overlay,
       monolisa,
       agenix,
@@ -138,12 +136,6 @@
         let
           system = pkgs.stdenv.hostPlatform.system;
 
-          dependencyOverlays = [
-            # Overlays vimPlugins.{nvim-treesitter,nvim-treesitter-textobjects} with the revision
-            # from their respective 'main' branch (full rewrite, incompatible with old 'master').
-            nvim-treesitter-main.overlays.default
-          ];
-
           categoryDefinitions =
             { pkgs, ... }:
             {
@@ -169,9 +161,6 @@
                   wrapRc = false;
                   aliases = [ "vi" ];
                   neovim-unwrapped = neovim-overlay.packages.${system}.neovim;
-                  # The nvim-treesitter-main overlay collates grammars itself,
-                  # making this setting ineffective (iofq/nvim-treesitter-main#19).
-                  collate_grammars = false;
                 };
                 categories = {
                   general = true;
@@ -181,7 +170,8 @@
 
           luaPath = ./.;
           nixCatsBuilder = nixCats.utils.baseBuilder luaPath {
-            inherit nixpkgs system dependencyOverlays;
+            nixpkgs = nixpkgs-unstable;
+            inherit system;
           } categoryDefinitions packageDefinitions;
 
           defaultPackageName = "nvim";
