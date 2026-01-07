@@ -4,13 +4,15 @@
   inputs = {
     nixpkgs.url = "https://flakehub.com/f/NixOS/nixpkgs/0.2511"; # nixos-25.11
     nixpkgs-unstable.url = "https://flakehub.com/f/NixOS/nixpkgs/0.1"; # nixos-unstable
+    nixpkgs-darwin.url = "github:NixOS/nixpkgs/nixpkgs-25.11-darwin";
+
     determinate.url = "https://flakehub.com/f/DeterminateSystems/determinate/3";
 
     nixos-wsl.url = "github:nix-community/NixOS-WSL";
 
     nix-darwin = {
       url = "github:nix-darwin/nix-darwin/nix-darwin-25.11";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "nixpkgs-darwin";
     };
 
     nixCats.url = "github:BirdeeHub/nixCats-nvim";
@@ -53,6 +55,7 @@
       secrets,
       disko,
       flake-schemas,
+      ...
     }:
     let
       allSystems = [
