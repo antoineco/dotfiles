@@ -134,11 +134,8 @@
         }
       );
 
-      packages = forAllSystems (
-        { pkgs }:
+      overlays =
         let
-          system = pkgs.stdenv.hostPlatform.system;
-
           categoryDefinitions =
             { pkgs, ... }:
             {
@@ -159,13 +156,16 @@
             };
 
           packageDefinitions = {
-            nvim =
-              { ... }:
+            neovim-nixCats =
+              { pkgs, ... }:
               {
                 settings = {
                   wrapRc = false;
-                  aliases = [ "vi" ];
-                  neovim-unwrapped = neovim-overlay.packages.${system}.neovim;
+                  aliases = [
+                    "nvim"
+                    "vi"
+                  ];
+                  neovim-unwrapped = neovim-overlay.packages.${pkgs.stdenv.hostPlatform.system}.neovim;
                 };
                 categories = {
                   general = true;
@@ -174,16 +174,11 @@
           };
 
           luaPath = ./.;
-          nixCatsBuilder = nixCats.utils.baseBuilder luaPath {
-            nixpkgs = nixpkgs-unstable;
-            inherit system;
-          } categoryDefinitions packageDefinitions;
-
-          defaultPackageName = "nvim";
-          defaultPackage = nixCatsBuilder defaultPackageName;
+          defaultPackageName = "neovim-nixCats";
         in
-        nixCats.utils.mkAllPackages defaultPackage
-      );
+        nixCats.utils.makeOverlays luaPath {
+          nixpkgs = nixpkgs-unstable;
+        } categoryDefinitions packageDefinitions defaultPackageName;
 
       nixosConfigurations = {
         calavera = nixpkgs.lib.nixosSystem {
