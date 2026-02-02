@@ -85,7 +85,9 @@ config.use_fancy_tab_bar = false
 config.tab_bar_at_bottom = true
 config.tab_max_width = 24
 
-config.window_decorations = 'RESIZE'
+if wezterm.target_triple == 'aarch64-apple-darwin' then
+  config.window_decorations = 'RESIZE'
+end
 
 local get_appearance = function()
   local gui_appearance = wezterm.gui and wezterm.gui.get_appearance() or ''
