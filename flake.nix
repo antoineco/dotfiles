@@ -8,8 +8,6 @@
 
     determinate.url = "https://flakehub.com/f/DeterminateSystems/determinate/3";
 
-    nixos-wsl.url = "github:nix-community/NixOS-WSL";
-
     nix-darwin = {
       url = "github:nix-darwin/nix-darwin/nix-darwin-25.11";
       inputs.nixpkgs.follows = "nixpkgs-darwin";
@@ -34,6 +32,7 @@
       flake = false;
     };
 
+    hardware.url = "https://flakehub.com/f/NixOS/nixos-hardware/0.1";
     disko.url = "https://flakehub.com/f/nix-community/disko/1.7";
 
     flake-schemas.url = "https://flakehub.com/f/DeterminateSystems/flake-schemas/0.1";
@@ -45,7 +44,6 @@
       nixpkgs,
       nixpkgs-unstable,
       determinate,
-      nixos-wsl,
       nix-darwin,
       nixCats,
       neovim-overlay,
@@ -53,6 +51,7 @@
       monolisa,
       agenix,
       secrets,
+      hardware,
       disko,
       flake-schemas,
       ...
@@ -182,7 +181,14 @@
 
       nixosConfigurations = {
         calavera = nixpkgs.lib.nixosSystem {
-          specialArgs = { inherit self determinate nixos-wsl; };
+          specialArgs = {
+            inherit
+              self
+              determinate
+              hardware
+              monolisa
+              ;
+          };
           modules = [ ./nix/hosts/calavera ];
         };
 
