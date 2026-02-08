@@ -10,7 +10,7 @@
         "memory",
         "temperature",
         "bluetooth",
-        "pulseaudio",
+        "wireplumber",
         "battery",
         "network",
         "clock"
@@ -70,23 +70,19 @@
         "format-alt": "{ifname}: {ipaddr}/{cidr}",
         "tooltip-format": "{essid} ({signalStrength}%)\n{ifname} via {gwaddr}"
     },
-    "pulseaudio": {
-        "format": "{icon}",
-        "format-bluetooth": "{icon} ",
-        "format-bluetooth-muted": " ",
-        "format-muted": "",
-        "format-source": "{volume}% ",
-        "format-source-muted": "",
-        "tooltip-format": "{volume}%  {format_source}\n{desc}",
-        "format-icons": {
-            "default": ["", "", ""],
-            "headphone": ""
-        }
-    },
     "temperature": {
         "tooltip": false,
         "critical-threshold": 80,
         "format": "{temperatureC}°C {icon}",
         "format-icons": ["", "", ""]
+    },
+    "wireplumber": {
+        "format": "{icon}",
+        "format-muted": "",
+        "format-source": "{volume}% ",
+        "format-source-muted": "",
+        "tooltip-format": "{volume}%  {format_source}\n{node_name}",
+        "reverse-scrolling": true,
+        "format-icons": ["", "", ""]
     }
 }
