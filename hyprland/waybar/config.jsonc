@@ -9,6 +9,7 @@
         "cpu",
         "memory",
         "temperature",
+        "bluetooth",
         "pulseaudio",
         "battery",
         "network",
@@ -26,6 +27,15 @@
         "format-alt": "{time} {icon}",
         "tooltip-format": "{capacity}%\n{timeTo}",
         "format-icons": ["", "", "", "", ""]
+    },
+    "bluetooth": {
+        "format": "󰂯",
+        "format-connected": "󰂱",
+        "format-off": "󰂲",
+        "format-disabled": "",
+        "tooltip-format": "{device_enumerate}",
+        "tooltip-format-enumerate-connected": "{device_alias}",
+        "tooltip-format-enumerate-connected-battery": "{device_alias}\t{device_battery_percentage}%"
     },
     "clock": {
         "format-alt": "{:%Y-%m-%d}",
