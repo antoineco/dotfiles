@@ -96,7 +96,7 @@ $(eval $(call symlink-dir,wezterm,~/.config/wezterm))
 .PHONY: nvim clean-nvim
 nvim: ~/.config/nvim ## Configure the Neovim text editor
 
-~/.config:
+~/.config/:
 	@mkdir $@
 
 $(eval $(call symlink-dir,nvim,~/.config/nvim))
