@@ -118,14 +118,25 @@ direnv: ~/.config/direnv ## Set up direnv
 
 $(eval $(call symlink-dir,direnv,~/.config/direnv))
 
-# --------- bat -----------
+# ---------- bat ----------
 
 .PHONY: bat
 bat: ~/.config/bat ## Set up bat
 
 $(eval $(call symlink-dir,bat,~/.config/bat))
 
-# ---------- Misc ---------- 
+# ------- Hyprland --------
+
+.PHONY: hypr
+hypr: ~/.config/hypr ## Set up the Hyprland compositor
+hypr: ~/.config/waybar
+hypr: ~/.config/swaync
+
+$(eval $(call symlink-dir,hyprland/hypr,~/.config/hypr))
+$(eval $(call symlink-dir,hyprland/waybar,~/.config/waybar))
+$(eval $(call symlink-dir,hyprland/swaync,~/.config/swaync))
+
+# --------- Misc ----------
 
 .DEFAULT_GOAL := help
 

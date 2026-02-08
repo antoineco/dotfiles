@@ -56,6 +56,8 @@
     brightnessctl
     polkit_gnome # gnome-keyring integration
     adwaita-icon-theme # use nwg-look program to apply
+    swaynotificationcenter
+    hyprpaper
   ];
 
   fonts.packages = with pkgs; [
@@ -69,7 +71,20 @@
   };
   services.greetd = {
     enable = true;
+    useTextGreeter = true;
     settings.default_session.command = "${pkgs.greetd}/bin/agreety --cmd 'uwsm start hyprland-uwsm.desktop'";
+  };
+  programs.waybar.enable = true;
+
+  systemd = {
+    packages = with pkgs; [
+      swaynotificationcenter
+      hyprpaper
+    ];
+    user.services = {
+      swaync.wantedBy = [ "graphical-session.target" ];
+      hyprpaper.wantedBy = [ "graphical-session.target" ];
+    };
   };
 
   # Registers the GNOME Keyring and gcr D-Bus services.
@@ -78,6 +93,8 @@
 
   # Registers the Seahorse D-Bus service and sets SSH_ASKPASS to Seahorse's prompt.
   programs.seahorse.enable = true;
+
+  services.dbus.packages = [ pkgs.swaynotificationcenter ];
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

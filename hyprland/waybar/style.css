@@ -1,0 +1,23 @@
+#battery,
+#clock,
+#network,
+#pulseaudio {
+    padding: 0 8px;
+}
+
+#cpu,
+#memory {
+    padding: 0 4px;
+}
+
+#temperature {
+    padding: 0 24px;
+}
+
+/* https://github.com/Alexays/Waybar/wiki/Styling#making-waybar-follow-the-gtk-theme */
+#workspaces button {
+    color: @theme_unfocused_fg_color;
+}
+#workspaces button.active {
+    color: @theme_fg_color
+}
