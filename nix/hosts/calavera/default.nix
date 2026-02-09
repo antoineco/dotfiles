@@ -92,11 +92,16 @@
   };
 
   # Registers the GNOME Keyring and gcr D-Bus services.
-  # Additionally enables the gcr-ssh-agent user service and the integration between greetd and gnome-keyring.
+  # Additionally enables the gcr-ssh-agent user service and the integration between the greetd PAM service and gnome-keyring.
   services.gnome.gnome-keyring.enable = true;
 
   # Registers the Seahorse D-Bus service and sets SSH_ASKPASS to Seahorse's prompt.
   programs.seahorse.enable = true;
+
+  # Enables the pam_fprintd module (fprintAuth) for all registered PAM services (security.pam.services.<name>).
+  services.fprintd.enable = true;
+  # The password must be entered for gnome-keyring to be auto-unlocked.
+  security.pam.services.greetd.fprintAuth = false;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
