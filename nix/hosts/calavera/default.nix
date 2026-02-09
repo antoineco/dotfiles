@@ -78,15 +78,17 @@
   };
   programs.waybar.enable = true;
 
-  systemd = {
-    packages = with pkgs; [
-      swaynotificationcenter
-      hyprpaper
-    ];
-    user.services = {
-      swaync.wantedBy = [ "graphical-session.target" ];
-      hyprpaper.wantedBy = [ "graphical-session.target" ];
-    };
+  systemd.packages = with pkgs; [
+    swaynotificationcenter
+    hyprpaper
+  ];
+  services.dbus.packages = [
+    pkgs.swaynotificationcenter
+  ];
+
+  systemd.user.services = {
+    swaync.wantedBy = [ "graphical-session.target" ];
+    hyprpaper.wantedBy = [ "graphical-session.target" ];
   };
 
   # Registers the GNOME Keyring and gcr D-Bus services.
@@ -95,8 +97,6 @@
 
   # Registers the Seahorse D-Bus service and sets SSH_ASKPASS to Seahorse's prompt.
   programs.seahorse.enable = true;
-
-  services.dbus.packages = [ pkgs.swaynotificationcenter ];
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
