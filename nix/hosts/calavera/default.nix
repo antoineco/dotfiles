@@ -1,6 +1,7 @@
 {
   pkgs,
   lib,
+  nixpkgs-unstable,
   hardware,
   monolisa,
   ...
@@ -52,22 +53,25 @@
     ];
   };
 
-  environment.systemPackages = with pkgs; [
-    wezterm
-    firefox
-    brightnessctl
-    adwaita-icon-theme # use nwg-look program to apply
-    swaynotificationcenter
-    hyprpaper
+  environment.systemPackages =
+    (with pkgs; [
+      wezterm
+      firefox
+      brightnessctl
+      adwaita-icon-theme # use nwg-look program to apply
+      swaynotificationcenter
 
-    (polkit_gnome.overrideAttrs {
-      # allow xdg-autostart in XDG_CURRENT_DESKTOP=Hyprland
-      postFixup = ''
-        substituteInPlace "$out"/etc/xdg/autostart/polkit-gnome-authentication-agent-1.desktop \
-          --replace-fail "GNOME;" "Hyprland;GNOME;"
-      '';
-    })
-  ];
+      (polkit_gnome.overrideAttrs {
+        # allow xdg-autostart in XDG_CURRENT_DESKTOP=Hyprland
+        postFixup = ''
+          substituteInPlace "$out"/etc/xdg/autostart/polkit-gnome-authentication-agent-1.desktop \
+            --replace-fail "GNOME;" "Hyprland;GNOME;"
+        '';
+      })
+    ])
+    ++ (with nixpkgs-unstable.legacyPackages.${pkgs.stdenv.hostPlatform.system}; [
+      hyprlauncher
+    ]);
 
   fonts.packages = with pkgs; [
     monolisa-plus
@@ -93,10 +97,42 @@
     pkgs.swaynotificationcenter
   ];
 
-  systemd.user.services = {
-    swaync.wantedBy = [ "graphical-session.target" ];
-    hyprpaper.wantedBy = [ "graphical-session.target" ];
-  };
+  systemd.user.services =
+    let
+      graphical = [ "graphical-session.target" ];
+    in
+    {
+      swaync.wantedBy = graphical;
+      hyprpaper.wantedBy = graphical;
+
+      hyprlauncher = {
+        description = "Multipurpose and versatile launcher / picker for Hyprland.";
+        documentation = [ "https://wiki.hyprland.org/Hypr-Ecosystem/hyprlauncher/" ];
+        partOf = graphical;
+        requires = graphical;
+        after = graphical;
+        unitConfig = {
+          ConditionEnvironment = "WAYLAND_DISPLAY";
+        };
+        serviceConfig = {
+          Type = "simple";
+          ExecStart =
+            let
+              # NixOS 25.11 still has v0.1.3, which is leaky.
+              pkg = nixpkgs-unstable.legacyPackages.${pkgs.stdenv.hostPlatform.system}.hyprlauncher;
+            in
+            "${pkg}/bin/hyprlauncher -d";
+          Slice = "session.slice";
+          Restart = "on-failure";
+        };
+        wantedBy = graphical;
+        path = with pkgs; [
+          uwsm
+          firefox
+          wezterm
+        ];
+      };
+    };
 
   # Registers the GNOME Keyring and gcr D-Bus services.
   # Additionally enables the gcr-ssh-agent user service and the integration between the greetd PAM service and gnome-keyring.
