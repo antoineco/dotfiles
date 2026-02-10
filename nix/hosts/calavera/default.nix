@@ -56,10 +56,17 @@
     wezterm
     firefox
     brightnessctl
-    polkit_gnome # gnome-keyring integration
     adwaita-icon-theme # use nwg-look program to apply
     swaynotificationcenter
     hyprpaper
+
+    (polkit_gnome.overrideAttrs {
+      # allow xdg-autostart in XDG_CURRENT_DESKTOP=Hyprland
+      postFixup = ''
+        substituteInPlace "$out"/etc/xdg/autostart/polkit-gnome-authentication-agent-1.desktop \
+          --replace-fail "GNOME;" "Hyprland;GNOME;"
+      '';
+    })
   ];
 
   fonts.packages = with pkgs; [
