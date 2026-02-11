@@ -91,17 +91,10 @@
     enable = true;
     withUWSM = true;
   };
-  programs.uwsm = {
-    # Hyprland >=0.53 - hyprwm/hyprland-wiki#1304
-    waylandCompositors.hyprland.binPath = lib.mkForce "/run/current-system/sw/bin/start-hyprland";
-  };
   services.greetd = {
     enable = true;
     useTextGreeter = true;
-    # XDG_CURRENT_DESKTOP must be set explicitly with -D because the desktop entry generated through the
-    # 'programs.uwsm.waylandCompositors' option omits 'DesktopNames=Hyprland', resulting in uwsm generating a string
-    # containing 'start-hyprland'.
-    settings.default_session.command = "${pkgs.greetd}/bin/agreety --cmd 'uwsm start -e -D Hyprland hyprland-uwsm.desktop'";
+    settings.default_session.command = "${pkgs.greetd}/bin/agreety --cmd 'uwsm start hyprland-uwsm.desktop'";
   };
   programs.waybar.enable = true;
 
