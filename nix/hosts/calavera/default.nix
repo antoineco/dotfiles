@@ -20,7 +20,19 @@
   nixpkgs = {
     hostPlatform = "x86_64-linux";
 
-    overlays = [ monolisa.overlays.default ];
+    overlays = [
+      monolisa.overlays.default
+
+      (
+        _: _: with nixpkgs-unstable.legacyPackages.${pkgs.stdenv.hostPlatform.system}; {
+          hyprland = hyprland;
+          xdg-desktop-portal-hyperland = xdg-desktop-portal-hyperland;
+          uwsm = uwsm;
+          hyprpaper = hyprpaper;
+          hyprlauncher = hyprlauncher;
+        }
+      )
+    ];
 
     config.allowUnfreePredicate =
       pkg:
@@ -53,25 +65,22 @@
     ];
   };
 
-  environment.systemPackages =
-    (with pkgs; [
-      wezterm
-      firefox
-      brightnessctl
-      adwaita-icon-theme # use nwg-look program to apply
-      swaynotificationcenter
+  environment.systemPackages = with pkgs; [
+    wezterm
+    firefox
+    brightnessctl
+    adwaita-icon-theme # use nwg-look program to apply
+    swaynotificationcenter
+    hyprlauncher
 
-      (polkit_gnome.overrideAttrs {
-        # allow xdg-autostart in XDG_CURRENT_DESKTOP=Hyprland
-        postFixup = ''
-          substituteInPlace "$out"/etc/xdg/autostart/polkit-gnome-authentication-agent-1.desktop \
-            --replace-fail "GNOME;" "Hyprland;GNOME;"
-        '';
-      })
-    ])
-    ++ (with nixpkgs-unstable.legacyPackages.${pkgs.stdenv.hostPlatform.system}; [
-      hyprlauncher
-    ]);
+    (polkit_gnome.overrideAttrs {
+      # allow xdg-autostart in XDG_CURRENT_DESKTOP=Hyprland
+      postFixup = ''
+        substituteInPlace "$out"/etc/xdg/autostart/polkit-gnome-authentication-agent-1.desktop \
+          --replace-fail "GNOME;" "Hyprland;GNOME;"
+      '';
+    })
+  ];
 
   fonts.packages = with pkgs; [
     monolisa-plus
@@ -82,10 +91,17 @@
     enable = true;
     withUWSM = true;
   };
+  programs.uwsm = {
+    # Hyprland >=0.53 - hyprwm/hyprland-wiki#1304
+    waylandCompositors.hyprland.binPath = lib.mkForce "/run/current-system/sw/bin/start-hyprland";
+  };
   services.greetd = {
     enable = true;
     useTextGreeter = true;
-    settings.default_session.command = "${pkgs.greetd}/bin/agreety --cmd 'uwsm start hyprland-uwsm.desktop'";
+    # XDG_CURRENT_DESKTOP must be set explicitly with -D because the desktop entry generated through the
+    # 'programs.uwsm.waylandCompositors' option omits 'DesktopNames=Hyprland', resulting in uwsm generating a string
+    # containing 'start-hyprland'.
+    settings.default_session.command = "${pkgs.greetd}/bin/agreety --cmd 'uwsm start -e -D Hyprland hyprland-uwsm.desktop'";
   };
   programs.waybar.enable = true;
 
