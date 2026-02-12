@@ -125,16 +125,16 @@ bat: ~/.config/bat ## Set up bat
 
 $(eval $(call symlink-dir,bat,~/.config/bat))
 
-# ------- Hyprland --------
+# -------- Wayland --------
 
-.PHONY: hypr
-hypr: ~/.config/hypr ## Set up the Hyprland compositor
-hypr: ~/.config/waybar
-hypr: ~/.config/swaync
+.PHONY: wayland
+wayland: ~/.config/niri ## Set up the Wayland compositor (Niri)
+wayland: ~/.config/waybar
+wayland: ~/.config/swaync
 
-$(eval $(call symlink-dir,hyprland/hypr,~/.config/hypr))
-$(eval $(call symlink-dir,hyprland/waybar,~/.config/waybar))
-$(eval $(call symlink-dir,hyprland/swaync,~/.config/swaync))
+$(eval $(call symlink-dir,wayland/niri,~/.config/niri))
+$(eval $(call symlink-dir,wayland/waybar,~/.config/waybar))
+$(eval $(call symlink-dir,wayland/swaync,~/.config/swaync))
 
 # --------- Misc ----------
 

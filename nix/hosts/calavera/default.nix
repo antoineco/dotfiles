@@ -1,7 +1,6 @@
 {
   pkgs,
   lib,
-  nixpkgs-unstable,
   hardware,
   monolisa,
   ...
@@ -20,19 +19,7 @@
   nixpkgs = {
     hostPlatform = "x86_64-linux";
 
-    overlays = [
-      monolisa.overlays.default
-
-      (
-        _: _: with nixpkgs-unstable.legacyPackages.${pkgs.stdenv.hostPlatform.system}; {
-          hyprland = hyprland;
-          xdg-desktop-portal-hyperland = xdg-desktop-portal-hyperland;
-          uwsm = uwsm;
-          hyprpaper = hyprpaper;
-          hyprlauncher = hyprlauncher;
-        }
-      )
-    ];
+    overlays = [ monolisa.overlays.default ];
 
     config.allowUnfreePredicate =
       pkg:
@@ -71,13 +58,12 @@
     brightnessctl
     adwaita-icon-theme # use nwg-look program to apply
     swaynotificationcenter
-    hyprlauncher
 
     (polkit_gnome.overrideAttrs {
-      # allow xdg-autostart in XDG_CURRENT_DESKTOP=Hyprland
+      # allow xdg-autostart in XDG_CURRENT_DESKTOP=niri
       postFixup = ''
         substituteInPlace "$out"/etc/xdg/autostart/polkit-gnome-authentication-agent-1.desktop \
-          --replace-fail "GNOME;" "Hyprland;GNOME;"
+          --replace-fail "GNOME;" "niri;GNOME;"
       '';
     })
   ];
@@ -87,28 +73,60 @@
     nerd-fonts.symbols-only
   ];
 
-  programs.hyprland = {
+  programs.niri = {
     enable = true;
-    withUWSM = true;
+    useNautilus = false;
   };
+  # The 'niri-session' startup script imports the entirety of the login manager's environment into systemd, so that it
+  # becomes available to the niri.service unit (and other user services).
+  # We must exclude a few of these environment variables, similarly to how uwsm does, mainly to avoid issues with
+  # subshells spawned by terminal emulators inside Niri.
+  #
+  # Unfortunately, by creating this drop-in, the PATH environment variable gets forced by NixOS to a default value, and
+  # most programs can no longer be launched by Niri.
+  # This behavior will be opt-out in a future release via the 'enableDefaultPath' option (NixOS/nixpkgs#482045).
+  # Meanwhile, this can be fixed manually by creating a drop-in via 'systemd --user edit niri.service'.
+  #systemd.user.services.niri = {
+  #  serviceConfig.UnsetEnvironment = [
+  #    "SHLVL" # 1 (!)
+  #    "SHELL" # /run/current-system/sw/bin/zsh
+  #    "TERM" # linux
+  #    "PWD" # $HOME
+  #  ];
+  #  enableDefaultPath = false;
+  #};
+
   services.greetd = {
     enable = true;
     useTextGreeter = true;
-    settings.default_session.command = "${pkgs.greetd}/bin/agreety --cmd 'uwsm start hyprland-uwsm.desktop'";
+    settings.default_session.command = "${pkgs.greetd}/bin/agreety --cmd 'niri-session -l'";
   };
   programs.waybar.enable = true;
 
   systemd.packages = with pkgs; [
     swaynotificationcenter
-    hyprpaper
   ];
   services.dbus.packages = [
     pkgs.swaynotificationcenter
   ];
 
-  systemd.user.services = {
-    swaync.wantedBy = [ "graphical-session.target" ];
-    hyprpaper.wantedBy = [ "graphical-session.target" ];
+  systemd.user.services.swaync.wantedBy = [ "graphical-session.target" ];
+
+  systemd.user.services.swaybg = {
+    description = "Wallpaper tool for Wayland compositors.";
+    documentation = [ "https://github.com/swaywm/swaybg" ];
+    partOf = [ "graphical-session.target" ];
+    requires = [ "graphical-session.target" ];
+    after = [ "graphical-session.target" ];
+    unitConfig = {
+      ConditionEnvironment = "WAYLAND_DISPLAY";
+    };
+    serviceConfig = {
+      Type = "simple";
+      ExecStart = "${pkgs.swaybg}/bin/swaybg -i %h/wall.jpg";
+      Restart = "on-failure";
+    };
+    wantedBy = [ "graphical-session.target" ];
   };
 
   # Registers the GNOME Keyring and gcr D-Bus services.

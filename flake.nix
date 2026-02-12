@@ -185,7 +185,6 @@
             inherit
               self
               determinate
-              nixpkgs-unstable
               hardware
               monolisa
               ;
