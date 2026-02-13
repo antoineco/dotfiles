@@ -6,15 +6,23 @@
         "niri/window"
     ],
     "modules-right": [
-        "cpu",
-        "memory",
-        "temperature",
+        "group/resources",
         "bluetooth",
         "wireplumber",
         "battery",
         "network",
         "clock"
     ],
+    "group/resources": {
+        "orientation": "inherit",
+        "drawer": {},
+        "modules": [
+            "custom/expand",
+            "cpu",
+            "memory",
+            "temperature"
+        ]
+    },
     "battery": {
         "states": {
             "warning": 30,
@@ -58,6 +66,9 @@
     "cpu": {
         "format": "{usage}% ",
         "tooltip": false
+    },
+    "custom/expand": {
+        "format": ""
     },
     "memory": {
         "format": "{}% "

@@ -1,18 +1,17 @@
 #battery,
 #bluetooth,
 #clock,
+#cpu,
+#memory,
 #network,
+#temperature,
 #wireplumber {
     padding: 0 8px;
 }
 
-#cpu,
-#memory {
-    padding: 0 4px;
-}
-
-#temperature {
-    padding: 0 24px;
+#custom-expand {
+    padding: 0 16px;
+    color: @theme_unfocused_fg_color;
 }
 
 /* https://github.com/Alexays/Waybar/wiki/Styling#making-waybar-follow-the-gtk-theme */
