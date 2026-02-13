@@ -71,6 +71,7 @@
   fonts.packages = with pkgs; [
     monolisa-plus
     nerd-fonts.symbols-only
+    adwaita-fonts
   ];
 
   programs.niri = {
