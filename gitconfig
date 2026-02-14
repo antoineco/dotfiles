@@ -1,8 +1,3 @@
-# Git global options
-# https://git-scm.com/docs/git-config
-
-# General
-
 [user]
 	name = Antoine Cotten
 	signingKey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIO7AcmJbqt9/PYcTuNpe8FwOCbf2bVeR3Mfr6pFocBF8
