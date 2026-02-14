@@ -86,10 +86,8 @@
     adwaita-fonts
   ];
 
-  programs.niri = {
-    enable = true;
-    useNautilus = false;
-  };
+  programs.niri.enable = true;
+
   # The 'niri-session' startup script imports the entirety of the login manager's environment into systemd, so that it
   # becomes available to the niri.service unit (and other user services).
   # We must exclude a few of these environment variables, similarly to how uwsm does, mainly to avoid issues with
