@@ -37,6 +37,7 @@
       pkg:
       builtins.elem (lib.getName pkg) [
         "monolisa-plus"
+        "google-chrome"
         "1password"
       ];
   };
@@ -67,7 +68,7 @@
 
   environment.systemPackages = with pkgs; [
     wezterm
-    firefox
+    google-chrome
     brightnessctl
     adwaita-icon-theme # use nwg-look program to apply
     polkit_gnome

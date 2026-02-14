@@ -37,7 +37,7 @@ layout {
 
 binds {
     Mod+Space       { spawn "wezterm"; }
-    Mod+Shift+Space { spawn "firefox"; }
+    Mod+Shift+Space { spawn "google-chrome-stable"; }
     Super+Ctrl+Q    { spawn "swaylock"; }
 
     Ctrl+Shift+Space { spawn "1password" "--quick-access"; }
@@ -198,7 +198,7 @@ binds {
 prefer-no-csd
 
 window-rule {
-    match app-id=r#"^firefox$"# title="^Picture-in-Picture$"
+    match app-id="^$" title="^Picture in picture$" // Google Chrome
     open-floating true
 }
 
