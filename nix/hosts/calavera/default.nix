@@ -19,7 +19,19 @@
   nixpkgs = {
     hostPlatform = "x86_64-linux";
 
-    overlays = [ monolisa.overlays.default ];
+    overlays = [
+      monolisa.overlays.default
+
+      (final: prev: {
+        polkit_gnome = prev.polkit_gnome.overrideAttrs {
+          # allow xdg-autostart in XDG_CURRENT_DESKTOP=niri
+          postFixup = ''
+            substituteInPlace "$out"/etc/xdg/autostart/polkit-gnome-authentication-agent-1.desktop \
+              --replace-fail "GNOME;" "niri;GNOME;"
+          '';
+        };
+      })
+    ];
 
     config.allowUnfreePredicate =
       pkg:
@@ -57,15 +69,8 @@
     firefox
     brightnessctl
     adwaita-icon-theme # use nwg-look program to apply
+    polkit_gnome
     swaynotificationcenter
-
-    (polkit_gnome.overrideAttrs {
-      # allow xdg-autostart in XDG_CURRENT_DESKTOP=niri
-      postFixup = ''
-        substituteInPlace "$out"/etc/xdg/autostart/polkit-gnome-authentication-agent-1.desktop \
-          --replace-fail "GNOME;" "niri;GNOME;"
-      '';
-    })
   ];
 
   fonts.packages = with pkgs; [
