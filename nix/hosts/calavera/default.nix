@@ -37,6 +37,7 @@
       pkg:
       builtins.elem (lib.getName pkg) [
         "monolisa-plus"
+        "1password"
       ];
   };
 
@@ -72,6 +73,11 @@
     polkit_gnome
     swaynotificationcenter
   ];
+
+  programs._1password-gui = {
+    enable = true;
+    polkitPolicyOwners = [ "acotten" ];
+  };
 
   fonts.packages = with pkgs; [
     monolisa-plus

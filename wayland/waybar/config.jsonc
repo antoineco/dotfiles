@@ -7,6 +7,7 @@
     ],
     "modules-right": [
         "group/resources",
+        "custom/1password",
         "bluetooth",
         "wireplumber",
         "battery",
@@ -67,8 +68,15 @@
         "format": "{usage}% ",
         "tooltip": false
     },
+    "custom/1password": {
+        "exec": "printf 󰢁",
+        "exec-if": "/run/current-system/sw/bin/pgrep 1password",
+        "interval": 15,
+        "tooltip": false
+    },
     "custom/expand": {
-        "format": ""
+        "format": "",
+        "tooltip": false
     },
     "memory": {
         "format": "{}% "
