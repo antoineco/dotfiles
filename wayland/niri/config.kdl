@@ -2,6 +2,7 @@ output "Philips Consumer Electronics Company PHL 272B7QU 0x00000265" {
     mode "2560x1440@59.95"
     scale 1
     position x=0 y=0
+    focus-at-startup
 }
 output "eDP-1" {  // internal
     mode "1920x1080@60"
