@@ -1,9 +1,9 @@
 {
     "modules-left": [
-        "niri/workspaces"
+        "niri/window"
     ],
     "modules-center": [
-        "niri/window"
+        "niri/workspaces"
     ],
     "modules-right": [
         "group/resources",
@@ -88,6 +88,17 @@
         "format-disconnected": "󰤮",
         "format-alt": "{ifname}: {ipaddr}/{cidr}",
         "tooltip-format": "{essid} ({signalStrength}%)\n{ifname} via {gwaddr}"
+    },
+    "niri/window": {
+        "separate-outputs": true
+    },
+    "niri/workspaces": {
+        "format": "{icon}",
+        "format-icons": {
+            "active": "",
+            "empty": "",
+            "default": ""
+        }
     },
     "temperature": {
         "tooltip": false,
