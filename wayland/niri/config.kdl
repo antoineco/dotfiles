@@ -4,10 +4,15 @@ output "Philips Consumer Electronics Company PHL 272B7QU 0x00000265" {
     position x=0 y=0
     focus-at-startup
 }
+
 output "eDP-1" {  // internal
     mode "1920x1080@60"
     scale 1
     position x=2560 y=300
+
+    layout {
+        default-column-width { proportion 0.66667; }
+    }
 }
 
 input {
@@ -31,9 +36,24 @@ cursor {
 }
 
 layout {
+    gaps 12
+
     focus-ring {
-        active-color "#aa8a69"
+        active-color "#7c7b3a"
     }
+
+    tab-indicator {
+        inactive-color "#a0a0a0"
+        gap 8
+        width 8
+        gaps-between-tabs 2
+        corner-radius 8
+        position "top"
+        place-within-column
+        hide-when-single-tab
+    }
+
+    center-focused-column "on-overflow"
 }
 
 binds {
@@ -199,8 +219,23 @@ binds {
 prefer-no-csd
 
 window-rule {
-    match app-id="^$" title="^Picture in picture$" // Google Chrome
-    open-floating true
+    match app-id="^google-chrome$"
+    geometry-corner-radius 8 8 0 0
+}
+
+window-rule {
+    match is-window-cast-target=true
+
+    border {
+        on
+        active-color   "#e65d67"
+        inactive-color "#a92136"
+    }
+
+    tab-indicator {
+        active-color   "#e65d67"
+        inactive-color "#a92136"
+    }
 }
 
 hotkey-overlay {
