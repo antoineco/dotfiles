@@ -84,6 +84,8 @@
     monolisa-plus
     nerd-fonts.symbols-only
     adwaita-fonts
+    noto-fonts-cjk-sans
+    noto-fonts-cjk-serif
   ];
 
   programs.niri.enable = true;
