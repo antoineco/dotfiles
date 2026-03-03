@@ -1,9 +1,4 @@
-{
-  lib,
-  pkgs,
-  nixpkgs-unstable,
-  ...
-}:
+{ lib, pkgs, ... }:
 {
   system.primaryUser = "acotten";
 
@@ -70,79 +65,75 @@
     };
   };
 
-  launchd =
-    let
-      pkgs-unstable = nixpkgs-unstable.legacyPackages.${pkgs.stdenv.hostPlatform.system};
-    in
-    {
-      user.agents.UserKeyMappingKbApple.serviceConfig = {
-        ProgramArguments =
-          let
-            matchDevs = {
-              ProductID = 0; # 0x0
-              VendorID = 0; # 0x0
-              Product = "Apple Internal Keyboard / Trackpad";
-            };
+  launchd = {
+    user.agents.UserKeyMappingKbApple.serviceConfig = {
+      ProgramArguments =
+        let
+          matchDevs = {
+            ProductID = 0; # 0x0
+            VendorID = 0; # 0x0
+            Product = "Apple Internal Keyboard / Trackpad";
+          };
 
-            propVal.UserKeyMapping =
-              let
-                # https://developer.apple.com/library/archive/technotes/tn2450/_index.html
-                capsLock = 30064771129; # 0x700000039 - USB HID 0x39
-                escape = 30064771113; # 0x700000029 - USB HID 0x29
-                leftCtrl = 30064771296; # 0x7000000E0 - USB HID 0xE0
-                fnGlobe = 1095216660483; # 0xFF00000003 - USB HID (0x0003 + 0xFF00000000 - 0x700000000)
-              in
-              [
-                {
-                  HIDKeyboardModifierMappingSrc = capsLock;
-                  HIDKeyboardModifierMappingDst = escape;
-                }
-                {
-                  HIDKeyboardModifierMappingSrc = fnGlobe;
-                  HIDKeyboardModifierMappingDst = leftCtrl;
-                }
-                {
-                  HIDKeyboardModifierMappingSrc = leftCtrl;
-                  HIDKeyboardModifierMappingDst = fnGlobe;
-                }
-              ];
+          propVal.UserKeyMapping =
+            let
+              # https://developer.apple.com/library/archive/technotes/tn2450/_index.html
+              capsLock = 30064771129; # 0x700000039 - USB HID 0x39
+              escape = 30064771113; # 0x700000029 - USB HID 0x29
+              leftCtrl = 30064771296; # 0x7000000E0 - USB HID 0xE0
+              fnGlobe = 1095216660483; # 0xFF00000003 - USB HID (0x0003 + 0xFF00000000 - 0x700000000)
+            in
+            [
+              {
+                HIDKeyboardModifierMappingSrc = capsLock;
+                HIDKeyboardModifierMappingDst = escape;
+              }
+              {
+                HIDKeyboardModifierMappingSrc = fnGlobe;
+                HIDKeyboardModifierMappingDst = leftCtrl;
+              }
+              {
+                HIDKeyboardModifierMappingSrc = leftCtrl;
+                HIDKeyboardModifierMappingDst = fnGlobe;
+              }
+            ];
 
-            toQuotedXML = attrs: lib.escapeXML (builtins.toJSON attrs);
-          in
-          [
-            "/usr/bin/hidutil"
-            "property"
-            "--match"
-            (toQuotedXML matchDevs)
-            "--set"
-            (toQuotedXML propVal)
-          ];
-        RunAtLoad = true;
+          toQuotedXML = attrs: lib.escapeXML (builtins.toJSON attrs);
+        in
+        [
+          "/usr/bin/hidutil"
+          "property"
+          "--match"
+          (toQuotedXML matchDevs)
+          "--set"
+          (toQuotedXML propVal)
+        ];
+      RunAtLoad = true;
+    };
+
+    daemons = {
+      kanata.serviceConfig = {
+        Label = "io.github.jtroo.kanata";
+        ProgramArguments = [
+          "${pkgs.kanata}/bin/kanata"
+          "-c"
+          "/Users/acotten/git/antoineco/dotfiles/kanata/apple_internal.kbd"
+        ];
+        RunAtLoad = false;
+        ProcessType = "Interactive";
+        StandardOutPath = "/var/log/kanata.out.log";
+        StandardErrorPath = "/var/log/kanata.err.log";
       };
 
-      daemons = {
-        kanata.serviceConfig = {
-          Label = "io.github.jtroo.kanata";
-          ProgramArguments = [
-            "${pkgs-unstable.kanata}/bin/kanata"
-            "-c"
-            "/Users/acotten/git/antoineco/dotfiles/kanata/apple_internal.kbd"
-          ];
-          RunAtLoad = false;
-          ProcessType = "Interactive";
-          StandardOutPath = "/var/log/kanata.out.log";
-          StandardErrorPath = "/var/log/kanata.err.log";
-        };
-
-        # https://github.com/pqrs-org/Karabiner-DriverKit-VirtualHIDDevice/tree/v6.7.0/files/LaunchDaemons
-        karabiner-virtualhiddevice.serviceConfig = {
-          Label = "org.pqrs.service.daemon.Karabiner-VirtualHIDDevice-Daemon";
-          ProgramArguments = [
-            "/Library/Application Support/org.pqrs/Karabiner-DriverKit-VirtualHIDDevice/Applications/Karabiner-VirtualHIDDevice-Daemon.app/Contents/MacOS/Karabiner-VirtualHIDDevice-Daemon"
-          ];
-          KeepAlive = true;
-          ProcessType = "Interactive";
-        };
+      # https://github.com/pqrs-org/Karabiner-DriverKit-VirtualHIDDevice/tree/v6.7.0/files/LaunchDaemons
+      karabiner-virtualhiddevice.serviceConfig = {
+        Label = "org.pqrs.service.daemon.Karabiner-VirtualHIDDevice-Daemon";
+        ProgramArguments = [
+          "/Library/Application Support/org.pqrs/Karabiner-DriverKit-VirtualHIDDevice/Applications/Karabiner-VirtualHIDDevice-Daemon.app/Contents/MacOS/Karabiner-VirtualHIDDevice-Daemon"
+        ];
+        KeepAlive = true;
+        ProcessType = "Interactive";
       };
     };
+  };
 }

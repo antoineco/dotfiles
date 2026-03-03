@@ -207,7 +207,7 @@
 
       darwinConfigurations = {
         colomar = nix-darwin.lib.darwinSystem {
-          specialArgs = { inherit self nixpkgs-unstable monolisa; };
+          specialArgs = { inherit self monolisa; };
           modules = [ ./nix/hosts/colomar ];
         };
       };
