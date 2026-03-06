@@ -48,12 +48,35 @@
     useNetworkd = true;
   };
 
+  systemd.network = {
+    networks."30-enp0s31f6" = {
+      matchConfig.Name = "enp0s31f6";
+      networkConfig.Bridge = "xenbr0";
+      linkConfig.RequiredForOnline = "no";
+    };
+
+    netdevs."20-xenbr0" = {
+      netdevConfig = {
+        Kind = "bridge";
+        Name = "xenbr0";
+      };
+    };
+    networks."30-xenbr0" = {
+      matchConfig.Name = "xenbr0";
+      networkConfig.DHCP = "ipv4";
+      linkConfig.RequiredForOnline = "no";
+    };
+  };
+
   hardware.bluetooth.enable = true;
 
-  boot.loader = {
-    systemd-boot.enable = true;
-    efi.canTouchEfiVariables = true;
-    timeout = 2;
+  boot = {
+    initrd.systemd.enable = true;
+    loader = {
+      systemd-boot.enable = true;
+      efi.canTouchEfiVariables = true;
+      timeout = 2;
+    };
   };
 
   time.timeZone = "Europe/Berlin";
@@ -154,6 +177,14 @@
   services.fprintd.enable = true;
   # The password must be entered for gnome-keyring to be auto-unlocked.
   security.pam.services.greetd.fprintAuth = false;
+
+  virtualisation.xen = {
+    enable = true;
+    dom0Resources = {
+      maxVCPUs = 4;
+      memory = 8152;
+    };
+  };
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
