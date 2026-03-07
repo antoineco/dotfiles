@@ -45,6 +45,7 @@
   networking = {
     hostName = "calavera";
     networkmanager.enable = true;
+    useNetworkd = true;
   };
 
   hardware.bluetooth.enable = true;
