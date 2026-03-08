@@ -178,13 +178,7 @@
   # The password must be entered for gnome-keyring to be auto-unlocked.
   security.pam.services.greetd.fprintAuth = false;
 
-  virtualisation.xen = {
-    enable = true;
-    dom0Resources = {
-      maxVCPUs = 4;
-      memory = 8152;
-    };
-  };
+  virtualisation.xen.enable = true;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
