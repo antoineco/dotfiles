@@ -1,4 +1,9 @@
-{ disko, agenix, ... }:
+{
+  pkgs,
+  disko,
+  agenix,
+  ...
+}:
 {
   imports = [
     disko.nixosModules.disko
@@ -26,6 +31,8 @@
   networking.useNetworkd = true;
 
   powerManagement.enable = false;
+
+  environment.systemPackages = [ pkgs.pkgsBuildBuild.wezterm.terminfo ];
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
