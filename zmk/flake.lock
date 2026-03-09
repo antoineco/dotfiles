@@ -62,11 +62,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1743438845,
-        "narHash": "sha256-1GSaoubGtvsLRwoYwHjeKYq40tLwvuFFVhGrG8J9Oek=",
+        "lastModified": 1758265079,
+        "narHash": "sha256-amLaLNwKSZPShQHzfgmc/9o76dU8xzN0743dWgvYlr8=",
         "owner": "nix-community",
         "repo": "pyproject.nix",
-        "rev": "8063ec98edc459571d042a640b1c5e334ecfca1e",
+        "rev": "02e9418fd4af638447dca4b17b1280da95527fc9",
         "type": "github"
       },
       "original": {
@@ -87,16 +87,16 @@
     "zephyr": {
       "flake": false,
       "locked": {
-        "lastModified": 1750059894,
-        "narHash": "sha256-8IL9IK8R2OjePnSoT+wHrwFkLIZGw61xjedUkMzE+l4=",
+        "lastModified": 1767824654,
+        "narHash": "sha256-PsEv2r8bGUpJo9s4mgnS0N496ddad6OWT7/qBAprphg=",
         "owner": "zmkfirmware",
         "repo": "zephyr",
-        "rev": "628a0d85e36938dddb6f0dfc6dc902de7359711c",
+        "rev": "ec36516990d40355238db3049bc1709191f99b4e",
         "type": "github"
       },
       "original": {
         "owner": "zmkfirmware",
-        "ref": "v3.5.0+zmk-fixes",
+        "ref": "v4.1.0+zmk-fixes",
         "repo": "zephyr",
         "type": "github"
       }
@@ -113,15 +113,16 @@
         ]
       },
       "locked": {
-        "lastModified": 1743625659,
-        "narHash": "sha256-sdM/skladcDTed+Xyp0/YneaDpwVpeA6hBLWR1Uc/6Y=",
-        "owner": "adisbladis",
+        "lastModified": 1766008436,
+        "narHash": "sha256-rxsL4PELWWJm1jp2j3fQEatsbXVwf/P5KnESLflh84s=",
+        "owner": "urob",
         "repo": "zephyr-nix",
-        "rev": "5ba6564b7f2db1508bcf87f0f869b8e4f8be96c1",
+        "rev": "62288a26868d805935952a8cf8a77ffe5ec994f7",
         "type": "github"
       },
       "original": {
-        "owner": "adisbladis",
+        "owner": "urob",
+        "ref": "zephyr-4.1",
         "repo": "zephyr-nix",
         "type": "github"
       }
