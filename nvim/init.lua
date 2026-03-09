@@ -380,6 +380,7 @@ do
   end
   autostart "go"
   autostart "rust"
+  autostart "yaml"
 end
 do
   local function map(mode, l, query, desc, r)

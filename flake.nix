@@ -153,6 +153,7 @@
                   ++ (with pkgs.tree-sitter-grammars; [
                     (pkgs.neovimUtils.grammarToPlugin tree-sitter-go)
                     (pkgs.neovimUtils.grammarToPlugin tree-sitter-rust)
+                    (pkgs.neovimUtils.grammarToPlugin tree-sitter-yaml)
                   ]);
               };
             };
