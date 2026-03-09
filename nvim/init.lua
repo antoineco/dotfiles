@@ -232,8 +232,10 @@ do
   })
 
   local luals_markers = vim.lsp.config["lua_ls"].root_markers or {}
-  local idx_git = vim.iter(luals_markers):enumerate():find(function(_, f) return f == ".git" end) or (#luals_markers + 1)
-  table.insert(luals_markers, idx_git, ".editorconfig")
+  local idx_git = vim.iter(luals_markers):enumerate():find(function(_, fg)
+    return vim.tbl_contains(fg, ".git")
+  end) or (#luals_markers + 1)
+  table.insert(luals_markers, idx_git, { ".editorconfig" })
   vim.lsp.config("lua_ls", {
     settings = {
       -- https://github.com/LuaLS/lua-language-server/blob/3.15.0/doc/en-us/config.md
