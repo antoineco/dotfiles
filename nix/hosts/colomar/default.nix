@@ -44,15 +44,18 @@
     };
   };
 
-  environment = with pkgs; {
-    shells = [ zsh ];
+  environment = {
+    shells = [ pkgs.zsh ];
 
-    systemPackages = [
-      wezterm
-      ghostty-bin
-      appcleaner
-      betterdisplay
-    ];
+    systemPackages =
+      (with pkgs; [
+        appcleaner
+        betterdisplay
+      ])
+      ++ (with nixpkgs-unstable.legacyPackages.${pkgs.stdenv.hostPlatform.system}; [
+        wezterm
+        ghostty-bin
+      ]);
   };
 
   fonts.packages = with pkgs; [
