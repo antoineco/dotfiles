@@ -565,6 +565,11 @@ vim.api.nvim_create_autocmd("LspProgress", {
   end
 })
 
+-- Ghostty plugin
+if vim.env.GHOSTTY_RESOURCES_DIR then
+  vim.opt.runtimepath:append { vim.uv.fs_realpath(vim.env.GHOSTTY_RESOURCES_DIR .. "/../nvim/site") }
+end
+
 vim.cmd.colorscheme(colorscheme)
 
 -- }}}

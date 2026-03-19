@@ -45,6 +45,7 @@
 
     systemPackages = [
       wezterm
+      ghostty-bin
       appcleaner
       betterdisplay
     ];

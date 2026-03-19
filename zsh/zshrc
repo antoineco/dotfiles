@@ -13,6 +13,9 @@ export VISUAL=vi
 
 # Fpath mangling for user functions
 fpath=(${HOME}/.local/share/zsh/site-functions $fpath)
+if (( ${+GHOSTTY_RESOURCES_DIR} )) && [[ -d ${GHOSTTY_RESOURCES_DIR} ]]; then
+	fpath=(${GHOSTTY_RESOURCES_DIR:h}/zsh/site-functions $fpath)
+fi
 
 
 # -----------------
@@ -196,7 +199,9 @@ termtitle() {
 	for zhook in ${zhooks}; do
 		add-zsh-hook -d ${zhook} termtitle_update_${zhook}
 	done
-	print -rn $'\e]2;'${(q)@}$'\a'
+	local -a print_args=(-rn)
+	(( $+_ghostty_fd )) && print_args+=(-u $_ghostty_fd)
+	print $print_args $'\e]2;'${(q)@}$'\a'
 }
 
 # Source local environment

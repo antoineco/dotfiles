@@ -91,6 +91,13 @@ $(eval $(call symlink-dir,wezterm,~/.config/wezterm))
 ~/.wezterm.sh:
 	curl -fsSo $@ https://raw.githubusercontent.com/wez/wezterm/main/assets/shell-integration/wezterm.sh
 
+# -------- Ghostty --------
+
+.PHONY: ghostty
+ghostty: ~/.config/ghostty ## Set up the Ghostty terminal emulator
+
+$(eval $(call symlink-dir,ghostty,~/.config/ghostty))
+
 # -------- Neovim ---------
 
 .PHONY: nvim clean-nvim
