@@ -1,6 +1,7 @@
 {
   pkgs,
   lib,
+  nixpkgs-unstable,
   monolisa,
   ...
 }:
@@ -32,11 +33,14 @@
     knownUsers = [ "acotten" ];
     users.acotten = {
       uid = 501;
-      packages = with pkgs; [
-        colima
-        docker-client
-        amazon-ecr-credential-helper
-      ];
+      packages =
+        (with pkgs; [
+          docker-client
+          amazon-ecr-credential-helper
+        ])
+        ++ (with nixpkgs-unstable.legacyPackages.${pkgs.stdenv.hostPlatform.system}; [
+          colima
+        ]);
     };
   };
 
