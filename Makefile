@@ -93,10 +93,20 @@ $(eval $(call symlink-dir,wezterm,~/.config/wezterm))
 
 # -------- Ghostty --------
 
-.PHONY: ghostty
-ghostty: ~/.config/ghostty ## Set up the Ghostty terminal emulator
+os_name := $(if $(filter Darwin,$(shell uname -s)),macos,linux)
 
-$(eval $(call symlink-dir,ghostty,~/.config/ghostty))
+.PHONY: ghostty
+ghostty: ~/.config/ghostty/themes
+ghostty: ~/.config/ghostty/config.ghostty
+ghostty: ~/.config/ghostty/$(os_name).ghostty
+ghostty: ## Set up the Ghostty terminal emulator
+
+~/.config/ghostty/:
+	@mkdir $@
+
+$(eval $(call symlink-dir,ghostty/themes,~/.config/ghostty/themes))
+$(eval $(call symlink-file,ghostty/config.ghostty,~/.config/ghostty/config.ghostty))
+$(eval $(call symlink-file,ghostty/$(os_name).ghostty,~/.config/ghostty/$(os_name).ghostty))
 
 # -------- Neovim ---------
 

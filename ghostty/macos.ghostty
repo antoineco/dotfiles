@@ -1,0 +1,13 @@
+font-size = 14
+
+keybind = super+;=reload_config
+
+keybind = super+alt+y=goto_split:left
+keybind = super+alt+h=goto_split:down
+keybind = super+alt+a=goto_split:up
+keybind = super+alt+e=goto_split:right
+
+keybind = super+ctrl+y=resize_split:left,10
+keybind = super+ctrl+h=resize_split:down,10
+keybind = super+ctrl+a=resize_split:up,10
+keybind = super+ctrl+e=resize_split:right,10
