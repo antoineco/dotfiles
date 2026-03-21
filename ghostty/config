@@ -15,26 +15,23 @@ keybind = super+ctrl+h=resize_split:down,10
 keybind = super+ctrl+a=resize_split:up,10
 keybind = super+ctrl+e=resize_split:right,10
 
-keybind = ctrl+a=activate_key_table_once:leader
+keybind = ctrl+a>shift+\=new_split:right
+keybind = ctrl+a>-=new_split:down
+keybind = ctrl+a>y=goto_split:left
+keybind = ctrl+a>h=goto_split:bottom
+keybind = ctrl+a>a=goto_split:top
+keybind = ctrl+a>e=goto_split:right
+keybind = ctrl+a>z=toggle_split_zoom
+keybind = ctrl+a>c=new_tab
+keybind = ctrl+a>n=next_tab
+keybind = ctrl+a>p=previous_tab
+keybind = ctrl+a>shift+[=move_tab:-1
+keybind = ctrl+a>shift+]=move_tab:1
+keybind = ctrl+a>,=prompt_surface_title
+keybind = ctrl+a>ctrl+a=text:\x01
+keybind = ctrl+a>escape=ignore
 
-keybind = leader/shift+\=new_split:right
-keybind = leader/-=new_split:down
-keybind = leader/y=goto_split:left
-keybind = leader/h=goto_split:bottom
-keybind = leader/a=goto_split:top
-keybind = leader/e=goto_split:right
-keybind = leader/z=toggle_split_zoom
-keybind = leader/c=new_tab
-keybind = leader/n=next_tab
-keybind = leader/p=previous_tab
-keybind = leader/shift+[=move_tab:-1
-keybind = leader/shift+]=move_tab:1
-keybind = leader/,=prompt_surface_title
-keybind = leader/ctrl+a=text:\x01
-# Broken, triggers on any modifier key down (ghostty-org/ghostty#11723)
-#keybind = leader/catch_all=ignore
-
-keybind = leader/s=activate_key_table:resize
+keybind = ctrl+a>s=activate_key_table:resize
 
 keybind = resize/y=resize_split:left,10
 keybind = resize/h=resize_split:down,10
