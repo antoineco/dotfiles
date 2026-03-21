@@ -25,7 +25,6 @@
     shells = [ pkgs.zsh ];
 
     systemPackages = with pkgs; [
-      wezterm
       ghostty-bin
       appcleaner
       betterdisplay

@@ -11,7 +11,7 @@ inputs.nixpkgs.lib.composeManyExtensions [
 
       colima
 
-      wezterm
+      ghostty
       ghostty-bin
 
       go_1_26

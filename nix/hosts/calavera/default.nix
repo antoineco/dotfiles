@@ -59,7 +59,7 @@
   };
 
   environment.systemPackages = with pkgs; [
-    wezterm
+    ghostty
     google-chrome
     brightnessctl
     adwaita-icon-theme # use nwg-look program to apply

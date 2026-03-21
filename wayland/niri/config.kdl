@@ -57,7 +57,7 @@ layout {
 }
 
 binds {
-    Mod+Space       { spawn "wezterm"; }
+    Mod+Space       { spawn "ghostty"; }
     Mod+Shift+Space { spawn "google-chrome-stable"; }
     Super+Ctrl+Q    { spawn "swaylock"; }
 
