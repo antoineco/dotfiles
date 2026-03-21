@@ -40,22 +40,16 @@
 
   outputs =
     {
-      self,
       nixpkgs,
-      nixpkgs-unstable,
       determinate,
       nix-darwin,
-      wrappers,
-      neovim-overlay,
-      rust-overlay,
-      monolisa,
       agenix,
       secrets,
       hardware,
       disko,
       flake-schemas,
       ...
-    }:
+    }@inputs:
     let
       allSystems = [
         "x86_64-linux"
@@ -69,7 +63,8 @@
           f {
             pkgs = import nixpkgs {
               inherit system;
-              overlays = [ rust-overlay.overlays.default ];
+              overlays = [ (import ./nix/overlays inputs) ];
+              config.allowUnfree = true;
             };
           }
         );
@@ -95,14 +90,11 @@
               ];
             };
 
-          go = pkgs.mkShell {
-            name = "go";
-            packages =
-              let
-                pkgs-unstable = nixpkgs-unstable.legacyPackages.${pkgs.stdenv.hostPlatform.system};
-              in
-              with pkgs-unstable;
-              [
+          go =
+            with pkgs;
+            mkShell {
+              name = "go";
+              packages = [
                 go_1_26
                 gopls
                 golangci-lint
@@ -113,7 +105,7 @@
                 gotests
                 impl
               ];
-          };
+            };
 
           rust =
             with pkgs;
@@ -136,37 +128,15 @@
         }
       );
 
-      packages = forAllSystems (
-        { pkgs }:
-        {
-          neovim =
-            let
-              module = nixpkgs.lib.modules.importApply ./neovim.nix neovim-overlay;
-              wrapper = wrappers.lib.evalModule module;
-            in
-            wrapper.config.wrap {
-              pkgs = nixpkgs-unstable.legacyPackages.${pkgs.stdenv.hostPlatform.system};
-            };
-        }
-      );
-
-      overlays = {
-        default = final: prev: {
-          neovim-custom = self.packages.${final.stdenv.hostPlatform.system}.neovim;
-        };
-      };
-
       nixosConfigurations = {
         calavera = nixpkgs.lib.nixosSystem {
           specialArgs = {
-            inherit
-              self
-              determinate
-              hardware
-              monolisa
-              ;
+            inherit determinate hardware;
           };
-          modules = [ ./nix/hosts/calavera ];
+          modules = [
+            ./nix/hosts/calavera
+            { nixpkgs.pkgs = (forAllSystems ({ pkgs }: pkgs)).x86_64-linux; }
+          ];
         };
 
         flores = nixpkgs.lib.nixosSystem {
@@ -178,16 +148,19 @@
               secrets
               ;
           };
-          modules = [ ./nix/hosts/flores ];
+          modules = [
+            ./nix/hosts/flores
+            { nixpkgs.pkgs = (forAllSystems ({ pkgs }: pkgs)).x86_64-linux; }
+          ];
         };
       };
 
       darwinConfigurations = {
         colomar = nix-darwin.lib.darwinSystem {
-          specialArgs = {
-            inherit self nixpkgs-unstable monolisa;
-          };
-          modules = [ ./nix/hosts/colomar ];
+          modules = [
+            ./nix/hosts/colomar
+            { nixpkgs.pkgs = (forAllSystems ({ pkgs }: pkgs)).aarch64-darwin; }
+          ];
         };
       };
     };

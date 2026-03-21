@@ -1,10 +1,4 @@
-{
-  pkgs,
-  lib,
-  nixpkgs-unstable,
-  monolisa,
-  ...
-}:
+{ pkgs, ... }:
 {
   imports = [
     ../../modules/profiles/darwin.nix
@@ -13,49 +7,29 @@
     ./system.nix
   ];
 
-  nixpkgs = {
-    hostPlatform = "aarch64-darwin";
-
-    overlays = [ monolisa.overlays.default ];
-
-    config.allowUnfreePredicate =
-      pkg:
-      builtins.elem (lib.getName pkg) [
-        "appcleaner"
-        "betterdisplay"
-        "monolisa-plus"
-      ];
-  };
-
   networking.hostName = "colomar";
 
   users = {
     knownUsers = [ "acotten" ];
     users.acotten = {
       uid = 501;
-      packages =
-        (with pkgs; [
-          docker-client
-          amazon-ecr-credential-helper
-        ])
-        ++ (with nixpkgs-unstable.legacyPackages.${pkgs.stdenv.hostPlatform.system}; [
-          colima
-        ]);
+      packages = with pkgs; [
+        colima
+        docker-client
+        amazon-ecr-credential-helper
+      ];
     };
   };
 
   environment = {
     shells = [ pkgs.zsh ];
 
-    systemPackages =
-      (with pkgs; [
-        appcleaner
-        betterdisplay
-      ])
-      ++ (with nixpkgs-unstable.legacyPackages.${pkgs.stdenv.hostPlatform.system}; [
-        wezterm
-        ghostty-bin
-      ]);
+    systemPackages = with pkgs; [
+      wezterm
+      ghostty-bin
+      appcleaner
+      betterdisplay
+    ];
   };
 
   fonts.packages = with pkgs; [

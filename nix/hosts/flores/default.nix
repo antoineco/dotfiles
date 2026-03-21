@@ -16,8 +16,6 @@
     ./wireguard.nix
   ];
 
-  nixpkgs.hostPlatform = "x86_64-linux";
-
   users.users.acotten = {
     isNormalUser = true;
     uid = 1000;

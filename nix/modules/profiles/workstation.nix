@@ -1,9 +1,7 @@
-{ pkgs, self, ... }:
+{ pkgs, ... }:
 {
-  nixpkgs.overlays = [ self.overlays.default ];
-
   users.users.acotten.packages = with pkgs; [
-    neovim-custom
+    neovim
     jq
     yq-go
     bat

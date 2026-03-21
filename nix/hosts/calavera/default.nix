@@ -1,10 +1,4 @@
-{
-  pkgs,
-  lib,
-  hardware,
-  monolisa,
-  ...
-}:
+{ pkgs, hardware, ... }:
 {
   imports = [
     ./hardware-configuration.nix
@@ -15,32 +9,6 @@
 
     ./kanata.nix
   ];
-
-  nixpkgs = {
-    hostPlatform = "x86_64-linux";
-
-    overlays = [
-      monolisa.overlays.default
-
-      (final: prev: {
-        polkit_gnome = prev.polkit_gnome.overrideAttrs {
-          # allow xdg-autostart in XDG_CURRENT_DESKTOP=niri
-          postFixup = ''
-            substituteInPlace "$out"/etc/xdg/autostart/polkit-gnome-authentication-agent-1.desktop \
-              --replace-fail "GNOME;" "niri;GNOME;"
-          '';
-        };
-      })
-    ];
-
-    config.allowUnfreePredicate =
-      pkg:
-      builtins.elem (lib.getName pkg) [
-        "monolisa-plus"
-        "google-chrome"
-        "1password"
-      ];
-  };
 
   networking = {
     hostName = "calavera";
