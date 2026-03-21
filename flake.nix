@@ -13,7 +13,7 @@
       inputs.nixpkgs.follows = "nixpkgs-darwin";
     };
 
-    nixCats.url = "github:BirdeeHub/nixCats-nvim";
+    wrappers.url = "github:BirdeeHub/nix-wrapper-modules";
     neovim-overlay.url = "github:nix-community/neovim-nightly-overlay";
 
     rust-overlay.url = "https://flakehub.com/f/oxalica/rust-overlay/0.1";
@@ -45,7 +45,7 @@
       nixpkgs-unstable,
       determinate,
       nix-darwin,
-      nixCats,
+      wrappers,
       neovim-overlay,
       rust-overlay,
       monolisa,
@@ -136,52 +136,25 @@
         }
       );
 
-      overlays =
-        let
-          categoryDefinitions =
-            { pkgs, ... }:
-            {
-              startupPlugins = {
-                general =
-                  (with pkgs.vimPlugins; [
-                    nvim-treesitter-textobjects
-                    blink-cmp
-                  ])
-                  # Allow collate_grammars to collect grammars under the grammarPackName directory.
-                  # When using pkgs.vimPlugins.nvim-treesitter.withPlugins, grammars end up in the
-                  # packageName directory under nvim-treesitter-grammars/ instead.
-                  ++ (with pkgs.tree-sitter-grammars; [
-                    (pkgs.neovimUtils.grammarToPlugin tree-sitter-go)
-                    (pkgs.neovimUtils.grammarToPlugin tree-sitter-rust)
-                    (pkgs.neovimUtils.grammarToPlugin tree-sitter-yaml)
-                  ]);
-              };
+      packages = forAllSystems (
+        { pkgs }:
+        {
+          neovim =
+            let
+              module = nixpkgs.lib.modules.importApply ./neovim.nix neovim-overlay;
+              wrapper = wrappers.lib.evalModule module;
+            in
+            wrapper.config.wrap {
+              pkgs = nixpkgs-unstable.legacyPackages.${pkgs.stdenv.hostPlatform.system};
             };
+        }
+      );
 
-          packageDefinitions = {
-            neovim-nixCats =
-              { pkgs, ... }:
-              {
-                settings = {
-                  wrapRc = false;
-                  aliases = [
-                    "nvim"
-                    "vi"
-                  ];
-                  neovim-unwrapped = neovim-overlay.packages.${pkgs.stdenv.hostPlatform.system}.neovim;
-                };
-                categories = {
-                  general = true;
-                };
-              };
-          };
-
-          luaPath = ./.;
-          defaultPackageName = "neovim-nixCats";
-        in
-        nixCats.utils.makeOverlays luaPath {
-          nixpkgs = nixpkgs-unstable;
-        } categoryDefinitions packageDefinitions defaultPackageName;
+      overlays = {
+        default = final: prev: {
+          neovim-custom = self.packages.${final.stdenv.hostPlatform.system}.neovim;
+        };
+      };
 
       nixosConfigurations = {
         calavera = nixpkgs.lib.nixosSystem {
@@ -212,11 +185,7 @@
       darwinConfigurations = {
         colomar = nix-darwin.lib.darwinSystem {
           specialArgs = {
-            inherit
-              self
-              nixpkgs-unstable
-              monolisa
-              ;
+            inherit self nixpkgs-unstable monolisa;
           };
           modules = [ ./nix/hosts/colomar ];
         };

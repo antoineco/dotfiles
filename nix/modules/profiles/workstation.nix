@@ -3,7 +3,7 @@
   nixpkgs.overlays = [ self.overlays.default ];
 
   users.users.acotten.packages = with pkgs; [
-    neovim-nixCats
+    neovim-custom
     jq
     yq-go
     bat
