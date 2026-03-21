@@ -2,3 +2,44 @@ font-family = MonoLisa
 font-size = 14.0
 theme = dark:Mellifluous Dark,light:Mellifluous Light
 shell-integration-features = cursor,sudo,no-title,ssh-env,no-ssh-terminfo,path
+
+keybind = super+;=reload_config
+
+keybind = super+alt+y=goto_split:left
+keybind = super+alt+h=goto_split:down
+keybind = super+alt+a=goto_split:up
+keybind = super+alt+e=goto_split:right
+
+keybind = super+ctrl+y=resize_split:left,10
+keybind = super+ctrl+h=resize_split:down,10
+keybind = super+ctrl+a=resize_split:up,10
+keybind = super+ctrl+e=resize_split:right,10
+
+keybind = ctrl+a=activate_key_table_once:leader
+
+keybind = leader/shift+\=new_split:right
+keybind = leader/-=new_split:down
+keybind = leader/y=goto_split:left
+keybind = leader/h=goto_split:bottom
+keybind = leader/a=goto_split:top
+keybind = leader/e=goto_split:right
+keybind = leader/z=toggle_split_zoom
+keybind = leader/c=new_tab
+keybind = leader/n=next_tab
+keybind = leader/p=previous_tab
+keybind = leader/shift+[=move_tab:-1
+keybind = leader/shift+]=move_tab:1
+keybind = leader/,=prompt_surface_title
+keybind = leader/ctrl+a=text:\x01
+# Broken, triggers on any modifier key down (ghostty-org/ghostty#11723)
+#keybind = leader/catch_all=ignore
+
+keybind = leader/s=activate_key_table:resize
+
+keybind = resize/y=resize_split:left,10
+keybind = resize/h=resize_split:down,10
+keybind = resize/a=resize_split:up,10
+keybind = resize/e=resize_split:right,10
+keybind = resize/equal=equalize_splits
+keybind = resize/escape=deactivate_key_table
+keybind = resize/catch_all=ignore
