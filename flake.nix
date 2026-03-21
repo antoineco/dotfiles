@@ -157,6 +157,9 @@
 
       darwinConfigurations = {
         colomar = nix-darwin.lib.darwinSystem {
+          specialArgs = {
+            inherit determinate;
+          };
           modules = [
             ./nix/hosts/colomar
             { nixpkgs.pkgs = (forAllSystems ({ pkgs }: pkgs)).aarch64-darwin; }
