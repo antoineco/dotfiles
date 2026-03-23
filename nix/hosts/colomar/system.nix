@@ -20,6 +20,20 @@
           "de"
           "fr"
         ];
+        NSUserKeyEquivalents = {
+          # ^: ctrl, ~: opt, $: shift, @: cmd
+          Center = "^$@c";
+          Fill = "^$@f";
+          Left = "^$@←";
+          Right = "^$@→";
+          Top = "^$@↑";
+          Bottom = "^$@↓";
+          "Left & Right" = "^~$@←";
+          "Right & Left" = "^~$@→";
+          "Top & Bottom" = "^~$@↑";
+          "Bottom & Top" = "^~$@↓";
+          "Return to Previous Size" = "^$@r";
+        };
       };
       "com.apple.HIToolbox" = {
         AppleEnabledInputSources = [
