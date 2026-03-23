@@ -20,20 +20,6 @@
           "de"
           "fr"
         ];
-        NSUserKeyEquivalents = {
-          # ^: ctrl, ~: opt, $: shift, @: cmd
-          Center = "^$@c";
-          Fill = "^$@f";
-          Left = "^$@←";
-          Right = "^$@→";
-          Top = "^$@↑";
-          Bottom = "^$@↓";
-          "Left & Right" = "^~$@←";
-          "Right & Left" = "^~$@→";
-          "Top & Bottom" = "^~$@↑";
-          "Bottom & Top" = "^~$@↓";
-          "Return to Previous Size" = "^$@r";
-        };
       };
       "com.apple.HIToolbox" = {
         AppleEnabledInputSources = [
@@ -73,6 +59,138 @@
             # Disabled to free the Control-Option-Space hotkey for
             # "Select the previous input source" above.
             enabled = false;
+          };
+          # Windows > General > Fill
+          "237" = {
+            value = {
+              parameters = [
+                102
+                3
+                1441792
+              ];
+              type = "standard";
+            };
+            enabled = true;
+          };
+          # Windows > General > Center
+          "238" = {
+            value = {
+              parameters = [
+                99
+                8
+                1441792
+              ];
+              type = "standard";
+            };
+            enabled = true;
+          };
+          # Windows > General > Return to Previous Size
+          "239" = {
+            value = {
+              parameters = [
+                114
+                15
+                1441792
+              ];
+              type = "standard";
+            };
+            enabled = true;
+          };
+          # Windows > Halves > Tile Left Half
+          "240" = {
+            value = {
+              parameters = [
+                65535
+                123
+                9830400
+              ];
+              type = "standard";
+            };
+            enabled = true;
+          };
+          # Windows > Halves > Tile Right Half
+          "241" = {
+            value = {
+              parameters = [
+                65535
+                124
+                9830400
+              ];
+              type = "standard";
+            };
+            enabled = true;
+          };
+          # Windows > Halves > Tile Top Half
+          "242" = {
+            value = {
+              parameters = [
+                65535
+                126
+                9830400
+              ];
+              type = "standard";
+            };
+            enabled = true;
+          };
+          # Windows > Halves > Tile Bottom Half
+          "243" = {
+            value = {
+              parameters = [
+                65535
+                125
+                9830400
+              ];
+              type = "standard";
+            };
+            enabled = true;
+          };
+          # Windows > Arrange > Arrange Left and Right
+          "248" = {
+            value = {
+              parameters = [
+                65535
+                123
+                10354688
+              ];
+              type = "standard";
+            };
+            enabled = true;
+          };
+          # Windows > Arrange > Arrange Right and Left
+          "249" = {
+            value = {
+              parameters = [
+                65535
+                124
+                10354688
+              ];
+              type = "standard";
+            };
+            enabled = true;
+          };
+          # Windows > Arrange > Arrange Top and Bottom
+          "250" = {
+            value = {
+              parameters = [
+                65535
+                126
+                10354688
+              ];
+              type = "standard";
+            };
+            enabled = true;
+          };
+          # Windows > Arrange > Arrange Bottom and Top
+          "251" = {
+            value = {
+              parameters = [
+                65535
+                125
+                10354688
+              ];
+              type = "standard";
+            };
+            enabled = true;
           };
         };
       };
