@@ -60,33 +60,33 @@
                     32
                     49
                   ];
+                  a = [
+                    97
+                    0
+                  ];
                   c = [
                     99
                     8
+                  ];
+                  e = [
+                    101
+                    14
                   ];
                   f = [
                     102
                     3
                   ];
+                  h = [
+                    104
+                    4
+                  ];
                   r = [
                     114
                     15
                   ];
-                  left = [
-                    65535
-                    123
-                  ];
-                  right = [
-                    65535
-                    124
-                  ];
-                  down = [
-                    65535
-                    125
-                  ];
-                  up = [
-                    65535
-                    126
+                  y = [
+                    121
+                    16
                   ];
                 };
 
@@ -131,24 +131,24 @@
             # Halves
             // {
               # Tile Left
-              "240" = hotkey [ "Control" "Shift" "Command" ] "Left";
+              "240" = hotkey [ "Control" "Shift" "Command" ] "Y";
               # Tile Right
-              "241" = hotkey [ "Control" "Shift" "Command" ] "Right";
+              "241" = hotkey [ "Control" "Shift" "Command" ] "E";
               # Tile Top
-              "242" = hotkey [ "Control" "Shift" "Command" ] "Up";
+              "242" = hotkey [ "Control" "Shift" "Command" ] "A";
               # Tile Bottom
-              "243" = hotkey [ "Control" "Shift" "Command" ] "Down";
+              "243" = hotkey [ "Control" "Shift" "Command" ] "H";
             }
             # Arrange
             // {
               # Left and Right
-              "248" = hotkey [ "Control" "Option" "Shift" "Command" ] "Left";
+              "248" = hotkey [ "Control" "Option" "Shift" "Command" ] "Y";
               # Right and Left
-              "249" = hotkey [ "Control" "Option" "Shift" "Command" ] "Right";
+              "249" = hotkey [ "Control" "Option" "Shift" "Command" ] "E";
               # Top and Bottom
-              "250" = hotkey [ "Control" "Option" "Shift" "Command" ] "Up";
+              "250" = hotkey [ "Control" "Option" "Shift" "Command" ] "A";
               # Bottom and Top
-              "251" = hotkey [ "Control" "Option" "Shift" "Command" ] "Down";
+              "251" = hotkey [ "Control" "Option" "Shift" "Command" ] "H";
             }
           );
       };
