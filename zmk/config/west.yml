@@ -17,5 +17,18 @@ manifest:
       remote: antoineco
     - name: zmk-helpers
       remote: urob
+
+    # Only import necessary Zephyr modules.
+    # Override for https://github.com/zmkfirmware/zmk/blob/8feeb52eafc716c1697cfe0515e98b78281c3543/app/west.yml#L8-L30
+    - name: zephyr
+      remote: zmkfirmware
+      revision: v4.1.0+zmk-fixes
+      clone-depth: 1
+      import:
+        name-allowlist:
+          - cmsis
+          - hal_nordic
+          - mbedtls
+
   self:
     path: config

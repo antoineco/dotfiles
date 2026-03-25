@@ -7,7 +7,6 @@
 /zmk-keyboard-totem/
 /zmk-helpers/
 /zmk/
-/optional/
 
 # Build artifacts
 /build/
