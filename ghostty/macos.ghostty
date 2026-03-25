@@ -11,3 +11,7 @@ keybind = super+ctrl+y=resize_split:left,10
 keybind = super+ctrl+h=resize_split:down,10
 keybind = super+ctrl+a=resize_split:up,10
 keybind = super+ctrl+e=resize_split:right,10
+
+# Zsh bindings for {backward,forward}-word in viins mode
+keybind = super+arrow_left=text:\x1b[1;5D
+keybind = super+arrow_right=text:\x1b[1;5C
