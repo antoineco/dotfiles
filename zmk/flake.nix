@@ -9,7 +9,7 @@
     zephyr.flake = false;
 
     # Zephyr SDK and toolchain.
-    zephyr-nix.url = "github:urob/zephyr-nix/zephyr-4.1"; # downgrades SDK 0.17.4 -> 0.17.0
+    zephyr-nix.url = "github:nix-community/zephyr-nix";
     zephyr-nix.inputs.zephyr.follows = "zephyr";
     zephyr-nix.inputs.nixpkgs.follows = "nixpkgs";
 
@@ -53,7 +53,7 @@
           default = pkgs.mkShellNoCC {
             packages = [
               zephyr.pythonEnv
-              (zephyr.sdk-0_17.override { targets = [ "arm-zephyr-eabi" ]; })
+              (zephyr.sdk-0_16.override { targets = [ "arm-zephyr-eabi" ]; })
 
               pkgs.cmake
               pkgs.dtc
