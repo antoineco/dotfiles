@@ -13,32 +13,34 @@
   networking = {
     hostName = "calavera";
 
-    useNetworkd = true;
-
-    wireless = {
+    networkmanager = {
       enable = true;
-      userControlled.enable = true;
-      allowAuxiliaryImperativeNetworks = true;
-    };
-  };
 
-  systemd.network = {
-    networks."30-enp0s31f6" = {
-      matchConfig.Name = "enp0s31f6";
-      networkConfig.Bridge = "xenbr0";
-      linkConfig.RequiredForOnline = "no";
-    };
-
-    netdevs."20-xenbr0" = {
-      netdevConfig = {
-        Kind = "bridge";
-        Name = "xenbr0";
+      ensureProfiles.profiles = {
+        bridge-xenbr0 = {
+          connection = {
+            id = "bridge-xenbr0";
+            type = "bridge";
+            interface-name = "xenbr0";
+          };
+          ipv4 = {
+            method = "auto";
+          };
+          ipv6 = {
+            addr-gen-mode = "default";
+            method = "auto";
+          };
+        };
+        bridge-port-enp0s31f6 = {
+          connection = {
+            id = "bridge-port-enp0s31f6";
+            type = "ethernet";
+            interface-name = "enp0s31f6";
+            controller = "xenbr0";
+            port-type = "bridge";
+          };
+        };
       };
-    };
-    networks."30-xenbr0" = {
-      matchConfig.Name = "xenbr0";
-      networkConfig.DHCP = "ipv4";
-      linkConfig.RequiredForOnline = "no";
     };
   };
 
