@@ -12,8 +12,14 @@
 
   networking = {
     hostName = "calavera";
-    networkmanager.enable = true;
+
     useNetworkd = true;
+
+    wireless = {
+      enable = true;
+      userControlled.enable = true;
+      allowAuxiliaryImperativeNetworks = true;
+    };
   };
 
   systemd.network = {
