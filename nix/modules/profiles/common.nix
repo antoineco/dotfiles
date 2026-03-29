@@ -13,6 +13,7 @@
       git
       gnumake
       curl
+      tree
       fzf
     ];
   };
