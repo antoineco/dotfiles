@@ -12,36 +12,7 @@
 
   networking = {
     hostName = "calavera";
-
-    networkmanager = {
-      enable = true;
-
-      ensureProfiles.profiles = {
-        bridge-xenbr0 = {
-          connection = {
-            id = "bridge-xenbr0";
-            type = "bridge";
-            interface-name = "xenbr0";
-          };
-          ipv4 = {
-            method = "auto";
-          };
-          ipv6 = {
-            addr-gen-mode = "default";
-            method = "auto";
-          };
-        };
-        bridge-port-enp0s31f6 = {
-          connection = {
-            id = "bridge-port-enp0s31f6";
-            type = "ethernet";
-            interface-name = "enp0s31f6";
-            controller = "xenbr0";
-            port-type = "bridge";
-          };
-        };
-      };
-    };
+    networkmanager.enable = true;
   };
 
   hardware.bluetooth.enable = true;
@@ -153,8 +124,6 @@
   services.fprintd.enable = true;
   # The password must be entered for gnome-keyring to be auto-unlocked.
   security.pam.services.greetd.fprintAuth = false;
-
-  virtualisation.xen.enable = true;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
