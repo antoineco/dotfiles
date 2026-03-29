@@ -1,9 +1,6 @@
 { pkgs, ... }:
 {
-  nix = {
-    channel.enable = false;
-    settings.trusted-users = [ "acotten" ];
-  };
+  nix.channel.enable = false;
 
   programs.zsh.enable = true;
 
