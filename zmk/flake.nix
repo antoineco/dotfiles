@@ -58,6 +58,8 @@
               pkgs.cmake
               pkgs.dtc
               pkgs.ninja
+
+              pkgs.keymap-drawer
             ];
           };
         }
