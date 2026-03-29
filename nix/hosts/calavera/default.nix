@@ -108,7 +108,7 @@
     };
     serviceConfig = {
       Type = "simple";
-      ExecStart = "${pkgs.swaybg}/bin/swaybg -i %h/wall.jpg";
+      ExecStart = "${pkgs.swaybg}/bin/swaybg -i %h/wall.jpg -m fill";
       Restart = "on-failure";
     };
     wantedBy = [ "graphical-session.target" ];
