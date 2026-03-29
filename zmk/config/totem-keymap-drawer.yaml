@@ -25,18 +25,19 @@ _aliases:
   sftcom: &sftcom {t: ',', s: ;}
   sftsqt: &sftsqt {t: "'", s: _}
   sftmin: &sftmin {t: '-', s: '"'}
-  hmN: &hmN {t: N, h: *ctl}
+  hmN: &hmN {t: N, h: *cmd}
   hmR: &hmR {t: R, h: *opt}
-  hmT: &hmT {t: T, h: *cmd}
+  hmT: &hmT {t: T, h: *ctl}
   hmS: &hmS {t: S, h: *sft}
   hmH: &hmH {t: H, h: *sft}
-  hmA: &hmA {t: A, h: *cmd}
+  hmA: &hmA {t: A, h: *ctl}
   hmE: &hmE {t: E, h: *opt}
-  hmI: &hmI {t: I, h: *ctl}
+  hmI: &hmI {t: I, h: *cmd}
   sksft: &sksft {t: *sft, h: sticky}
   skctl: &skctl {t: *ctl, h: sticky}
   skopt: &skopt {t: *opt, h: sticky}
   skcmd: &skcmd {t: *cmd, h: sticky}
+  tgmac: &tgmac {t: $$mdi:apple$$, hold: $$mdi:microsoft-windows$$, type: ghost}
   mute: &mute $$mdi:volume-mute$$
   vold: &vold $$mdi:volume-minus$$
   volu: &volu $$mdi:volume-plus$$
@@ -64,7 +65,7 @@ layers:
   - [B, L, D, W, Z, *sftsqt, F, O, U, J]
   - [*hmN, *hmR, *hmT, *hmS, G, Y, *hmH, *hmA, *hmE, *hmI]
   - [Esc, Q, X, M, C, V, K, P, *sftdot, *sftmin, *sftcom, *fslh]
-  - ['', *mldel, *ulbspc, *llspc, *flret, '']
+  - [*tgmac, *mldel, *ulbspc, *llspc, *flret, '']
   Lower:
   - ['-', 7, 8, 9, +, '%', '[', (, ), ']']
   - [0, 4, 5, 6, '=', ←, ↓, ↑, →, .]
@@ -87,7 +88,7 @@ layers:
   - ['', '', '', '', *held, '']
   Media:
   - ['', '', '', '', '', '', *mprv, *mply, *mnxt, '']
-  - [*skctl, *skopt, *skcmd, *sksft, '', '', *mute, *vold, *volu, '']
+  - [*skcmd, *skopt, *skctl, *sksft, '', '', *mute, *vold, *volu, '']
   - ['', '', '', '', '', '', '', '', '', '', '', '']
   - ['', *held, '', '', '', '']
 

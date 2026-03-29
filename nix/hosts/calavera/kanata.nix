@@ -97,14 +97,14 @@
 
         (defalias
           ;; home row mods
-          n (t! charmod n lctl)
+          n (t! charmod n lmet)
           r (t! charmod r lalt)
-          t (t! charmod t lmet)
+          t (t! charmod t lctl)
           s (t! charmod s (multi lsft (layer-while-held shifted-symbols)))
           h (t! charmod h rsft)
-          a (t! charmod a rmet)
+          a (t! charmod a rctl)
           e (t! charmod e lalt)
-          i (t! charmod i rctl)
+          i (t! charmod i rmet)
 
           ;; shifted keys
           < S-,

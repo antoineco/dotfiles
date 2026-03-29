@@ -15,7 +15,7 @@
 
 #include "keymap.dtsi"
 
-#define MAGI 6
+#define MAGI 8
 
 MAKE_LAYER_TAP(magic, "Magic", &macro_rgb_sta)  /* must use macro as 2nd binding because RGB_STATUS expands to 2 params */
 ZMK_MACRO(macro_rgb_sta, bindings = <&rgb_ug RGB_STATUS>;)
@@ -37,7 +37,7 @@ MAKE_BT_TAP_DANCE(3)
 
 /* Base (default), Graphite alphas
  */
-GLV80_LAYER(Base,
+GLV80_LAYER(Default,
   &none        &none        &none        &none        &none                                    &none        &none        &none        &none        &none
   &none        &none        &none        &none        &none        &none          &none        &none        &none        &none        &none        &none
   &none        &kp B        &kp L        &kp D        &kp W        &kp Z          &sqtundr     &kp F        &kp O        &kp U        &kp J        &none
@@ -46,7 +46,18 @@ GLV80_LAYER(Base,
   MAGIC        &none        &none        &none        &none                     ,              &none        &none        &none        &none        &none
                                                                                 ,
                                          &none        &none        &none          &none        &none        &none,
-                                         BSPC_UPPR    DEL_MEDI     &none          &none        RET_FUNC     SPC_LOWR
+                                         BSPC_UPPR    DEL_MEDP     TG_MAC         &none        RET_FUNC     SPC_LOWR
+)
+GLV80_LAYER(DefaultMac,
+  &trans       &trans       &trans       &trans       &trans                                   &trans       &trans       &trans       &trans       &trans
+  &trans       &trans       &trans       &trans       &trans       &trans         &trans       &trans       &trans       &trans       &trans       &trans
+  &trans       &trans       &trans       &trans       &trans       &trans         &trans       &trans       &trans       &trans       &trans       &trans
+  &trans       HMM_N        &trans       HMM_T        &trans       &trans         &trans       &trans       HMM_A        &trans       HMM_I        &trans
+  &trans       &trans       &trans       &trans       &trans       &trans       , &trans       &trans       &trans       &trans       &trans       &trans
+  &trans       &trans       &trans       &trans       &trans                    ,              &trans       &trans       &trans       &trans       &trans
+                                                                                ,
+                                         &trans       &trans       &trans         &trans       &trans       &trans,
+                                         &trans       DEL_MEDM     &trans         &trans       &trans       &trans
 )
 
 /* Numbers, Navigation
@@ -111,12 +122,23 @@ GLV80_LAYER(Media,
   &none        &none        &none        &none        &none                                    &none        &none        &none        &none        &none
   &none        &none        &none        &none        &none        &none          &none        &none        &none        &none        &none        &none
   &none        &none        &none        &none        &none        &none          &none        &kp C_PREV   &kp C_PP     &kp C_NEXT   &none        &none
-  &none        &sk LCTRL    &sk LALT     &sk LGUI     &sk LSHFT    &none          &none        &kp C_MUTE   &kp C_VOL_DN &kp C_VOL_UP &none        &none
+  &none        &sk LGUI     &sk LALT     &sk LCTRL    &sk LSHFT    &none          &none        &kp C_MUTE   &kp C_VOL_DN &kp C_VOL_UP &none        &none
   &none        &none        &none        &none        &none        &none        , &none        &none        &none        &none        &none        &none
   &none        &none        &none        &none        &none                     ,              &none        &none        &none        &none        &none
                                                                                 ,
                                          &none        &none        &none          &none        &none        &none,
                                          &none        &none        &none          &none        &none        &none
+)
+GLV80_LAYER(MediaMac,
+  &trans       &trans       &trans       &trans       &trans                                   &trans       &trans       &trans       &trans       &trans
+  &trans       &trans       &trans       &trans       &trans       &trans         &trans       &trans       &trans       &trans       &trans       &trans
+  &trans       &trans       &trans       &trans       &trans       &trans         &trans       &trans       &trans       &trans       &trans       &trans
+  &trans       &sk LCTRL    &trans       &sk LGUI     &trans       &trans         &trans       &trans       &trans       &trans       &trans       &trans
+  &trans       &trans       &trans       &trans       &trans       &trans       , &trans       &trans       &trans       &trans       &trans       &trans
+  &trans       &trans       &trans       &trans       &trans                    ,              &trans       &trans       &trans       &trans       &trans
+                                                                                ,
+                                         &trans       &trans       &trans         &trans       &trans       &trans,
+                                         &trans       &trans       &trans         &trans       &trans       &trans
 )
 
 /* Keyboard control
