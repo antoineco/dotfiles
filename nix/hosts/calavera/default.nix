@@ -44,6 +44,7 @@
     adwaita-icon-theme # use nwg-look program to apply
     polkit_gnome
     swaynotificationcenter
+    wl-clipboard
   ];
 
   programs._1password-gui = {
