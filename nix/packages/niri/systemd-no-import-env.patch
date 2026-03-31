@@ -1,0 +1,19 @@
+--- a/resources/niri-session
++++ b/resources/niri-session
+@@ -33,15 +33,7 @@
+     systemctl --user reset-failed
+ 
+     # Import the login manager environment.
+-    systemctl --user import-environment
+-
+-    # DBus activation environment is independent from systemd. While most of
+-    # dbus-activated services are already using `SystemdService` directive, some
+-    # still don't and thus we should set the dbus environment with a separate
+-    # command.
+-    if hash dbus-update-activation-environment 2>/dev/null; then
+-        dbus-update-activation-environment --all
+-    fi
++    systemctl --user import-environment PATH
+ 
+     # Start niri and wait for it to terminate.
+     systemctl --user --wait start niri.service

@@ -27,6 +27,8 @@ inputs.nixpkgs.lib.composeManyExtensions [
 
     neovim = final.callPackage ../packages/neovim.nix { inherit (inputs) wrappers; };
 
+    niri = final.callPackage ../packages/niri { inherit (prev) niri; };
+
     polkit_gnome = prev.polkit_gnome.overrideAttrs {
       # allow xdg-autostart in XDG_CURRENT_DESKTOP=niri
       postFixup = ''

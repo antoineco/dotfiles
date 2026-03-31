@@ -62,31 +62,13 @@
 
   programs.niri.enable = true;
 
-  # The 'niri-session' startup script imports the entirety of the login manager's environment into systemd, so that it
-  # becomes available to the niri.service unit (and other user services).
-  # We must exclude a few of these environment variables, similarly to how uwsm does, mainly to avoid issues with
-  # subshells spawned by terminal emulators inside Niri.
-  #
-  # Unfortunately, by creating this drop-in, the PATH environment variable gets forced by NixOS to a default value, and
-  # most programs can no longer be launched by Niri.
-  # This behavior will be opt-out in a future release via the 'enableDefaultPath' option (NixOS/nixpkgs#482045).
-  # Meanwhile, this can be fixed manually by creating a drop-in via 'systemd --user edit niri.service'.
-  #systemd.user.services.niri = {
-  #  serviceConfig.UnsetEnvironment = [
-  #    "SHLVL" # 1 (!)
-  #    "SHELL" # /run/current-system/sw/bin/zsh
-  #    "TERM" # linux
-  #    "PWD" # $HOME
-  #  ];
-  #  enableDefaultPath = false;
-  #};
+  programs.waybar.enable = true;
 
   services.greetd = {
     enable = true;
     useTextGreeter = true;
     settings.default_session.command = "${pkgs.greetd}/bin/agreety --cmd 'niri-session -l'";
   };
-  programs.waybar.enable = true;
 
   systemd.packages = with pkgs; [
     swaynotificationcenter
