@@ -374,15 +374,19 @@ do
 end
 
 do
-  local function autostart(ft)
-    vim.api.nvim_create_autocmd("FileType", {
-      pattern = { ft },
-      callback = function() vim.treesitter.start() end
-    })
-  end
-  autostart "go"
-  autostart "rust"
-  autostart "yaml"
+  vim.api.nvim_create_autocmd("FileType", {
+    pattern = {
+      "go",
+      "rust",
+      "yaml",
+      "json", "jsonc",
+      "bash", "sh",
+      "zsh",
+      "nix",
+      "devicetree", "dts"
+    },
+    callback = function() vim.treesitter.start() end
+  })
 end
 do
   local function map(mode, l, query, desc, r)

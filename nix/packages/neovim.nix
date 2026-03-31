@@ -14,6 +14,11 @@ let
               go
               rust
               yaml
+              json
+              bash
+              zsh
+              nix
+              devicetree
             ]
           ))
           nvim-treesitter-textobjects
