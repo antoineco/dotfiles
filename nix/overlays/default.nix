@@ -1,14 +1,11 @@
 inputs:
 
 inputs.nixpkgs.lib.composeManyExtensions [
-  inputs.neovim-overlay.overlays.default
   inputs.rust-overlay.overlays.default
   inputs.monolisa.overlays.default
 
   (final: prev: {
     inherit (inputs.nixpkgs-unstable.legacyPackages.${final.stdenv.hostPlatform.system})
-      vimPlugins
-
       colima
 
       ghostty
@@ -25,7 +22,10 @@ inputs.nixpkgs.lib.composeManyExtensions [
       impl
       ;
 
-    neovim = final.callPackage ../packages/neovim.nix { inherit (inputs) wrappers; };
+    neovim = final.callPackage ../packages/neovim.nix {
+      pkgs = inputs.nixpkgs-unstable.legacyPackages.${final.stdenv.hostPlatform.system};
+      inherit (inputs) wrappers;
+    };
 
     niri = final.callPackage ../packages/niri { inherit (prev) niri; };
 

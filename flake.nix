@@ -14,7 +14,6 @@
     };
 
     wrappers.url = "github:BirdeeHub/nix-wrapper-modules";
-    neovim-overlay.url = "github:nix-community/neovim-nightly-overlay";
 
     rust-overlay.url = "https://flakehub.com/f/oxalica/rust-overlay/0.1";
 
