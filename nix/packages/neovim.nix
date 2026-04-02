@@ -19,6 +19,12 @@ let
               zsh
               nix
               devicetree
+              diff
+              gitignore
+              git_config
+              gitcommit
+              git_rebase
+              gitattributes
             ]
           ))
           nvim-treesitter-textobjects

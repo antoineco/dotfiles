@@ -383,7 +383,13 @@ do
       "bash", "sh",
       "zsh",
       "nix",
-      "devicetree", "dts"
+      "dts",
+      "diff",
+      "gitignore",
+      "gitconfig",
+      "gitcommit",
+      "gitrebase",
+      "gitattributes"
     },
     callback = function() vim.treesitter.start() end
   })
