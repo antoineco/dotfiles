@@ -575,6 +575,24 @@ vim.api.nvim_create_autocmd("LspProgress", {
   end
 })
 
+-- Sanitize default highlight of embedded markdown blocks in LSP preview windows
+do
+  local lsp_ns = vim.api.nvim_create_namespace "nvim.lsp.references"
+  vim.api.nvim_set_hl(lsp_ns, "@markup.raw.block", { fg = "fg" })
+
+  vim.api.nvim_create_autocmd("FileType", {
+    group = nvinit_augrp,
+    pattern = "markdown",
+    callback = function()
+      local floating_bufnr = vim.w.lsp_floating_bufnr
+      if floating_bufnr then
+        local floating_winnr = vim.b[floating_bufnr].lsp_floating_preview
+        vim.api.nvim_win_set_hl_ns(floating_winnr, lsp_ns)
+      end
+    end
+  })
+end
+
 -- Ghostty plugin
 if vim.env.GHOSTTY_RESOURCES_DIR then
   vim.opt.runtimepath:append { vim.uv.fs_realpath(vim.env.GHOSTTY_RESOURCES_DIR .. "/../nvim/site") }
