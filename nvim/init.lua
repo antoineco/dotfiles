@@ -375,14 +375,17 @@ end
 
 do
   vim.api.nvim_create_autocmd("FileType", {
+    group = nvinit_augrp,
     pattern = {
       "go",
       "rust",
+      "c",
       "yaml",
       "json", "jsonc",
       "bash", "sh",
       "zsh",
       "nix",
+      "vim",
       "dts",
       "diff",
       "gitignore",
