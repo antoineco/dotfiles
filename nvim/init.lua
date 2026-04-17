@@ -118,65 +118,61 @@ vim.pack.add {
   "https://github.com/brenoprata10/nvim-highlight-colors.git"
 }
 
-require "mellifluous".setup {
-  mellifluous = {
-    color_overrides = {
-      dark = {
-        bg = function(bg)
-          return bg:lightened(2)  -- soft contrast
-        end,
-        colors = function(colors)
-          return {
-            fg = colors.fg:darkened(7),
-            shades_fg = colors.fg
-          }
-        end
-      },
-      light = {
-        bg = function(bg)
-          return bg:lightened(2)  -- hard contrast
-        end
-      }
-    }
-  },
-  highlight_overrides = {
-    dark = function(highlighter, colors)
+do
+  local hl_overrides = function(bg_mode)
+    return function(highlighter, colors)
       local set_flow_style = function(name)
         highlighter.set(name, {
           bold = true,
           -- compensate for the difference in perceptual contrast due to boldness
-          fg = colors.main_keywords:darkened(10)
-        })
-      end
-      set_flow_style "Conditional"
-      set_flow_style "Repeat"
-    end,
-    light = function(highlighter, colors)
-      local set_flow_style = function(name)
-        highlighter.set(name, {
-          bold = true,
-          -- compensate for the difference in perceptual contrast due to boldness
-          fg = colors.main_keywords:lightened(8)
+          fg = bg_mode == "light" and colors.main_keywords:lightened(8) or colors.main_keywords:darkened(10)
         })
       end
       set_flow_style "Conditional"
       set_flow_style "Repeat"
     end
-  },
-  plugins = {
-    aerial = false,
-    cmp = false,
-    indent_blankline = false,
-    lazy = false,
-    mason = false,
-    neo_tree = { enabled = false },
-    neorg = false,
-    nvim_notify = false,
-    nvim_tree = { enabled = false },
-    startify = false,
-    telescope = { enabled = false }
+  end
+
+  require "mellifluous".setup {
+    mellifluous = {
+      color_overrides = {
+        dark = {
+          bg = function(bg)
+            return bg:lightened(2)  -- soft contrast
+          end,
+          colors = function(colors)
+            return {
+              fg = colors.fg:darkened(7),
+              shades_fg = colors.fg
+            }
+          end
+        },
+        light = {
+          bg = function(bg)
+            return bg:lightened(2)  -- hard contrast
+          end
+        }
+      }
+    },
+    highlight_overrides = {
+      dark = hl_overrides "dark",
+      light = hl_overrides "light"
+    },
+    plugins = {
+      aerial = false,
+      cmp = false,
+      indent_blankline = false,
+      lazy = false,
+      mason = false,
+      neo_tree = { enabled = false },
+      neorg = false,
+      nvim_notify = false,
+      nvim_tree = { enabled = false },
+      startify = false,
+      telescope = { enabled = false }
+    }
   }
-}
+end
 
 do
   vim.diagnostic.config {
