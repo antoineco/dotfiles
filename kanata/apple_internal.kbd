@@ -33,22 +33,10 @@
 (deflayer base
           brdn brup mctl sls  dtn  dnd  prev pp   next mute vold volu
         ` 1    2    3    4    5    6    7    8    9    0    @<   =
-      tab b    l    d    w    z    '    f    o    u    j    [    ]    \
+      tab b    l    d    w    z    @'   f    o    u    j    [    ]    \
       esc @n   @r   @t   @s   g    y    @h   @a   @e   @i   /    ret
-      q   x    m    c    v    XX   k    p    .    -    ,
+      q   x    m    c    v    XX   k    p    @.   @-   @,
   ctl @fn    @lcmd           @spc          @rcmd
-)
-
-#|
-Shifted punctuation is implemented on a dedicated layer instead of via defoverrides,
-because defoverrides would conflict with symbols that appear shifted on the 'symbols' layer.
-|#
-(deflayermap shifted-symbols
-  y -                 ;; '_
-  , ;                 ;; .:
-  . '                 ;; -"
-  / (unmod (lsft) ;)  ;; ,;
-  - .                 ;; <>
 )
 
 (deflayer navnum
@@ -114,19 +102,31 @@ because defoverrides would conflict with symbols that appear shifted on the 'sym
   (t! combo $keys $act $chord-timeout-fast)
 )
 
+#|
+Shifted punctuation is implemented using 'fork' instead of 'defoverrides',
+because defoverrides would conflict with symbols that appear shifted on the 'symbols' layer.
+|#
+(deftemplate sftkey (l r)
+  (fork $l $r (lsft))
+)
+
 (defalias
   ;; home row mods
   n (t! charmod n lctl)
   r (t! charmod r lalt)
   t (t! charmod t lmet)
-  s (t! charmod s (multi lsft (layer-while-held shifted-symbols)))
+  s (t! charmod s lsft)
   h (t! charmod h rsft)
   a (t! charmod a rmet)
   e (t! charmod e lalt)
   i (t! charmod i rctl)
 
   ;; shifted keys
-  < S-,
+  ' (t! sftkey ' -)                 ;; '_
+  . (t! sftkey . ;)                 ;; .:
+  - (t! sftkey - ')                 ;; -"
+  , (t! sftkey , (unmod (lsft) ;))  ;; ,;
+  < (t! sftkey S-, .)               ;; <>
 
   ;; layer taps
   spc (t! charmod spc (layer-while-held navnum))
