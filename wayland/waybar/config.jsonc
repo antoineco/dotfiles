@@ -95,6 +95,8 @@
         "tooltip-format": "{essid} ({signalStrength}%)\n{ifname} via {gwaddr}"
     },
     "niri/window": {
+        "icon": true,
+        "icon-size": 16,
         "separate-outputs": true
     },
     "niri/workspaces": {
