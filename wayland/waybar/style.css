@@ -3,6 +3,7 @@
 #clock,
 #cpu,
 #custom-1password,
+#custom-blank,
 #memory,
 #network,
 #temperature,
@@ -12,7 +13,6 @@
 }
 
 #custom-expand {
-    padding: 0 16px;
     color: @theme_unfocused_fg_color;
 }
 
