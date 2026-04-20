@@ -18,6 +18,7 @@ let
               bash
               zsh
               nix
+              html
               devicetree
               diff
               gitignore
