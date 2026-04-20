@@ -130,8 +130,6 @@ do
       end
       set_flow_style "Conditional"
       set_flow_style "Repeat"
-
-      highlighter.set("@markup.heading.gitcommit", { fg = highlighter.get "String".fg, bold = true })
     end
   end
 
