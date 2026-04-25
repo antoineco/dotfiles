@@ -3,18 +3,17 @@ window#waybar {
 }
 
 #rightgroup,
-#window,
-#workspaces {
-    margin-top: 6px;
-    padding: 0 12px;
+#leftgroup {
+    margin-left: 6px;
+    padding: 12px 0;
     background-color: @theme_bg_color;
     border-radius: 8px;
 }
-#rightgroup {
-    margin-right: 10px;
+#leftgroup {
+    margin-top: 10px;
 }
-#window {
-    margin-left: 10px;
+#rightgroup {
+    margin-bottom: 10px;
 }
 
 #battery,
@@ -22,16 +21,16 @@ window#waybar {
 #clock,
 #cpu,
 #custom-1password,
-#custom-blank,
 #memory,
 #network,
 #temperature,
+#window,
 #wireplumber {
-    padding: 0 8px;
+    padding: 8px 0;
 }
 
 #clock {
-    padding-right: 0;
+    padding-bottom: 0;
 }
 
 #custom-expand {
@@ -39,7 +38,7 @@ window#waybar {
 }
 
 window#waybar.empty #window {
-    background-color: initial;
+    padding: 0 0;
 }
 
 /* https://github.com/Alexays/Waybar/wiki/Styling#making-waybar-follow-the-gtk-theme */

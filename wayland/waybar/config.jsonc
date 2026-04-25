@@ -1,13 +1,19 @@
 {
+    "layer": "top",
+    "position": "left",
     "modules-left": [
-        "niri/window"
-    ],
-    "modules-center": [
-        "niri/workspaces"
+        "group/leftgroup"
     ],
     "modules-right": [
         "group/rightgroup"
     ],
+    "group/leftgroup": {
+        "orientation": "inherit",
+        "modules": [
+            "niri/workspaces",
+            "niri/window"
+        ]
+    },
     "group/rightgroup": {
         "orientation": "inherit",
         "modules": [
@@ -37,12 +43,13 @@
             "critical": 15
         },
         "format": "{icon}",
-        "format-charging": "{icon} ",
-        "format-full": "{icon} ",
+        "format-full": "󰂄",
         "format-plugged": "",
-        "format-alt": "{time} {icon}",
         "tooltip-format": "{capacity}%\n{timeTo}",
-        "format-icons": ["", "", "", "", ""]
+        "format-icons": {
+            "default":  ["󰂎", "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"],
+            "charging": ["󰢟", "󰢜", "󰂆", "󰂇", "󰂈", "󰢝", "󰂉", "󰢞", "󰂊", "󰂋", "󰂅"]
+        }
     },
     "bluetooth": {
         "format": "󰂯",
@@ -54,6 +61,7 @@
         "tooltip-format-enumerate-connected-battery": "{device_alias:16}\t{device_battery_percentage}%"
     },
     "clock": {
+        "rotate": 90,
         "format-alt": "{:%Y-%m-%d}",
         "tooltip-format": "<tt><small>{calendar}</small></tt>",
         "calendar": {
@@ -72,6 +80,7 @@
         }
     },
     "cpu": {
+        "rotate": 90,
         "format": "{usage}% ",
         "tooltip": false
     },
@@ -86,10 +95,11 @@
         "tooltip": false
     },
     "custom/expand": {
-        "format": "",
+        "format": "",
         "tooltip": false
     },
     "memory": {
+        "rotate": 90,
         "format": "{}% "
     },
     "network": {
@@ -101,6 +111,7 @@
         "tooltip-format": "{essid} ({signalStrength}%)\n{ifname} via {gwaddr}"
     },
     "niri/window": {
+        "rotate": 90,
         "icon": true,
         "icon-size": 16,
         "separate-outputs": true
@@ -114,6 +125,7 @@
         }
     },
     "temperature": {
+        "rotate": 90,
         "tooltip": false,
         "critical-threshold": 80,
         "format": "{temperatureC}°C {icon}",
