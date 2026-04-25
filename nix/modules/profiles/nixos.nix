@@ -2,13 +2,24 @@
 {
   imports = [
     determinate.nixosModules.default
-
-    ./common.nix
   ];
 
-  nix.settings.trusted-users = [ "acotten" ];
+  nix = {
+    channel.enable = false;
+    settings.trusted-users = [ "acotten" ];
+  };
 
-  users.users.acotten.packages = with pkgs; [
-    file
-  ];
+  programs.zsh.enable = true;
+
+  users.users.acotten = with pkgs; {
+    shell = zsh;
+    packages = [
+      git
+      gnumake
+      curl
+      tree
+      fzf
+      file
+    ];
+  };
 }

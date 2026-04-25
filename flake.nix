@@ -1,17 +1,11 @@
 {
-  description = "System configurations for NixOS and macOS";
+  description = "System configurations for NixOS";
 
   inputs = {
     nixpkgs.url = "https://flakehub.com/f/NixOS/nixpkgs/0.2511"; # nixos-25.11
     nixpkgs-unstable.url = "https://flakehub.com/f/NixOS/nixpkgs/0.1"; # nixos-unstable
-    nixpkgs-darwin.url = "github:NixOS/nixpkgs/nixpkgs-25.11-darwin";
 
     determinate.url = "https://flakehub.com/f/DeterminateSystems/determinate/3";
-
-    nix-darwin = {
-      url = "github:nix-darwin/nix-darwin/nix-darwin-25.11";
-      inputs.nixpkgs.follows = "nixpkgs-darwin";
-    };
 
     wrappers.url = "github:BirdeeHub/nix-wrapper-modules";
 
@@ -41,7 +35,6 @@
     {
       nixpkgs,
       determinate,
-      nix-darwin,
       agenix,
       secrets,
       hardware,
@@ -52,7 +45,6 @@
     let
       allSystems = [
         "x86_64-linux"
-        "aarch64-darwin"
       ];
 
       forAllSystems =
@@ -150,18 +142,6 @@
           modules = [
             ./nix/hosts/flores
             { nixpkgs.pkgs = (forAllSystems ({ pkgs }: pkgs)).x86_64-linux; }
-          ];
-        };
-      };
-
-      darwinConfigurations = {
-        colomar = nix-darwin.lib.darwinSystem {
-          specialArgs = {
-            inherit determinate;
-          };
-          modules = [
-            ./nix/hosts/colomar
-            { nixpkgs.pkgs = (forAllSystems ({ pkgs }: pkgs)).aarch64-darwin; }
           ];
         };
       };

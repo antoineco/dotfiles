@@ -38,7 +38,6 @@ _aliases:
   skctl: &skctl {t: *ctl, h: sticky}
   skopt: &skopt {t: *opt, h: sticky}
   skcmd: &skcmd {t: *cmd, h: sticky}
-  tgmac: &tgmac {t: $$mdi:apple$$, hold: $$mdi:microsoft-windows$$, type: ghost}
   mute: &mute $$mdi:volume-mute$$
   vold: &vold $$mdi:volume-minus$$
   volu: &volu $$mdi:volume-plus$$
@@ -80,7 +79,7 @@ layers:
   - ['', B, L, D, W, Z, *sftsqt, F, O, U, J, '']
   - [Esc, *hmN, *hmR, *hmT, *hmS, G, Y, *hmH, *hmA, *hmE, *hmI, *fslh]
   - ['', Q, X, M, C, V, '', '', '', '', '', '', K, P, *sftdot, *sftmin, *sftcom, '']
-  - [*magic, '', '', '', '', *ulbspc, *mldel, *tgmac, '', *flret, *llspc, '', '', '', '', '']
+  - [*magic, '', '', '', '', *ulbspc, *mldel, '', '', *flret, *llspc, '', '', '', '', '']
   Lower:
   - ['', '', '', '', '', '', '', '', '', '']
   - ['', '', '', '', '', '', '', '', '', '', '', '']

@@ -6,10 +6,7 @@ inputs.nixpkgs.lib.composeManyExtensions [
 
   (final: prev: {
     inherit (inputs.nixpkgs-unstable.legacyPackages.${final.stdenv.hostPlatform.system})
-      colima
-
       ghostty
-      ghostty-bin
 
       go_1_26
       gopls

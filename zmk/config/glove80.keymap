@@ -15,7 +15,7 @@
 
 #include "keymap.dtsi"
 
-#define MAGI 8
+#define MAGI 6
 
 MAKE_LAYER_TAP(magic, "Magic", &macro_rgb_sta)  /* must use macro as 2nd binding because RGB_STATUS expands to 2 params */
 ZMK_MACRO(macro_rgb_sta, bindings = <&rgb_ug RGB_STATUS>;)
@@ -46,18 +46,7 @@ GLV80_LAYER(Default,
   MAGIC        &none        &none        &none        &none                     ,              &none        &none        &none        &none        &none
                                                                                 ,
                                          &none        &none        &none          &none        &none        &none,
-                                         BSPC_UPPR    DEL_MEDP     TG_MAC         &none        RET_FUNC     SPC_LOWR
-)
-GLV80_LAYER(DefaultMac,
-  &trans       &trans       &trans       &trans       &trans                                   &trans       &trans       &trans       &trans       &trans
-  &trans       &trans       &trans       &trans       &trans       &trans         &trans       &trans       &trans       &trans       &trans       &trans
-  &trans       &trans       &trans       &trans       &trans       &trans         &trans       &trans       &trans       &trans       &trans       &trans
-  &trans       HMM_N        &trans       HMM_T        &trans       &trans         &trans       &trans       HMM_A        &trans       HMM_I        &trans
-  &trans       &trans       &trans       &trans       &trans       &trans       , &trans       &trans       &trans       &trans       &trans       &trans
-  &trans       &trans       &trans       &trans       &trans                    ,              &trans       &trans       &trans       &trans       &trans
-                                                                                ,
-                                         &trans       &trans       &trans         &trans       &trans       &trans,
-                                         &trans       DEL_MEDM     &trans         &trans       &trans       &trans
+                                         BSPC_UPPR    DEL_MEDI     &none          &none        RET_FUNC     SPC_LOWR
 )
 
 /* Numbers, Navigation
@@ -128,17 +117,6 @@ GLV80_LAYER(Media,
                                                                                 ,
                                          &none        &none        &none          &none        &none        &none,
                                          &none        &none        &none          &none        &none        &none
-)
-GLV80_LAYER(MediaMac,
-  &trans       &trans       &trans       &trans       &trans                                   &trans       &trans       &trans       &trans       &trans
-  &trans       &trans       &trans       &trans       &trans       &trans         &trans       &trans       &trans       &trans       &trans       &trans
-  &trans       &trans       &trans       &trans       &trans       &trans         &trans       &trans       &trans       &trans       &trans       &trans
-  &trans       &sk LCTRL    &trans       &sk LGUI     &trans       &trans         &trans       &trans       &trans       &trans       &trans       &trans
-  &trans       &trans       &trans       &trans       &trans       &trans       , &trans       &trans       &trans       &trans       &trans       &trans
-  &trans       &trans       &trans       &trans       &trans                    ,              &trans       &trans       &trans       &trans       &trans
-                                                                                ,
-                                         &trans       &trans       &trans         &trans       &trans       &trans,
-                                         &trans       &trans       &trans         &trans       &trans       &trans
 )
 
 /* Keyboard control

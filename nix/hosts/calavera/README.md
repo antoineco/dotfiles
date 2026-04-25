@@ -1,4 +1,4 @@
-### Kanata keyboard remapper
+### Kanata keyboard mapping
 
 [Configuration guide](https://jtroo.github.io/config.html)
 

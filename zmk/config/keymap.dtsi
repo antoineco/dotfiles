@@ -1,11 +1,9 @@
-#define DEFP 0
-#define DEFM 1
-#define LOWR 2
-#define UPPR 3
-#define ADJU 4
-#define FUNC 5
-#define MEDP 6
-#define MEDM 7
+#define DFLT 0
+#define LOWR 1
+#define UPPR 2
+#define ADJU 3
+#define FUNC 4
+#define MEDI 5
 
 #define MAKE_HRM(NAME, DISP, TRIGGER_POS)                  \
   ZMK_HOLD_TAP(NAME, display-name = DISP;                  \
@@ -42,13 +40,13 @@ MAKE_MORPH(mindqt, LSFT, &kp MINUS, &kp DQT)
 MAKE_MORPH(commsemi, LSFT, &kp COMMA, &kp SEMI)
 
 #define MAKE_COMBO_IDLE(NAME, BINDINGS, KEYPOS) \
-  ZMK_COMBO(NAME, BINDINGS, KEYPOS, DEFP DEFM, COMBO_TERM, 175)
+  ZMK_COMBO(NAME, BINDINGS, KEYPOS, DFLT, COMBO_TERM, 175)
 
 MAKE_COMBO_IDLE(tab, &kp TAB, LT2 LT3)
 MAKE_COMBO_IDLE(enter, &kp ENTER, RT2 RT3)
 ZMK_COMBO(spc_lower, &kp SPACE, LT2 LT3, LOWR)
 ZMK_COMBO(bspc_upper, &kp BSPC, RT2 RT3, UPPR)
-ZMK_COMBO(caps_word, &caps_word, LM1 RM1, DEFP DEFM)
+ZMK_COMBO(caps_word, &caps_word, LM1 RM1, DFLT)
 
 #define MAKE_BT_TAP_DANCE(PROFILE)                                                           \
   ZMK_TAP_DANCE(bt##PROFILE, display-name = ZMK_HELPER_STRINGIFY(Bluetooth Profile PROFILE); \
@@ -73,23 +71,4 @@ ZMK_CONDITIONAL_LAYER(adjust, LOWR UPPR, ADJU)
 #define SPC_LOWR  &ltt LOWR SPACE
 #define RET_FUNC  &ltt FUNC ENTER
 #define BSPC_UPPR &ltt UPPR BSPC
-#define DEL_MEDP  &ltt MEDP DEL
-
-/* MacOS - Ctrl-GUI swap */
-
-#define HMM_N &hml LCTRL N
-#define HMM_T &hml LGUI T
-#define HMM_A &hmr RGUI A
-#define HMM_I &hmr RCTRL I
-
-MAKE_HOLD_TAP(lttmm, "Layer-Tap Media Mac", &macro_media_mac, &kp)
-ZMK_MACRO(macro_media_mac,                               \
-          bindings = <&macro_press &mo MEDP &mo MEDM>    \
-                   , <&macro_pause_for_release>          \
-                   , <&macro_release &mo MEDP &mo MEDM>; \
-          wait-ms = <0>;                                 \
-          tap-ms = <0>;)
-
-#define DEL_MEDM &lttmm 0x0 DEL /* first arg irrelevant due to usage of macro binding */
-
-#define TG_MAC &tog DEFM
+#define DEL_MEDI  &ltt MEDI DEL

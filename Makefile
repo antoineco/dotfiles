@@ -1,34 +1,14 @@
 # -------- Macros ---------
 
-gnu_ln := $(shell 2>&1 >/dev/null ln --help; echo $$?)
-
 define symlink-dir
 $2: | $(dir $2)
-ifeq ($(gnu_ln),0)
 	ln -srTf -- $1 $$@
-else
-	@rm -rvf -- $$@
-	ln -sf -- $$(abspath $1) $$@
-endif
 endef
 
 define symlink-file
 $2:
-ifeq ($(gnu_ln),0)
 	ln -srTf -- $1 $$@
-else
-	@rm -vf -- $$@
-	ln -sf -- $$(abspath $1) $$@
-endif
 endef
-
-# ---------- Nix ----------
-
-.PHONY: nix
-nix: /nix ## Install Nix
-
-/nix:
-	curl -fsSL https://install.determinate.systems/nix | sh -s -- install
 
 # ---------- Zsh ----------
 
@@ -50,12 +30,7 @@ zim: ## Install the Zim Zsh configuration framework
 # Zsh dot files must be installed *after* Zim itself, otherwise the installation
 # gets aborted prematurely with the message "Zim already installed".
 $(zdotfiles): | ~/.zim
-ifeq ($(gnu_ln),0)
 	ln -srTf -- $(subst .,zsh/,$(notdir $@)) $@
-else
-	@rm -vf -- $@
-	ln -sf -- $(abspath $(subst .,zsh/,$(notdir $@))) $@
-endif
 
 ~/.zim/modules/asciiship/asciiship.zsh-theme:
 	zsh -ic 'zimfw install'
@@ -69,20 +44,10 @@ $(eval $(call symlink-file,gitconfig,~/.gitconfig))
 
 # -------- Ghostty --------
 
-os_name := $(if $(filter Darwin,$(shell uname -s)),macos,linux)
-
 .PHONY: ghostty
-ghostty: ~/.config/ghostty/themes
-ghostty: ~/.config/ghostty/config.ghostty
-ghostty: ~/.config/ghostty/$(os_name).ghostty
-ghostty: ## Set up the Ghostty terminal emulator
+ghostty: ~/.config/ghostty ## Set up the Ghostty terminal emulator
 
-~/.config/ghostty/:
-	@mkdir $@
-
-$(eval $(call symlink-dir,ghostty/themes,~/.config/ghostty/themes))
-$(eval $(call symlink-file,ghostty/config.ghostty,~/.config/ghostty/config.ghostty))
-$(eval $(call symlink-file,ghostty/$(os_name).ghostty,~/.config/ghostty/$(os_name).ghostty))
+$(eval $(call symlink-dir,ghostty,~/.config/ghostty))
 
 # -------- Neovim ---------
 

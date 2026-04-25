@@ -20,14 +20,7 @@ ZMK_LAYER(Default,
                HM_N         HM_R         HM_T         HM_S         &kp G          &kp Y        HM_H         HM_A         HM_E         HM_I
   &kp ESC      &kp Q        &kp X        &kp M        &kp C        &kp V          &kp K        &kp P        &dotcolon    &mindqt      &commsemi    &kp FSLH
 
-                                         TG_MAC       DEL_MEDP     BSPC_UPPR      SPC_LOWR     RET_FUNC     &none
-)
-ZMK_LAYER(DefaultMac,
-               &trans       &trans       &trans       &trans       &trans         &trans       &trans       &trans       &trans       &trans
-               HMM_N        &trans       HMM_T        &trans       &trans         &trans       &trans       HMM_A        &trans       HMM_I
-  &trans       &trans       &trans       &trans       &trans       &trans         &trans       &trans       &trans       &trans       &trans       &trans
-
-                                         &trans       DEL_MEDM     &trans         &trans       &trans       &trans
+                                         &none        DEL_MEDI     BSPC_UPPR      SPC_LOWR     RET_FUNC     &none
 )
 
 /* Numbers, Navigation
@@ -78,11 +71,4 @@ ZMK_LAYER(Media,
   &none        &none        &none        &none        &none        &none          &none        &none        &none        &none        &none        &none
 
                                          &none        &none        &none          &none        &none        &none
-)
-ZMK_LAYER(MediaMac,
-               &trans       &trans       &trans       &trans       &trans         &trans       &trans       &trans       &trans       &trans
-               &sk LCTRL    &trans       &sk LGUI     &trans       &trans         &trans       &trans       &trans       &trans       &trans
-  &trans       &trans       &trans       &trans       &trans       &trans         &trans       &trans       &trans       &trans       &trans       &trans
-
-                                         &trans       &trans       &trans         &trans       &trans       &trans
 )
