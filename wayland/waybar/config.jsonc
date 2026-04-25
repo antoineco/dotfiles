@@ -120,6 +120,6 @@
         "format-source-muted": "",
         "tooltip-format": "{volume}%  {format_source}\n{node_name}",
         "reverse-scrolling": true,
-        "format-icons": ["", "", ""]
+        "format-icons": ["", "", "", "", "", "", "", "", "", ""]
     }
 }
