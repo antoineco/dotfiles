@@ -45,7 +45,7 @@
         "format-disabled": "",
         "tooltip-format": "{device_enumerate}",
         "tooltip-format-enumerate-connected": "{device_alias}",
-        "tooltip-format-enumerate-connected-battery": "{device_alias}\t{device_battery_percentage}%"
+        "tooltip-format-enumerate-connected-battery": "{device_alias:16}\t{device_battery_percentage}%"
     },
     "clock": {
         "format-alt": "{:%Y-%m-%d}",
