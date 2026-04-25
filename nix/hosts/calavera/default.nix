@@ -67,7 +67,31 @@
   services.greetd = {
     enable = true;
     useTextGreeter = true;
-    settings.default_session.command = "${pkgs.greetd}/bin/agreety --cmd 'niri-session -l'";
+    settings.default_session.command =
+      let
+        # The 'niri-session' startup script imports the entirety of the login
+        # manager's environment into systemd, so that it becomes available to
+        # the niri.service unit (and other user services).
+        # Not only calling 'systemctl import-environment' without argument is
+        # deprecated, but most of the login manager's environment is useless.
+        # In fact, some of the environment variables initialized by Bash inside
+        # niri-session can even become problematic when exported to the
+        # environment of the Wayland session (SHLVL, SHELL, TERM, PWD).
+        #
+        # Refs.
+        #   niri-wm/niri#254
+        #   niri-wm/niri#3734
+        niriSessionPatched =
+          pkgs.runCommand "patched-niri-session"
+            {
+              nativeBuildInputs = [ pkgs.patch ];
+            }
+            ''
+              cp ${pkgs.niri}/bin/niri-session $out
+              patch $out < ${./niri-systemd-no-import-env.patch}
+            '';
+      in
+      "${pkgs.greetd}/bin/agreety --cmd '${niriSessionPatched} -l'";
   };
 
   systemd.packages = with pkgs; [
