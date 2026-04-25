@@ -6,15 +6,21 @@
         "niri/workspaces"
     ],
     "modules-right": [
-        "group/resources",
-        "custom/blank",
-        "custom/1password",
-        "bluetooth",
-        "wireplumber",
-        "battery",
-        "network",
-        "clock"
+        "group/rightgroup"
     ],
+    "group/rightgroup": {
+        "orientation": "inherit",
+        "modules": [
+            "group/resources",
+            "custom/blank",
+            "custom/1password",
+            "bluetooth",
+            "wireplumber",
+            "battery",
+            "network",
+            "clock"
+        ]
+    },
     "group/resources": {
         "orientation": "inherit",
         "drawer": {},
