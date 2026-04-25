@@ -1,7 +1,7 @@
 # Enable Vi mode
 Set-PSReadlineOption -EditMode Vi -ViModeIndicator Prompt
 
-# Custom mappings (set `Get-PSReadLineKeyHandler`)
+# Custom mappings (see `Get-PSReadLineKeyHandler`)
 Set-PSReadLineKeyHandler -Chord Ctrl+p -Function HistorySearchBackward
 Set-PSReadLineKeyHandler -Chord Ctrl+n -Function HistorySearchForward
 
