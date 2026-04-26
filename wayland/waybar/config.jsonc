@@ -81,7 +81,7 @@
     },
     "cpu": {
         "rotate": 90,
-        "format": "{usage}% ",
+        "format": "{usage:3}% ",
         "tooltip": false
     },
     "custom/1password": {
@@ -100,7 +100,7 @@
     },
     "memory": {
         "rotate": 90,
-        "format": "{}% "
+        "format": "{:3}% "
     },
     "network": {
         "format-wifi": "",
@@ -128,7 +128,7 @@
         "rotate": 90,
         "tooltip": false,
         "critical-threshold": 80,
-        "format": "{temperatureC}°C {icon}",
+        "format": "{temperatureC:2}°C {icon}",
         "format-icons": ["", "", ""]
     },
     "wireplumber": {
