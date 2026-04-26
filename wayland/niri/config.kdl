@@ -59,7 +59,9 @@ layout {
 binds {
     Mod+Space       { spawn "ghostty"; }
     Mod+Shift+Space { spawn "google-chrome-stable"; }
-    Super+Ctrl+Q    { spawn "swaylock"; }
+
+    Super+Alt+L { spawn "swaylock"; }
+    Super+Alt+D { spawn "pkill" "--signal=USR1" "waybar"; }
 
     Ctrl+Shift+Space { spawn "1password" "--quick-access"; }
 
