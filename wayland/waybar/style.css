@@ -29,6 +29,13 @@ window#waybar {
     padding: 8px 0;
 }
 
+#battery.warning:not(.charging) {
+    color: @warning_color;
+}
+#battery.critical:not(.charging) {
+    color: @error_color;
+}
+
 #clock {
     padding-bottom: 0;
 }
