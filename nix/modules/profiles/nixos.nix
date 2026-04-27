@@ -9,7 +9,13 @@
     settings.trusted-users = [ "acotten" ];
   };
 
-  programs.zsh.enable = true;
+  programs.zsh = {
+    enable = true;
+
+    # done by Zim
+    enableCompletion = false;
+    promptInit = "";
+  };
 
   users.users.acotten = with pkgs; {
     shell = zsh;
