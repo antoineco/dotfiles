@@ -25,6 +25,7 @@
       curl
       tree
       fzf
+      zoxide
       file
     ];
   };

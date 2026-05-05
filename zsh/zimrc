@@ -56,5 +56,8 @@ zmodule zsh-users/zsh-syntax-highlighting
 zmodule zsh-users/zsh-history-substring-search
 # Fish-like autosuggestions for Zsh.
 zmodule zsh-users/zsh-autosuggestions
+# Sets up the zoxide shell integration.
+# The zoxide shell configuration must be sourced after completion
+zmodule antoineco/zim-zoxide -n zoxide
 
 # vim: ft=zsh
