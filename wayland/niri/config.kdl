@@ -53,6 +53,8 @@ layout {
         hide-when-single-tab
     }
 
+    background-color "transparent"
+
     center-focused-column "on-overflow"
 }
 
@@ -238,6 +240,11 @@ window-rule {
         active-color   "#e65d67"
         inactive-color "#a92136"
     }
+}
+
+layer-rule {
+    match namespace="^wallpaper$"
+    place-within-backdrop true
 }
 
 hotkey-overlay {
