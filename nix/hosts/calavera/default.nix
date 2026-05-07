@@ -17,6 +17,11 @@
 
   hardware.bluetooth.enable = true;
 
+  services.tlp.settings = {
+    START_CHARGE_THRESH_BAT0 = 76;
+    STOP_CHARGE_THRESH_BAT0 = 80;
+  };
+
   boot = {
     initrd.systemd.enable = true;
     loader = {
