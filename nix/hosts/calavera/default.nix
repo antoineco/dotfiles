@@ -33,8 +33,6 @@
 
   time.timeZone = "Europe/Berlin";
 
-  services.fwupd.enable = true;
-
   users.users.acotten = {
     isNormalUser = true;
     extraGroups = [
