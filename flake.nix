@@ -19,6 +19,8 @@
       };
     };
 
+    zen-browser.url = "github:0xc000022070/zen-browser-flake";
+
     agenix.url = "github:ryantm/agenix";
     secrets = {
       url = "git+ssh://git@github.com/antoineco/nix-secrets.git";

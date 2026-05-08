@@ -60,7 +60,7 @@ layout {
 
 binds {
     Mod+Space       { spawn "ghostty"; }
-    Mod+Shift+Space { spawn "google-chrome-stable"; }
+    Mod+Shift+Space { spawn "zen-beta"; }
 
     Super+Alt+L { spawn "swaylock"; }
     Super+Alt+D { spawn "pkill" "--signal=USR1" "waybar"; }

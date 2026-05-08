@@ -24,6 +24,8 @@ inputs.nixpkgs.lib.composeManyExtensions [
         impl
         ;
 
+      zen-beta = inputs.zen-browser.packages.${system}.beta;
+
       neovim = final.callPackage ../packages/neovim.nix {
         pkgs = inputs.nixpkgs-unstable.legacyPackages.${system};
         inherit (inputs) wrappers;

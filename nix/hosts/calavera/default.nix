@@ -45,6 +45,7 @@
   environment.systemPackages = with pkgs; [
     ghostty
     google-chrome
+    zen-beta
     brightnessctl
     adwaita-icon-theme # use nwg-look program to apply
     polkit_gnome
@@ -55,6 +56,12 @@
   programs._1password-gui = {
     enable = true;
     polkitPolicyOwners = [ "acotten" ];
+  };
+  environment.etc."1password/custom_allowed_browsers" = {
+    text = ''
+      zen
+    '';
+    mode = "0644";
   };
 
   fonts.packages = with pkgs; [
