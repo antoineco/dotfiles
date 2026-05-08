@@ -13,7 +13,7 @@
     enable = true;
 
     # done by Zim
-    enableCompletion = false;
+    enableGlobalCompInit = false;
     promptInit = "";
   };
 
