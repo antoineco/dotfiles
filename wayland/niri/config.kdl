@@ -39,7 +39,7 @@ layout {
     gaps 12
 
     focus-ring {
-        active-color "#7c7b3a"
+        active-color "#f2cdcd"
     }
 
     tab-indicator {
