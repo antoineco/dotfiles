@@ -17,6 +17,12 @@
     promptInit = "";
   };
 
+  programs.nano.enable = false;
+  programs.vim = {
+    enable = true;
+    defaultEditor = true;
+  };
+
   users.users.acotten = with pkgs; {
     shell = zsh;
     packages = [
