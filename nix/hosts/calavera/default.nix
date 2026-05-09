@@ -53,6 +53,8 @@
     wl-clipboard
   ];
 
+  environment.variables.TERMINAL = "ghostty";
+
   programs._1password-gui = {
     enable = true;
     polkitPolicyOwners = [ "acotten" ];
