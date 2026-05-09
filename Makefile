@@ -89,10 +89,12 @@ $(eval $(call symlink-dir,bat,~/.config/bat))
 wayland: ~/.config/niri ## Set up the Wayland compositor (Niri)
 wayland: ~/.config/waybar
 wayland: ~/.config/swaync
+wayland: ~/.config/fuzzel
 
 $(eval $(call symlink-dir,wayland/niri,~/.config/niri))
 $(eval $(call symlink-dir,wayland/waybar,~/.config/waybar))
 $(eval $(call symlink-dir,wayland/swaync,~/.config/swaync))
+$(eval $(call symlink-dir,wayland/fuzzel,~/.config/fuzzel))
 
 # --------- Misc ----------
 

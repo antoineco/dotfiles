@@ -51,6 +51,7 @@
     polkit_gnome
     swaynotificationcenter
     wl-clipboard
+    fuzzel
   ];
 
   environment.variables.TERMINAL = "ghostty";
