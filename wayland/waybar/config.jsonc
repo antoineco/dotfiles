@@ -39,8 +39,8 @@
     },
     "battery": {
         "states": {
-            "warning": 15,
-            "critical": 7
+            "warning": 25,
+            "critical": 10
         },
         "format": "{icon}",
         "format-full": "󰂄",
