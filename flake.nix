@@ -30,7 +30,7 @@
     hardware.url = "https://flakehub.com/f/NixOS/nixos-hardware/0.1";
     disko.url = "https://flakehub.com/f/nix-community/disko/1.7";
 
-    flake-schemas.url = "https://flakehub.com/f/DeterminateSystems/flake-schemas/0.3";
+    flake-schemas.url = "https://flakehub.com/f/DeterminateSystems/flake-schemas/0.4";
   };
 
   outputs =
