@@ -372,25 +372,14 @@ end
 do
   vim.api.nvim_create_autocmd("FileType", {
     group = nvinit_augrp,
-    pattern = {
-      "go",
-      "rust",
-      "c",
-      "yaml",
-      "json", "jsonc",
-      "bash", "sh",
-      "zsh",
-      "nix",
-      "vim",
-      "dts",
-      "diff",
-      "gitignore",
-      "gitconfig",
-      "gitcommit",
-      "gitrebase",
-      "gitattributes"
-    },
-    callback = function() vim.treesitter.start() end
+    callback = function()
+      local ft = vim.bo.filetype
+      if ft == "blink-cmp-menu" then return end
+      local lang = vim.treesitter.language.get_lang(ft) or ""
+      if vim.treesitter.language.add(lang) then
+        vim.treesitter.start()
+      end
+    end
   })
 end
 do
