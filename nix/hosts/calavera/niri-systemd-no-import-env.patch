@@ -13,7 +13,7 @@
 -    if hash dbus-update-activation-environment 2>/dev/null; then
 -        dbus-update-activation-environment --all
 -    fi
-+    systemctl --user import-environment PATH TERMINAL
++    systemctl --user import-environment PATH
  
      # Start niri and wait for it to terminate.
      systemctl --user --wait start niri.service
