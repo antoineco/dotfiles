@@ -67,13 +67,20 @@
     mode = "0644";
   };
 
-  fonts.packages = with pkgs; [
-    monolisa-plus
-    nerd-fonts.symbols-only
-    adwaita-fonts
-    noto-fonts-cjk-sans
-    noto-fonts-cjk-serif
-  ];
+  fonts = {
+    packages = with pkgs; [
+      monolisa-plus
+      nerd-fonts.symbols-only
+      adwaita-fonts
+      noto-fonts-cjk-sans
+      noto-fonts-cjk-serif
+    ];
+
+    fontconfig.defaultFonts = {
+      sansSerif = [ "Adwaita Sans" ];
+      monospace = [ "Adwaita Mono" ];
+    };
+  };
 
   programs.niri.enable = true;
 
