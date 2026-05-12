@@ -35,7 +35,7 @@ inputs.nixpkgs.lib.composeManyExtensions [
         # allow xdg-autostart in XDG_CURRENT_DESKTOP=niri
         postFixup = ''
           substituteInPlace "$out"/etc/xdg/autostart/polkit-gnome-authentication-agent-1.desktop \
-            --replace-fail "GNOME;" "niri;GNOME;"
+            --replace-fail "OnlyShowIn=" "#OnlyShowIn="
         '';
       };
     }
