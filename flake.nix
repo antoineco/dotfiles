@@ -2,8 +2,7 @@
   description = "System configurations for NixOS";
 
   inputs = {
-    nixpkgs.url = "https://flakehub.com/f/NixOS/nixpkgs/0.2511"; # nixos-25.11
-    nixpkgs-unstable.url = "https://flakehub.com/f/NixOS/nixpkgs/0.1"; # nixos-unstable
+    nixpkgs.url = "github:NixOS/nixpkgs/staging-26.05"; # nixos-26.05
 
     determinate.url = "https://flakehub.com/f/DeterminateSystems/determinate/3";
 
@@ -75,7 +74,7 @@
             mkShell {
               name = "dots";
               packages = [
-                nixfmt-rfc-style
+                nixfmt
                 nixd
                 fh
                 lua-language-server

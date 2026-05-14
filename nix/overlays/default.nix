@@ -10,24 +10,9 @@ inputs.nixpkgs.lib.composeManyExtensions [
       inherit (final.stdenv.hostPlatform) system;
     in
     {
-      inherit (inputs.nixpkgs-unstable.legacyPackages.${system})
-        ghostty
-
-        go_1_26
-        gopls
-        golangci-lint
-        gofumpt
-        delve
-        gomodifytags
-        gotestsum
-        gotests
-        impl
-        ;
-
       zen-beta = inputs.zen-browser.packages.${system}.beta;
 
       neovim = final.callPackage ../packages/neovim.nix {
-        pkgs = inputs.nixpkgs-unstable.legacyPackages.${system};
         inherit (inputs) wrappers;
       };
 
