@@ -168,6 +168,20 @@
         "url": "https://flakehub.com/f/DeterminateSystems/flake-schemas/0.4"
       }
     },
+    "flake-schemas_2": {
+      "locked": {
+        "lastModified": 1775244557,
+        "narHash": "sha256-iYXRXIX9eafJmwJFAhqT3YxvvpNRuPFSLRCSpvGh8Ic=",
+        "rev": "15edbeeaf77e42216dbcba8bfd907fdeabb75a2b",
+        "revCount": 132,
+        "type": "tarball",
+        "url": "https://api.flakehub.com/f/pinned/DeterminateSystems/flake-schemas/0.4.2/019d5cf2-ee3c-7313-964e-f3f83c35d509/source.tar.gz"
+      },
+      "original": {
+        "type": "tarball",
+        "url": "https://flakehub.com/f/DeterminateSystems/flake-schemas/0.4"
+      }
+    },
     "git-hooks-nix": {
       "inputs": {
         "flake-compat": "flake-compat",
@@ -252,19 +266,15 @@
     },
     "monolisa": {
       "inputs": {
-        "flake-schemas": [
-          "flake-schemas"
-        ],
-        "nixpkgs": [
-          "nixpkgs"
-        ]
+        "flake-schemas": "flake-schemas_2",
+        "nixpkgs": "nixpkgs_5"
       },
       "locked": {
-        "lastModified": 1767729902,
-        "narHash": "sha256-pIYn6cWLYEqsJvhEdog/XCWkD5pvHiFaN7ZEF2b2u9U=",
+        "lastModified": 1778836297,
+        "narHash": "sha256-RC8QFMmAtvtIwlGFzvH8dUjNdMrWUg6NFw5kNt6RKjA=",
         "ref": "refs/heads/main",
-        "rev": "7c27141d52f730408c97c86725f814db79ae1bf6",
-        "revCount": 2,
+        "rev": "5e5c05de1180699b5bf84387937c9b8386a966b7",
+        "revCount": 3,
         "type": "git",
         "url": "ssh://git@github.com/antoineco/monolisa.git"
       },
@@ -388,6 +398,20 @@
     },
     "nixpkgs_5": {
       "locked": {
+        "lastModified": 1778443072,
+        "narHash": "sha256-zi7/fsqM/kFdNuED//4WOCUtezGtKKqRNORjMvfwjnA=",
+        "rev": "da5ad661ba4e5ef59ba743f0d112cbc30e474f32",
+        "revCount": 995699,
+        "type": "tarball",
+        "url": "https://api.flakehub.com/f/pinned/NixOS/nixpkgs/0.1.995699%2Brev-da5ad661ba4e5ef59ba743f0d112cbc30e474f32/019e1cce-50fe-7f80-9c18-f129a8d93b7c/source.tar.gz"
+      },
+      "original": {
+        "type": "tarball",
+        "url": "https://flakehub.com/f/NixOS/nixpkgs/0.1"
+      }
+    },
+    "nixpkgs_6": {
+      "locked": {
         "lastModified": 1778663929,
         "narHash": "sha256-1E8EsAcDb3b30uxaOv7hFJXYzAH9txYfSglKHTmrH4s=",
         "owner": "NixOS",
@@ -402,7 +426,7 @@
         "type": "github"
       }
     },
-    "nixpkgs_6": {
+    "nixpkgs_7": {
       "locked": {
         "lastModified": 1744536153,
         "narHash": "sha256-awS2zRgF4uTwrOKwwiJcByDzDOdo3Q1rPZbiHQg/N38=",
@@ -418,7 +442,7 @@
         "type": "github"
       }
     },
-    "nixpkgs_7": {
+    "nixpkgs_8": {
       "locked": {
         "lastModified": 1778274207,
         "narHash": "sha256-I4puXmX1iovcCHZlRmztO3vW0mAbbRvq4F8wgIMQ1MM=",
@@ -434,7 +458,7 @@
         "type": "github"
       }
     },
-    "nixpkgs_8": {
+    "nixpkgs_9": {
       "locked": {
         "lastModified": 1777268161,
         "narHash": "sha256-bxrdOn8SCOv8tN4JbTF/TXq7kjo9ag4M+C8yzzIRYbE=",
@@ -458,7 +482,7 @@
         "flake-schemas": "flake-schemas",
         "hardware": "hardware",
         "monolisa": "monolisa",
-        "nixpkgs": "nixpkgs_5",
+        "nixpkgs": "nixpkgs_6",
         "rust-overlay": "rust-overlay",
         "secrets": "secrets",
         "wrappers": "wrappers",
@@ -467,7 +491,7 @@
     },
     "rust-overlay": {
       "inputs": {
-        "nixpkgs": "nixpkgs_6"
+        "nixpkgs": "nixpkgs_7"
       },
       "locked": {
         "lastModified": 1767840362,
@@ -515,7 +539,7 @@
     },
     "wrappers": {
       "inputs": {
-        "nixpkgs": "nixpkgs_7"
+        "nixpkgs": "nixpkgs_8"
       },
       "locked": {
         "lastModified": 1778662548,
@@ -534,7 +558,7 @@
     "zen-browser": {
       "inputs": {
         "home-manager": "home-manager_2",
-        "nixpkgs": "nixpkgs_8"
+        "nixpkgs": "nixpkgs_9"
       },
       "locked": {
         "lastModified": 1778585655,

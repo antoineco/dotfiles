@@ -10,13 +10,7 @@
 
     rust-overlay.url = "https://flakehub.com/f/oxalica/rust-overlay/0.1";
 
-    monolisa = {
-      url = "git+ssh://git@github.com/antoineco/monolisa.git";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        flake-schemas.follows = "flake-schemas";
-      };
-    };
+    monolisa.url = "git+ssh://git@github.com/antoineco/monolisa.git";
 
     zen-browser.url = "github:0xc000022070/zen-browser-flake";
 
