@@ -12,7 +12,10 @@
   services.upower.enable = true;
 
   boot = {
-    initrd.systemd.enable = true;
+    initrd.systemd = {
+      enable = true;
+      root = "gpt-auto";
+    };
     loader = {
       systemd-boot.enable = true;
       efi.canTouchEfiVariables = true;
