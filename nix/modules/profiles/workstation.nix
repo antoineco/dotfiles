@@ -9,6 +9,8 @@
     STOP_CHARGE_THRESH_BAT0 = 80;
   };
 
+  services.upower.enable = true;
+
   boot = {
     initrd.systemd.enable = true;
     loader = {
