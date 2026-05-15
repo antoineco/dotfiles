@@ -29,4 +29,8 @@
       ];
     };
   };
+
+  swapDevices = [
+    { device = "/dev/disk/by-designator/swap"; }
+  ];
 }
