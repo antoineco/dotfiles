@@ -12,10 +12,13 @@
   services.upower.enable = true;
 
   boot = {
+    kernelParams = [ "hibernate=nocompress" ];
+
     initrd.systemd = {
       enable = true;
       root = "gpt-auto";
     };
+
     loader = {
       systemd-boot.enable = true;
       efi.canTouchEfiVariables = true;
