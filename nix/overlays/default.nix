@@ -16,7 +16,7 @@ inputs.nixpkgs.lib.composeManyExtensions [
         inherit (inputs) wrappers;
       };
 
-      niri = final.callPackage ../packages/niri.nix {
+      niri = final.callPackage ../packages/niri {
         inherit (prev) niri;
       };
 

@@ -1,5 +1,5 @@
---- a/niri-session
-+++ b/niri-session
+--- a/bin/niri-session
++++ b/bin/niri-session
 @@ -33,15 +33,7 @@
      systemctl --user reset-failed
  
