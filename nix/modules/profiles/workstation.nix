@@ -33,7 +33,6 @@
     extraGroups = [
       "wheel"
       "networkmanager"
-      "video" # brightness control
     ];
 
     packages = with pkgs; [
