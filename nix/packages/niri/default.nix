@@ -9,6 +9,7 @@
   wireplumber,
   gawk,
   libnotify,
+  brightnessctl,
 }:
 symlinkJoin {
   pname = "${niri.pname}-wrapped";
@@ -52,7 +53,12 @@ symlinkJoin {
     in
     ''
       wrapProgram $out/bin/niri \
-        --prefix PATH : ${lib.makeBinPath [ setVolume ]}
+        --prefix PATH : ${
+          lib.makeBinPath [
+            setVolume
+            brightnessctl
+          ]
+        }
 
       rm $out/share/systemd/user/niri.service
       cp -p {${niri},$out}/share/systemd/user/niri.service

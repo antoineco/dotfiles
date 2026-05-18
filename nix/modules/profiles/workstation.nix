@@ -53,7 +53,6 @@
     ghostty
     google-chrome
     zen-beta
-    brightnessctl
     adwaita-icon-theme # use nwg-look program to apply
     polkit_gnome
     swaynotificationcenter
