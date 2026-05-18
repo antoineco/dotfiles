@@ -1,6 +1,7 @@
 { pkgs, wrappers }:
-let
-  module =
+wrappers.lib.evalPackage [
+  { inherit pkgs; }
+  (
     { pkgs, wlib, ... }:
     {
       imports = [ wlib.wrapperModules.neovim ];
@@ -38,8 +39,6 @@ let
           ruby.nvim-host.enable = false;
         };
       };
-    };
-
-  wrapper = wrappers.lib.evalModule module;
-in
-wrapper.config.wrap { inherit pkgs; }
+    }
+  )
+]
