@@ -12,13 +12,13 @@
 }:
 symlinkJoin {
   pname = "${niri.pname}-wrapped";
+  inherit (niri) version;
 
-  inherit (niri)
-    version
-    # passthru.providedSessions must be preserved that the wrapped package
-    # remains compatible with services.displayManager.sessionPackages.
-    passthru
-    ;
+  # passthru.providedSessions must be preserved so that the wrapped package
+  # remains compatible with services.displayManager.sessionPackages.
+  passthru = niri.passthru // {
+    unwrapped = niri;
+  };
 
   paths = [ niri ];
 
