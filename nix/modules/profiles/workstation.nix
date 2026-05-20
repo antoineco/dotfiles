@@ -57,7 +57,6 @@
     polkit_gnome
     swaynotificationcenter
     wl-clipboard
-    fuzzel
   ];
 
   programs._1password-gui = {

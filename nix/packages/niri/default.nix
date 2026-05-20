@@ -10,6 +10,7 @@
   gawk,
   libnotify,
   brightnessctl,
+  fuzzel,
 }:
 symlinkJoin {
   pname = "${niri.pname}-wrapped";
@@ -57,6 +58,7 @@ symlinkJoin {
           lib.makeBinPath [
             setVolume
             brightnessctl
+            fuzzel
           ]
         }
 
