@@ -2,7 +2,7 @@
   description = "System configurations for NixOS";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/staging-26.05"; # nixos-26.05
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05-small";
 
     determinate.url = "https://flakehub.com/f/DeterminateSystems/determinate/3";
 
