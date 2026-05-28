@@ -5,6 +5,13 @@ output "Philips Consumer Electronics Company PHL 272B7QU 0x00000265" {
     focus-at-startup
 }
 
+output "Philips Consumer Electronics Company PHL 276B1 UK02209021657" {
+    mode "2560x1440@59.95"
+    scale 1
+    position x=0 y=400
+    focus-at-startup
+}
+
 output "eDP-1" {  // internal
     mode "1920x1080@60"
     scale 1
