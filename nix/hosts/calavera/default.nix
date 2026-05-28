@@ -1,4 +1,4 @@
-{ hardware, ... }:
+{ pkgs, hardware, ... }:
 {
   imports = [
     ./hardware-configuration.nix
@@ -11,6 +11,8 @@
   ];
 
   networking.hostName = "calavera";
+
+  environment.systemPackages = [ pkgs.slack ];
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

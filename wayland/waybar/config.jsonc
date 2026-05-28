@@ -19,6 +19,7 @@
         "modules": [
             "group/resources",
             "custom/blank",
+            "custom/slack",
             "custom/1password",
             "bluetooth",
             "wireplumber",
@@ -92,6 +93,12 @@
     },
     "custom/blank": {
         "format": " ",
+        "tooltip": false
+    },
+    "custom/slack": {
+        "exec": "printf ",
+        "exec-if": "/run/current-system/sw/bin/pgrep slack",
+        "interval": 15,
         "tooltip": false
     },
     "custom/expand": {
