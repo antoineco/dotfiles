@@ -19,6 +19,9 @@ inputs.nixpkgs.lib.composeManyExtensions [
       niri = final.callPackage ../packages/niri {
         inherit (prev) niri;
       };
+      ghostty = final.callPackage ../packages/ghostty.nix {
+        inherit (prev) ghostty;
+      };
 
       polkit_gnome = prev.polkit_gnome.overrideAttrs {
         # allow xdg-autostart in XDG_CURRENT_DESKTOP=niri
