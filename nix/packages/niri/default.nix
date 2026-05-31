@@ -9,6 +9,7 @@
   wireplumber,
   gawk,
   libnotify,
+  jq,
   brightnessctl,
   fuzzel,
 }:
@@ -51,12 +52,24 @@ symlinkJoin {
           	'''
         '';
       };
+
+      pickCastWin = writeShellApplication {
+        name = "pick-cast-window";
+        runtimeInputs = [ jq ];
+        text = ''
+          declare -i win_id=0
+          win_id="$(niri msg --json pick-window | jq 'select(. != null) .id')"
+          (( win_id )) || exit
+          niri msg action set-dynamic-cast-window --id "$win_id"
+        '';
+      };
     in
     ''
       wrapProgram $out/bin/niri \
         --prefix PATH : ${
           lib.makeBinPath [
             setVolume
+            pickCastWin
             brightnessctl
             fuzzel
           ]

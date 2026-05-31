@@ -224,6 +224,8 @@ binds {
     Ctrl+Print { screenshot-screen; }
     Alt+Print  { screenshot-window; }
 
+    Mod+Multi_key { spawn "pick-cast-window"; }
+
     Mod+Shift+P { power-off-monitors; }
 
     Mod+Escape allow-inhibiting=false { toggle-keyboard-shortcuts-inhibit; }
