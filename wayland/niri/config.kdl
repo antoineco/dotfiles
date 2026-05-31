@@ -26,6 +26,9 @@ input {
     keyboard {
         repeat-rate 40
         repeat-delay 300
+        xkb {
+            options "compose:paus"
+        }
     }
 
     touchpad {
