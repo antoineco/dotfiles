@@ -78,8 +78,8 @@ layers:
   - ['', '', '', '', '', '', '', '', '', '', '', '']
   - ['', B, L, D, W, Z, *sftsqt, F, O, U, J, '']
   - [Esc, *hmN, *hmR, *hmT, *hmS, G, Y, *hmH, *hmA, *hmE, *hmI, *fslh]
-  - ['', Q, X, M, C, V, '', '', '', '', '', '', K, P, *sftdot, *sftmin, *sftcom, '']
-  - [*magic, '', '', '', '', *ulbspc, *mldel, '', '', *flret, *llspc, '', '', '', '', '']
+  - ['', Q, X, M, C, V, PrtSc, '', '', '', '', '', K, P, *sftdot, *sftmin, *sftcom, '']
+  - [*magic, '', '', '', '', *ulbspc, *mldel, Pause, Ins, *flret, *llspc, '', '', '', '', '']
   Lower:
   - ['', '', '', '', '', '', '', '', '', '']
   - ['', '', '', '', '', '', '', '', '', '', '', '']

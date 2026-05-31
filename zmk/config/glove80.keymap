@@ -45,8 +45,8 @@ GLV80_LAYER(Default,
   &none        &kp Q        &kp X        &kp M        &kp C        &kp V        , &kp K        &kp P        &dotcolon    &mindqt      &commsemi    &none
   MAGIC        &none        &none        &none        &none                     ,              &none        &none        &none        &none        &none
                                                                                 ,
-                                         &none        &none        &none          &none        &none        &none,
-                                         BSPC_UPPR    DEL_MEDI     &none          &none        RET_FUNC     SPC_LOWR
+                                      &kp PSCRN    &none        &none                &none        &none        &none,
+                                      BSPC_UPPR    DEL_MEDI     &kp PAUSE_BREAK      &kp INS      RET_FUNC     SPC_LOWR
 )
 
 /* Numbers, Navigation

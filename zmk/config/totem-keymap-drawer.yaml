@@ -64,7 +64,7 @@ layers:
   - [B, L, D, W, Z, *sftsqt, F, O, U, J]
   - [*hmN, *hmR, *hmT, *hmS, G, Y, *hmH, *hmA, *hmE, *hmI]
   - [Esc, Q, X, M, C, V, K, P, *sftdot, *sftmin, *sftcom, *fslh]
-  - ['', *mldel, *ulbspc, *llspc, *flret, '']
+  - [Pause, *mldel, *ulbspc, *llspc, *flret, Ins]
   Lower:
   - ['-', 7, 8, 9, +, '%', '[', (, ), ']']
   - [0, 4, 5, 6, '=', ←, ↓, ↑, →, .]

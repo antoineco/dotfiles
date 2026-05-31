@@ -20,7 +20,7 @@ ZMK_LAYER(Default,
                HM_N         HM_R         HM_T         HM_S         &kp G          &kp Y        HM_H         HM_A         HM_E         HM_I
   &kp ESC      &kp Q        &kp X        &kp M        &kp C        &kp V          &kp K        &kp P        &dotcolon    &mindqt      &commsemi    &kp FSLH
 
-                                         &none        DEL_MEDI     BSPC_UPPR      SPC_LOWR     RET_FUNC     &none
+                                      &kp PAUSE_BREAK DEL_MEDI     BSPC_UPPR      SPC_LOWR     RET_FUNC     &kp INS
 )
 
 /* Numbers, Navigation
