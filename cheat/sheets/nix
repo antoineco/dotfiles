@@ -1,0 +1,17 @@
+# Build-switch system while updating most critical inputs:
+nixos-rebuild switch --sudo --update-input nixpkgs --update-input determinate --update-input zen-browser
+
+# Wipe non-current NixOS system generations:
+sudo nix profile wipe-history --profile /nix/var/nix/profiles/system
+
+# Re-generate boot entries, make current configuration the boot default:
+sudo /run/current-system/bin/switch-to-configuration boot
+
+# Show value of NixOS option:
+nixos-option environment.systemPackages
+
+# Cd to bin directory of the <cmd> executable:
+cd ${$(realpath $(which <cmd>)):h}
+
+# Print NixOS hardware configuration to stdout:
+nixos-generate-config --show-hardware-config

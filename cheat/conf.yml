@@ -1,0 +1,8 @@
+---
+colorize: true
+style: swapoff
+formatter: terminal16m
+
+cheatpaths:
+  - name: main
+    path: ~/.config/cheat/sheets

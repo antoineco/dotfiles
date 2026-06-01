@@ -83,6 +83,13 @@ bat: ~/.config/bat ## Set up bat
 
 $(eval $(call symlink-dir,bat,~/.config/bat))
 
+# --------- cheat ---------
+
+.PHONY: cheat
+cheat: ~/.config/cheat ## Set up cheat
+
+$(eval $(call symlink-dir,cheat,~/.config/cheat))
+
 # -------- Wayland --------
 
 .PHONY: wayland

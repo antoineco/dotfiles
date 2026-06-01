@@ -1,0 +1,11 @@
+# Flash left side of TOTEM keyboard:
+sudo sh -c 'mount /dev/disk/by-label/XIAO-SENSE /mnt/usb && cp -v totem_left.uf2 /mnt/usb/; umount /mnt/usb'
+
+# Flash left side of Glove80 keyboard:
+sudo sh -c 'mount /dev/disk/by-label/GLV80LHBOOT /mnt/usb && cp -v glove80.uf2 /mnt/usb/; umount /mnt/usb'
+
+# Build Glove80 firmware:
+nix build '.#glove80'
+
+# Draw keymap of TOTEM keyboard
+keymap draw config/totem-keymap-drawer.yaml >|config/totem-keymap-drawer.svg

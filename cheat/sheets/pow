@@ -1,0 +1,14 @@
+# Force a one-off battery charge above the defined thresholds:
+sudo tlp fullcharge
+
+# View battery data and supported battery care features:
+sudo tlp-stat --battery
+
+# View tunables for CPU and power profile:
+tlp-stat --processor
+
+# Show status of wireless devices:
+tlp-stat --rfkill
+
+# Monitor battery state and level changes:
+upower --monitor-detail

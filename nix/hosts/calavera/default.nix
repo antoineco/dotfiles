@@ -16,6 +16,8 @@
 
   users.users.acotten.packages = with pkgs; [
     claude-code
+    cheat
+
     (google-cloud-sdk.withExtraComponents [ google-cloud-sdk.components.beta ])
   ];
 

@@ -1,0 +1,11 @@
+# List available cameras:
+nix shell 'nixpkgs#v4l-utils' -c v4l2-ctl --list-devices
+
+# Disable autofocus for HD Pro Webcam C920:
+nix shell 'nixpkgs#v4l-utils' -c v4l2-ctl -d /dev/video4 --set-ctrl focus_automatic_continuous=0
+
+# Reset focus of HD Pro Webcam C920:
+nix shell 'nixpkgs#v4l-utils' -c v4l2-ctl -d /dev/video4 --set-ctrl focus_absolute=0
+
+# List available controls of HD Pro Webcam C920:
+nix shell 'nixpkgs#v4l-utils' -c v4l2-ctl -d /dev/video4 --list-ctrls
