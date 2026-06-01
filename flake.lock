@@ -494,12 +494,12 @@
         "nixpkgs": "nixpkgs_7"
       },
       "locked": {
-        "lastModified": 1767840362,
-        "narHash": "sha256-ZtsFqUhilubohNZ1TgpQIFsi4biZTwRH9rjZsDRDik8=",
-        "rev": "d159ea1fc321c60f88a616ac28bab660092a227d",
-        "revCount": 2035,
+        "lastModified": 1780284119,
+        "narHash": "sha256-y2wR4Mk6D/N1ID4FZa2oUMStCUxyIoRzmgOOpLzoWmo=",
+        "rev": "51390d0bfca0a68a8c337d215a4bbeddc2ca616e",
+        "revCount": 2192,
         "type": "tarball",
-        "url": "https://api.flakehub.com/f/pinned/oxalica/rust-overlay/0.1.2035%2Brev-d159ea1fc321c60f88a616ac28bab660092a227d/019b9b81-1553-7a12-aaaf-3e06f2324432/source.tar.gz"
+        "url": "https://api.flakehub.com/f/pinned/oxalica/rust-overlay/0.1.2192%2Brev-51390d0bfca0a68a8c337d215a4bbeddc2ca616e/019e8153-e74d-75e3-9f36-253c376257c0/source.tar.gz"
       },
       "original": {
         "type": "tarball",
