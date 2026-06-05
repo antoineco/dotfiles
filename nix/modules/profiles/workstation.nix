@@ -1,6 +1,9 @@
 { pkgs, ... }:
 {
-  networking.networkmanager.enable = true;
+  networking = {
+    networkmanager.enable = true;
+    nftables.enable = true;
+  };
 
   hardware.bluetooth.enable = true;
 
