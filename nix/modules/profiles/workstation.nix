@@ -130,6 +130,7 @@
 
   # Registers the Seahorse D-Bus service and sets SSH_ASKPASS to Seahorse's prompt.
   programs.seahorse.enable = true;
+  programs.ssh.enableAskPassword = true;
 
   # Enables the pam_fprintd module (fprintAuth) for all registered PAM services (security.pam.services.<name>).
   services.fprintd.enable = true;
