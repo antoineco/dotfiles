@@ -32,6 +32,12 @@ in
     (google-cloud-sdk.withExtraComponents [ google-cloud-sdk.components.beta ])
   ];
 
+  virtualisation.docker = {
+    enable = true;
+    enableOnBoot = false;
+  };
+  users.users.acotten.extraGroups = [ "docker" ];
+
   services.udev.extraRules =
     let
       runPrg = pkgs.writeShellScript "set-camera-controls" ''
