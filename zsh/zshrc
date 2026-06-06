@@ -192,6 +192,38 @@ termtitle() {
 	print $print_args $'\e]2;'${(q)@}$'\a'
 }
 
+# Prints the state of charge of both sides of the TOTEM keyboard.
+totem_bat_soc() {
+	local DEV_ID='E6:B9:0F:B2:F4:04'
+
+	# D-Bus object paths:
+	# GATT characteristics with the UUID '00002a19-0000-1000-8000-00805f9b34fb' (Battery level)
+	local BAT_L=/service0010/char0011
+	local BAT_R=/service0015/char0016
+
+	read_soc() {
+		local dev_path=$1
+		local obj_path=/org/bluez/hci0/dev_"${DEV_ID//:/_}${dev_path}"
+		# See: busctl introspect org.bluez $obj_path
+		# Returns: <sig> <size> <val>
+		local out
+		out="$(2>/dev/null busctl get-property org.bluez "$obj_path" org.bluez.GattCharacteristic1 Value)" \
+			|| return $?
+		printf '%s' "${out: -2}"
+	}
+
+	local -i exit_code=0
+	local -i soc_l=0 soc_r=0
+	soc_l="$(read_soc $BAT_L)" soc_r="$(read_soc $BAT_R)" || exit_code=$?
+	unfunction read_soc
+
+	if ((exit_code)); then
+		>&2 echo disconnected
+		return $exit_code
+	fi
+	printf 'L:%s%% R:%s%%\n' $soc_l $soc_r
+}
+
 # Source local environment
 if [[ -s ${ZDOTDIR:-${HOME}}/.zshrc.local ]]; then
 	. ${ZDOTDIR:-${HOME}}/.zshrc.local
