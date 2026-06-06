@@ -112,7 +112,7 @@ vim.pack.add {
   "https://github.com/nvim-lua/plenary.nvim.git",
   -- Debugging
   "https://github.com/mfussenegger/nvim-dap.git",
-  "https://github.com/rcarriga/nvim-dap-ui.git",
+  "https://github.com/igorlfs/nvim-dap-view.git",
   "https://github.com/leoluz/nvim-dap-go.git",
   -- Miscellaneous
   "https://github.com/brenoprata10/nvim-highlight-colors.git"
@@ -489,8 +489,7 @@ do
   vim.keymap.set("n", "<F8>", function() require "dap".step_out() end, { desc = "Step Out" })
 
   do
-    vim.keymap.set("n", "<leader>du", function() require "dapui".toggle() end, { desc = "Toggle DAP UI" })
-    require "dapui".setup {}
+    vim.keymap.set("n", "<leader>du", function() require "dap-view".toggle() end, { desc = "Toggle DAP UI" })
   end
 
   do
