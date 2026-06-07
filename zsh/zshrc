@@ -207,7 +207,7 @@ totem_bat_soc() {
 		# See: busctl introspect org.bluez $obj_path
 		# Returns: <sig> <size> <val>
 		local out
-		out="$(2>/dev/null busctl get-property org.bluez "$obj_path" org.bluez.GattCharacteristic1 Value)" \
+		out="$(2>/dev/null busctl call org.bluez "$obj_path" org.bluez.GattCharacteristic1 ReadValue 'a{sv}' 0)" \
 			|| return $?
 		printf '%s' "${out: -2}"
 	}
