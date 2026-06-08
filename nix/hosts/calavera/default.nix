@@ -1,4 +1,13 @@
-{ pkgs, hardware, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  hardware,
+  ...
+}:
+let
+  k8s = config.services.kubernetes;
+in
 {
   imports = [
     ./hardware-configuration.nix
@@ -18,8 +27,51 @@
     claude-code
     cheat
 
+    kubectl
+
     (google-cloud-sdk.withExtraComponents [ google-cloud-sdk.components.beta ])
   ];
+
+  services.kubernetes = {
+    roles = [
+      "master"
+      "node"
+    ];
+    masterAddress = "localhost";
+
+    kubelet.extraConfig = {
+      failSwapOn = false;
+      memorySwap.swapBehavior = "NoSwap";
+    };
+
+    addons.dns.replicas = 1;
+  };
+
+  systemd.targets.kubernetes.wantedBy = lib.mkForce [ ];
+  systemd.services = {
+    etcd.wantedBy = lib.mkForce [ "kube-apiserver.service" ];
+    containerd.wantedBy = lib.mkForce [ "kubelet.service" ];
+    flannel.wantedBy = lib.mkForce [ "kubelet.service" ];
+    certmgr.wantedBy = lib.mkForce [ ];
+  };
+
+  # Admin cert owned by regular user
+  # https://github.com/NixOS/nixpkgs/blob/nixos-26.05/nixos/modules/services/cluster/kubernetes/apiserver.nix#L529-L536
+  services.kubernetes.pki.certs.acotten = k8s.lib.mkCert {
+    name = "acotten";
+    CN = "acotten";
+    fields.O = "system:masters";
+    privateKeyOwner = "acotten";
+  };
+  # Admin kubeconfig for regular user
+  # https://github.com/NixOS/nixpkgs/blob/nixos-26.05/nixos/modules/services/cluster/kubernetes/default.nix#L286
+  environment.etc."kubernetes/acotten.kubeconfig".source =
+    with k8s.pki.certs.acotten;
+    k8s.lib.mkKubeConfig "acotten" {
+      server = k8s.apiserverAddress;
+      certFile = cert;
+      keyFile = key;
+    };
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
