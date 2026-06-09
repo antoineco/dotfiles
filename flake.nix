@@ -12,7 +12,7 @@
 
     monolisa.url = "git+ssh://git@github.com/antoineco/monolisa.git";
 
-    zen-browser.url = "github:0xc000022070/zen-browser-flake";
+    zen-browser.url = "github:0xc000022070/zen-browser-flake/beta";
 
     agenix.url = "github:ryantm/agenix";
     secrets = {
