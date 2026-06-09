@@ -3,26 +3,12 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
-
     determinate.url = "https://flakehub.com/f/DeterminateSystems/determinate/3";
-
     wrappers.url = "github:BirdeeHub/nix-wrapper-modules";
-
     rust-overlay.url = "https://flakehub.com/f/oxalica/rust-overlay/0.1";
-
     monolisa.url = "git+ssh://git@github.com/antoineco/monolisa.git";
-
     zen-browser.url = "github:0xc000022070/zen-browser-flake/beta";
-
-    agenix.url = "github:ryantm/agenix";
-    secrets = {
-      url = "git+ssh://git@github.com/antoineco/nix-secrets.git";
-      flake = false;
-    };
-
     hardware.url = "https://flakehub.com/f/NixOS/nixos-hardware/0.1";
-    disko.url = "https://flakehub.com/f/nix-community/disko/1.7";
-
     flake-schemas.url = "https://flakehub.com/f/DeterminateSystems/flake-schemas/0.4";
   };
 
@@ -30,10 +16,7 @@
     {
       nixpkgs,
       determinate,
-      agenix,
-      secrets,
       hardware,
-      disko,
       flake-schemas,
       ...
     }@inputs:
@@ -121,21 +104,6 @@
           };
           modules = [
             ./nix/hosts/calavera
-            { nixpkgs.pkgs = (forAllSystems ({ pkgs }: pkgs)).x86_64-linux; }
-          ];
-        };
-
-        flores = nixpkgs.lib.nixosSystem {
-          specialArgs = {
-            inherit
-              determinate
-              disko
-              agenix
-              secrets
-              ;
-          };
-          modules = [
-            ./nix/hosts/flores
             { nixpkgs.pkgs = (forAllSystems ({ pkgs }: pkgs)).x86_64-linux; }
           ];
         };
