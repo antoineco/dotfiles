@@ -548,7 +548,11 @@ vim.api.nvim_create_autocmd("LspProgress", {
             return prefix .. "<sysroot-rustsrc>/" .. relpath
           end
           prefix, relpath = msg:match "^(.+: )/.+%.cargo/registry/src/index.crates.io%-%w+/(.*)$"
-          return prefix and prefix .. "<cargo-crates>/" .. relpath or msg
+          if prefix then
+            return prefix .. "<cargo-crates>/" .. relpath
+          end
+          prefix, relpath = msg:match "^(.+: )/.+%.cargo/git/checkouts/(.*)$"
+          return prefix and prefix .. "<cargo-checkouts>/" .. relpath or msg
         elseif v.title == "Loading proc-macros" then
           local wspc = vim.lsp.buf.list_workspace_folders()
           if wspc and #wspc > 0 then
