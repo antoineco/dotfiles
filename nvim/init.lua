@@ -541,13 +541,22 @@ vim.api.nvim_create_autocmd("LspProgress", {
 
     local function process_message(msg)
       -- These messages tend to exceed v:echospace and cause hit-enter prompts.
-      if (c and c.name) == "rust-analyzer" and v.title == "Roots Scanned" then
-        local prefix, relpath = msg:match "^(.+: )/.+/lib/rustlib/src/rust/(.*)$"
-        if prefix then
-          return prefix .. "<sysroot-rustsrc>/" .. relpath
+      if (c and c.name) == "rust-analyzer" then
+        if v.title == "Roots Scanned" then
+          local prefix, relpath = msg:match "^(.+: )/.+/lib/rustlib/src/rust/(.*)$"
+          if prefix then
+            return prefix .. "<sysroot-rustsrc>/" .. relpath
+          end
+          prefix, relpath = msg:match "^(.+: )/.+%.cargo/registry/src/index.crates.io%-%w+/(.*)$"
+          return prefix and prefix .. "<cargo-crates>/" .. relpath or msg
+        elseif v.title == "Loading proc-macros" then
+          local wspc = vim.lsp.buf.list_workspace_folders()
+          if wspc and #wspc > 0 then
+            local esc_path = wspc[1]:gsub("-", "%%-")
+            local prefix, relpath = msg:match("^(.+: )" .. esc_path .. "/(.*)$")
+            return prefix and relpath or msg
+          end
         end
-        prefix, relpath = msg:match "^(.+: )/.+%.cargo/registry/src/index.crates.io%-%w+/(.*)$"
-        return prefix and prefix .. "<cargo-crates>/" .. relpath or msg
       end
       return msg
     end
