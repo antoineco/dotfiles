@@ -32,6 +32,19 @@ in
     (google-cloud-sdk.withExtraComponents [ google-cloud-sdk.components.beta ])
   ];
 
+  services.udev.extraRules =
+    let
+      runPrg = pkgs.writeShellScript "set-camera-controls" ''
+        ${pkgs.v4l-utils}/bin/v4l2-ctl -d /dev/"$1" --set-ctrl focus_automatic_continuous=0
+        ${pkgs.v4l-utils}/bin/v4l2-ctl -d /dev/"$1" --set-ctrl focus_absolute=0
+      '';
+    in
+    ''
+      # Logi C920/C920e webcams
+      ACTION=="add", SUBSYSTEM=="video4linux", KERNEL=="video[0-9]*", ENV{ID_V4L_CAPABILITIES}=="*:capture:*", ATTRS{idVendor}=="046d", ATTRS{idProduct}=="0892", RUN+="${runPrg} %k"
+      ACTION=="add", SUBSYSTEM=="video4linux", KERNEL=="video[0-9]*", ENV{ID_V4L_CAPABILITIES}=="*:capture:*", ATTRS{idVendor}=="046d", ATTRS{idProduct}=="08b6", RUN+="${runPrg} %k"
+    '';
+
   services.kubernetes = {
     roles = [
       "master"
