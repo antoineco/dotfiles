@@ -25,7 +25,7 @@ symlinkJoin {
 
   paths = [ niri ];
 
-  buildInputs = [ makeWrapper ];
+  nativeBuildInputs = [ makeWrapper ];
   postBuild =
     let
       setVolume = writeShellApplication {

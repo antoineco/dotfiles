@@ -17,7 +17,7 @@ symlinkJoin {
 
   paths = [ ghostty ];
 
-  buildInputs = [ makeWrapper ];
+  nativeBuildInputs = [ makeWrapper ];
   # bin/ghostty is itself a (binary) wrapper which execs ghostty from the Nix
   # store path of the *upstream* package, therefore we can remove the original
   # .ghostty-wrapped ELF executable.
