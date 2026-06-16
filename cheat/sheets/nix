@@ -10,6 +10,40 @@ sudo /run/current-system/bin/switch-to-configuration boot
 # Show value of NixOS option:
 nixos-option environment.systemPackages
 
+# Show derivation as JSON for the package <pkg>:
+nix derivation show '.#<pkg>'
+
+# Show derivation at an arbitrary store path:
+nix derivation show /nix/store/<name>.drv
+
+# Build package <pkg>:
+nix build '.#<pkg>' --print-out-paths --no-link
+
+# List the output of package <pkg>:
+ls -l "$(nix eval '.#<pkg>.outPath' --raw)"
+
+# Build a derivation closure at an arbitrary store path:
+nix-store --realise /nix/store/<name>.drv
+
+# Display path of store derivation produced by package <pkg>:
+nix path-info --derivation '.#<pkg>'
+
+# Display store path produced by package <pkg>:
+nix path-info '.#<pkg>'
+
+# Evaluate attribute of package <pkg>:
+nix eval '.#<pkg>.outPath' --raw
+
+# Open a development shell from the store derivation of package <pkg>:
+nix develop --impure "$(nix path-info --derivation '.#<pkg>')"
+
+# Run the full build with verbose output inside a development shell:
+NIX_DEBUG=1 genericBuild
+
+# Print individual build phases inside a development shell:
+declare -f | grep -E '^[a-zA-Z]+Phase '
+echo $phases
+
 # Cd to bin directory of the <cmd> executable:
 cd ${$(realpath $(which <cmd>)):h}
 
