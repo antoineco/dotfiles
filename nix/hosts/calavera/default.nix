@@ -38,6 +38,9 @@ in
   };
   users.users.acotten.extraGroups = [ "docker" ];
 
+  services.tailscale.enable = true;
+  systemd.services.tailscaled.serviceConfig.Environment = [ "TS_DEBUG_FIREWALL_MODE=auto" ];
+
   services.udev.extraRules =
     let
       runPrg = pkgs.writeShellScript "set-camera-controls" ''
