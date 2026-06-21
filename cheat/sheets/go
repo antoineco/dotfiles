@@ -1,0 +1,6 @@
+# Bypass the module proxy and checksum database for private modules:
+go env -w GOPRIVATE='github.com/acme-corp/'
+
+# Pull code behind private URLs over Git instead of HTTPS:
+[url "git@github.com:acme-corp/"]
+	insteadOf = https://github.co/acme-corp/
