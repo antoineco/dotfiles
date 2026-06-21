@@ -1,0 +1,18 @@
+# List EC2 instances with basic information:
+aws ec2 describe-instances \
+  --output table \
+  --query 'Reservations[].Instances[].{InstanceId:InstanceId,PrivateDnsName:PrivateDnsName,State:State.Name,AZ:Placement.AvailabilityZone}'
+
+# Describe SSM information for all EC2 instances:
+aws ssm describe-instance-information \
+  --output table \
+  --query 'InstanceInformationList[].{InstanceId:InstanceId,PingStatus:PingStatus,LastPing:LastPingDateTime,AgentVersion:AgentVersion}'
+
+# Describe SSM information for an EC2 instance:
+aws ssm describe-instance-information \
+  --output table \
+  --query 'InstanceInformationList[0].{PingStatus:PingStatus,LastPing:LastPingDateTime,AgentVersion:AgentVersion}' \
+  --filters 'Key=InstanceIds,Values=i-xxxxxxxxxxxxxxxxx'
+
+# Open an interactive session in an EC2 instance over SSM:
+aws ssm start-session --target i-xxxxxxxxxxxxxxxxx

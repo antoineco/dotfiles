@@ -1,0 +1,34 @@
+# Run an ultra-privileged Ubuntu container for dropping into a root shell:
+kubectl run ubuntu-root-shell \
+    --image=ubuntu:26.04 \
+    --restart=Never \
+    --overrides='{
+      "spec": {
+        "hostPID": true,
+        "hostIPC": true,
+        "hostNetwork": true,
+        "tolerations": [{"operator": "Exists"}],
+        "containers": [{
+          "name": "ubuntu-root-shell",
+          "image": "ubuntu:26.04",
+          "command": ["sleep", "infinity"],
+          "securityContext": {
+            "privileged": true,
+            "runAsUser": 0
+          },
+          "volumeMounts": [{
+            "name": "host-root",
+            "mountPath": "/host"
+          }]
+        }],
+        "volumes": [{
+          "name": "host-root",
+          "hostPath": {"path": "/"}
+        }],
+        "nodeName": "ip-10-0-xxxxxxxxxxxxxxxxxxxx.compute.internal"
+      }
+    }' \
+    -- sleep infinity
+
+# Enter the host namespaces from within a root shell:
+nsenter -t 1 -m -u -i -n -p -- bash
