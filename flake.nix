@@ -2,7 +2,7 @@
   description = "System configurations for NixOS";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
+    nixpkgs.url = "https://flakehub.com/f/NixOS/nixpkgs/0.2605"; # nixos-26.05
     determinate.url = "https://flakehub.com/f/DeterminateSystems/determinate/3";
     wrappers.url = "github:BirdeeHub/nix-wrapper-modules";
     rust-overlay.url = "https://flakehub.com/f/oxalica/rust-overlay/0.1";
