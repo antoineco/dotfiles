@@ -75,7 +75,7 @@
 
   fonts = {
     packages = with pkgs; [
-      monolisa-plus
+      monolisa-code
       nerd-fonts.symbols-only
       adwaita-fonts
       noto-fonts-cjk-sans

@@ -74,8 +74,8 @@ vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Add Diagno
 
 -- Appearance {{{
 
-vim.o.termguicolors = true  -- enable 24-bit true color
-vim.o.guifont = "MonoLisa"  -- for Neovide
+vim.o.termguicolors = true      -- enable 24-bit true color
+vim.o.guifont = "MonoLisaCode"  -- for Neovide
 
 -- }}}
 
