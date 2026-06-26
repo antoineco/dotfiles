@@ -114,8 +114,7 @@
         "format-ethernet": "󰈂",
         "format-linked": "󰈁",
         "format-disconnected": "󰤮",
-        "format-alt": "{ifname}: {ipaddr}/{cidr}",
-        "tooltip-format": "{essid} ({signalStrength}%)\n{ifname} via {gwaddr}"
+        "tooltip-format": "{essid} ({signalStrength}%)\n{ifname} {ipaddr}/{cidr} via {gwaddr}"
     },
     "niri/window": {
         "rotate": 90,
