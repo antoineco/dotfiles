@@ -9,7 +9,6 @@
     monolisa.url = "git+ssh://git@github.com/antoineco/monolisa.git";
     zen-browser.url = "github:0xc000022070/zen-browser-flake/beta";
     hardware.url = "https://flakehub.com/f/NixOS/nixos-hardware/0.1";
-    flake-schemas.url = "https://flakehub.com/f/DeterminateSystems/flake-schemas/0.4";
   };
 
   outputs =
@@ -17,7 +16,6 @@
       nixpkgs,
       determinate,
       hardware,
-      flake-schemas,
       ...
     }@inputs:
     let
@@ -39,8 +37,6 @@
         );
     in
     {
-      inherit (flake-schemas) schemas;
-
       formatter = forAllSystems ({ pkgs }: pkgs.nixfmt-tree);
 
       devShells = forAllSystems (

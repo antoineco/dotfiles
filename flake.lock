@@ -108,20 +108,6 @@
         "url": "https://flakehub.com/f/DeterminateSystems/flake-schemas/0.4"
       }
     },
-    "flake-schemas_2": {
-      "locked": {
-        "lastModified": 1775244557,
-        "narHash": "sha256-iYXRXIX9eafJmwJFAhqT3YxvvpNRuPFSLRCSpvGh8Ic=",
-        "rev": "15edbeeaf77e42216dbcba8bfd907fdeabb75a2b",
-        "revCount": 132,
-        "type": "tarball",
-        "url": "https://api.flakehub.com/f/pinned/DeterminateSystems/flake-schemas/0.4.2/019d5cf2-ee3c-7313-964e-f3f83c35d509/source.tar.gz"
-      },
-      "original": {
-        "type": "tarball",
-        "url": "https://flakehub.com/f/DeterminateSystems/flake-schemas/0.4"
-      }
-    },
     "git-hooks-nix": {
       "inputs": {
         "flake-compat": "flake-compat",
@@ -185,7 +171,7 @@
     },
     "monolisa": {
       "inputs": {
-        "flake-schemas": "flake-schemas_2",
+        "flake-schemas": "flake-schemas",
         "nixpkgs": "nixpkgs_3"
       },
       "locked": {
@@ -362,7 +348,6 @@
     "root": {
       "inputs": {
         "determinate": "determinate",
-        "flake-schemas": "flake-schemas",
         "hardware": "hardware",
         "monolisa": "monolisa",
         "nixpkgs": "nixpkgs_4",
