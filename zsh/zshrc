@@ -224,6 +224,32 @@ totem_bat_soc() {
 	printf 'L:%s%% R:%s%%\n' $soc_l $soc_r
 }
 
+_nix_devshell_completions() {
+	(( ${+IN_NIX_SHELL} )) || return
+
+	local -a new_paths
+
+	local dir
+	for dir in ${(s.:.)XDG_DATA_DIRS}; do
+		local completion_dir="$dir/zsh/site-functions"
+		if [[ -d "$completion_dir" ]]; then
+			# zshexpn(1), Parameter Expansion Flags
+			if (( ! ${fpath[(I)$completion_dir]} )); then
+				new_paths+=("$completion_dir")
+			fi
+		fi
+	done
+
+	if (( ${#new_paths} )); then
+		fpath=($new_paths $fpath)
+
+		local zdumpfile
+		zstyle -s ':zim:completion' dumpfile 'zdumpfile' || zdumpfile=${ZDOTDIR:-${HOME}}/.zcompdump
+		autoload -Uz compinit && compinit -w -d ${zdumpfile}
+	fi
+}
+add-zsh-hook precmd _nix_devshell_completions
+
 # Source local environment
 if [[ -s ${ZDOTDIR:-${HOME}}/.zshrc.local ]]; then
 	. ${ZDOTDIR:-${HOME}}/.zshrc.local
