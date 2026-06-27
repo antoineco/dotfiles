@@ -26,6 +26,7 @@ input {
     keyboard {
         repeat-rate 40
         repeat-delay 300
+        numlock
         xkb {
             options "compose:paus"
         }
