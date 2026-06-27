@@ -11,7 +11,6 @@ manifest:
   projects:
     - name: zmk
       remote: zmkfirmware
-      revision: 8feeb52eafc716c1697cfe0515e98b78281c3543  # 2026-03-09
       import: app/west.yml
     - name: zmk-keyboard-totem
       remote: antoineco
@@ -19,16 +18,17 @@ manifest:
       remote: urob
 
     # Only import necessary Zephyr modules.
-    # Override for https://github.com/zmkfirmware/zmk/blob/8feeb52eafc716c1697cfe0515e98b78281c3543/app/west.yml#L8-L30
+    # Override for https://github.com/zmkfirmware/zmk/blob/v0.3/app/west.yml#L8-L31
     - name: zephyr
       remote: zmkfirmware
-      revision: v4.1.0+zmk-fixes
+      revision: v3.5.0+zmk-fixes
       clone-depth: 1
       import:
         name-allowlist:
           - cmsis
           - hal_nordic
-          - mbedtls
+          - lvgl
+          - tinycrypt
 
   self:
     path: config
