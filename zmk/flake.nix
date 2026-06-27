@@ -14,7 +14,7 @@
     zephyr-nix.inputs.nixpkgs.follows = "nixpkgs";
 
     # Glove80 ZMK fork with self-contained Zephyr toolchain.
-    glove80-zmk.url = "github:moergo-sc/zmk/rename-can"; # v25.1 + python-can patch
+    glove80-zmk.url = "github:moergo-sc/zmk?ref=v25.11";
     glove80-zmk.flake = false;
 
     zmk-helpers.url = "github:urob/zmk-helpers?ref=v0.3";
@@ -69,7 +69,14 @@
         {
           glove80 =
             let
-              firmware = import glove80-zmk { inherit pkgs; };
+              firmware = import glove80-zmk {
+                # Use moergo's pinned nixpkgs, but set 'system' explicitly because
+                # 'builtins.currentSystem' is disabled in pure mode (the default).
+                # https://github.com/moergo-sc/zmk/blob/v25.11/nix/pinned-nixpkgs.nix#L1
+                pkgs = import (glove80-zmk + /nix/pinned-nixpkgs.nix) {
+                  inherit (pkgs.stdenv.hostPlatform) system;
+                };
+              };
 
               config = ./config;
               overrides = {
