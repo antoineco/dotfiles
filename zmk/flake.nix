@@ -30,6 +30,8 @@
       ...
     }:
     {
+      formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixfmt-tree;
+
       devShells.x86_64-linux = {
         default =
           let
@@ -37,6 +39,7 @@
             zephyrPkgs = zephyr-nix.packages.x86_64-linux;
           in
           pkgs.mkShellNoCC {
+            name = "zephyr";
             packages =
               (with pkgs; [
                 cmake
@@ -44,6 +47,10 @@
                 ninja
 
                 keymap-drawer
+
+                nixfmt
+                nixd
+                fh
               ])
               ++ (with zephyrPkgs; [
                 pythonEnv
