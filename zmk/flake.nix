@@ -2,7 +2,7 @@
   description = "Zephyr build environment for ZMK keyboards";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs.url = "https://flakehub.com/f/NixOS/nixpkgs/0.1"; # nixos-unstable
 
     # This pins requirements.txt provided by zephyr-nix.pythonEnv.
     zephyr.url = "github:zmkfirmware/zephyr/v3.5.0+zmk-fixes";
@@ -11,7 +11,6 @@
     # Zephyr SDK and toolchain.
     zephyr-nix.url = "github:nix-community/zephyr-nix";
     zephyr-nix.inputs.zephyr.follows = "zephyr";
-    zephyr-nix.inputs.nixpkgs.follows = "nixpkgs";
 
     # Glove80 ZMK fork with self-contained Zephyr toolchain.
     glove80-zmk.url = "github:moergo-sc/zmk?ref=v25.11";
