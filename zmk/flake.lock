@@ -1,6 +1,6 @@
 {
   "nodes": {
-    "glove80-zmk": {
+    "moergo-zmk": {
       "flake": false,
       "locked": {
         "lastModified": 1764160494,
@@ -91,7 +91,7 @@
     },
     "root": {
       "inputs": {
-        "glove80-zmk": "glove80-zmk",
+        "moergo-zmk": "moergo-zmk",
         "nixpkgs": "nixpkgs",
         "zephyr": "zephyr",
         "zephyr-nix": "zephyr-nix",

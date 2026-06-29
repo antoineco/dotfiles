@@ -12,9 +12,9 @@
     zephyr-nix.url = "github:nix-community/zephyr-nix";
     zephyr-nix.inputs.zephyr.follows = "zephyr";
 
-    # Glove80 ZMK fork with self-contained Zephyr toolchain.
-    glove80-zmk.url = "github:moergo-sc/zmk?ref=v25.11";
-    glove80-zmk.flake = false;
+    # Moergo's ZMK fork with self-contained Zephyr toolchain.
+    moergo-zmk.url = "github:moergo-sc/zmk?ref=v25.11";
+    moergo-zmk.flake = false;
 
     zmk-helpers.url = "github:urob/zmk-helpers?ref=v0.3";
     zmk-helpers.flake = false;
@@ -24,7 +24,7 @@
     {
       nixpkgs,
       zephyr-nix,
-      glove80-zmk,
+      moergo-zmk,
       zmk-helpers,
       ...
     }:
@@ -64,8 +64,8 @@
             # Use moergo's pinned nixpkgs, but set 'system' explicitly because
             # 'builtins.currentSystem' is disabled in pure mode (the default).
             # https://github.com/moergo-sc/zmk/blob/v25.11/nix/pinned-nixpkgs.nix#L1
-            firmware = import glove80-zmk {
-              pkgs = import (glove80-zmk + /nix/pinned-nixpkgs.nix) { system = "x86_64-linux"; };
+            firmware = import moergo-zmk {
+              pkgs = import (moergo-zmk + /nix/pinned-nixpkgs.nix) { system = "x86_64-linux"; };
             };
 
             config = ./config;
@@ -78,7 +78,7 @@
             left = firmware.zmk.override (overrides // { board = "glove80_lh"; });
             right = firmware.zmk.override (overrides // { board = "glove80_rh"; });
           in
-          firmware.combine_uf2 left right;
+          firmware.combine_uf2 left right "glove80";
       };
     };
 }
