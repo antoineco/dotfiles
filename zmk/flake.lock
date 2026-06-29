@@ -17,27 +17,6 @@
         "type": "github"
       }
     },
-    "nix-github-actions": {
-      "inputs": {
-        "nixpkgs": [
-          "zephyr-nix",
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1737420293,
-        "narHash": "sha256-F1G5ifvqTpJq7fdkT34e/Jy9VCyzd5XfJ9TO8fHhJWE=",
-        "owner": "nix-community",
-        "repo": "nix-github-actions",
-        "rev": "f4158fa080ef4503c8f4c820967d946c2af31ec9",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nix-community",
-        "repo": "nix-github-actions",
-        "type": "github"
-      }
-    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1782467914,
@@ -52,112 +31,12 @@
         "url": "https://flakehub.com/f/NixOS/nixpkgs/0.1"
       }
     },
-    "nixpkgs_2": {
-      "locked": {
-        "lastModified": 1782467914,
-        "narHash": "sha256-pGvFkM8N0xEkIIXDe5YYfbEAvHrk4IxBrjB/x8OomhE=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "e73de5be04e0eff4190a1432b946d469c794e7b4",
-        "type": "github"
-      },
-      "original": {
-        "owner": "NixOS",
-        "ref": "nixos-unstable",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
-    "pyproject-nix": {
-      "inputs": {
-        "nixpkgs": [
-          "zephyr-nix",
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1773553880,
-        "narHash": "sha256-wfvYZMO2NOGBw/DiYX50FFvr2pIS/hjJ9Bx0FD3LH5E=",
-        "owner": "pyproject-nix",
-        "repo": "pyproject.nix",
-        "rev": "3799d59a6886bed706eed9d209d7fc9db8ae9040",
-        "type": "github"
-      },
-      "original": {
-        "owner": "pyproject-nix",
-        "repo": "pyproject.nix",
-        "type": "github"
-      }
-    },
     "root": {
       "inputs": {
         "moergo-zmk": "moergo-zmk",
         "nixpkgs": "nixpkgs",
-        "zephyr": "zephyr",
-        "zephyr-nix": "zephyr-nix",
-        "zmk-helpers": "zmk-helpers"
-      }
-    },
-    "uv-python": {
-      "inputs": {
-        "nixpkgs": [
-          "zephyr-nix",
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1773542919,
-        "narHash": "sha256-SOg353SBOisynxIfBjZucT8lXwERH4GJkkaACkwSj/A=",
-        "owner": "pyproject-nix",
-        "repo": "uv-python.nix",
-        "rev": "2d87c20a2cbf2bb96d1edd08127ed6af9968de7b",
-        "type": "github"
-      },
-      "original": {
-        "owner": "pyproject-nix",
-        "repo": "uv-python.nix",
-        "type": "github"
-      }
-    },
-    "zephyr": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1755558002,
-        "narHash": "sha256-7QpHcotCG+m16PvGdB+aZrU+5p/FSXhmkmtMoUkKqs4=",
-        "owner": "zmkfirmware",
-        "repo": "zephyr",
-        "rev": "dacab4875df72109b96cc8977547a0dc04875bcd",
-        "type": "github"
-      },
-      "original": {
-        "owner": "zmkfirmware",
-        "ref": "v3.5.0+zmk-fixes",
-        "repo": "zephyr",
-        "type": "github"
-      }
-    },
-    "zephyr-nix": {
-      "inputs": {
-        "nix-github-actions": "nix-github-actions",
-        "nixpkgs": "nixpkgs_2",
-        "pyproject-nix": "pyproject-nix",
-        "uv-python": "uv-python",
-        "zephyr": [
-          "zephyr"
-        ]
-      },
-      "locked": {
-        "lastModified": 1773615445,
-        "narHash": "sha256-qb/P9w6ixL3uAm8oT9a3ofgYdRwForlfeepEoW821jU=",
-        "owner": "nix-community",
-        "repo": "zephyr-nix",
-        "rev": "8da8a44f4569610268868f08c45ef5525a7a3ba1",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nix-community",
-        "repo": "zephyr-nix",
-        "type": "github"
+        "zmk-helpers": "zmk-helpers",
+        "zmk-totem": "zmk-totem"
       }
     },
     "zmk-helpers": {
@@ -174,6 +53,23 @@
         "owner": "urob",
         "ref": "v0.3",
         "repo": "zmk-helpers",
+        "type": "github"
+      }
+    },
+    "zmk-totem": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1755341693,
+        "narHash": "sha256-eAYTSsiGJLOjjfITPuVYDw+PJQBVenMQ8HcRhy+rnak=",
+        "owner": "antoineco",
+        "repo": "zmk-keyboard-totem",
+        "rev": "720cd77915755cdc44b817b2cdc0174bff52b82c",
+        "type": "github"
+      },
+      "original": {
+        "owner": "antoineco",
+        "ref": "v0.3",
+        "repo": "zmk-keyboard-totem",
         "type": "github"
       }
     }

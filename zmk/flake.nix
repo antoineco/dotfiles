@@ -1,16 +1,8 @@
 {
-  description = "Zephyr build environment for ZMK keyboards";
+  description = "ZMK keyboards";
 
   inputs = {
     nixpkgs.url = "https://flakehub.com/f/NixOS/nixpkgs/0.1"; # nixos-unstable
-
-    # This pins requirements.txt provided by zephyr-nix.pythonEnv.
-    zephyr.url = "github:zmkfirmware/zephyr/v3.5.0+zmk-fixes";
-    zephyr.flake = false;
-
-    # Zephyr SDK and toolchain.
-    zephyr-nix.url = "github:nix-community/zephyr-nix";
-    zephyr-nix.inputs.zephyr.follows = "zephyr";
 
     # Moergo's ZMK fork with self-contained Zephyr toolchain.
     moergo-zmk.url = "github:moergo-sc/zmk?ref=v25.11";
@@ -18,14 +10,17 @@
 
     zmk-helpers.url = "github:urob/zmk-helpers?ref=v0.3";
     zmk-helpers.flake = false;
+
+    zmk-totem.url = "github:antoineco/zmk-keyboard-totem?ref=v0.3";
+    zmk-totem.flake = false;
   };
 
   outputs =
     {
       nixpkgs,
-      zephyr-nix,
       moergo-zmk,
       zmk-helpers,
+      zmk-totem,
       ...
     }:
     {
@@ -33,64 +28,104 @@
 
       devShells.x86_64-linux = {
         default =
-          let
-            pkgs = nixpkgs.legacyPackages.x86_64-linux;
-            zephyrPkgs = zephyr-nix.packages.x86_64-linux;
-          in
-          pkgs.mkShellNoCC {
+          with nixpkgs.legacyPackages.x86_64-linux;
+          mkShellNoCC {
             name = "zephyr";
-            packages =
-              (with pkgs; [
-                cmake
-                dtc
-                ninja
+            packages = [
+              keymap-drawer
 
-                keymap-drawer
-
-                nixfmt
-                nixd
-                fh
-              ])
-              ++ (with zephyrPkgs; [
-                pythonEnv
-                (sdk-0_16.override { targets = [ "arm-zephyr-eabi" ]; })
-              ]);
+              nixfmt
+              nixd
+              fh
+            ];
           };
       };
 
-      packages.x86_64-linux = {
-        glove80 =
-          let
-            # Use moergo's pinned nixpkgs, but set 'system' explicitly because
-            # 'builtins.currentSystem' is disabled in pure mode (the default).
-            # https://github.com/moergo-sc/zmk/blob/v25.11/nix/pinned-nixpkgs.nix#L1
-            pkgs = import (moergo-zmk + /nix/pinned-nixpkgs.nix) { system = "x86_64-linux"; };
-            firmware = import moergo-zmk { inherit pkgs; };
+      packages.x86_64-linux =
+        let
+          # Use moergo's pinned nixpkgs, but set 'system' explicitly because
+          # 'builtins.currentSystem' is disabled in pure mode (the default).
+          # https://github.com/moergo-sc/zmk/blob/v25.11/nix/pinned-nixpkgs.nix#L1
+          pkgs = import (moergo-zmk + /nix/pinned-nixpkgs.nix) { system = "x86_64-linux"; };
+          firmware = import moergo-zmk { inherit pkgs; };
 
-            config =
-              let
-                inherit (pkgs) lib;
-                dir = ./config;
-              in
-              lib.fileset.toSource {
-                root = dir;
-                fileset = lib.fileset.unions [
-                  (dir + /glove80.keymap)
-                  (dir + /glove80.conf)
-                  (lib.fileset.fileFilter (file: file.hasExt "h" || file.hasExt "dtsi") dir)
+          inherit (pkgs) lib;
+
+          configDir = ./config;
+          configSource =
+            fs:
+            lib.fileset.toSource {
+              root = configDir;
+              fileset = fs;
+            };
+        in
+        {
+          totem =
+            let
+              config = configSource (
+                lib.fileset.unions [
+                  (configDir + /totem.keymap)
+                  (lib.fileset.fileFilter (file: file.hasExt "conf" && lib.hasPrefix "totem" file.name) configDir)
+                  (lib.fileset.fileFilter (file: file.hasExt "h" || file.hasExt "dtsi") configDir)
+                ]
+              );
+
+              overrides = {
+                keymap = "${config}/totem.keymap";
+                board = "seeeduino_xiao_ble";
+                extraModules = [
+                  zmk-helpers
+                  zmk-totem
                 ];
               };
 
-            overrides = {
-              keymap = "${config}/glove80.keymap";
-              kconfig = "${config}/glove80.conf";
-              extraModules = [ zmk-helpers ];
-            };
+              # ZMK's keymap-module already appends the app dir to BOARD_ROOT.
+              # This results in a duplicated seeeduino_xiao_ble.overlay file,
+              # which causes ninja to fail.
+              zmk = firmware.zmk.overrideAttrs (prev: {
+                cmakeFlags = lib.filter (f: f != "-DBOARD_ROOT=.") prev.cmakeFlags;
+              });
 
-            left = firmware.zmk.override (overrides // { board = "glove80_lh"; });
-            right = firmware.zmk.override (overrides // { board = "glove80_rh"; });
-          in
-          firmware.combine_uf2 left right "glove80";
-      };
+              left = zmk.override (
+                overrides
+                // {
+                  shield = "totem_left";
+                  kconfig = "${config}/totem.conf;${config}/totem_left.conf";
+                }
+              );
+              right = zmk.override (
+                overrides
+                // {
+                  shield = "totem_right";
+                  kconfig = "${config}/totem.conf;${config}/totem_right.conf";
+                }
+              );
+            in
+            pkgs.runCommandNoCC "zmk_totem" { } ''
+              install -Dm444 ${left}/zmk.uf2 $out/totem_left.uf2
+              install -Dm444 ${right}/zmk.uf2 $out/totem_right.uf2
+            '';
+
+          glove80 =
+            let
+              config = configSource (
+                lib.fileset.unions [
+                  (configDir + /glove80.keymap)
+                  (configDir + /glove80.conf)
+                  (lib.fileset.fileFilter (file: file.hasExt "h" || file.hasExt "dtsi") configDir)
+                ]
+              );
+
+              overrides = {
+                keymap = "${config}/glove80.keymap";
+                kconfig = "${config}/glove80.conf";
+                extraModules = [ zmk-helpers ];
+              };
+
+              left = firmware.zmk.override (overrides // { board = "glove80_lh"; });
+              right = firmware.zmk.override (overrides // { board = "glove80_rh"; });
+            in
+            firmware.combine_uf2 left right "glove80";
+        };
     };
 }
