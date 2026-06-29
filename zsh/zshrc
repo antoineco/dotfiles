@@ -242,10 +242,7 @@ _nix_devshell_completions() {
 
 	if (( ${#new_paths} )); then
 		fpath=($new_paths $fpath)
-
-		local zdumpfile
-		zstyle -s ':zim:completion' dumpfile 'zdumpfile' || zdumpfile=${ZDOTDIR:-${HOME}}/.zcompdump
-		autoload -Uz compinit && compinit -w -d ${zdumpfile}
+		autoload -Uz compinit && compinit -D
 	fi
 }
 add-zsh-hook precmd _nix_devshell_completions
