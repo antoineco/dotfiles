@@ -26,6 +26,7 @@ in
   users.users.acotten.packages = with pkgs; [
     claude-code
     cheat
+    gh
 
     kubectl
 
