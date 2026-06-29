@@ -64,11 +64,23 @@
             # Use moergo's pinned nixpkgs, but set 'system' explicitly because
             # 'builtins.currentSystem' is disabled in pure mode (the default).
             # https://github.com/moergo-sc/zmk/blob/v25.11/nix/pinned-nixpkgs.nix#L1
-            firmware = import moergo-zmk {
-              pkgs = import (moergo-zmk + /nix/pinned-nixpkgs.nix) { system = "x86_64-linux"; };
-            };
+            pkgs = import (moergo-zmk + /nix/pinned-nixpkgs.nix) { system = "x86_64-linux"; };
+            firmware = import moergo-zmk { inherit pkgs; };
 
-            config = ./config;
+            config =
+              let
+                inherit (pkgs) lib;
+                dir = ./config;
+              in
+              lib.fileset.toSource {
+                root = dir;
+                fileset = lib.fileset.unions [
+                  (dir + /glove80.keymap)
+                  (dir + /glove80.conf)
+                  (lib.fileset.fileFilter (file: file.hasExt "h" || file.hasExt "dtsi") dir)
+                ];
+              };
+
             overrides = {
               keymap = "${config}/glove80.keymap";
               kconfig = "${config}/glove80.conf";
