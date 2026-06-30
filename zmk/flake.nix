@@ -58,20 +58,36 @@
               root = configDir;
               fileset = fs;
             };
+
+          zmk =
+            configDir:
+            firmware.zmk.overrideAttrs (prev: {
+              cmakeFlags =
+                # ZMK's keymap-module already appends the app dir to BOARD_ROOT.
+                # This results in a duplicated <board>.overlay file, which
+                # causes ninja to fail.
+                lib.filter (f: f != "-DBOARD_ROOT=.") prev.cmakeFlags
+                ++
+                # Let ZMK's keymap-module discover the shield's keymap and conf
+                # file(s) from its config store path, instead of passing all
+                # explictly via overrides.
+                [ "-DZMK_CONFIG=${configDir}" ];
+            });
         in
         {
           totem =
             let
-              config = configSource (
-                lib.fileset.unions [
-                  (configDir + /totem.keymap)
-                  (lib.fileset.fileFilter (file: file.hasExt "conf" && lib.hasPrefix "totem" file.name) configDir)
-                  (lib.fileset.fileFilter (file: file.hasExt "h" || file.hasExt "dtsi") configDir)
-                ]
+              zmk' = zmk (
+                configSource (
+                  lib.fileset.unions [
+                    (configDir + /totem.keymap)
+                    (lib.fileset.fileFilter (file: file.hasExt "conf" && lib.hasPrefix "totem" file.name) configDir)
+                    (lib.fileset.fileFilter (file: file.hasExt "h" || file.hasExt "dtsi") configDir)
+                  ]
+                )
               );
 
               overrides = {
-                keymap = "${config}/totem.keymap";
                 board = "seeeduino_xiao_ble";
                 extraModules = [
                   zmk-helpers
@@ -79,27 +95,8 @@
                 ];
               };
 
-              # ZMK's keymap-module already appends the app dir to BOARD_ROOT.
-              # This results in a duplicated seeeduino_xiao_ble.overlay file,
-              # which causes ninja to fail.
-              zmk = firmware.zmk.overrideAttrs (prev: {
-                cmakeFlags = lib.filter (f: f != "-DBOARD_ROOT=.") prev.cmakeFlags;
-              });
-
-              left = zmk.override (
-                overrides
-                // {
-                  shield = "totem_left";
-                  kconfig = "${config}/totem.conf;${config}/totem_left.conf";
-                }
-              );
-              right = zmk.override (
-                overrides
-                // {
-                  shield = "totem_right";
-                  kconfig = "${config}/totem.conf;${config}/totem_right.conf";
-                }
-              );
+              left = zmk'.override (overrides // { shield = "totem_left"; });
+              right = zmk'.override (overrides // { shield = "totem_right"; });
             in
             pkgs.runCommandNoCC "zmk_totem" { } ''
               install -Dm444 ${left}/zmk.uf2 $out/totem_left.uf2
@@ -108,22 +105,22 @@
 
           glove80 =
             let
-              config = configSource (
-                lib.fileset.unions [
-                  (configDir + /glove80.keymap)
-                  (configDir + /glove80.conf)
-                  (lib.fileset.fileFilter (file: file.hasExt "h" || file.hasExt "dtsi") configDir)
-                ]
+              zmk' = zmk (
+                configSource (
+                  lib.fileset.unions [
+                    (configDir + /glove80.keymap)
+                    (configDir + /glove80.conf)
+                    (lib.fileset.fileFilter (file: file.hasExt "h" || file.hasExt "dtsi") configDir)
+                  ]
+                )
               );
 
               overrides = {
-                keymap = "${config}/glove80.keymap";
-                kconfig = "${config}/glove80.conf";
                 extraModules = [ zmk-helpers ];
               };
 
-              left = firmware.zmk.override (overrides // { board = "glove80_lh"; });
-              right = firmware.zmk.override (overrides // { board = "glove80_rh"; });
+              left = zmk'.override (overrides // { board = "glove80_lh"; });
+              right = zmk'.override (overrides // { board = "glove80_rh"; });
             in
             firmware.combine_uf2 left right "glove80";
         };
