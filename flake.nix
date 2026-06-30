@@ -9,6 +9,13 @@
     monolisa.url = "git+ssh://git@github.com/antoineco/monolisa.git";
     zen-browser.url = "github:0xc000022070/zen-browser-flake/beta";
     hardware.url = "https://flakehub.com/f/NixOS/nixos-hardware/0.1";
+
+    zmk.url = "github:moergo-sc/zmk?ref=v25.11"; # Moergo's ZMK fork with self-contained Zephyr toolchain.
+    zmk-helpers.url = "github:urob/zmk-helpers?ref=v0.3";
+    zmk-totem.url = "github:antoineco/zmk-keyboard-totem?ref=v0.3";
+    zmk.flake = false;
+    zmk-helpers.flake = false;
+    zmk-totem.flake = false;
   };
 
   outputs =
@@ -50,8 +57,11 @@
                 nixfmt
                 nixd
                 fh
+
                 lua-language-server
                 bash-language-server
+
+                keymap-drawer
               ];
             };
 
@@ -90,6 +100,18 @@
                   vscode-extensions.vadimcn.vscode-lldb.adapter
                 ];
             };
+        }
+      );
+
+      packages = forAllSystems (
+        { pkgs }:
+        {
+          totem = pkgs.callPackage ./nix/packages/zmk/totem.nix {
+            inherit (inputs) zmk zmk-helpers zmk-totem;
+          };
+          glove80 = pkgs.callPackage ./nix/packages/zmk/glove80.nix {
+            inherit (inputs) zmk zmk-helpers;
+          };
         }
       );
 

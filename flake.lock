@@ -338,7 +338,10 @@
         "nixpkgs": "nixpkgs_4",
         "rust-overlay": "rust-overlay",
         "wrappers": "wrappers",
-        "zen-browser": "zen-browser"
+        "zen-browser": "zen-browser",
+        "zmk": "zmk",
+        "zmk-helpers": "zmk-helpers",
+        "zmk-totem": "zmk-totem"
       }
     },
     "rust-overlay": {
@@ -393,6 +396,57 @@
         "owner": "0xc000022070",
         "ref": "beta",
         "repo": "zen-browser-flake",
+        "type": "github"
+      }
+    },
+    "zmk": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1764160494,
+        "narHash": "sha256-drM6YecXmSTNCePxXyD6Tfl9UKwDpjYjq+/h/Bq4oLA=",
+        "owner": "moergo-sc",
+        "repo": "zmk",
+        "rev": "11454d23596afbdb06380a1125371b19ab65675c",
+        "type": "github"
+      },
+      "original": {
+        "owner": "moergo-sc",
+        "ref": "v25.11",
+        "repo": "zmk",
+        "type": "github"
+      }
+    },
+    "zmk-helpers": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1754092354,
+        "narHash": "sha256-yPIzad8uPt+2gcxCq68JqHh+eC1/85zMOQYycAcfRWg=",
+        "owner": "urob",
+        "repo": "zmk-helpers",
+        "rev": "b1548efd28d2cc64b9506654e6883695c258190f",
+        "type": "github"
+      },
+      "original": {
+        "owner": "urob",
+        "ref": "v0.3",
+        "repo": "zmk-helpers",
+        "type": "github"
+      }
+    },
+    "zmk-totem": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1755341693,
+        "narHash": "sha256-eAYTSsiGJLOjjfITPuVYDw+PJQBVenMQ8HcRhy+rnak=",
+        "owner": "antoineco",
+        "repo": "zmk-keyboard-totem",
+        "rev": "720cd77915755cdc44b817b2cdc0174bff52b82c",
+        "type": "github"
+      },
+      "original": {
+        "owner": "antoineco",
+        "ref": "v0.3",
+        "repo": "zmk-keyboard-totem",
         "type": "github"
       }
     }
